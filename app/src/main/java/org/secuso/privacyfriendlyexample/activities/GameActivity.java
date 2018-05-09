@@ -18,15 +18,18 @@
 package org.secuso.privacyfriendlyexample.activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,7 +74,6 @@ public class GameActivity extends BaseActivity {
     public int record = 0;
 
 
-
     public boolean moved = false;
     public boolean initialize = false;
     public boolean newGame;
@@ -83,6 +85,11 @@ public class GameActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        if(savedInstanceState!= null)
+            Log.i("State","restored State");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
 
@@ -139,8 +146,10 @@ public class GameActivity extends BaseActivity {
             points = gameState.points;
             record = gameState.record;
         }
-        else
+        else {
             gameState = new GameState(n);
+            newGame = true;
+        }
 
         elements = new element[n][n];
     }
@@ -150,9 +159,35 @@ public class GameActivity extends BaseActivity {
         gameState.points = points;
         gameState.record = record;
         check2048();
+
     }
+
     public void initialize()
     {
+        //NavigationBar Listener
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                if(gameState!= null)
+                    saveStateToFile(gameState);
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
         initializeState();
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -480,9 +515,27 @@ public class GameActivity extends BaseActivity {
         {
             for(int j = 0; j < elements[i].length;j++)
             {
-                if(elements[i][j].number!=2048)
+                if(elements[i][j].number==2048)
                 {
+                    Log.i("INFO","2048 erreicht");
                     //MESSAGE
+                    new AlertDialog.Builder(this)
+                            .setTitle("Gewonnen")
+                            .setMessage("Sie haben gewonnen, wollen Sie weiter spielen?")
+                            .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.i("Ende","nein");
+
+                                }
+                            })
+                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.i("Ende","ja");
+                                }
+                            }).create().show();
+                    won2048=true;
                 }
             }
         }
@@ -590,8 +643,20 @@ public class GameActivity extends BaseActivity {
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             nS = (GameState)in.readObject();
-            if(nS.n != n)
+            Log.i("reading", "ungefiltert"+nS);
+            boolean emptyField = true;
+            for(int i = 0; i <nS.numbers.length;i++)
+            {
+                if(nS.numbers[i]>0)
+                {
+                    emptyField = false;
+                    break;
+                }
+            }
+            if(emptyField||nS.n != n) {
                 nS = new GameState(n);
+                newGame = true;
+            }
             Log.i("reading", ""+nS);
             in.close();
             fileIn.close();

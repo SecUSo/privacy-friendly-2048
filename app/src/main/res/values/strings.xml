@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Example</string>
-    <string name="app_name_long">Privacy Friendly Example</string>
+    <string name="app_name">2048</string>
+    <string name="app_name_long">Privacy Friendly 2048 Game</string>
     <string name="app_prefix" translatable="false">Privacy Friendly</string>
 
     <!-- ###DRAWER###-->
@@ -56,7 +56,7 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="about">About</string>
     <string name="version_number">Version v%s</string>
     <string name="about_author">Authors: </string>
-    <string name="about_author_names" translatable="false">Karola Marky</string>
+    <string name="about_author_names" translatable="false">Julian Wadephul und Saskia Jacob</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>

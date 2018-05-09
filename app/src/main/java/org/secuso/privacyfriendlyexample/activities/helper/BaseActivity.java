@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.TaskStackBuilder;
@@ -32,6 +33,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -67,7 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     public static final int MAIN_CONTENT_FADEIN_DURATION = 250;
 
     // Navigation drawer:
-    private DrawerLayout mDrawerLayout;
+    public  DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
 
     // Helper
@@ -102,6 +104,8 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
         return goToNavigationItem(itemId);
     }
+
+
 
     protected boolean goToNavigationItem(final int itemId) {
 
@@ -172,10 +176,10 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
                 break;
             case R.id.nav_game:
                 intent = new Intent(this, GameActivity.class);
-                intent.putExtra("n",5);
+                intent.putExtra("n",4);
                 intent.putExtra("points",3);
                 intent.putExtra("record",35);
-                intent.putExtra("new",true);
+                intent.putExtra("new",false);
                 intent.putExtra("filename","state.txt");
                 createBackStack(intent);
                 break;
@@ -214,6 +218,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
+
         toggle.syncState();
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
