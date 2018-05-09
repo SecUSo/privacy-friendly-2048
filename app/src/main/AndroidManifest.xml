@@ -66,7 +66,6 @@
             android:name="org.secuso.privacyfriendlyexample.activities.GameActivity"
             android:label="@string/title_activity_game"
             android:parentActivityName="org.secuso.privacyfriendlyexample.activities.MainActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
