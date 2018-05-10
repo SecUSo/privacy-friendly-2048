@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -66,30 +67,33 @@ public class GameActivity extends BaseActivity {
     public TextView textFieldPoints;
     public TextView textFieldRecord;
     public int numberFieldSize = 0;
-    element [][] elements = null;
-    GameState gameState = null;
+    static element [][] elements = null;
+    static GameState gameState = null;
     RelativeLayout number_field;
     RelativeLayout touch_field;
-    public int points = 0;
-    public int record = 0;
+    public static int points = 0;
+    public static int record = 0;
 
 
-    public boolean moved = false;
-    public boolean initialize = false;
-    public boolean newGame;
-    public boolean won2048=false;
+    public static boolean moved = false;
+    public static boolean initialize = false;
+    public static boolean newGame;
+    public static boolean won2048=false;
+    public static boolean gameOver = false;
+    public static boolean createNewGame = true;
 
     View.OnTouchListener swipeListener;
 
-    String filename = "state.txt";
+    String filename;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.i("ON","Create");
 
-
-        if(savedInstanceState!= null)
-            Log.i("State","restored State");
+        Intent intent = getIntent();
+        if(intent.getBooleanExtra("new",true))
+            createNewGame = true;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
 
@@ -106,7 +110,13 @@ public class GameActivity extends BaseActivity {
 
 
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        Log.d("ONCONFIGCHANGE", "CALLED" );
+        createNewGame = false;
+        super.onConfigurationChanged(newConfig);
+    }
     @Override
     protected int getNavigationDrawerID() {
         return 0;
@@ -136,22 +146,21 @@ public class GameActivity extends BaseActivity {
     public void initializeState()
     {
         Intent intent = getIntent();
-        n = intent.getIntExtra("n",4);
-        newGame = intent.getBooleanExtra("new",true);
-        points = intent.getIntExtra("points",0);
-        record = intent.getIntExtra("record",0);
+        n = intent.getIntExtra("n", 4);
+        newGame = intent.getBooleanExtra("new", true);
+        points = intent.getIntExtra("points", 0);
+        record = intent.getIntExtra("record", 0);
         filename = intent.getStringExtra("filename");
-        if(!newGame) {
+        if (!newGame) {
             gameState = readStateFromFile();
             points = gameState.points;
             record = gameState.record;
-        }
-        else {
+        } else {
             gameState = new GameState(n);
             newGame = true;
         }
-
         elements = new element[n][n];
+
     }
     public void updateGameState()
     {
@@ -164,6 +173,7 @@ public class GameActivity extends BaseActivity {
 
     public void initialize()
     {
+        Log.i("init","initializing");
         //NavigationBar Listener
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -188,7 +198,9 @@ public class GameActivity extends BaseActivity {
             }
         });
 
-        initializeState();
+        if(createNewGame)
+            initializeState();
+        createNewGame = false;
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int abstand = (10* metrics.densityDpi) / DisplayMetrics.DENSITY_DEFAULT;
@@ -213,6 +225,8 @@ public class GameActivity extends BaseActivity {
                 number_field.addView(elements[i][j]);
             }
         }
+        if(elements!=null)
+            Log.i("number field",""+display(elements));
         if(newGame)
         {
             moved = true;
@@ -558,14 +572,52 @@ public class GameActivity extends BaseActivity {
                     }
                 }
             }
-            int index = (int) (Math.random() * counter);
-            int number = 2;
-            if(Math.random()>0.5)
-                number = 4;
+            if(counter>0) {
+                int index = (int) (Math.random() * counter);
+                int number = 2;
+                if (Math.random() > 0.5)
+                    number = 4;
+                empty_fields[index].setNumber(number);
+                if(counter == 1)
+                {
+                    gameOver = true;
+                    for (int i = 0; i < elements.length; i++) {
+                        for (int j = 0; j < elements[i].length; j++) {
+                            if ((i+1 < elements.length && elements[i][j].number == elements[i+1][j].number)|| (j+1 < elements[i].length && elements[i][j].number == elements[i][j+1].number)) {
+                                gameOver = false;
+                                break;
+                            }
+                        }
+                    }
+                    if(gameOver)
+                    {
+                        gameOver();
+                    }
+                        Log.i("Game","over");
+                }
+            }
 
-            empty_fields[index].setNumber(number);
             gameState = new GameState(elements);
         }
+    }
+    public void gameOver()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Verloren")
+                .setMessage("Sie haben verloren, wollen Sie ein neues Spiel starten?")
+                .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("Ende","nein");
+
+                    }
+                })
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("Ende","ja");
+                    }
+                }).create().show();
     }
     public String display(element[][] e)
     {
@@ -605,11 +657,8 @@ public class GameActivity extends BaseActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         // TODO Auto-generated method stub
         super.onWindowFocusChanged(hasFocus);
-        if(initialize == false)
-        {
-            initialize = true;
-            start();
-        }
+        start();
+
     }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

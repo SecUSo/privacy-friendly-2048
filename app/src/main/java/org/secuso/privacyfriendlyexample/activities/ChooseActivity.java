@@ -22,15 +22,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -45,46 +42,36 @@ import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
 import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
 
 /**
- * @author Christopher Beckmann, Karola Marky
- * @version 20171016
+ * Class structure taken from tutorial at http://www.androidhive.info/2016/05/android-build-intro-slider-app/
+ *
+ * @author Karola Marky, Christopher Beckmann
+ * @version 20161214
  */
-public class MainActivity extends BaseActivity {
+public class ChooseActivity extends BaseActivity {
 
     private ViewPager viewPager;
-    private MainActivity.MyViewPagerAdapter myViewPagerAdapter;
+    private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private ImageButton btnSkip, btnNext;
     private FirstLaunchManager firstLaunchManager;
-    private Button newGame4,newGame5,newGame6,newGame7;
 
+    // layouts of all welcome sliders
+    // add few more layouts if you want
     private int[] layouts = new int[]{
             R.layout.choose_slide1,
             R.layout.choose_slide2,
             R.layout.choose_slide3,
             R.layout.choose_slide4,
     };
-    private Button [] newGameButton;
-    private Button [] continueGame;
+
+    private static final String TAG = ChooseActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-         newGameButton = new Button[]{
-                 //(Button)findViewById(R.id.button_newGame4x4),
-                 //(Button)findViewById(R.id.button_newGame5x5),
-                 (Button)findViewById(R.id.button_newGame6x6),
-                 (Button)findViewById(R.id.button_newGame7x7)
-        };
-         continueGame  = new Button[]{
-                 findViewById(R.id.button_continueGame4x4),
-                 findViewById(R.id.button_continueGame5x5),
-                 findViewById(R.id.button_continueGame6x6),
-                 findViewById(R.id.button_continueGame7x7)
-         };
 
-        overridePendingTransition(0, 0);
+        setContentView(R.layout.activity_choose);
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
@@ -104,7 +91,7 @@ public class MainActivity extends BaseActivity {
         // making notification bar transparent
         changeStatusBarColor();
 
-        myViewPagerAdapter = new MainActivity.MyViewPagerAdapter();
+        myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
@@ -128,44 +115,12 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-    private void addListener(Button b1,Button b2,int n)
-    {
-        final int temp = n;
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("setting",""+temp);
-                Intent  intent = new Intent(MainActivity.this, GameActivity.class);
-                intent.putExtra("n",temp);
-                intent.putExtra("points",temp);
-                intent.putExtra("record",35);
-                intent.putExtra("new",true);
-                intent.putExtra("filename","state"+temp+".txt");
-                createBackStack(intent);
-            }
-        });
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("setting",""+temp);
-                Intent  intent = new Intent(MainActivity.this, GameActivity.class);
-                intent.putExtra("n",temp);
-                intent.putExtra("new",false);
-                intent.putExtra("filename","state"+temp+".txt");
-                createBackStack(intent);
-            }
-        });
+
+    @Override
+    protected int getNavigationDrawerID() {
+        return R.id.nav_example;
     }
-    private void createBackStack(Intent intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            TaskStackBuilder builder = TaskStackBuilder.create(this);
-            builder.addNextIntentWithParentStack(intent);
-            builder.startActivities();
-        } else {
-            startActivity(intent);
-            finish();
-        }
-    }
+
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];
 
@@ -184,8 +139,19 @@ public class MainActivity extends BaseActivity {
         if (dots.length > 0)
             dots[currentPage].setTextColor(activeColor);
     }
+
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
+    }
+
+    private void launchHomeScreen() {
+        if(firstLaunchManager.isFirstTimeLaunch()) {
+            Intent intent = new Intent(ChooseActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            firstLaunchManager.setFirstTimeLaunch(false);
+            startActivity(intent);
+        }
+        finish();
     }
 
     //  viewpager change listener
@@ -217,6 +183,7 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+
     /**
      * Making notification bar transparent
      */
@@ -243,45 +210,7 @@ public class MainActivity extends BaseActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-            //newGameButtons
-            Button newGameButton;
-            switch (position){
-                case 0:
-                    newGameButton = view.findViewById(R.id.button_newGame4x4);
-                    break;
-                case 1:
-                    newGameButton = view.findViewById(R.id.button_newGame5x5);
-                    break;
-                case 2:
-                    newGameButton = view.findViewById(R.id.button_newGame6x6);
-                    break;
-                case 3:
-                    newGameButton = view.findViewById(R.id.button_newGame7x7);
-                    break;
-                default:
-                    newGameButton = new Button(MainActivity.this);
-            }
 
-            //continueButton
-            Button continueButton;
-            switch (position){
-                case 0:
-                    continueButton = view.findViewById(R.id.button_continueGame4x4);
-                    break;
-                case 1:
-                    continueButton = view.findViewById(R.id.button_continueGame5x5);
-                    break;
-                case 2:
-                    continueButton = view.findViewById(R.id.button_continueGame6x6);
-                    break;
-                case 3:
-                    continueButton = view.findViewById(R.id.button_continueGame7x7);
-                    break;
-                default:
-                    continueButton = new Button(MainActivity.this);
-            }
-
-            addListener(newGameButton,continueButton,position+4);
             return view;
         }
 
@@ -302,14 +231,4 @@ public class MainActivity extends BaseActivity {
             container.removeView(view);
         }
     }
-
-    /**
-     * This method connects the Activity to the menu item
-     * @return ID of the menu item it belongs to
-     */
-    @Override
-    protected int getNavigationDrawerID() {
-        return R.id.nav_example;
-    }
-
 }

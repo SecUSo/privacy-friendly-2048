@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.TaskStackBuilder;
@@ -39,6 +38,7 @@ import android.view.View;
 
 import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.AboutActivity;
+import org.secuso.privacyfriendlyexample.activities.ChooseActivity;
 import org.secuso.privacyfriendlyexample.activities.GameActivity;
 import org.secuso.privacyfriendlyexample.activities.HelpActivity;
 import org.secuso.privacyfriendlyexample.activities.MainActivity;
@@ -165,11 +165,12 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
      * @param itemId Item that has been clicked by the user
      */
     private void callDrawerItem(final int itemId) {
-
+        Log.i("NavBar","selectedItem");
         Intent intent;
 
         switch(itemId) {
             case R.id.nav_example:
+
                 intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -179,7 +180,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
                 intent.putExtra("n",4);
                 intent.putExtra("points",3);
                 intent.putExtra("record",35);
-                intent.putExtra("new",false);
+                intent.putExtra("new",true);
                 intent.putExtra("filename","state.txt");
                 createBackStack(intent);
                 break;

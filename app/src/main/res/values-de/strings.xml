@@ -79,4 +79,17 @@
     <string name="next">Weiter</string>
     <string name="skip">Überspringen</string>
 
+    <!-- ### CHOOSE DIALOG ### -->
+    <string name="cslide1_heading">Spiel auswählen!</string>
+    <string name="cslide1_text">Diese App soll als Anleitung zum Design von Privacy Friendly Apps dienen. Hier wird die App in ein bis zwei Sätzen vorgestellt.</string>
+
+    <string name="cslide2_heading">Schlüsselelements</string>
+    <string name="cslide2_text">Hier können Schlüsselelemente vorgestellt werden. Achtung: Nicht zu detailliert werden.</string>
+
+    <string name="cslide3_heading">Github und Guide</string>
+    <string name="cslide3_text">Der Quellcode dieser App ist auf GitHub. Weitere Infos gibt es im Privacy Friendly App Guide.</string>
+
+    <string name="cnext">Weiter</string>
+    <string name="cskip">Überspringen</string>
+
 </resources>

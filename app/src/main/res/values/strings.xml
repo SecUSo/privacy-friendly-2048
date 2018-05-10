@@ -86,5 +86,25 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="main_floating_button">Floating Button</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
+    <string name="title_activity_choose">ChooseActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- ### CHOOSE DIALOG ### -->
+    <string name="cslide1_heading">Welcome!</string>
+    <string name="cslide1_text">This App serves as a guideline to see the basic design of Privacy Friendly Apps. Here introduce your app in one or two sentences.</string>
+
+    <string name="cslide2_heading">Key Elements</string>
+    <string name="cslide2_text">Introduce key elements of your app. Do not introduce too many details.</string>
+
+    <string name="cslide3_heading">Github and Guide</string>
+    <string name="cslide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the Privacy Friendly App Guide.</string>
+
+    <string name="cokay">Okay</string>
+    <string name="cviewhelp">View Help</string>
+    <string name="cmain_floating_button">Floating Button</string>
+    <string name="cnext">Next</string>
+    <string name="cskip">Skip</string>
+    <string name="ctitle_activity_choose">ChooseActivity</string>
+    <string name="csection_format">Hello World from section: %1$d</string>
 
 </resources>
