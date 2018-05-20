@@ -44,6 +44,8 @@ import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
 import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
 
+import java.io.File;
+
 /**
  * @author Christopher Beckmann, Karola Marky
  * @version 20171016
@@ -56,7 +58,9 @@ public class MainActivity extends BaseActivity {
     private TextView[] dots;
     private ImageButton btnSkip, btnNext;
     private FirstLaunchManager firstLaunchManager;
-    private Button newGame4,newGame5,newGame6,newGame7;
+    private int currentPage = 0;
+
+    private Button[] continueGameButton;
 
     private int[] layouts = new int[]{
             R.layout.choose_slide1,
@@ -64,25 +68,20 @@ public class MainActivity extends BaseActivity {
             R.layout.choose_slide3,
             R.layout.choose_slide4,
     };
-    private Button [] newGameButton;
-    private Button [] continueGame;
+    private boolean[] gameResumeable = new boolean[]{
+            false,
+            false,
+            false,
+            false
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         newGameButton = new Button[]{
-                 //(Button)findViewById(R.id.button_newGame4x4),
-                 //(Button)findViewById(R.id.button_newGame5x5),
-                 (Button)findViewById(R.id.button_newGame6x6),
-                 (Button)findViewById(R.id.button_newGame7x7)
-        };
-         continueGame  = new Button[]{
-                 findViewById(R.id.button_continueGame4x4),
-                 findViewById(R.id.button_continueGame5x5),
-                 findViewById(R.id.button_continueGame6x6),
-                 findViewById(R.id.button_continueGame7x7)
-         };
+
+
 
         overridePendingTransition(0, 0);
 
@@ -98,6 +97,33 @@ public class MainActivity extends BaseActivity {
         btnSkip = (ImageButton) findViewById(R.id.btn_skip);
         btnNext = (ImageButton) findViewById(R.id.btn_next);
 
+        //getting Buttons
+        continueGameButton  = new Button[]{
+                findViewById(R.id.button_continueGame4x4),
+                findViewById(R.id.button_continueGame5x5),
+                findViewById(R.id.button_continueGame6x6),
+                findViewById(R.id.button_continueGame7x7)
+        };
+
+        //checking resumable
+        File directory = getFilesDir();
+        File [] files = directory.listFiles();
+
+        for(int i = 0; i < files.length;i++)
+        {
+            Log.i("files",files[i].getName());
+            for(int j = 0; j < gameResumeable.length;j++)
+            {
+                if(files[i].getName().equals("state" + (j+4) + ".txt"))
+                    gameResumeable[j] = true;
+            }
+        }
+        for(boolean b :gameResumeable)
+        {
+            Log.i("files ","found: " + b);
+        }
+
+
         // adding bottom dots
         addBottomDots(0);
 
@@ -105,28 +131,34 @@ public class MainActivity extends BaseActivity {
         changeStatusBarColor();
 
         myViewPagerAdapter = new MainActivity.MyViewPagerAdapter();
+
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // checking for last page
-                // if last page home screen will be launched
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current);
-                } else {
+            btnSkip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int current = getItem(-1);
+                    if (current >= 0) {
+                        // move to next screen
+                        viewPager.setCurrentItem(current);
+                    } else {
+                    }
                 }
-            }
-        });
+            });
+
+            btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // checking for last page
+                    // if last page home screen will be launched
+                    int current = getItem(+1);
+                    if (current < layouts.length) {
+                        // move to next screen
+                        viewPager.setCurrentItem(current);
+                    } else {
+                    }
+                }
+            });
     }
     private void addListener(Button b1,Button b2,int n)
     {
@@ -134,11 +166,9 @@ public class MainActivity extends BaseActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("setting",""+temp);
                 Intent  intent = new Intent(MainActivity.this, GameActivity.class);
                 intent.putExtra("n",temp);
-                intent.putExtra("points",temp);
-                intent.putExtra("record",35);
+                intent.putExtra("points",0);
                 intent.putExtra("new",true);
                 intent.putExtra("filename","state"+temp+".txt");
                 createBackStack(intent);
@@ -194,17 +224,8 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
+            currentPage = position;
 
-            // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length - 1) {
-                // last page. make button text to GOT IT
-                //btnNext.setText(getString(R.string.okay));
-                btnSkip.setVisibility(View.GONE);
-            } else {
-                // still pages are left
-                //btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
-            }
         }
 
         @Override
@@ -240,7 +261,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+            Log.i("position", ""+position);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
             //newGameButtons
@@ -279,6 +300,14 @@ public class MainActivity extends BaseActivity {
                     break;
                 default:
                     continueButton = new Button(MainActivity.this);
+            }
+            try {
+                continueButton.setEnabled(gameResumeable[position]);
+                Log.i("Button", "activated = " + gameResumeable[position]);
+            }
+            catch(ArrayIndexOutOfBoundsException aie)
+            {
+                aie.printStackTrace();
             }
 
             addListener(newGameButton,continueButton,position+4);

@@ -63,7 +63,7 @@ import java.io.ObjectOutputStream;
  */
 
 public class GameActivity extends BaseActivity {
-    public int n = 4;
+    public static int n = 4;
     public TextView textFieldPoints;
     public TextView textFieldRecord;
     public int numberFieldSize = 0;
@@ -77,20 +77,20 @@ public class GameActivity extends BaseActivity {
 
     public static boolean moved = false;
     public static boolean initialize = false;
+    public static boolean firstTime = true;
     public static boolean newGame;
-    public static boolean won2048=false;
+    public boolean won2048=false;
     public static boolean gameOver = false;
     public static boolean createNewGame = true;
 
     View.OnTouchListener swipeListener;
 
-    String filename;
+    static String filename;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i("ON","Create");
-
+        Log.i("ON","Create" + savedInstanceState +  " ");
         Intent intent = getIntent();
         if(intent.getBooleanExtra("new",true))
             createNewGame = true;
@@ -107,8 +107,6 @@ public class GameActivity extends BaseActivity {
 
         number_field.setBackgroundColor(Color.rgb(187,173,159));
 
-
-
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -120,6 +118,14 @@ public class GameActivity extends BaseActivity {
     @Override
     protected int getNavigationDrawerID() {
         return 0;
+    }
+
+    @Override
+    public void onBackPressed() {
+        saveStateToFile(gameState);
+        saveRecordToFile(record);
+        super.onBackPressed();
+
     }
 
     protected void start()
@@ -145,16 +151,16 @@ public class GameActivity extends BaseActivity {
     }
     public void initializeState()
     {
+        points = 0;
+        Log.i("initializing","initializeState");
         Intent intent = getIntent();
         n = intent.getIntExtra("n", 4);
         newGame = intent.getBooleanExtra("new", true);
-        points = intent.getIntExtra("points", 0);
-        record = intent.getIntExtra("record", 0);
         filename = intent.getStringExtra("filename");
+        record = readRecordFromFile();
         if (!newGame) {
             gameState = readStateFromFile();
             points = gameState.points;
-            record = gameState.record;
         } else {
             gameState = new GameState(n);
             newGame = true;
@@ -183,8 +189,11 @@ public class GameActivity extends BaseActivity {
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
-                if(gameState!= null)
+                if(gameState!= null) {
                     saveStateToFile(gameState);
+                    saveRecordToFile(record);
+                }
+
             }
 
             @Override
@@ -198,9 +207,10 @@ public class GameActivity extends BaseActivity {
             }
         });
 
-        if(createNewGame)
+        if(getIntent().getIntExtra("n",4)!=n||createNewGame)
             initializeState();
         createNewGame = false;
+        Log.i("gameState",""+gameState);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int abstand = (10* metrics.densityDpi) / DisplayMetrics.DENSITY_DEFAULT;
@@ -529,7 +539,7 @@ public class GameActivity extends BaseActivity {
         {
             for(int j = 0; j < elements[i].length;j++)
             {
-                if(elements[i][j].number==2048)
+                if(elements[i][j].number==64)
                 {
                     Log.i("INFO","2048 erreicht");
                     //MESSAGE
@@ -540,6 +550,7 @@ public class GameActivity extends BaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.i("Ende","nein");
+                                    onBackPressed();
 
                                 }
                             })
@@ -609,6 +620,9 @@ public class GameActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Ende","nein");
+                        Log.i("StateFile ", "deleted: " + deleteStateFile(filename));
+                        saveRecordToFile(record);
+                        GameActivity.super.onBackPressed();
 
                     }
                 })
@@ -616,6 +630,9 @@ public class GameActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Ende","ja");
+                        createNewGame = true;
+                        getIntent().putExtra("new",true);
+                        initialize();
                     }
                 }).create().show();
     }
@@ -646,6 +663,7 @@ public class GameActivity extends BaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+
         if (id == R.id.action_settings) {
             return true;
         }
@@ -659,6 +677,7 @@ public class GameActivity extends BaseActivity {
         super.onWindowFocusChanged(hasFocus);
         start();
 
+
     }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -666,13 +685,18 @@ public class GameActivity extends BaseActivity {
         // Save UI state changes to the savedInstanceState.
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
+        Log.i("saving","onSaveInstanceState");
+
         saveStateToFile(gameState);
+        saveRecordToFile(record);
 
     }
     public void saveStateToFile(GameState nS)
     {
         Log.i("saving", ""+nS);
         try {
+            if(filename == null)
+                filename = "state" + n + ".txt";
             File file = new File(getFilesDir(), filename);
             FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -683,6 +707,51 @@ public class GameActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void saveRecordToFile(int r)
+    {
+        try {
+
+            File file = new File(getFilesDir(), "record" + n + ".txt");
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(r);
+            out.close();
+            fileOut.close();
+            Log.i("Save","record data has been saved in " + "record" + n + ".txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean deleteStateFile(String filename)
+    {
+        try{
+            File directory = getFilesDir();
+            File f = new File(directory,filename);
+            return f.delete();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public int readRecordFromFile()
+    {
+        int result = 0;
+        try{
+            File file = new File(getFilesDir(), "record" + n + ".txt");
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            result = (int)in.readObject();
+            Log.i("reading", "record"+result);
+            in.close();
+            fileIn.close();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return result;
     }
     public GameState readStateFromFile()
     {

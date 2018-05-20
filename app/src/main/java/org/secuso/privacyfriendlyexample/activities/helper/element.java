@@ -57,7 +57,7 @@ public class element extends Button {
     }
 
     public void updateFontSize(){
-        Log.i("FontSize",""+getLayoutParams().width + " " + (float)(getLayoutParams().width/8.0));
-        setTextSize((float)(getLayoutParams().width/8.0));
+        //Log.i("FontSize",""+getLayoutParams().width + " " + (float)(getLayoutParams().width/8.0));
+        setTextSize((float)(getLayoutParams().width/7.0));
     }
 }
