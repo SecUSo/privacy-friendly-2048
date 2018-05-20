@@ -227,6 +227,8 @@ public class GameActivity extends BaseActivity {
             for (int j = 0; j < elements[i].length; j++) {
                 elements[i][j] = new element(this);
                 elements[i][j].setNumber(gameState.getNumber(i,j));
+                if(elements[i][j].getNumber() >= 2048)
+                    won2048 = true;
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(number_size ,number_size);
                 lp.setMarginStart(abstand+j*(number_size+abstand));
                 lp.topMargin = abstand+i*(number_size+abstand);

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_splash" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingLeft="@dimen/desc_padding"
+                android:paddingRight="@dimen/desc_padding"
+                android:text="7x7"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/slide_desc" />
+
+            <Button
+                android:id="@+id/button_newGame7x7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="neues Spiel starten" />
+
+            <Button
+                android:id="@+id/button_continueGame7x7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Spiel fortsetzen" />
+
+            <Button
+                android:id="@+id/button_highScore7x7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bestenliste" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
