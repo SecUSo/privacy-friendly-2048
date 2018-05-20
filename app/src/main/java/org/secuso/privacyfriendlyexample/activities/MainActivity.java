@@ -60,7 +60,6 @@ public class MainActivity extends BaseActivity {
     private FirstLaunchManager firstLaunchManager;
     private int currentPage = 0;
 
-    private Button[] continueGameButton;
 
     private int[] layouts = new int[]{
             R.layout.choose_slide1,
@@ -97,13 +96,7 @@ public class MainActivity extends BaseActivity {
         btnSkip = (ImageButton) findViewById(R.id.btn_skip);
         btnNext = (ImageButton) findViewById(R.id.btn_next);
 
-        //getting Buttons
-        continueGameButton  = new Button[]{
-                findViewById(R.id.button_continueGame4x4),
-                findViewById(R.id.button_continueGame5x5),
-                findViewById(R.id.button_continueGame6x6),
-                findViewById(R.id.button_continueGame7x7)
-        };
+
 
         //checking resumable
         File directory = getFilesDir();
@@ -309,6 +302,25 @@ public class MainActivity extends BaseActivity {
             {
                 aie.printStackTrace();
             }
+            //highScoreButtons
+            Button highScoreButton;
+            switch (position){
+                case 0:
+                    highScoreButton = view.findViewById(R.id.button_highScore4x4);
+                    break;
+                case 1:
+                    highScoreButton = view.findViewById(R.id.button_highScore5x5);
+                    break;
+                case 2:
+                    highScoreButton = view.findViewById(R.id.button_highScore6x6);
+                    break;
+                case 3:
+                    highScoreButton = view.findViewById(R.id.button_highScore7x7);
+                    break;
+                default:
+                    highScoreButton = new Button(MainActivity.this);
+            }
+            highScoreButton.setEnabled(false);
 
             addListener(newGameButton,continueButton,position+4);
             return view;
