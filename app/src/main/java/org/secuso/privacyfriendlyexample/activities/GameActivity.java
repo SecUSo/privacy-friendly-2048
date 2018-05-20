@@ -105,7 +105,8 @@ public class GameActivity extends BaseActivity {
         textFieldRecord = (TextView) findViewById(R.id.record);
 
 
-        number_field.setBackgroundColor(Color.rgb(187,173,159));
+        //number_field.setBackgroundColor(Color.rgb(187,173,159));
+        number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
 
     }
     @Override
@@ -237,6 +238,15 @@ public class GameActivity extends BaseActivity {
                 number_field.addView(elements[i][j]);
             }
         }
+
+        //TEST COLOR
+
+
+
+        //elements[1][2].setNumber(4);
+
+        //TEST COLOR END
+
         if(elements!=null)
             Log.i("number field",""+display(elements));
         if(newGame)
@@ -546,9 +556,9 @@ public class GameActivity extends BaseActivity {
                     Log.i("INFO","2048 erreicht");
                     //MESSAGE
                     new AlertDialog.Builder(this)
-                            .setTitle("Gewonnen")
-                            .setMessage("Sie haben gewonnen, wollen Sie weiter spielen?")
-                            .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                            .setTitle((this.getResources().getString(R.string.Titel_V_Message)))
+                            .setMessage((this.getResources().getString(R.string.Winning_Message)))
+                            .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.i("Ende","nein");
@@ -556,7 +566,7 @@ public class GameActivity extends BaseActivity {
 
                                 }
                             })
-                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            .setPositiveButton((this.getResources().getString(R.string.Yes_Message)), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.i("Ende","ja");
@@ -616,9 +626,9 @@ public class GameActivity extends BaseActivity {
     public void gameOver()
     {
         new AlertDialog.Builder(this)
-                .setTitle("Verloren")
-                .setMessage("Sie haben verloren, wollen Sie ein neues Spiel starten?")
-                .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                .setTitle((this.getResources().getString(R.string.Titel_L_Message)))
+                .setMessage((this.getResources().getString(R.string.Lost_Message)))
+                .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Ende","nein");
@@ -628,7 +638,7 @@ public class GameActivity extends BaseActivity {
 
                     }
                 })
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                .setPositiveButton((this.getResources().getString(R.string.Yes_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Ende","ja");

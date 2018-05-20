@@ -29,8 +29,6 @@
 
     <!-- ###GAME###-->
     <string name="title_activity_game">Spiel</string>
-    <string name="game_button_start">Neues Spiel</string>
-    <string name="game_button_continue">Spiel fortsetzen</string>
     <string name="game_desc">Dies ist das Standard-Menü für Spiele-Apps. Der Viewpager oben sollte verwendet werden, um zwischen verschiedenen Spielmodi zu wechseln.</string>
 
     <!--###HELP###-->
@@ -91,5 +89,24 @@
 
     <string name="cnext">Weiter</string>
     <string name="cskip">Überspringen</string>
+    <string name="new_Game_Button">Neues Spiel starten</string>
+    <string name="continue_Game_Button">Spiel fortsetzten</string>
+    <string name="Ranking_Button">Rangliste</string>
+    <string name="Record_Button">Rekord</string>
+    <string name="Points_Button">Punkte</string>
+    <string name="Winning_Message">Sie haben gewonnen, wollen Sie weiter spielen?</string>
+    <string name="Yes_Message">Ja</string>
+    <string name="No_Message">Nein</string>
+    <string name="Titel_V_Message">Gewonnen</string>
+    <string name="Titel_L_Message">Verloren</string>
+    <string name="Lost_Message">Sie haben verloren, wollen Sie ein neues Spiel starten?</string>
+
+    <string name="Tutorial_Titel">Wilkommen!</string>
+    <string name="Tutorial_Instruction">Im folgenden Abschnitten wird Ihnen gezeigt, wie Sie das Spiel 2048 spielen können.</string>
+    <string name="Tutorial_Titel_Move">Lerne die Zahlen zu bewegen!</string>
+    <string name="Tutorial_Move">Um alle Zahlen soweit wie möglich auf eine Seite zu bewegen, streiche mit dem Finger in die entsprechende Richtung.</string>
+    <string name="Tutorial_Titel_Add">Lerne die Zahlen ineinander zu verschachteln!</string>
+    <string name="Tutorial_Add">Um die nächst höhere Zweierpotenz zu erhalten, müssen Zahlen mit gleichem Wert ineinander geschoben werden. Ziel ist es am Ende den Wert 2048 und höher zu erreichen.</string>
+
 
 </resources>

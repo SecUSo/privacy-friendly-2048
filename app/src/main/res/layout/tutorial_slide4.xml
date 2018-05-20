@@ -20,15 +20,15 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
-            android:text="@string/Tutorial_Titel"
+            android:text="@string/Tutorial_Titel_Add"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="349dp"
-            android:layout_height="349dp"
-            android:background="@mipmap/ic_splash" />
+            android:layout_width="251dp"
+            android:layout_height="308dp"
+            android:background="@drawable/tutorial_swip" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:gravity="center"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
-            android:text="@string/Tutorial_Instruction"
+            android:text="@string/Tutorial_Add"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_desc" />

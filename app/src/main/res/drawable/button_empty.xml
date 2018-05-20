@@ -7,6 +7,6 @@
 
 
 
-    <solid android:color="#D7CDC4"/>
+    <solid android:color="@color/button_empty"/>
 
 </shape>

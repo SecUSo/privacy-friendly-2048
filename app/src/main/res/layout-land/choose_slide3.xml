@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent">
@@ -41,19 +42,19 @@
                 android:id="@+id/button_newGame6x6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="neues Spiel starten" />
+                android:text="@string/new_Game_Button" />
 
             <Button
                 android:id="@+id/button_continueGame6x6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Spiel fortsetzen" />
+                android:text="@string/continue_Game_Button" />
 
             <Button
                 android:id="@+id/button_highScore6x6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bestenliste" />
+                android:text="@string/Ranking_Button" />
 
         </LinearLayout>
     </LinearLayout>

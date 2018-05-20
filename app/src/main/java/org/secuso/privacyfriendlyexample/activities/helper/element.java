@@ -10,6 +10,7 @@ public class element extends Button {
     public int posX = 0;
     public int posY = 0;
     public boolean activated;
+    public float textSize;
     public element(Context c)
     {
         super(c);
@@ -27,15 +28,64 @@ public class element extends Button {
         switch (number){
             case 0:
                 setBackgroundResource(R.drawable.button_empty);
+                setTextColor((this.getResources().getColor(R.color.black)));
                 break;
             case 2:
                 setBackgroundResource(R.drawable.button_2);
+                setTextColor((this.getResources().getColor(R.color.black)));
                 break;
             case 4:
                 setBackgroundResource(R.drawable.button_4);
+                setTextColor((this.getResources().getColor(R.color.black)));
                 break;
             case 8:
                 setBackgroundResource(R.drawable.button_8);
+                setTextColor((this.getResources().getColor(R.color.white)));
+                break;
+            case 16:
+                setBackgroundResource(R.drawable.button_16);
+                setTextColor((this.getResources().getColor(R.color.white)));
+                break;
+            case 32:
+                setBackgroundResource(R.drawable.button_32);
+                setTextColor((this.getResources().getColor(R.color.white)));
+                break;
+            case 64:
+                setBackgroundResource(R.drawable.button_64);
+                setTextColor((this.getResources().getColor(R.color.white)));
+                break;
+            case 128:
+                setBackgroundResource(R.drawable.button_128);
+                setTextColor((this.getResources().getColor(R.color.white)));
+                break;
+            case 256:
+                setBackgroundResource(R.drawable.button_256);
+                setTextColor((this.getResources().getColor(R.color.white)));
+                break;
+            case 512:
+                setBackgroundResource(R.drawable.button_512);
+                setTextColor((this.getResources().getColor(R.color.white)));
+                break;
+            case 1024:
+                setBackgroundResource(R.drawable.button_1024);
+                break;
+            case 2048:
+                setBackgroundResource(R.drawable.button_2048);
+                break;
+            case 4096:
+                setBackgroundResource(R.drawable.button_4096);
+                break;
+            case 8192:
+                setBackgroundResource(R.drawable.button_8192);
+                break;
+            case 16384:
+                setTextSize(textSize*0.8f);
+                setBackgroundResource(R.drawable.button_16384);
+                break;
+            case 32768:
+
+                setTextSize(textSize*0.8f);
+                setBackgroundResource(R.drawable.button_32768);
                 break;
         }
     }
@@ -58,6 +108,7 @@ public class element extends Button {
 
     public void updateFontSize(){
         //Log.i("FontSize",""+getLayoutParams().width + " " + (float)(getLayoutParams().width/8.0));
-        setTextSize((float)(getLayoutParams().width/7.0));
+        textSize=(float)(getLayoutParams().width/7.0);
+        setTextSize(textSize);
     }
 }

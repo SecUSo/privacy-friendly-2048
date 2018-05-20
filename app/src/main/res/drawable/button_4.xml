@@ -7,6 +7,6 @@
 
 
 
-    <solid android:color="#ECE0C8"/>
+    <solid android:color="@color/button4"/>
 
 </shape>

@@ -31,8 +31,6 @@
 
     <!-- ###GAME###-->
     <string name="title_activity_game">Game</string>
-    <string name="game_button_start">New Game</string>
-    <string name="game_button_continue">Continue Game</string>
     <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
 
     <!--###HELP###-->
@@ -106,5 +104,23 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="cskip">Skip</string>
     <string name="ctitle_activity_choose">ChooseActivity</string>
     <string name="csection_format">Hello World from section: %1$d</string>
+    <string name="new_Game_Button">Start New Game</string>
+    <string name="continue_Game_Button">Continue Game</string>
+    <string name="Ranking_Button">Ranking</string>
+    <string name="Record_Button">Record</string>
+    <string name="Points_Button">Points</string>
+    <string name="Winning_Message">You won. Would you like to continue?</string>
+    <string name="Yes_Message">Yes</string>
+    <string name="No_Message">No</string>
+    <string name="Titel_V_Message">Victory</string>
+    <string name="Titel_L_Message">Lost</string>
+    <string name="Lost_Message">You lost. Would you like to start a new game?</string>
+
+    <string name="Tutorial_Titel">Welcome!</string>
+    <string name="Tutorial_Instruction">In the following slides you will learn how to play the Game 2048.</string>
+    <string name="Tutorial_Titel_Move">Learn how to move the numbers!</string>
+    <string name="Tutorial_Move">To move all the numbers in the possible position in one direction, you have to swipe your finger in the same way.</string>
+    <string name="Tutorial_Titel_Add">How to Combine the Numbers!</string>
+    <string name="Tutorial_Add">To get the next higher power of 2 you habe to combine numbers with the same value. Goal of this game is to reach 2048 and higher.</string>
 
 </resources>

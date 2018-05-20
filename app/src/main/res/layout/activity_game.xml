@@ -47,7 +47,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
-                            android:text="Rekord" />
+                            android:text="@string/Record_Button" />
 
                         <TextView
                             android:id="@+id/record"
@@ -82,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
-                            android:text="Punkte" />
+                            android:text="@string/Points_Button" />
 
                         <TextView
                             android:id="@+id/points"

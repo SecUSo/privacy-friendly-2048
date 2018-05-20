@@ -34,19 +34,19 @@
             android:id="@+id/button_newGame7x7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="neues Spiel starten" />
+            android:text="@string/new_Game_Button" />
 
         <Button
             android:id="@+id/button_continueGame7x7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Spiel fortsetzen" />
+            android:text="@string/continue_Game_Button" />
 
         <Button
             android:id="@+id/button_highScore7x7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bestenliste" />
+            android:text="@string/Ranking_Button" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -14,6 +14,32 @@
     <color name="red">#B71C1C</color>
     <color name="green">#388E3C</color>
 
+    <!-- own definded colors -->
+    <color name="button_empty">#FFF0D2</color>
+    <color name="background_gamebord">#CFC9A2</color>
+    <color name="button2">#B7C6F1</color>
+    <color name="button4">#8aa5ce</color>
+    <color name="button8">#5D84AB</color>
+    <color name="button16">#0274B2</color>
+    <color name="button32">#2F6388</color>
+    <color name="button64">#024265</color>
+    <color name="button128">#020232</color>
+    <color name="button256">#3C3C3C</color>
+    <color name="button512">#646464</color>
+    <color name="button1024">#A8A8A8</color>
+    <color name="button2048">#C8C8C8</color>
+    <color name="button4096">#FFFFFF</color>
+    <color name="button8192">#C8E6FF</color>
+    <color name="button16384">#96B4FF</color>
+    <color name="button32768">#6482FF</color>
+
+
+
+
+
+
+
+
     <!-- dots inactive colors -->
     <color name="dot_dark_screen">#026499</color>
 
