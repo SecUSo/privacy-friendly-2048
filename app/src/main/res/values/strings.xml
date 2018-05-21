@@ -36,19 +36,24 @@
     <!--###HELP###-->
     <string name="help">Help</string>
 
-    <string name="help_whatis">What is Privacy Friendly App Example?</string>
-    <string name="help_whatis_answer">Privacy Friendly App Example is an app that demonstrates the design of a Privacy Friendly App.</string>
-    <string name="help_feature_one">Feature 1</string>
-    <string name="help_feature_one_answer">Description of first feature.
-Lorem ipsum dolor sit amet, eu ius alia fierent indoctum, ad pri sale tation. Elit dictas sit an, ad volumus urbanitas duo. Ei clita iracundia mel, eum et laoreet pertinax abhorreant. Nonumy suavitate dignissim quo id, ius audire prodesset adipiscing ei, altera saperet his et. Nostrud pertinax eu has, qui munere complectitur an.
-
-Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constituto ex. Per soleat impedit delicatissimi cu. Inermis volumus his ea, id quo praesent eloquentiam conclusionemque. Dolores mediocrem ad sit, ex cibo evertitur cotidieque eos.
-
-    </string>
-    <string name="help_privacy">What makes the app privacy-friendly?</string>
-    <string name="help_privacy_answer">Privacy Friendly App Example does not require any permission. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="help_whatis">What is Privacy Friendly App 2048?</string>
+    <string name="help_whatis_answer">The Privacy Friendly App 2048 is a privacy friendly version of the well-known original game 2048. It has the same funktions without using data from the user.</string>
+    <string name="help_color">How can I change the color spectre of the game?</string>
+    <string name="help_color_answer">In the chapter configurations is an option to change between two color spectre for the game.</string>
+    <string name="help_play">How does the game work?</string>
+    <string name="help_play_answer">The goal of this game to get the number 2048. With combining numbers with the same value you can reach higher and higher numbers. You can find an extensive explanaition under the topic tutorial.</string>
+    <string name="help_undo">Is it possible to undo steps?</string>
+    <string name="help_undo_answer">The app gives you the option to undo your last step in the game. You have to click on the button with the arrow against clockwise direction.</string>
+    <string name="help_tip">How to beat the game?</string>
+    <string name="help_tip_answer">There are a few strategies to win this game. On YouTube you can find a lot of videos which are covering this topic.</string>
+    <string name="help_historie">Why does this app exist?</string>
+    <string name="help_historie_answer">This app was part of a master workshop at the Karlsruhe Institute of Technology. With the help of the senior researcher SECUSO we wrote and designed this privacy friendly alternative to the original game.</string>
+    <string name="help_privacy">What makes the app privacy friendly?</string>
+    <string name="help_privacy_answer">This privacy friendly app does not require any permission. It further does not include any tracking mechanisms or advertisement.</string>
     <string name="help_permission">Which permissions requires the app?</string>
-    <string name="help_permission_answer">Privacy Friendly App Example does not require any permission.</string>
+    <string name="help_permission_answer">This app does not require any permission.</string>
+
+
 
     <!--###ABOUT###-->
     <string name="about">About</string>
@@ -121,6 +126,6 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="Tutorial_Titel_Move">Learn how to move the numbers!</string>
     <string name="Tutorial_Move">To move all the numbers in the possible position in one direction, you have to swipe your finger in the same way.</string>
     <string name="Tutorial_Titel_Add">How to Combine the Numbers!</string>
-    <string name="Tutorial_Add">To get the next higher power of 2 you habe to combine numbers with the same value. Goal of this game is to reach 2048 and higher.</string>
+    <string name="Tutorial_Add">To get the next higher power of 2 you have to combine numbers with the same value. The goal is to reach 2048 and higher.</string>
 
 </resources>

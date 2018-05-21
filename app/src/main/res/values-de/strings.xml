@@ -32,16 +32,24 @@
     <string name="game_desc">Dies ist das Standard-Menü für Spiele-Apps. Der Viewpager oben sollte verwendet werden, um zwischen verschiedenen Spielmodi zu wechseln.</string>
 
     <!--###HELP###-->
-    <string name="help">Help</string>
+    <string name="help">Hilfe</string>
 
-    <string name="help_whatis">Was ist Privacy Friendly Beispiel?</string>
-    <string name="help_whatis_answer">Privacy Friendly Beispiel zeigt das Standard-Design einer Privacy Friendly App.</string>
-    <string name="help_feature_one">Feature 1</string>
-    <string name="help_feature_one_answer">Beschreibung vom 1. Feature.</string>
+    <string name="help_whatis">Was ist die Privacy Friendly App 2048?</string>
+    <string name="help_whatis_answer">Die Privacy Friendly App 2048 ist eine brechtigungsfreie Version des bekannten Spieles 2048. Es verfügt somit über dieselben Funktionen ohne dabei Daten des Benutzters zu benutzen.</string>
+    <string name="help_color">Wie kann ich den Farbstil des Spiels ändern?</string>
+    <string name="help_color_answer">Unter Einstellungen kann zwischen zwei Farbstilen für das Spiel ausgewählt werden. Zwischen den klassichen Farben des Orginalspiels und den an diese App angepassten Farbstil kann ausgewählt werden.</string>
+    <string name="help_play">Wie funktioniert das Spiel?</string>
+    <string name="help_play_answer">Ziel dieses Spiel ist es, die Zahl 2048 zu erzeugen. Die kann durch das ineinanderschieben gleichwetiger Zahlen erfolgen. Eine genaue Bedienungsanleitung des Spiels findet sich in dem Abschnitt Tutorial.</string>
+    <string name="help_undo">Ist es möglich Züge rückgängig zu machen?</string>
+    <string name="help_undo_answer">Die App gibt dem Spieler die Option seinen letzten Zug ungeschehen zu machen. Dazu ist der Knopf mit dem Pfeil gegen des Uhrzeigersinn zu betätigen.</string>
+    <string name="help_tip">Tips und Tricks</string>
+    <string name="help_tip_answer">Es gibt verschiedenste Strategieen um das Spiel 2048 zu gewinnen. Zahlreiche YouTube Videos behandeln diese Problematik, weswegen wir auf diese verweisen.</string>
+    <string name="help_historie">Wie ist diese App enstanden?</string>
+    <string name="help_historie_answer">Diese App ist im Rahmen eines Master-Workshops an dem Karlsruher Institut für Technologie entstanden. Unter Anleitung der Forschungsgruppe SECUSO wurde die App als privatsphären-freundliche Alternative zum Orginal durch Saskia Jacob und Julian Wadephul programmiert und gestaltet.</string>
     <string name="help_privacy">Was macht die App privatsphäre-freundlich?</string>
-    <string name="help_privacy_answer">Erklären welche Mechanismen verwendet wurden.</string>
+    <string name="help_privacy_answer">Keinerlei Daten werden von den Benutzern der App benötigt, um das Spiel zu spielen.</string>
     <string name="help_permission">Welche Berechtigungen braucht die App?</string>
-    <string name="help_permission_answer">Privacy Friendly Beispiel benötigt keine Berechtigungen.</string>
+    <string name="help_permission_answer">Die Privacy Friendly App 2014 kommt vollkommen ohne Berechtigungen seitens des Benutzers aus.</string>
 
     <!--###ABOUT###-->
     <string name="about">Über</string>
@@ -106,7 +114,7 @@
     <string name="Tutorial_Titel_Move">Lerne die Zahlen zu bewegen!</string>
     <string name="Tutorial_Move">Um alle Zahlen soweit wie möglich auf eine Seite zu bewegen, streiche mit dem Finger in die entsprechende Richtung.</string>
     <string name="Tutorial_Titel_Add">Lerne die Zahlen ineinander zu verschachteln!</string>
-    <string name="Tutorial_Add">Um die nächst höhere Zweierpotenz zu erhalten, müssen Zahlen mit gleichem Wert ineinander geschoben werden. Ziel ist es am Ende den Wert 2048 und höher zu erreichen.</string>
+    <string name="Tutorial_Add">Um die nächst höhere Zweierpotenz zu erhalten, müssen Zahlen mit gleichem Wert ineinander geschoben werden. Ziel ist es den Wert 2048 und höher zu erreichen.</string>
 
 
 </resources>
