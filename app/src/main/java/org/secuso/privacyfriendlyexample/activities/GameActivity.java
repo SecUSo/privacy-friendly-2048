@@ -92,8 +92,10 @@ public class GameActivity extends BaseActivity {
 
         Log.i("ON","Create" + savedInstanceState +  " ");
         Intent intent = getIntent();
-        if(intent.getBooleanExtra("new",true))
+        if(firstTime && intent.getBooleanExtra("new",true)) {
             createNewGame = true;
+            firstTime = false;
+        }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
 
@@ -209,7 +211,11 @@ public class GameActivity extends BaseActivity {
         });
 
         if(getIntent().getIntExtra("n",4)!=n||createNewGame)
+        {
+            Log.i("init", "initState, createNewGame = " + createNewGame);
             initializeState();
+
+        }
         createNewGame = false;
         Log.i("gameState",""+gameState);
         DisplayMetrics metrics = new DisplayMetrics();
