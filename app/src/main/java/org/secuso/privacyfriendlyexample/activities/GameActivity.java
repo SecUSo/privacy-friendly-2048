@@ -31,6 +31,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.transition.AutoTransition;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.transition.TransitionValues;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,15 +72,17 @@ public class GameActivity extends BaseActivity {
     public TextView textFieldRecord;
     public int numberFieldSize = 0;
     static element [][] elements = null;
+    static element [][] backgroundElements;
     static GameState gameState = null;
     RelativeLayout number_field;
     RelativeLayout touch_field;
     public static int points = 0;
     public static int record = 0;
 
+    public final long addingSpeed = 100;
+    public final long movingSpeed = 100;
 
     public static boolean moved = false;
-    public static boolean initialize = false;
     public static boolean firstTime = true;
     public static boolean newGame;
     public boolean won2048=false;
@@ -107,7 +113,6 @@ public class GameActivity extends BaseActivity {
         textFieldRecord = (TextView) findViewById(R.id.record);
 
 
-        //number_field.setBackgroundColor(Color.rgb(187,173,159));
         number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
 
     }
@@ -169,6 +174,7 @@ public class GameActivity extends BaseActivity {
             newGame = true;
         }
         elements = new element[n][n];
+        backgroundElements = new element[n][n];
 
     }
     public void updateGameState()
@@ -232,6 +238,9 @@ public class GameActivity extends BaseActivity {
 
         for(int i = 0; i < elements.length; i++) {
             for (int j = 0; j < elements[i].length; j++) {
+                //background elements
+                backgroundElements[i][j] = new element(this);
+
                 elements[i][j] = new element(this);
                 elements[i][j].setNumber(gameState.getNumber(i,j));
                 if(elements[i][j].getNumber() >= 2048)
@@ -240,7 +249,10 @@ public class GameActivity extends BaseActivity {
                 lp.setMarginStart(abstand+j*(number_size+abstand));
                 lp.topMargin = abstand+i*(number_size+abstand);
                 elements[i][j].setLayoutParams(lp);
+                backgroundElements[i][j].setLayoutParams(lp);
                 elements[i][j].updateFontSize();
+                backgroundElements[i][j].setLayoutParams(lp);
+                number_field.addView(backgroundElements[i][j]);
                 number_field.addView(elements[i][j]);
             }
         }
@@ -547,6 +559,7 @@ public class GameActivity extends BaseActivity {
         for(int i = 0; i < elements.length; i++) {
             for (int j = 0; j < elements[i].length; j++) {
                 elements[i][j].setOnTouchListener(swipeListener);
+                backgroundElements[i][j].setOnTouchListener(swipeListener);
             }
         }
     }
@@ -557,7 +570,7 @@ public class GameActivity extends BaseActivity {
         {
             for(int j = 0; j < elements[i].length;j++)
             {
-                if(elements[i][j].number==64)
+                if(elements[i][j].number==2048)
                 {
                     Log.i("INFO","2048 erreicht");
                     //MESSAGE
@@ -577,7 +590,9 @@ public class GameActivity extends BaseActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.i("Ende","ja");
                                 }
-                            }).create().show();
+                            })
+                            .setCancelable(false)
+                            .create().show();
                     won2048=true;
                 }
             }
@@ -606,6 +621,21 @@ public class GameActivity extends BaseActivity {
                 int number = 2;
                 if (Math.random() > 0.5)
                     number = 4;
+                Transition t = new Transition() {
+                    @Override
+                    public void captureStartValues(TransitionValues transitionValues) {
+
+                    }
+
+                    @Override
+                    public void captureEndValues(TransitionValues transitionValues) {
+
+                    }
+                };
+                AutoTransition autoTransition = new AutoTransition();
+                autoTransition.setDuration(addingSpeed);
+
+                TransitionManager.beginDelayedTransition(number_field,autoTransition);
                 empty_fields[index].setNumber(number);
                 if(counter == 1)
                 {
@@ -640,6 +670,9 @@ public class GameActivity extends BaseActivity {
                         Log.i("Ende","nein");
                         Log.i("StateFile ", "deleted: " + deleteStateFile(filename));
                         saveRecordToFile(record);
+                        createNewGame = true;
+                        getIntent().putExtra("new",true);
+                        initialize();
                         GameActivity.super.onBackPressed();
 
                     }
@@ -652,7 +685,9 @@ public class GameActivity extends BaseActivity {
                         getIntent().putExtra("new",true);
                         initialize();
                     }
-                }).create().show();
+                })
+                .setCancelable(false)
+                .create().show();
     }
     public String display(element[][] e)
     {

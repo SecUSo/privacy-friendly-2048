@@ -1,11 +1,13 @@
 package org.secuso.privacyfriendlyexample.activities.helper;
 
 import android.content.Context;
+import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import org.secuso.privacyfriendlyexample.R;
 
-public class element extends Button {
+public class element extends android.support.v7.widget.AppCompatButton {
     public int number = 0;
     public int posX = 0;
     public int posY = 0;
@@ -16,15 +18,24 @@ public class element extends Button {
         super(c);
         setAllCaps(false);
         setTextSize(24);
+        setBackgroundResource(R.drawable.button_empty);
     }
 
     public void setNumber(int number) {
         this.number = number;
         activated = (number!=0);
-        if(number== 0)
+        if(number== 0) {
+            setVisibility(View.INVISIBLE);
             setText("");
-        else
-            setText(""+number);
+        }
+        else {
+            setText("" + number);
+            if(getVisibility() != View.VISIBLE)
+            {
+                setVisibility(View.VISIBLE);
+
+            }
+        }
         switch (number){
             case 0:
                 setBackgroundResource(R.drawable.button_empty);
