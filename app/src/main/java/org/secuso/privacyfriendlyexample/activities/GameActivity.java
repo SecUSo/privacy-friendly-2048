@@ -132,6 +132,7 @@ public class GameActivity extends BaseActivity {
     public void onBackPressed() {
         saveStateToFile(gameState);
         saveRecordToFile(record);
+        firstTime = true;
         super.onBackPressed();
 
     }
@@ -673,7 +674,7 @@ public class GameActivity extends BaseActivity {
                         createNewGame = true;
                         getIntent().putExtra("new",true);
                         initialize();
-                        GameActivity.super.onBackPressed();
+                        GameActivity.this.onBackPressed();
 
                     }
                 })
