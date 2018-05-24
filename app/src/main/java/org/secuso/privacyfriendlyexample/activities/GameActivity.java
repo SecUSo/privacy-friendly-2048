@@ -79,8 +79,8 @@ public class GameActivity extends BaseActivity {
     public static int points = 0;
     public static int record = 0;
 
-    public final long addingSpeed = 100;
-    public final long movingSpeed = 100;
+    public final long addingSpeed = 50;
+    public final long movingSpeed = 50;
 
     public static boolean moved = false;
     public static boolean firstTime = true;
