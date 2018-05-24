@@ -622,21 +622,23 @@ public class GameActivity extends BaseActivity {
                 int number = 2;
                 if (Math.random() > 0.5)
                     number = 4;
-                Transition t = new Transition() {
-                    @Override
-                    public void captureStartValues(TransitionValues transitionValues) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    Transition t = new Transition() {
+                        @Override
+                        public void captureStartValues(TransitionValues transitionValues) {
 
-                    }
+                        }
 
-                    @Override
-                    public void captureEndValues(TransitionValues transitionValues) {
+                        @Override
+                        public void captureEndValues(TransitionValues transitionValues) {
 
-                    }
-                };
-                AutoTransition autoTransition = new AutoTransition();
-                autoTransition.setDuration(addingSpeed);
+                        }
+                    };
+                    AutoTransition autoTransition = new AutoTransition();
+                    autoTransition.setDuration(addingSpeed);
 
-                TransitionManager.beginDelayedTransition(number_field,autoTransition);
+                    TransitionManager.beginDelayedTransition(number_field,autoTransition);
+                }
                 empty_fields[index].setNumber(number);
                 if(counter == 1)
                 {
