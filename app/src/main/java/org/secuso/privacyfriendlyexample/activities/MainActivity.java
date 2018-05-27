@@ -19,6 +19,7 @@ package org.secuso.privacyfriendlyexample.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,7 +60,9 @@ public class MainActivity extends BaseActivity {
     private ImageButton btnSkip, btnNext;
     private FirstLaunchManager firstLaunchManager;
     private int currentPage = 0;
-
+    private SharedPreferences.Editor editor;
+    private SharedPreferences preferences;
+    private String mypref = "myPref";
 
     private int[] layouts = new int[]{
             R.layout.choose_slide1,
@@ -73,7 +76,16 @@ public class MainActivity extends BaseActivity {
             false,
             false
     };
-
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        preferences =  getApplicationContext().getSharedPreferences(mypref,Context.MODE_PRIVATE);
+        editor =preferences.edit();
+        currentPage =  preferences.getInt("currentPage",0);
+        Log.i("reading","currentPage " + currentPage);
+        viewPager.setCurrentItem(currentPage);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,6 +230,9 @@ public class MainActivity extends BaseActivity {
         public void onPageSelected(int position) {
             addBottomDots(position);
             currentPage = position;
+            editor.putInt("currentPage",currentPage);
+            Log.i("saving","currentPage " + currentPage);
+            editor.commit();
 
         }
 
