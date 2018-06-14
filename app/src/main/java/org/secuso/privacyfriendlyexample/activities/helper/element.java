@@ -4,15 +4,24 @@ import android.content.Context;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+
 import org.secuso.privacyfriendlyexample.R;
 
 public class element extends android.support.v7.widget.AppCompatButton {
     public int number = 0;
+    public int dNumber = 0;
     public int posX = 0;
     public int posY = 0;
+    public int dPosX = 0;
+    public int dPosY = 0;
     public boolean activated;
+    public boolean animateMoving = false;
     public float textSize;
+
+
     public element(Context c)
     {
         super(c);
@@ -21,8 +30,8 @@ public class element extends android.support.v7.widget.AppCompatButton {
         setBackgroundResource(R.drawable.button_empty);
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void drawItem() {
+        dNumber = number;
         activated = (number!=0);
         if(number== 0) {
             setVisibility(View.INVISIBLE);
@@ -109,6 +118,23 @@ public class element extends android.support.v7.widget.AppCompatButton {
         return number;
     }
 
+    public void setDPosition(int i, int j)
+    {
+        dPosX = i;
+        dPosY = j;
+    }
+    public void setNumber(int i)
+    {
+        number = i;
+    }
+    public int getdPosX(){ return dPosX;}
+
+    public int getdPosY(){ return dPosY;}
+
+    public int getdNumber(){
+        return dNumber;
+    }
+
     public int getPosX() {
         return posX;
     }
@@ -116,7 +142,6 @@ public class element extends android.support.v7.widget.AppCompatButton {
     public int getPosY() {
         return posY;
     }
-
     public void updateFontSize(){
         //Log.i("FontSize",""+getLayoutParams().width + " " + (float)(getLayoutParams().width/8.0));
         textSize=(float)(getLayoutParams().width/7.0);

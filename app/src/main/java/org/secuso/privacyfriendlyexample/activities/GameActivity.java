@@ -17,6 +17,9 @@
 
 package org.secuso.privacyfriendlyexample.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.TimeInterpolator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,6 +46,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -75,12 +79,15 @@ public class GameActivity extends BaseActivity {
     static element [][] backgroundElements;
     static GameState gameState = null;
     RelativeLayout number_field;
+    RelativeLayout number_field_background;
     RelativeLayout touch_field;
     public static int points = 0;
     public static int record = 0;
 
-    public final long addingSpeed = 50;
-    public final long movingSpeed = 50;
+    public final long ADDINGSPEED = 100;
+    public final long MOVINGSPEED = 100;
+    public final long SCALINGSPEED = 150;
+    public final float SCALINGFACTOR = 1.2f;
 
     public static boolean moved = false;
     public static boolean firstTime = true;
@@ -89,6 +96,8 @@ public class GameActivity extends BaseActivity {
     public static boolean gameOver = false;
     public static boolean createNewGame = true;
 
+    public final int WINTHRESHOLD = 2048;
+    public final double PROPABILITYFORTWO = 0.9;
     View.OnTouchListener swipeListener;
 
     static String filename;
@@ -108,12 +117,13 @@ public class GameActivity extends BaseActivity {
 
 
         number_field = (RelativeLayout) findViewById(R.id.number_field);
+        number_field_background = (RelativeLayout) findViewById(R.id.number_field_background);
         touch_field = (RelativeLayout) findViewById(R.id.touch_field) ;
         textFieldPoints = (TextView) findViewById(R.id.points);
         textFieldRecord = (TextView) findViewById(R.id.record);
 
 
-        number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
+        //number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
 
     }
     @Override
@@ -127,6 +137,7 @@ public class GameActivity extends BaseActivity {
     protected int getNavigationDrawerID() {
         return 0;
     }
+
 
     @Override
     public void onBackPressed() {
@@ -149,6 +160,7 @@ public class GameActivity extends BaseActivity {
         else
             lp.width = number_field.getHeight();
         number_field.setLayoutParams(lp);
+        number_field_background.setLayoutParams(lp);
 
         initialize();
         setListener();
@@ -241,33 +253,26 @@ public class GameActivity extends BaseActivity {
             for (int j = 0; j < elements[i].length; j++) {
                 //background elements
                 backgroundElements[i][j] = new element(this);
+                //backgroundElements[i][j].setVisibility(View.INVISIBLE);
 
                 elements[i][j] = new element(this);
                 elements[i][j].setNumber(gameState.getNumber(i,j));
-                if(elements[i][j].getNumber() >= 2048)
+                elements[i][j].drawItem();
+                if(elements[i][j].getNumber() >= WINTHRESHOLD)
                     won2048 = true;
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(number_size ,number_size);
                 lp.setMarginStart(abstand+j*(number_size+abstand));
                 lp.topMargin = abstand+i*(number_size+abstand);
+                elements[i][j].setDPosition(lp.getMarginStart(),lp.topMargin);
                 elements[i][j].setLayoutParams(lp);
                 backgroundElements[i][j].setLayoutParams(lp);
                 elements[i][j].updateFontSize();
                 backgroundElements[i][j].setLayoutParams(lp);
-                number_field.addView(backgroundElements[i][j]);
+                number_field_background.addView(backgroundElements[i][j]);
                 number_field.addView(elements[i][j]);
             }
         }
 
-        //TEST COLOR
-
-
-
-        //elements[1][2].setNumber(4);
-
-        //TEST COLOR END
-
-        if(elements!=null)
-            Log.i("number field",""+display(elements));
         if(newGame)
         {
             moved = true;
@@ -275,9 +280,406 @@ public class GameActivity extends BaseActivity {
             newGame = false;
         }
     }
+    public void switchElementPositions(element e1,element e2)
+    {
+        int i = e1.getdPosX();
+        int j = e1.getdPosY();
+
+        e1.animateMoving = true;
+        e1.setDPosition(e2.getdPosX(),e2.getdPosY());
+        e2.animateMoving = false;
+        e2.setDPosition(i,j);
+       /*
+        //e1 nach e2 animieren
+        ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) e1.getLayoutParams();
+        int topMargin1 = lp1.topMargin;
+        int leftMargin1 = lp1.leftMargin;
+
+        ViewGroup.MarginLayoutParams lp2 = (ViewGroup.MarginLayoutParams) e2.getLayoutParams();
+        int topMargin2 = lp2.topMargin;
+        int leftMargin2 = lp2.leftMargin;
+
+        //Log.i("Mswitching positions","e1: (" + topMargin1 + "," + leftMargin1 + ") e2: ("+topMargin2 + "," + leftMargin2+")");
+
+        //Log.i("Pos switching positions","e1: (" + e1.getY() + "," + e1.getX() + ") e2: ("+e2.getY() + "," + e2.getX()+")");
+
+        e1.animate().setDuration(10).setInterpolator(new LinearInterpolator()).x(leftMargin2).y(topMargin2).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                super.onAnimationCancel(animation);
+                animation.setupEndValues();
+                Log.i("Animation","canceled");
+            }
+            @Override
+            public void onAnimationPause(Animator animation){
+                super.onAnimationPause(animation);
+                Log.i("Animation","paused");
+            }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                Log.i("Animation","End");
+            }
+        });
+
+        //e1.animate().translationXBy(-leftMargin1 + leftMargin2).translationYBy(-topMargin1+topMargin2).setInterpolator(new LinearInterpolator()).setDuration(movingSpeed).start();
+
+        lp1.topMargin = topMargin2;
+        lp1.leftMargin = leftMargin2;
+        e1.setLayoutParams(lp1);
+
+        lp2.topMargin = topMargin1;
+        lp2.leftMargin = leftMargin1;
+        e2.setLayoutParams(lp2);
+
+        lp1 = (ViewGroup.MarginLayoutParams) e1.getLayoutParams();
+        topMargin1 = lp1.topMargin;
+        leftMargin1 = lp1.leftMargin;
+
+        lp2 = (ViewGroup.MarginLayoutParams) e2.getLayoutParams();
+        topMargin2 = lp2.topMargin;
+        leftMargin2 = lp2.leftMargin;
+
+
+        //Log.i("switched positions","e1: (" + topMargin1 + "," + leftMargin1 + ") e2: ("+topMargin2 + "," + leftMargin2+")");
+*/
+
+    }
     public void setListener()
     {
         swipeListener = new Gesten(this){
+            public boolean onSwipeTop() {
+                Log.i("davor",display(elements));
+                moved = false;
+                element s = new element(getApplicationContext());
+
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[0][i].number;
+                    s.posX = 0;
+                    s.posY = i;
+
+
+                    for(int j = 1; j<elements[i].length;j++)
+                    {
+                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
+                        {
+                            moved=true;
+                            elements[j][i].setNumber(s.number + elements[j][i].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
+                            element z = elements[j][i];
+                            elements[j][i] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+                            if(s.number!=0)
+                                points += elements[s.posX][s.posY].number;
+                            if(s.number !=0)
+                                s.posX++;
+                            j=s.posX;
+                            s.number = elements[j][i].number;
+
+                        }
+                        else if(elements[j][i].number != 0)
+                        {
+                            s.number = elements[j][i].number;
+                            s.posX = j;
+                            s.posY = i;
+                        }
+                    }
+
+                }
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[0][i].number;
+                    s.posX = 0;
+                    s.posY = i;
+
+
+                    for(int j = 1; j<elements[i].length;j++)
+                    {
+                        if(elements[j][i].number != 0 && s.number == 0)
+                        {
+                            moved=true;
+                            elements[j][i].setNumber(s.number + elements[j][i].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
+                            element z = elements[j][i];
+                            elements[j][i] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+                            if(s.number !=0)
+                                s.posX++;
+                            j=s.posX;
+                            s.number = elements[j][i].number;
+
+                        }
+                        else if(s.number != 0)
+                        {
+                            s.number = elements[j][i].number;
+                            s.posX = j;
+                            s.posY = i;
+                        }
+                    }
+
+                }
+                Log.i("danach",display(elements));
+                addNumber();
+                setDPositions();
+                updateGameState();
+                Log.d("TAG","up");
+                //es wurde nach oben gewischt, hier den Code einfügen
+                return false;
+            }
+            public boolean onSwipeRight() {
+                moved = false;
+                element s = new element(getApplicationContext());
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[i][elements[i].length-1].number;
+                    s.posX = i;
+                    s.posY = elements[i].length-1;
+
+
+                    for(int j = elements[i].length-2; j >= 0;j--)
+                    {
+                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
+                        {
+                            moved=true;
+
+                            elements[i][j].setNumber(s.number + elements[i][j].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
+                            element z = elements[i][j];
+                            elements[i][j] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+
+                            if(s.number!=0)
+                                points += elements[s.posX][s.posY].number;
+                            if(s.number !=0)
+                                s.posY--;
+                            j=s.posY;
+                            s.number = elements[i][j].number;
+                        }
+                        else if(elements[i][j].number != 0)
+                        {
+                            s.number = elements[i][j].number;
+                            s.posX = i;
+                            s.posY = j;
+                        }
+                    }
+
+                }
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[i][elements[i].length-1].number;
+                    s.posX = i;
+                    s.posY = elements[i].length-1;
+
+
+                    for(int j = elements[i].length-2; j >= 0;j--)
+                    {
+                        if(elements[i][j].number != 0 && s.number == 0 )
+                        {
+                            moved=true;
+
+                            elements[i][j].setNumber(s.number + elements[i][j].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
+                            element z = elements[i][j];
+                            elements[i][j] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+
+
+                            if(s.number !=0)
+                                s.posY--;
+                            j=s.posY;
+                            s.number = elements[i][j].number;
+                        }
+                        else if(s.number != 0)
+                        {
+                            s.number = elements[i][j].number;
+                            s.posX = i;
+                            s.posY = j;
+                        }
+                    }
+
+                }
+                addNumber();
+                setDPositions();
+                updateGameState();
+                Log.d("TAG","right");
+
+                //es wurde nach rechts gewischt, hier den Code einfügen
+                return false;
+            }
+            public boolean onSwipeLeft() {
+                moved = false;
+                element s = new element(getApplicationContext());
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[i][0].number;
+                    s.posX = i;
+                    s.posY = 0;
+
+
+                    for(int j = 1; j<elements[i].length;j++)
+                    {
+                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
+                        {
+                            moved=true;
+
+
+                            elements[i][j].setNumber(s.number + elements[i][j].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
+                            element z = elements[i][j];
+                            elements[i][j] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+
+                            if(s.number!=0)
+                                points += elements[s.posX][s.posY].number;
+                            if(s.number !=0)
+                                s.posY++;
+                            j=s.posY;
+                            s.number = elements[i][j].number;
+                        }
+                        else if(elements[i][j].number != 0)
+                        {
+                            s.number = elements[i][j].number;
+                            s.posX = i;
+                            s.posY = j;
+                        }
+                    }
+
+                }
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[i][0].number;
+                    s.posX = i;
+                    s.posY = 0;
+
+                    for(int j = 1; j<elements[i].length;j++)
+                    {
+                        if(elements[i][j].number != 0 && s.number == 0)
+                        {
+                            moved=true;
+
+                            elements[i][j].setNumber(s.number + elements[i][j].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
+                            element z = elements[i][j];
+                            elements[i][j] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+
+                            if(s.number !=0)
+                                s.posY++;
+                            j=s.posY;
+                            s.number = elements[i][j].number;
+                        }
+                        else if(s.number != 0)
+                        {
+                            s.number = elements[i][j].number;
+                            s.posX = i;
+                            s.posY = j;
+                        }
+                    }
+
+                }
+                addNumber();
+                setDPositions();
+                updateGameState();
+                Log.d("TAG","left");
+                //es wurde nach links gewischt, hier den Code einfügen
+                return false;
+            }
+            public boolean onSwipeBottom() {
+                Log.i("davor",display(elements));
+                moved = false;
+                element s = new element(getApplicationContext());
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[elements[i].length-1][i].number;
+                    s.posX = elements[i].length-1;
+                    s.posY = i;
+
+
+                    for(int j = elements[i].length-2; j>=0;j--)
+                    {
+                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
+                        {
+                            moved=true;
+
+                            elements[j][i].setNumber(s.number + elements[j][i].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
+                            element z = elements[j][i];
+                            elements[j][i] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+
+                            if(s.number!=0)
+                                points += elements[s.posX][s.posY].number;
+                            if(s.number !=0)
+                                s.posX--;
+                            j=s.posX;
+                            s.number = elements[j][i].number;
+                        }
+                        else if(elements[j][i].number != 0)
+                        {
+                            s.number = elements[j][i].number;
+                            s.posX = j;
+                            s.posY = i;
+                        }
+                    }
+
+                }
+                for(int i = 0; i < elements.length;i++)
+                {
+                    s.number =  elements[elements[i].length-1][i].number;
+                    s.posX = elements[i].length-1;
+                    s.posY = i;
+
+
+                    for(int j = elements[i].length-2; j>=0;j--)
+                    {
+                        if(elements[j][i].number != 0 &&s.number == 0)
+                        {
+                            moved=true;
+
+                            elements[j][i].setNumber(s.number + elements[j][i].number);
+                            elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
+                            element z = elements[j][i];
+                            elements[j][i] = elements[s.posX][s.posY];
+                            elements[s.posX][s.posY] = z;
+
+                            if(s.number !=0)
+                                s.posX--;
+                            j=s.posX;
+                            s.number = elements[j][i].number;
+                        }
+                        else if(s.number != 0)
+                        {
+                            s.number = elements[j][i].number;
+                            s.posX = j;
+                            s.posY = i;
+                        }
+                    }
+
+                }
+                Log.i("danach",display(elements));
+                addNumber();
+                setDPositions();
+                updateGameState();
+                Log.d("TAG","down");
+                //es wurde nach unten gewischt, hier den Code einfügen
+                return false;
+            }
+            public boolean nichts(){
+                Log.d("TAG","nothing");
+                //es wurde keine wischrichtung erkannt, hier den Code einfügen
+                return false;
+            }
+        };
+/*        swipeListener = new Gesten(this){
             public boolean onSwipeTop() {
                 moved = false;
                 element s = new element(getApplicationContext());
@@ -554,7 +956,7 @@ public class GameActivity extends BaseActivity {
                 //es wurde keine wischrichtung erkannt, hier den Code einfügen
                 return false;
             }
-        };
+        };*/
         touch_field.setOnTouchListener(swipeListener);
         number_field.setOnTouchListener(swipeListener);
         for(int i = 0; i < elements.length; i++) {
@@ -564,6 +966,25 @@ public class GameActivity extends BaseActivity {
             }
         }
     }
+    public String display(element[][] e)
+    {
+        String result = "\n";
+        for(int i = 0; i < e.length; i++)
+        {
+            for(int j = 0; j < e[i].length;j++)
+                result = result + " " + elements[i][j].number; //+ " "+elements[i][j];
+            result = result + "\n";
+        }
+        result += "\n";
+        for(int i = 0; i < e.length; i++)
+        {
+            for(int j = 0; j < e[i].length;j++)
+                result = result + " (" + elements[i][j].getX() + " , " + elements[i][j].getY() + ")";//+" "+elements[i][j];
+            result = result + "\n";
+        }
+        return result;
+    }
+
     public void check2048()
     {
         if(won2048 == false)
@@ -571,7 +992,7 @@ public class GameActivity extends BaseActivity {
         {
             for(int j = 0; j < elements[i].length;j++)
             {
-                if(elements[i][j].number==2048)
+                if(elements[i][j].number==WINTHRESHOLD)
                 {
                     Log.i("INFO","2048 erreicht");
                     //MESSAGE
@@ -599,8 +1020,138 @@ public class GameActivity extends BaseActivity {
             }
         }
     }
+    public void setDPositions()
+    {
+        for(element[] i: elements)
+        {
+            for(element j:i)
+            {
+                if(j.dPosX != j.getX())
+                {
+                    if(j.animateMoving)
+                    {
+                        Log.i("numbers",j.number + " " + j.dNumber);
+                        if(j.number != j.dNumber)
+                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,SCALINGSPEED,SCALINGFACTOR,true)).start();
+                        else
+                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+
+                    }
+                    else {
+                        j.animate().x(j.dPosX).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+                    }
+
+                    Log.i("aktualisiere ","element X: " + j + " von "+j.getX() + " nach "+ j.dPosX);
+                }
+                if(j.dPosY != j.getY())
+                {
+                    if(j.animateMoving)
+                    {
+                        Log.i("numbers",j.number + " " + j.dNumber);
+                        if(j.number != j.dNumber)
+                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,SCALINGSPEED,SCALINGFACTOR,true)).start();
+                        else
+                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+
+                    }
+                    else {
+                            j.animate().y(j.dPosY).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+
+                    }
+
+                    Log.i("aktualisiere ","element Y: " + j + " von "+j.getY() + " nach "+ j.dPosY);
+
+                }
+            }
+        }
+    }
+
+    class MovingListener extends AnimatorListenerAdapter {
+        element e = null;
+        long SCALINGSPEED = 100;
+        float scalingFactor = 1.5f;
+        boolean scale =false;
+        public MovingListener(element e, long SSPEED,float scalingFactor, boolean scale )
+        {
+            super();
+            this.e = e;
+            this.SCALINGSPEED = SSPEED;
+            this.scalingFactor = scalingFactor;
+            this.scale = scale;
+        }
+        public MovingListener(element e, boolean scale)
+        {
+            super();
+            this.e = e;
+            this.scale = scale;
+        }
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            super.onAnimationCancel(animation);
+            animation.setupEndValues();
+            if(e!=null)
+                e.drawItem();
+            Log.i("Animation M","canceled");
+        }
+        @Override
+        public void onAnimationPause(Animator animation){
+            super.onAnimationPause(animation);
+            Log.i("Animation M","paused");
+        }
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            super.onAnimationEnd(animation);
+            Log.i("Animation M","End");
+            if(e!=null) {
+                e.drawItem();
+                if(scale)
+                    e.animate().scaleX(scalingFactor).scaleY(scalingFactor).setDuration(SCALINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new ScalingListener(e)).start();
+            }
+
+        }
+    }
+
+    class ScalingListener extends AnimatorListenerAdapter {
+        element e = null;
+        public ScalingListener(element e)
+        {
+            super();
+            this.e = e;
+        }
+        public ScalingListener()
+        {
+            super();
+        }
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            super.onAnimationCancel(animation);
+            animation.setupEndValues();
+            Log.i("Animation S","canceled");
+        }
+        @Override
+        public void onAnimationPause(Animator animation){
+            super.onAnimationPause(animation);
+            Log.i("Animation S","paused");
+        }
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            super.onAnimationEnd(animation);
+            Log.i("Animation S","End");
+            if(e!=null) {
+                e.animate().scaleX(1.0f).scaleY(1.0f).setDuration(SCALINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        super.onAnimationCancel(animation);
+                    }
+                }).start();
+            }
+
+        }
+    }
+
     public void addNumber()
     {
+
         if(points>record) {
             record = points;
             textFieldRecord.setText(""+record);
@@ -620,9 +1171,9 @@ public class GameActivity extends BaseActivity {
             if(counter>0) {
                 int index = (int) (Math.random() * counter);
                 int number = 2;
-                if (Math.random() > 0.5)
+                if (Math.random() > PROPABILITYFORTWO)
                     number = 4;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                     Transition t = new Transition() {
                         @Override
                         public void captureStartValues(TransitionValues transitionValues) {
@@ -638,8 +1189,12 @@ public class GameActivity extends BaseActivity {
                     autoTransition.setDuration(addingSpeed);
 
                     TransitionManager.beginDelayedTransition(number_field,autoTransition);
-                }
+                }*/
                 empty_fields[index].setNumber(number);
+                empty_fields[index].drawItem();
+
+                empty_fields[index].setAlpha(0);
+                empty_fields[index].animate().alpha(1).setInterpolator(new LinearInterpolator()).setStartDelay(MOVINGSPEED).setDuration(ADDINGSPEED).start();
                 if(counter == 1)
                 {
                     gameOver = true;
@@ -691,17 +1246,6 @@ public class GameActivity extends BaseActivity {
                 })
                 .setCancelable(false)
                 .create().show();
-    }
-    public String display(element[][] e)
-    {
-        String result = "";
-        for(int i = 0; i < e.length; i++)
-        {
-            for(int j = 0; j < e[i].length;j++)
-                result = result + " " + elements[i][j].number;
-            result = result + "\n";
-        }
-        return result;
     }
 
     @Override
