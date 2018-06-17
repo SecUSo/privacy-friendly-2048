@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyexample.activities.helper;
+package org.secuso.privacyfriendlyexample.activities;
 
 import android.content.Context;
 import android.transition.TransitionManager;
@@ -19,14 +19,17 @@ public class element extends android.support.v7.widget.AppCompatButton {
     public int dPosY = 0;
     public boolean activated;
     public boolean animateMoving = false;
-    public float textSize;
+    public float textSize = 24;
+    Context context;
+    int backGroundResource;
 
 
     public element(Context c)
     {
         super(c);
+        context = c;
         setAllCaps(false);
-        setTextSize(24);
+        setTextSize(textSize);
         setBackgroundResource(R.drawable.button_empty);
     }
 
@@ -47,67 +50,69 @@ public class element extends android.support.v7.widget.AppCompatButton {
         }
         switch (number){
             case 0:
-                setBackgroundResource(R.drawable.button_empty);
+                backGroundResource = R.drawable.button_empty;
                 setTextColor((this.getResources().getColor(R.color.black)));
                 break;
             case 2:
-                setBackgroundResource(R.drawable.button_2);
+                backGroundResource = R.drawable.button_2;
                 setTextColor((this.getResources().getColor(R.color.black)));
                 break;
             case 4:
-                setBackgroundResource(R.drawable.button_4);
+                backGroundResource = R.drawable.button_4;
                 setTextColor((this.getResources().getColor(R.color.black)));
                 break;
             case 8:
-                setBackgroundResource(R.drawable.button_8);
+                backGroundResource = R.drawable.button_8;
                 setTextColor((this.getResources().getColor(R.color.white)));
                 break;
             case 16:
-                setBackgroundResource(R.drawable.button_16);
+                backGroundResource = R.drawable.button_16;
                 setTextColor((this.getResources().getColor(R.color.white)));
                 break;
             case 32:
-                setBackgroundResource(R.drawable.button_32);
+                backGroundResource = R.drawable.button_32;
                 setTextColor((this.getResources().getColor(R.color.white)));
                 break;
             case 64:
-                setBackgroundResource(R.drawable.button_64);
+                backGroundResource = R.drawable.button_64;
                 setTextColor((this.getResources().getColor(R.color.white)));
                 break;
             case 128:
-                setBackgroundResource(R.drawable.button_128);
+                backGroundResource = R.drawable.button_128;
                 setTextColor((this.getResources().getColor(R.color.white)));
                 break;
             case 256:
-                setBackgroundResource(R.drawable.button_256);
+                backGroundResource = R.drawable.button_256;
                 setTextColor((this.getResources().getColor(R.color.white)));
                 break;
             case 512:
-                setBackgroundResource(R.drawable.button_512);
+                backGroundResource = R.drawable.button_512;
                 setTextColor((this.getResources().getColor(R.color.white)));
                 break;
             case 1024:
-                setBackgroundResource(R.drawable.button_1024);
+                backGroundResource = R.drawable.button_1024;
                 break;
             case 2048:
-                setBackgroundResource(R.drawable.button_2048);
+                backGroundResource = R.drawable.button_2048;
                 break;
             case 4096:
-                setBackgroundResource(R.drawable.button_4096);
+                backGroundResource = R.drawable.button_4096;
                 break;
             case 8192:
-                setBackgroundResource(R.drawable.button_8192);
+                backGroundResource = R.drawable.button_8192;
                 break;
             case 16384:
-                setTextSize(textSize*0.8f);
-                setBackgroundResource(R.drawable.button_16384);
+                backGroundResource = R.drawable.button_16384;
+                textSize = textSize * 0.8f;
+                setTextSize(textSize);
                 break;
             case 32768:
-
-                setTextSize(textSize*0.8f);
-                setBackgroundResource(R.drawable.button_32768);
+                backGroundResource = R.drawable.button_32768;
+                textSize = textSize * 0.8f;
+                setTextSize(textSize);
                 break;
         }
+        setBackgroundResource(backGroundResource);
     }
     public String toString()
     {
@@ -146,5 +151,23 @@ public class element extends android.support.v7.widget.AppCompatButton {
         //Log.i("FontSize",""+getLayoutParams().width + " " + (float)(getLayoutParams().width/8.0));
         textSize=(float)(getLayoutParams().width/7.0);
         setTextSize(textSize);
+    }
+    public element copy()
+    {
+        element temp = new element(context);
+        temp.number = number;
+        temp.dNumber = dNumber;
+        temp.posX = posX;
+        temp.posY = posY;
+        temp.dPosX = dPosX;
+        temp.dPosY = dPosY;
+        temp.activated = activated;
+        temp.animateMoving = animateMoving;
+        temp.textSize = textSize;
+        temp.setTextSize(textSize);
+        temp.setBackgroundResource(backGroundResource);
+        temp.setVisibility(getVisibility());
+        temp.setLayoutParams(getLayoutParams());
+        return temp;
     }
 }

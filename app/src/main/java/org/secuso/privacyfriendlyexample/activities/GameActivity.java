@@ -19,35 +19,22 @@ package org.secuso.privacyfriendlyexample.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.TimeInterpolator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.transition.AutoTransition;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.transition.TransitionValues;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,7 +42,6 @@ import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
 import org.secuso.privacyfriendlyexample.activities.helper.GameState;
 import org.secuso.privacyfriendlyexample.activities.helper.Gesten;
-import org.secuso.privacyfriendlyexample.activities.helper.element;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -76,18 +62,22 @@ public class GameActivity extends BaseActivity {
     public TextView textFieldRecord;
     public int numberFieldSize = 0;
     static element [][] elements = null;
+    static element [][] last_elements = null;
     static element [][] backgroundElements;
     static GameState gameState = null;
     RelativeLayout number_field;
     RelativeLayout number_field_background;
     RelativeLayout touch_field;
+    ImageButton restartButton;
+    ImageButton undoButton;
     public static int points = 0;
+    public static int last_points = 0;
     public static int record = 0;
 
     public final long ADDINGSPEED = 100;
-    public final long MOVINGSPEED = 100;
-    public final long SCALINGSPEED = 150;
-    public final float SCALINGFACTOR = 1.2f;
+    public final long MOVINGSPEED = 80;
+    public final long SCALINGSPEED = 100;
+    public final float SCALINGFACTOR = 1.1f;
 
     public static boolean moved = false;
     public static boolean firstTime = true;
@@ -95,6 +85,7 @@ public class GameActivity extends BaseActivity {
     public boolean won2048=false;
     public static boolean gameOver = false;
     public static boolean createNewGame = true;
+    public static boolean undo = false;
 
     public final int WINTHRESHOLD = 2048;
     public final double PROPABILITYFORTWO = 0.9;
@@ -121,6 +112,40 @@ public class GameActivity extends BaseActivity {
         touch_field = (RelativeLayout) findViewById(R.id.touch_field) ;
         textFieldPoints = (TextView) findViewById(R.id.points);
         textFieldRecord = (TextView) findViewById(R.id.record);
+        restartButton = (ImageButton) findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewGame();
+            }
+        });
+        undoButton = (ImageButton) findViewById(R.id.undoButton);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                undoButton.setVisibility(View.INVISIBLE);
+                if(undo&&last_elements != null) {
+                    elements = last_elements;
+                    points = last_points;
+                    number_field.removeAllViews();
+                    for(element[] i : elements)
+                    {
+                        for(element j: i)
+                        {
+                            number_field.addView(j);
+                            points = last_points;
+                            textFieldPoints.setText(""+points);
+                            j.drawItem();
+                            updateGameState();
+                        }
+                    }
+                    setDPositions();
+                    //drawAllElements(elements);
+
+                }
+                undo = false;
+            }
+        });
 
 
         //number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
@@ -129,7 +154,6 @@ public class GameActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub
-        Log.d("ONCONFIGCHANGE", "CALLED" );
         createNewGame = false;
         super.onConfigurationChanged(newConfig);
     }
@@ -145,6 +169,15 @@ public class GameActivity extends BaseActivity {
         saveRecordToFile(record);
         firstTime = true;
         super.onBackPressed();
+
+    }
+
+    public void createNewGame()
+    {
+        createNewGame = true;
+        getIntent().putExtra("new",true);
+        number_field.removeAllViews();
+        initialize();
 
     }
 
@@ -173,35 +206,52 @@ public class GameActivity extends BaseActivity {
     public void initializeState()
     {
         points = 0;
-        Log.i("initializing","initializeState");
         Intent intent = getIntent();
         n = intent.getIntExtra("n", 4);
         newGame = intent.getBooleanExtra("new", true);
         filename = intent.getStringExtra("filename");
         record = readRecordFromFile();
+        undo = intent.getBooleanExtra("undo",false);
+        Log.i("init","undo: "+undo);
         if (!newGame) {
             gameState = readStateFromFile();
             points = gameState.points;
+            last_points = gameState.last_points;
         } else {
             gameState = new GameState(n);
             newGame = true;
         }
         elements = new element[n][n];
+        last_elements = new element[n][n];
         backgroundElements = new element[n][n];
 
     }
+
+    public void drawAllElements(element[][] e)
+    {
+        for(element[] i : e)
+        {
+            for(element j: i)
+            {
+                j.drawItem();
+            }
+        }
+    }
+
     public void updateGameState()
     {
+        gameState = new GameState(elements,last_elements);
         gameState.n = n;
         gameState.points = points;
+        gameState.last_points = last_points;
         gameState.record = record;
+        gameState.undo = undo;
         check2048();
 
     }
 
     public void initialize()
     {
-        Log.i("init","initializing");
         //NavigationBar Listener
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -231,12 +281,12 @@ public class GameActivity extends BaseActivity {
 
         if(getIntent().getIntExtra("n",4)!=n||createNewGame)
         {
-            Log.i("init", "initState, createNewGame = " + createNewGame);
             initializeState();
+            Log.i("init","initialializeState()");
 
         }
+        last_points = gameState.last_points;
         createNewGame = false;
-        Log.i("gameState",""+gameState);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int abstand = (10* metrics.densityDpi) / DisplayMetrics.DENSITY_DEFAULT;
@@ -247,7 +297,10 @@ public class GameActivity extends BaseActivity {
 
         textFieldRecord.setText(""+record);
         textFieldPoints.setText(""+points);
-
+        if(undo)
+            undoButton.setVisibility(View.VISIBLE);
+        else
+            undoButton.setVisibility(View.INVISIBLE);
 
         for(int i = 0; i < elements.length; i++) {
             for (int j = 0; j < elements[i].length; j++) {
@@ -270,6 +323,15 @@ public class GameActivity extends BaseActivity {
                 backgroundElements[i][j].setLayoutParams(lp);
                 number_field_background.addView(backgroundElements[i][j]);
                 number_field.addView(elements[i][j]);
+            }
+        }
+        last_elements =deepCopy(elements);
+        if(undo)
+        {
+            for(int i = 0; i < elements.length; i++) {
+                for (int j = 0; j < elements[i].length; j++) {
+                    last_elements[i][j].setNumber(gameState.getLastNumber(i,j));
+                }
             }
         }
 
@@ -345,10 +407,27 @@ public class GameActivity extends BaseActivity {
 */
 
     }
+
+    public element[][] deepCopy(element[][]e)
+    {
+        element [][] r = new element[e.length][];
+        for(int i = 0; i < r.length; i++)
+        {
+            r[i] = new element [e[i].length];
+            for(int j = 0; j < r[i].length; j++)
+            {
+                r[i][j] = e[i][j].copy();
+            }
+        }
+        return r;
+    }
+
     public void setListener()
     {
         swipeListener = new Gesten(this){
             public boolean onSwipeTop() {
+                element[][] temp = deepCopy(elements);
+                int temp_points = points;
                 Log.i("davor",display(elements));
                 moved = false;
                 element s = new element(getApplicationContext());
@@ -421,7 +500,13 @@ public class GameActivity extends BaseActivity {
                     }
 
                 }
-                Log.i("danach",display(elements));
+                if(moved) {
+                    last_points = temp_points;
+                    last_elements = temp;
+                    undoButton.setVisibility(View.VISIBLE);
+                    undo = true;
+                }
+                Log.i("danach",display(last_elements));
                 addNumber();
                 setDPositions();
                 updateGameState();
@@ -430,6 +515,8 @@ public class GameActivity extends BaseActivity {
                 return false;
             }
             public boolean onSwipeRight() {
+                element[][] temp = deepCopy(elements);
+                int temp_points = points;
                 moved = false;
                 element s = new element(getApplicationContext());
                 for(int i = 0; i < elements.length;i++)
@@ -503,6 +590,13 @@ public class GameActivity extends BaseActivity {
                     }
 
                 }
+                if(moved) {
+                    last_points = temp_points;
+                    last_elements = temp;
+                    undoButton.setVisibility(View.VISIBLE);
+                    undo = true;
+                }
+                Log.i("danach",display(last_elements));
                 addNumber();
                 setDPositions();
                 updateGameState();
@@ -512,6 +606,8 @@ public class GameActivity extends BaseActivity {
                 return false;
             }
             public boolean onSwipeLeft() {
+                element[][] temp = deepCopy(elements);
+                int temp_points = points;
                 moved = false;
                 element s = new element(getApplicationContext());
                 for(int i = 0; i < elements.length;i++)
@@ -584,6 +680,13 @@ public class GameActivity extends BaseActivity {
                     }
 
                 }
+                if(moved) {
+                    last_points = temp_points;
+                    last_elements = temp;
+                    undoButton.setVisibility(View.VISIBLE);
+                    undo = true;
+                }
+                Log.i("danach",display(last_elements));
                 addNumber();
                 setDPositions();
                 updateGameState();
@@ -592,6 +695,8 @@ public class GameActivity extends BaseActivity {
                 return false;
             }
             public boolean onSwipeBottom() {
+                element[][] temp = deepCopy(elements);
+                int temp_points = points;
                 Log.i("davor",display(elements));
                 moved = false;
                 element s = new element(getApplicationContext());
@@ -665,7 +770,13 @@ public class GameActivity extends BaseActivity {
                     }
 
                 }
-                Log.i("danach",display(elements));
+                if(moved) {
+                    last_points = temp_points;
+                    last_elements = temp;
+                    undoButton.setVisibility(View.VISIBLE);
+                    undo = true;
+                }
+                Log.i("danach",display(last_elements));
                 addNumber();
                 setDPositions();
                 updateGameState();
@@ -679,284 +790,6 @@ public class GameActivity extends BaseActivity {
                 return false;
             }
         };
-/*        swipeListener = new Gesten(this){
-            public boolean onSwipeTop() {
-                moved = false;
-                element s = new element(getApplicationContext());
-
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[0][i].number;
-                    s.posX = 0;
-                    s.posY = i;
-
-
-                    for(int j = 1; j<elements[i].length;j++)
-                    {
-                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[j][i].number);
-                            if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
-                            elements[j][i].setNumber(0);
-                            if(s.number !=0)
-                                s.posX++;
-                            j=s.posX;
-                            s.number = elements[j][i].number;
-
-                        }
-                        else if(elements[j][i].number != 0)
-                        {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[0][i].number;
-                    s.posX = 0;
-                    s.posY = i;
-
-
-                    for(int j = 1; j<elements[i].length;j++)
-                    {
-                        if(elements[j][i].number != 0 && s.number == 0)
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[j][i].number);
-                            elements[j][i].setNumber(0);
-                            if(s.number !=0)
-                                s.posX++;
-                            j=s.posX;
-                            s.number = elements[j][i].number;
-
-                        }
-                        else if(s.number != 0)
-                        {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                addNumber();
-                updateGameState();
-                Log.d("TAG","up");
-                //es wurde nach oben gewischt, hier den Code einfügen
-                return false;
-            }
-            public boolean onSwipeRight() {
-                moved = false;
-                element s = new element(getApplicationContext());
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[i][elements[i].length-1].number;
-                    s.posX = i;
-                    s.posY = elements[i].length-1;
-
-
-                    for(int j = elements[i].length-2; j >= 0;j--)
-                    {
-                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[i][j].number);
-                            if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
-                            elements[i][j].setNumber(0);
-                            if(s.number !=0)
-                                s.posY--;
-                            j=s.posY;
-                            s.number = elements[i][j].number;
-                        }
-                        else if(elements[i][j].number != 0)
-                        {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[i][elements[i].length-1].number;
-                    s.posX = i;
-                    s.posY = elements[i].length-1;
-
-
-                    for(int j = elements[i].length-2; j >= 0;j--)
-                    {
-                        if(elements[i][j].number != 0 && s.number == 0 )
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[i][j].number);
-                            elements[i][j].setNumber(0);
-                            if(s.number !=0)
-                                s.posY--;
-                            j=s.posY;
-                            s.number = elements[i][j].number;
-                        }
-                        else if(s.number != 0)
-                        {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                addNumber();
-                updateGameState();
-                Log.d("TAG","right");
-
-                //es wurde nach rechts gewischt, hier den Code einfügen
-                return false;
-            }
-            public boolean onSwipeLeft() {
-                moved = false;
-                element s = new element(getApplicationContext());
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[i][0].number;
-                    s.posX = i;
-                    s.posY = 0;
-
-
-                    for(int j = 1; j<elements[i].length;j++)
-                    {
-                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[i][j].number);
-                            if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
-                            elements[i][j].setNumber(0);
-                            if(s.number !=0)
-                                s.posY++;
-                            j=s.posY;
-                            s.number = elements[i][j].number;
-                        }
-                        else if(elements[i][j].number != 0)
-                        {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[i][0].number;
-                    s.posX = i;
-                    s.posY = 0;
-
-                    for(int j = 1; j<elements[i].length;j++)
-                    {
-                        if(elements[i][j].number != 0 && s.number == 0)
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[i][j].number);
-                            elements[i][j].setNumber(0);
-                            if(s.number !=0)
-                                s.posY++;
-                            j=s.posY;
-                            s.number = elements[i][j].number;
-                        }
-                        else if(s.number != 0)
-                        {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                addNumber();
-                updateGameState();
-                Log.d("TAG","left");
-                //es wurde nach links gewischt, hier den Code einfügen
-                return false;
-            }
-            public boolean onSwipeBottom() {
-                moved = false;
-                element s = new element(getApplicationContext());
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[elements[i].length-1][i].number;
-                    s.posX = elements[i].length-1;
-                    s.posY = i;
-
-
-                    for(int j = elements[i].length-2; j>=0;j--)
-                    {
-                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[j][i].number);
-                            if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
-                            elements[j][i].setNumber(0);
-                            if(s.number !=0)
-                                s.posX--;
-                            j=s.posX;
-                            s.number = elements[j][i].number;
-                        }
-                        else if(elements[j][i].number != 0)
-                        {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                for(int i = 0; i < elements.length;i++)
-                {
-                    s.number =  elements[elements[i].length-1][i].number;
-                    s.posX = elements[i].length-1;
-                    s.posY = i;
-
-
-                    for(int j = elements[i].length-2; j>=0;j--)
-                    {
-                        if(elements[j][i].number != 0 &&s.number == 0)
-                        {
-                            moved=true;
-                            elements[s.posX][s.posY].setNumber(s.number + elements[j][i].number);
-                            elements[j][i].setNumber(0);
-                            if(s.number !=0)
-                                s.posX--;
-                            j=s.posX;
-                            s.number = elements[j][i].number;
-                        }
-                        else if(s.number != 0)
-                        {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                addNumber();
-                updateGameState();
-                Log.d("TAG","down");
-                //es wurde nach unten gewischt, hier den Code einfügen
-                return false;
-            }
-            public boolean nichts(){
-                Log.d("TAG","nothing");
-                //es wurde keine wischrichtung erkannt, hier den Code einfügen
-                return false;
-            }
-        };*/
         touch_field.setOnTouchListener(swipeListener);
         number_field.setOnTouchListener(swipeListener);
         for(int i = 0; i < elements.length; i++) {
@@ -1030,7 +863,6 @@ public class GameActivity extends BaseActivity {
                 {
                     if(j.animateMoving)
                     {
-                        Log.i("numbers",j.number + " " + j.dNumber);
                         if(j.number != j.dNumber)
                             j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,SCALINGSPEED,SCALINGFACTOR,true)).start();
                         else
@@ -1041,13 +873,11 @@ public class GameActivity extends BaseActivity {
                         j.animate().x(j.dPosX).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
                     }
 
-                    Log.i("aktualisiere ","element X: " + j + " von "+j.getX() + " nach "+ j.dPosX);
                 }
                 if(j.dPosY != j.getY())
                 {
                     if(j.animateMoving)
                     {
-                        Log.i("numbers",j.number + " " + j.dNumber);
                         if(j.number != j.dNumber)
                             j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,SCALINGSPEED,SCALINGFACTOR,true)).start();
                         else
@@ -1059,7 +889,6 @@ public class GameActivity extends BaseActivity {
 
                     }
 
-                    Log.i("aktualisiere ","element Y: " + j + " von "+j.getY() + " nach "+ j.dPosY);
 
                 }
             }
@@ -1101,7 +930,6 @@ public class GameActivity extends BaseActivity {
         @Override
         public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
-            Log.i("Animation M","End");
             if(e!=null) {
                 e.drawItem();
                 if(scale)
@@ -1173,23 +1001,7 @@ public class GameActivity extends BaseActivity {
                 int number = 2;
                 if (Math.random() > PROPABILITYFORTWO)
                     number = 4;
-                /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    Transition t = new Transition() {
-                        @Override
-                        public void captureStartValues(TransitionValues transitionValues) {
 
-                        }
-
-                        @Override
-                        public void captureEndValues(TransitionValues transitionValues) {
-
-                        }
-                    };
-                    AutoTransition autoTransition = new AutoTransition();
-                    autoTransition.setDuration(addingSpeed);
-
-                    TransitionManager.beginDelayedTransition(number_field,autoTransition);
-                }*/
                 empty_fields[index].setNumber(number);
                 empty_fields[index].drawItem();
 
@@ -1213,8 +1025,7 @@ public class GameActivity extends BaseActivity {
                         Log.i("Game","over");
                 }
             }
-
-            gameState = new GameState(elements);
+            updateGameState();
         }
     }
     public void gameOver()
@@ -1239,9 +1050,7 @@ public class GameActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Ende","ja");
-                        createNewGame = true;
-                        getIntent().putExtra("new",true);
-                        initialize();
+                        createNewGame();
                     }
                 })
                 .setCancelable(false)
@@ -1291,6 +1100,7 @@ public class GameActivity extends BaseActivity {
         saveRecordToFile(record);
 
     }
+
     public void saveStateToFile(GameState nS)
     {
         Log.i("saving", ""+nS);

@@ -35,6 +35,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="139dp">
 
+                    <ImageButton
+                        android:id="@+id/restartButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="65dp"
+                        app:srcCompat="@mipmap/ic_launcher" />
+
+                    <ImageButton
+                        android:id="@+id/undoButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        app:srcCompat="@mipmap/ic_launcher" />
+
                     <RelativeLayout
                         android:layout_width="85dp"
                         android:layout_height="50dp"

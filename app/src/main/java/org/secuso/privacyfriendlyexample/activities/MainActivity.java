@@ -176,6 +176,7 @@ public class MainActivity extends BaseActivity {
                 intent.putExtra("points",0);
                 intent.putExtra("new",true);
                 intent.putExtra("filename","state"+temp+".txt");
+                intent.putExtra("undo",false);
                 createBackStack(intent);
             }
         });
@@ -187,6 +188,7 @@ public class MainActivity extends BaseActivity {
                 intent.putExtra("n",temp);
                 intent.putExtra("new",false);
                 intent.putExtra("filename","state"+temp+".txt");
+                intent.putExtra("undo",false);
                 createBackStack(intent);
             }
         });
