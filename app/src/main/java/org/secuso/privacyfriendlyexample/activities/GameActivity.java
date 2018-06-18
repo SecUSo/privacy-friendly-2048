@@ -19,6 +19,7 @@ package org.secuso.privacyfriendlyexample.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -40,6 +42,8 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
+import org.secuso.privacyfriendlyexample.activities.helper.BaseActivityWithoutNavBar;
+import org.secuso.privacyfriendlyexample.activities.helper.GameSettings;
 import org.secuso.privacyfriendlyexample.activities.helper.GameState;
 import org.secuso.privacyfriendlyexample.activities.helper.Gesten;
 
@@ -56,7 +60,7 @@ import java.io.ObjectOutputStream;
  * This activity is an example for the main menu of gaming applications
  */
 
-public class GameActivity extends BaseActivity {
+public class GameActivity extends BaseActivityWithoutNavBar {
     public static int n = 4;
     public TextView textFieldPoints;
     public TextView textFieldRecord;
@@ -65,6 +69,8 @@ public class GameActivity extends BaseActivity {
     static element [][] last_elements = null;
     static element [][] backgroundElements;
     static GameState gameState = null;
+    static GameSettings gameSettings = new GameSettings();
+
     RelativeLayout number_field;
     RelativeLayout number_field_background;
     RelativeLayout touch_field;
@@ -74,10 +80,10 @@ public class GameActivity extends BaseActivity {
     public static int last_points = 0;
     public static int record = 0;
 
-    public final long ADDINGSPEED = 100;
-    public final long MOVINGSPEED = 80;
-    public final long SCALINGSPEED = 100;
-    public final float SCALINGFACTOR = 1.1f;
+    public static long ADDINGSPEED = 100;
+    public static long MOVINGSPEED = 80;
+    public static long SCALINGSPEED = 100;
+    public static float SCALINGFACTOR = 1.1f;
 
     public static boolean moved = false;
     public static boolean firstTime = true;
@@ -86,12 +92,24 @@ public class GameActivity extends BaseActivity {
     public static boolean gameOver = false;
     public static boolean createNewGame = true;
     public static boolean undo = false;
+    public static boolean animationActivated = true;
 
     public final int WINTHRESHOLD = 2048;
     public final double PROPABILITYFORTWO = 0.9;
     View.OnTouchListener swipeListener;
 
+
     static String filename;
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item= menu.findItem(R.id.action_settings);
+        item.setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+        return true;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +122,7 @@ public class GameActivity extends BaseActivity {
         }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
+
 
 
 
@@ -128,25 +147,27 @@ public class GameActivity extends BaseActivity {
                     elements = last_elements;
                     points = last_points;
                     number_field.removeAllViews();
+                    points = last_points;
+                    textFieldPoints.setText(""+points);
+                    setDPositions(false);
                     for(element[] i : elements)
                     {
                         for(element j: i)
                         {
+                            j.setVisibility(View.INVISIBLE);
                             number_field.addView(j);
-                            points = last_points;
-                            textFieldPoints.setText(""+points);
                             j.drawItem();
-                            updateGameState();
                         }
                     }
-                    setDPositions();
-                    //drawAllElements(elements);
-
+                    updateGameState();
+                    drawAllElements(elements);
+                    number_field.refreshDrawableState();
                 }
                 undo = false;
+                Log.i("undoing",display(elements) + " " + number_field.getChildCount());
             }
         });
-
+        initializeGameSettings();
 
         //number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
 
@@ -157,10 +178,10 @@ public class GameActivity extends BaseActivity {
         createNewGame = false;
         super.onConfigurationChanged(newConfig);
     }
-    @Override
+    /*@Override
     protected int getNavigationDrawerID() {
         return 0;
-    }
+    }*/
 
 
     @Override
@@ -225,6 +246,13 @@ public class GameActivity extends BaseActivity {
         last_elements = new element[n][n];
         backgroundElements = new element[n][n];
 
+
+
+    }
+    public void initializeGameSettings()
+    {
+        gameSettings = readSettingsFromFile();
+        animationActivated = gameSettings.animationActivated;
     }
 
     public void drawAllElements(element[][] e)
@@ -252,33 +280,6 @@ public class GameActivity extends BaseActivity {
 
     public void initialize()
     {
-        //NavigationBar Listener
-        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View drawerView) {
-                if(gameState!= null) {
-                    saveStateToFile(gameState);
-                    saveRecordToFile(record);
-                }
-
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
-        });
-
         if(getIntent().getIntExtra("n",4)!=n||createNewGame)
         {
             initializeState();
@@ -508,7 +509,7 @@ public class GameActivity extends BaseActivity {
                 }
                 Log.i("danach",display(last_elements));
                 addNumber();
-                setDPositions();
+                setDPositions(animationActivated);
                 updateGameState();
                 Log.d("TAG","up");
                 //es wurde nach oben gewischt, hier den Code einfügen
@@ -598,7 +599,7 @@ public class GameActivity extends BaseActivity {
                 }
                 Log.i("danach",display(last_elements));
                 addNumber();
-                setDPositions();
+                setDPositions(animationActivated);
                 updateGameState();
                 Log.d("TAG","right");
 
@@ -688,7 +689,7 @@ public class GameActivity extends BaseActivity {
                 }
                 Log.i("danach",display(last_elements));
                 addNumber();
-                setDPositions();
+                setDPositions(animationActivated);
                 updateGameState();
                 Log.d("TAG","left");
                 //es wurde nach links gewischt, hier den Code einfügen
@@ -778,7 +779,7 @@ public class GameActivity extends BaseActivity {
                 }
                 Log.i("danach",display(last_elements));
                 addNumber();
-                setDPositions();
+                setDPositions(animationActivated);
                 updateGameState();
                 Log.d("TAG","down");
                 //es wurde nach unten gewischt, hier den Code einfügen
@@ -812,7 +813,7 @@ public class GameActivity extends BaseActivity {
         for(int i = 0; i < e.length; i++)
         {
             for(int j = 0; j < e[i].length;j++)
-                result = result + " (" + elements[i][j].getX() + " , " + elements[i][j].getY() + ")";//+" "+elements[i][j];
+                result = result + " (" + elements[i][j].getX() + " , " + elements[i][j].getY() + ")" + " v:" + elements[i][j].getVisibility();//+" "+elements[i][j];
             result = result + "\n";
         }
         return result;
@@ -853,38 +854,65 @@ public class GameActivity extends BaseActivity {
             }
         }
     }
-    public void setDPositions()
+    public void setDPositions(boolean animation)
     {
+        long SCALINGSPEED = GameActivity.SCALINGSPEED;
+        long ADDINGSPEED = GameActivity.ADDINGSPEED;
+        long MOVINGSPEED = GameActivity.MOVINGSPEED;
+        boolean scale = true;
+        if(!animation)
+        {
+            SCALINGSPEED = 1;
+            ADDINGSPEED = 1;
+            MOVINGSPEED = 1;
+            scale = false;
+        }
         for(element[] i: elements)
         {
             for(element j:i)
             {
                 if(j.dPosX != j.getX())
                 {
-                    if(j.animateMoving)
+                    if(j.animateMoving&&animation)
                     {
                         if(j.number != j.dNumber)
-                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,SCALINGSPEED,SCALINGFACTOR,true)).start();
+                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,scale)).start();
                         else
                             j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
 
                     }
                     else {
-                        j.animate().x(j.dPosX).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+                        if(!animation) {
+                            ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) j.getLayoutParams();
+                            lp1.leftMargin = j.dPosX;
+                            j.setLayoutParams(lp1);
+                            j.drawItem();
+                        }
+                        else
+                            j.animate().x(j.dPosX).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+
                     }
 
                 }
                 if(j.dPosY != j.getY())
                 {
-                    if(j.animateMoving)
+                    if(j.animateMoving&&animation)
                     {
                         if(j.number != j.dNumber)
-                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,SCALINGSPEED,SCALINGFACTOR,true)).start();
+                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,scale)).start();
                         else
                             j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
 
                     }
                     else {
+                        if(!animation)
+                        {
+                            ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) j.getLayoutParams();
+                            lp1.topMargin = j.dPosY;
+                            j.setLayoutParams(lp1);
+                            j.drawItem();
+                        }
+                        else
                             j.animate().y(j.dPosY).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
 
                     }
@@ -900,18 +928,12 @@ public class GameActivity extends BaseActivity {
         long SCALINGSPEED = 100;
         float scalingFactor = 1.5f;
         boolean scale =false;
-        public MovingListener(element e, long SSPEED,float scalingFactor, boolean scale )
+        public MovingListener(element e, boolean scale )
         {
             super();
             this.e = e;
-            this.SCALINGSPEED = SSPEED;
-            this.scalingFactor = scalingFactor;
-            this.scale = scale;
-        }
-        public MovingListener(element e, boolean scale)
-        {
-            super();
-            this.e = e;
+            this.SCALINGSPEED = GameActivity.SCALINGSPEED;
+            this.scalingFactor = GameActivity.SCALINGFACTOR;
             this.scale = scale;
         }
         @Override
@@ -1004,9 +1026,10 @@ public class GameActivity extends BaseActivity {
 
                 empty_fields[index].setNumber(number);
                 empty_fields[index].drawItem();
-
-                empty_fields[index].setAlpha(0);
-                empty_fields[index].animate().alpha(1).setInterpolator(new LinearInterpolator()).setStartDelay(MOVINGSPEED).setDuration(ADDINGSPEED).start();
+                if(animationActivated){
+                    empty_fields[index].setAlpha(0);
+                    empty_fields[index].animate().alpha(1).setInterpolator(new LinearInterpolator()).setStartDelay(MOVINGSPEED).setDuration(ADDINGSPEED).start();
+                }
                 if(counter == 1)
                 {
                     gameOver = true;
@@ -1196,5 +1219,24 @@ public class GameActivity extends BaseActivity {
             e.printStackTrace();
         }
         return nS;
+    }
+
+    public GameSettings readSettingsFromFile()
+    {
+        GameSettings gS = new GameSettings();
+        try{
+            File file = new File(getFilesDir(), "settings.txt");
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            gS = (GameSettings)in.readObject();
+            in.close();
+            fileIn.close();
+            Log.i("Save","System settings has been readed in " + "settings.txt" + gameSettings.animationActivated);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return gS;
     }
 }

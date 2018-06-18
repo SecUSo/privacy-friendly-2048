@@ -5,10 +5,10 @@
         android:title="Example Category">
         <SwitchPreference
             android:id="@+id/pref_example_switch"
+            android:defaultValue="false"
             android:key="pref_example_switch"
-            android:title="@string/pref_example_switch"
             android:summary="@string/pref_example_switch_summary"
-            android:defaultValue="false"/>
+            android:title="@string/pref_example_switch" />
         <Preference android:title="Test Setting"
             android:summary="Text Summary"/>
     </PreferenceCategory>

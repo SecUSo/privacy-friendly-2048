@@ -74,7 +74,6 @@
             android:name=".activities.GameActivity"
             android:label="@string/title_activity_game"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

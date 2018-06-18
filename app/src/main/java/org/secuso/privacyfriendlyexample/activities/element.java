@@ -45,7 +45,7 @@ public class element extends android.support.v7.widget.AppCompatButton {
             if(getVisibility() != View.VISIBLE)
             {
                 setVisibility(View.VISIBLE);
-
+                Log.i("setting","visible " + number);
             }
         }
         switch (number){

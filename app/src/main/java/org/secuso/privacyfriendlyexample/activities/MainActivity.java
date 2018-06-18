@@ -43,6 +43,7 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
+import org.secuso.privacyfriendlyexample.activities.helper.BaseActivityWithoutNavBar;
 import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
 
 import java.io.File;
@@ -51,7 +52,7 @@ import java.io.File;
  * @author Christopher Beckmann, Karola Marky
  * @version 20171016
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity{
 
     private ViewPager viewPager;
     private MainActivity.MyViewPagerAdapter myViewPagerAdapter;
