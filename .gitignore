@@ -63,3 +63,10 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+.DS_Store
+.gradle/4.4/fileHashes/fileHashes.lock
+*.bin
+*.lock
+*.lock
+.idea/misc.xml
+.idea/workspace.xml
