@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="color_list">
+        <item>secuso</item>
+        <item>Standard</item>
+    </string-array>
+    <string-array name="color_list_values">
+        <item>2</item>
+        <item>2</item>
+    </string-array>
+</resources>

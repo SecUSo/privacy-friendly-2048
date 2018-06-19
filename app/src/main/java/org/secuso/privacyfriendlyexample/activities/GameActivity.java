@@ -19,14 +19,13 @@ package org.secuso.privacyfriendlyexample.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -35,16 +34,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyexample.R;
-import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivityWithoutNavBar;
-import org.secuso.privacyfriendlyexample.activities.helper.GameSettings;
 import org.secuso.privacyfriendlyexample.activities.helper.GameState;
+import org.secuso.privacyfriendlyexample.activities.helper.GameStatistics;
 import org.secuso.privacyfriendlyexample.activities.helper.Gesten;
 
 import java.io.File;
@@ -53,6 +50,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author Christopher Beckmann
@@ -69,7 +68,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     static element [][] last_elements = null;
     static element [][] backgroundElements;
     static GameState gameState = null;
-    static GameSettings gameSettings = new GameSettings();
 
     RelativeLayout number_field;
     RelativeLayout number_field_background;
@@ -78,7 +76,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     ImageButton undoButton;
     public static int points = 0;
     public static int last_points = 0;
-    public static int record = 0;
+    public static long record = 0;
 
     public static long ADDINGSPEED = 100;
     public static long MOVINGSPEED = 80;
@@ -101,6 +99,13 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     static String filename;
 
+    SharedPreferences sharedPref;
+
+    GameStatistics gameStatistics = new GameStatistics(n);
+    public static long startingTime;
+    public int highestNumber;
+
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item= menu.findItem(R.id.action_settings);
@@ -120,6 +125,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             createNewGame = true;
             firstTime = false;
         }
+
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        animationActivated = sharedPref.getBoolean("pref_animationActivated",false);
+
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
 
@@ -135,6 +146,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveStatisticsToFile(gameStatistics);
                 createNewGame();
             }
         });
@@ -167,9 +179,10 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 Log.i("undoing",display(elements) + " " + number_field.getChildCount());
             }
         });
-        initializeGameSettings();
 
         //number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
+        startingTime = Calendar.getInstance().getTimeInMillis();
+        Log.i("time","starting" + startingTime);
 
     }
     @Override
@@ -178,17 +191,16 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         createNewGame = false;
         super.onConfigurationChanged(newConfig);
     }
-    /*@Override
-    protected int getNavigationDrawerID() {
-        return 0;
-    }*/
 
 
     @Override
     public void onBackPressed() {
         saveStateToFile(gameState);
-        saveRecordToFile(record);
+        gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
+        startingTime = Calendar.getInstance().getTimeInMillis();
+        saveStatisticsToFile(gameStatistics);
         firstTime = true;
+
         super.onBackPressed();
 
     }
@@ -231,7 +243,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         n = intent.getIntExtra("n", 4);
         newGame = intent.getBooleanExtra("new", true);
         filename = intent.getStringExtra("filename");
-        record = readRecordFromFile();
         undo = intent.getBooleanExtra("undo",false);
         Log.i("init","undo: "+undo);
         if (!newGame) {
@@ -248,11 +259,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
 
 
-    }
-    public void initializeGameSettings()
-    {
-        gameSettings = readSettingsFromFile();
-        animationActivated = gameSettings.animationActivated;
     }
 
     public void drawAllElements(element[][] e)
@@ -272,9 +278,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         gameState.n = n;
         gameState.points = points;
         gameState.last_points = last_points;
-        gameState.record = record;
         gameState.undo = undo;
         check2048();
+        updateHighestNumber();
 
     }
 
@@ -286,6 +292,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             Log.i("init","initialializeState()");
 
         }
+        gameStatistics = readStatisticsFromFile();
+        record = gameStatistics.getRecord();
         last_points = gameState.last_points;
         createNewGame = false;
         DisplayMetrics metrics = new DisplayMetrics();
@@ -502,6 +510,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
                 }
                 if(moved) {
+                    gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
@@ -592,6 +601,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
                 }
                 if(moved) {
+                    gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
@@ -682,6 +692,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
                 }
                 if(moved) {
+                    gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
@@ -772,6 +783,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
                 }
                 if(moved) {
+                    gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
@@ -817,6 +829,21 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             result = result + "\n";
         }
         return result;
+    }
+
+    public void updateHighestNumber()
+    {
+        for(int i = 0; i < elements.length;i++)
+        {
+            for(int j = 0; j < elements[i].length;j++)
+            {
+                if(highestNumber < elements[i][j].number)
+                {
+                    highestNumber = elements[i][j].number;
+                    gameStatistics.setHighestNumber(highestNumber);
+                }
+            }
+        }
     }
 
     public void check2048()
@@ -1004,6 +1031,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         if(points>record) {
             record = points;
+            gameStatistics.setRecord(record);
             textFieldRecord.setText(""+record);
         }
         if(moved) {
@@ -1061,7 +1089,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Ende","nein");
                         Log.i("StateFile ", "deleted: " + deleteStateFile(filename));
-                        saveRecordToFile(record);
+                        //saveRecordToFile(record);
+                        saveStatisticsToFile(gameStatistics);
                         createNewGame = true;
                         getIntent().putExtra("new",true);
                         initialize();
@@ -1073,6 +1102,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Ende","ja");
+                        saveStatisticsToFile(gameStatistics);
                         createNewGame();
                     }
                 })
@@ -1114,13 +1144,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-        Log.i("saving","onSaveInstanceState");
 
+        gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
+        startingTime = Calendar.getInstance().getTimeInMillis();
         saveStateToFile(gameState);
         saveRecordToFile(record);
+        saveStatisticsToFile(gameStatistics);
 
     }
 
@@ -1141,7 +1170,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             e.printStackTrace();
         }
     }
-    public void saveRecordToFile(int r)
+    public void saveRecordToFile(long r)
     {
         try {
 
@@ -1168,23 +1197,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             e.printStackTrace();
         }
         return false;
-    }
-    public int readRecordFromFile()
-    {
-        int result = 0;
-        try{
-            File file = new File(getFilesDir(), "record" + n + ".txt");
-            FileInputStream fileIn = new FileInputStream(file);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            result = (int)in.readObject();
-            Log.i("reading", "record"+result);
-            in.close();
-            fileIn.close();
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return result;
     }
     public GameState readStateFromFile()
     {
@@ -1220,23 +1232,35 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         return nS;
     }
-
-    public GameSettings readSettingsFromFile()
+    public GameStatistics readStatisticsFromFile()
     {
-        GameSettings gS = new GameSettings();
+        GameStatistics gS = new GameStatistics(n);
         try{
-            File file = new File(getFilesDir(), "settings.txt");
+            File file = new File(getFilesDir(), "statistics" + n + ".txt");
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            gS = (GameSettings)in.readObject();
+            gS = (GameStatistics)in.readObject();
             in.close();
             fileIn.close();
-            Log.i("Save","System settings has been readed in " + "settings.txt" + gameSettings.animationActivated);
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
+        Log.i("statistics", gS.toString());
         return gS;
+    }
+    public void saveStatisticsToFile(GameStatistics gS)
+    {
+        try {
+            File file = new File(getFilesDir(), gS.getFilename());
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(gS);
+            out.close();
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -28,10 +28,11 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:weightSum="1">
 
-        <fragment android:name="org.secuso.privacyfriendlyexample.activities.SettingsActivity$GeneralPreferenceFragment"
-            android:id="@+id/settings_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <fragment
+                android:id="@+id/settings_fragment"
+                android:name="org.secuso.privacyfriendlyexample.activities.SettingsActivity$GeneralPreferenceFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

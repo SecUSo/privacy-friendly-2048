@@ -13,7 +13,6 @@ public class GameState implements Serializable {
     public int[] last_numbers;
     public int points = 0;
     public int last_points = 0;
-    public int record = 0;
     public boolean undo=false;
 
     public GameState(int size)
@@ -112,7 +111,6 @@ public class GameState implements Serializable {
         }
         result += ", n: " + n;
         result += ", points: " + points;
-        result += ", record: " + record;
         result += ", undo: " + undo;
         return result;
     }

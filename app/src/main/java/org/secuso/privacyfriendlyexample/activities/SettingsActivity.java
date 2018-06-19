@@ -12,21 +12,11 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
-import org.secuso.privacyfriendlyexample.activities.helper.GameSettings;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -44,7 +34,6 @@ public class SettingsActivity extends BaseActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
-    GameSettings gameSettings = new GameSettings();
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
@@ -107,9 +96,6 @@ public class SettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_settings);
 
         //setupActionBar();
-        gameSettings = readSettingsFromFile();
-        gameSettings.animationActivated=true;
-        saveSettingsToFile(gameSettings);
 
         overridePendingTransition(0, 0);
     }
@@ -209,35 +195,5 @@ public class SettingsActivity extends BaseActivity {
         }
     }
 
-    public void saveSettingsToFile(GameSettings gS)
-    {
-        try {
-            File file = new File(getFilesDir(), "settings.txt");
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(gS);
-            out.close();
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public GameSettings readSettingsFromFile()
-    {
-        GameSettings gS = new GameSettings();
-        try{
-            File file = new File(getFilesDir(), "settings.txt");
-            FileInputStream fileIn = new FileInputStream(file);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            gS = (GameSettings)in.readObject();
-            in.close();
-            fileIn.close();
-            Log.i("Save","System settings has been readed in " + "settings.txt");
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return gS;
-    }
+
 }
