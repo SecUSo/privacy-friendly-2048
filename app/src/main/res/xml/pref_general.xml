@@ -10,6 +10,7 @@
         <ListPreference
             android:defaultValue="1"
             android:dialogIcon="@drawable/ic_menu_tutorial"
+            android:enabled="true"
             android:entries="@array/color_list"
             android:entryValues="@array/color_list_values"
             android:key="pref_color"

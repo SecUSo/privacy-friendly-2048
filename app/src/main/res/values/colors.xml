@@ -33,6 +33,23 @@
     <color name="button16384">#96B4FF</color>
     <color name="button32768">#6482FF</color>
 
+    <!-- own definded colors 2 -->
+    <color name="button_empty_2">#A8A8A8</color>
+    <color name="button2_2">#FAE9E2</color>
+    <color name="button4_2">#FBE6D3</color>
+    <color name="button8_2">#FEB588</color>
+    <color name="button16_2">#F79663</color>
+    <color name="button32_2">#F77D63</color>
+    <color name="button64_2">#F76142</color>
+    <color name="button128_2">#EFCE73</color>
+    <color name="button256_2">#E6CA5B</color>
+    <color name="button512_2">#EECA52</color>
+    <color name="button1024_2">#EEC642</color>
+    <color name="button2048_2">#E6BE29</color>
+    <color name="button4096_2">#EF696B</color>
+    <color name="button8192_2">#E74D52</color>
+    <color name="button16384_2">#DE413A</color>
+    <color name="button32768_2">#73B2D6</color>
 
 
 
