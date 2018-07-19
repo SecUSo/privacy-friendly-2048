@@ -105,6 +105,7 @@ public class MainActivity extends BaseActivity{
         firstLaunchManager = new FirstLaunchManager(this);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
+        Log.i("Loading",""+viewPager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (ImageButton) findViewById(R.id.btn_skip);
         btnNext = (ImageButton) findViewById(R.id.btn_next);
@@ -277,7 +278,7 @@ public class MainActivity extends BaseActivity{
             container.addView(view);
             //newGameButtons
             Button newGameButton;
-            switch (position){
+            /*switch (position){
                 case 0:
                     newGameButton = view.findViewById(R.id.button_newGame4x4);
                     break;
@@ -292,11 +293,12 @@ public class MainActivity extends BaseActivity{
                     break;
                 default:
                     newGameButton = new Button(MainActivity.this);
-            }
+            }*/
+            newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
 
             //continueButton
             Button continueButton;
-            switch (position){
+/*            switch (position){
                 case 0:
                     continueButton = view.findViewById(R.id.button_continueGame4x4);
                     break;
@@ -311,18 +313,19 @@ public class MainActivity extends BaseActivity{
                     break;
                 default:
                     continueButton = new Button(MainActivity.this);
-            }
+            }*/
+            continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
             try {
                 continueButton.setEnabled(gameResumeable[position]);
                 Log.i("Button", "activated = " + gameResumeable[position]);
             }
-            catch(ArrayIndexOutOfBoundsException aie)
+            catch(Exception aie)
             {
                 aie.printStackTrace();
             }
             //highScoreButtons
             Button highScoreButton;
-            switch (position){
+/*            switch (position){
                 case 0:
                     highScoreButton = view.findViewById(R.id.button_highScore4x4);
                     break;
@@ -337,7 +340,8 @@ public class MainActivity extends BaseActivity{
                     break;
                 default:
                     highScoreButton = new Button(MainActivity.this);
-            }
+            }*/
+            highScoreButton = MainActivity.this.findViewById(R.id.button_highscore);
             highScoreButton.setEnabled(false);
 
             addListener(newGameButton,continueButton,position+4);
