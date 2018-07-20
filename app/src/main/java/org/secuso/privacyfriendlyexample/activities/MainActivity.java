@@ -86,6 +86,7 @@ public class MainActivity extends BaseActivity{
         currentPage =  preferences.getInt("currentPage",0);
         Log.i("reading","currentPage " + currentPage);
         viewPager.setCurrentItem(currentPage);
+        updateButtons(currentPage);
     }
 
     @Override
@@ -173,6 +174,7 @@ public class MainActivity extends BaseActivity{
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Button","1: " + temp);
                 Intent  intent = new Intent(MainActivity.this, GameActivity.class);
                 intent.putExtra("n",temp);
                 intent.putExtra("points",0);
@@ -185,6 +187,7 @@ public class MainActivity extends BaseActivity{
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Button","2: " + temp);
                 Log.i("setting",""+temp);
                 Intent  intent = new Intent(MainActivity.this, GameActivity.class);
                 intent.putExtra("n",temp);
@@ -237,6 +240,8 @@ public class MainActivity extends BaseActivity{
             editor.putInt("currentPage",currentPage);
             Log.i("saving","currentPage " + currentPage);
             editor.commit();
+            updateButtons(position);
+
 
         }
 
@@ -250,6 +255,21 @@ public class MainActivity extends BaseActivity{
 
         }
     };
+    public void updateButtons (int position)
+    {
+        Button newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
+        Button continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
+        try {
+            continueButton.setEnabled(gameResumeable[position]);
+            Log.i("Button", "activated = " + gameResumeable[position]);
+        }
+        catch(Exception aie)
+        {
+            aie.printStackTrace();
+        }
+        addListener(newGameButton,continueButton,position+4);
+    }
+
     /**
      * Making notification bar transparent
      */
@@ -276,75 +296,77 @@ public class MainActivity extends BaseActivity{
             Log.i("position", ""+position);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-            //newGameButtons
-            Button newGameButton;
-            /*switch (position){
-                case 0:
-                    newGameButton = view.findViewById(R.id.button_newGame4x4);
-                    break;
-                case 1:
-                    newGameButton = view.findViewById(R.id.button_newGame5x5);
-                    break;
-                case 2:
-                    newGameButton = view.findViewById(R.id.button_newGame6x6);
-                    break;
-                case 3:
-                    newGameButton = view.findViewById(R.id.button_newGame7x7);
-                    break;
-                default:
-                    newGameButton = new Button(MainActivity.this);
-            }*/
-            newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
-
-            //continueButton
-            Button continueButton;
-/*            switch (position){
-                case 0:
-                    continueButton = view.findViewById(R.id.button_continueGame4x4);
-                    break;
-                case 1:
-                    continueButton = view.findViewById(R.id.button_continueGame5x5);
-                    break;
-                case 2:
-                    continueButton = view.findViewById(R.id.button_continueGame6x6);
-                    break;
-                case 3:
-                    continueButton = view.findViewById(R.id.button_continueGame7x7);
-                    break;
-                default:
-                    continueButton = new Button(MainActivity.this);
-            }*/
-            continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
-            try {
-                continueButton.setEnabled(gameResumeable[position]);
-                Log.i("Button", "activated = " + gameResumeable[position]);
-            }
-            catch(Exception aie)
-            {
-                aie.printStackTrace();
-            }
-            //highScoreButtons
-            Button highScoreButton;
-/*            switch (position){
-                case 0:
-                    highScoreButton = view.findViewById(R.id.button_highScore4x4);
-                    break;
-                case 1:
-                    highScoreButton = view.findViewById(R.id.button_highScore5x5);
-                    break;
-                case 2:
-                    highScoreButton = view.findViewById(R.id.button_highScore6x6);
-                    break;
-                case 3:
-                    highScoreButton = view.findViewById(R.id.button_highScore7x7);
-                    break;
-                default:
-                    highScoreButton = new Button(MainActivity.this);
-            }*/
-            highScoreButton = MainActivity.this.findViewById(R.id.button_highscore);
-            highScoreButton.setEnabled(false);
-
-            addListener(newGameButton,continueButton,position+4);
+//            //newGameButtons
+//            Button newGameButton;
+//            /*switch (position){
+//                case 0:
+//                    newGameButton = view.findViewById(R.id.button_newGame4x4);
+//                    break;
+//                case 1:
+//                    newGameButton = view.findViewById(R.id.button_newGame5x5);
+//                    break;
+//                case 2:
+//                    newGameButton = view.findViewById(R.id.button_newGame6x6);
+//                    break;
+//                case 3:
+//                    newGameButton = view.findViewById(R.id.button_newGame7x7);
+//                    break;
+//                default:
+//                    newGameButton = new Button(MainActivity.this);
+//            }*/
+//            newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
+//
+//            //continueButton
+//            Button continueButton;
+///*            switch (position){
+//                case 0:
+//                    continueButton = view.findViewById(R.id.button_continueGame4x4);
+//                    break;
+//                case 1:
+//                    continueButton = view.findViewById(R.id.button_continueGame5x5);
+//                    break;
+//                case 2:
+//                    continueButton = view.findViewById(R.id.button_continueGame6x6);
+//                    break;
+//                case 3:
+//                    continueButton = view.findViewById(R.id.button_continueGame7x7);
+//                    break;
+//                default:
+//                    continueButton = new Button(MainActivity.this);
+//            }*/
+//            continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
+//            try {
+//                continueButton.setEnabled(gameResumeable[position]);
+//                Log.i("Button", "activated = " + gameResumeable[position]);
+//            }
+//            catch(Exception aie)
+//            {
+//                aie.printStackTrace();
+//            }
+//            //highScoreButtons
+//            Button highScoreButton;
+///*            switch (position){
+//                case 0:
+//                    highScoreButton = view.findViewById(R.id.button_highScore4x4);
+//                    break;
+//                case 1:
+//                    highScoreButton = view.findViewById(R.id.button_highScore5x5);
+//                    break;
+//                case 2:
+//                    highScoreButton = view.findViewById(R.id.button_highScore6x6);
+//                    break;
+//                case 3:
+//                    highScoreButton = view.findViewById(R.id.button_highScore7x7);
+//                    break;
+//                default:
+//                    highScoreButton = new Button(MainActivity.this);
+//            }*/
+//            highScoreButton = MainActivity.this.findViewById(R.id.button_highscore);
+//            highScoreButton.setEnabled(false);
+//
+//
+//            //addListener(newGameButton,continueButton,position+4);
+//            Log.i("adding Listener", "pos: " + (position+4));
             return view;
         }
 
