@@ -33,30 +33,9 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
-                android:layoutDirection="ltr">
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/view_pager"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-                <ImageButton
-                    android:id="@+id/btn_next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:onClick="onClick"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+                android:layout_weight="6">
 
                 <ImageButton
                     android:id="@+id/btn_skip"
@@ -67,18 +46,43 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
                     android:onClick="onClick"
                     android:padding="@dimen/activity_horizontal_margin"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
 
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginRight="70dp"
+                    android:layout_weight="1"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                </android.support.v4.view.ViewPager>
+
+                <ImageButton
+                    android:id="@+id/btn_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
             </RelativeLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:baselineAligned="false"
                 android:divider="#000"
                 android:gravity="center_horizontal"
@@ -87,7 +91,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:weightSum="7"
+                android:weightSum="5"
                 tools:context="tu_darmstadt.sudoku.ui.MainActivity">
 
                 <LinearLayout
@@ -107,13 +111,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="2"
+                    android:background="@color/colorPrimary"
                     android:capitalize="none"
                     android:clickable="false"
                     android:onClick="onClick"
                     android:text="@string/new_Game_Button"
                     android:textColor="@color/white"
+                    android:textSize="25sp"
                     android:textStyle="normal" />
 
                 <Button
@@ -121,27 +129,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="2"
+                    android:background="@color/colorPrimary"
                     android:capitalize="none"
                     android:clickable="false"
                     android:onClick="onClick"
                     android:text="@string/continue_Game_Button"
                     android:textColor="@color/white"
-                    android:textStyle="normal" />
-
-                <Button
-                    android:id="@+id/button_highscore"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="2"
-                    android:capitalize="none"
-                    android:clickable="false"
-                    android:onClick="onClick"
-                    android:text="@string/Ranking_Button"
-                    android:textColor="@color/white"
+                    android:textSize="25sp"
                     android:textStyle="normal" />
 
                 <!--  <Button

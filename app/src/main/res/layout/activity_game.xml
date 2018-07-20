@@ -36,8 +36,15 @@
                         android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentLeft="false"
+                        android:layout_alignParentRight="false"
+                        android:layout_alignParentStart="false"
+                        android:layout_alignParentTop="false"
                         android:layout_marginEnd="65dp"
-                        app:srcCompat="@mipmap/ic_launcher" />
+                        android:adjustViewBounds="true"
+                        android:padding="0dp"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/restartbutton" />
 
                     <ImageButton
                         android:id="@+id/undoButton"
@@ -45,7 +52,11 @@
                         android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
-                        app:srcCompat="@mipmap/ic_launcher" />
+                        android:adjustViewBounds="true"
+                        android:padding="0dp"
+                        android:scaleType="fitCenter"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/undobutton" />
 
                     <RelativeLayout
                         android:layout_width="85dp"

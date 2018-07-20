@@ -89,22 +89,29 @@
 
 
                         <ImageButton
-                            android:id="@+id/restartButton"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="59dp"
-                            app:srcCompat="@mipmap/ic_launcher" />
-
-                        <ImageButton
                             android:id="@+id/undoButton"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="10dp"
-                            app:srcCompat="@mipmap/ic_launcher" />
+                            android:layout_marginBottom="62dp"
+                            android:adjustViewBounds="true"
+                            android:padding="0dp"
+                            android:scaleType="fitCenter"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/undobutton" />
+
+                        <ImageButton
+                            android:id="@+id/restartButton"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="11dp"
+                            android:adjustViewBounds="true"
+                            android:padding="0dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/restartbutton" />
 
                         <RelativeLayout
                             android:layout_width="85dp"

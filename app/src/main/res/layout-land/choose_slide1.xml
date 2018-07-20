@@ -1,66 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="220dp"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/layout4x4" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="vertical">
+    android:layout_centerInParent="false"
+    android:layout_centerVertical="false"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="15dp">
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:paddingLeft="@dimen/desc_padding"
-                android:paddingRight="@dimen/desc_padding"
-                android:text="4x4"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/slide_desc" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:adjustViewBounds="true"
+        android:src="@drawable/layout4x4" />
 
-            <Button
-                android:id="@+id/button_newGame4x4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/new_Game_Button" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:paddingLeft="@dimen/desc_padding"
+        android:paddingRight="@dimen/desc_padding"
+        android:text="4x4"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/slide_desc" />
 
-            <Button
-                android:id="@+id/button_continueGame4x4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/continue_Game_Button" />
 
-            <Button
-                android:id="@+id/button_highScore4x4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Ranking_Button" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
