@@ -43,6 +43,7 @@ import org.secuso.privacyfriendlyexample.activities.GameActivity;
 import org.secuso.privacyfriendlyexample.activities.HelpActivity;
 import org.secuso.privacyfriendlyexample.activities.MainActivity;
 import org.secuso.privacyfriendlyexample.activities.SettingsActivity;
+import org.secuso.privacyfriendlyexample.activities.StatsActivity;
 import org.secuso.privacyfriendlyexample.activities.TutorialActivity;
 
 /**
@@ -185,6 +186,10 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
                 break;
             case R.id.nav_help:
                 intent = new Intent(this, HelpActivity.class);
+                createBackStack(intent);
+                break;
+            case R.id.nav_statistics:
+                intent = new Intent(this,StatsActivity.class);
                 createBackStack(intent);
                 break;
             case R.id.nav_settings:

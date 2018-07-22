@@ -62,6 +62,9 @@
                 android:value="org.secuso.privacyfriendlyexample.activities.MainActivity" />
         </activity>
         <activity
+            android:name="org.secuso.privacyfriendlyexample.activities.StatsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".activities.MainActivity"
