@@ -9,6 +9,11 @@ public class GameStatistics implements Serializable {
     private int n = 4;
     private String filename = "statistics" + n + ".txt";
     private long record = 0;
+    private int undo = 0;
+    private int moves_l = 0;
+    private int moves_r = 0;
+    private int moves_t= 0;
+    private int moves_d = 0;
 
     public GameStatistics(int n)
     {
@@ -60,11 +65,53 @@ public class GameStatistics implements Serializable {
         this.record = record;
     }
 
+    public void undo()
+    {
+        undo++;
+    }
+    public void moveL()
+    {
+        moves_l++;
+    }
+    public void moveR()
+    {
+        moves_r++;
+    }
+    public void moveT()
+    {
+        moves_t++;
+    }
+    public void moveD()
+    {
+        moves_d++;
+    }
+
+    public int getUndo()
+    {
+        return undo;
+    }
+
     @Override
     public String toString() {
         return "moves " + moves +
                " timePlayed " + timePlayed/1000.0f +
                 " highest Number " + highestNumber +
                 " record" + record;
+    }
+
+    public int getMoves_d() {
+        return moves_d;
+    }
+
+    public int getMoves_t() {
+        return moves_t;
+    }
+
+    public int getMoves_r() {
+        return moves_r;
+    }
+
+    public int getMoves_l() {
+        return moves_l;
     }
 }

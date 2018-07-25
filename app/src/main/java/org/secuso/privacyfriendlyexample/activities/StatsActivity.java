@@ -23,9 +23,18 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
 import org.secuso.privacyfriendlyexample.R;
+import org.secuso.privacyfriendlyexample.activities.helper.GameStatistics;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InvalidClassException;
+import java.io.ObjectInputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class StatsActivity extends BaseActivity {
 
@@ -132,10 +141,73 @@ public class StatsActivity extends BaseActivity {
             Log.i("position", ""+position);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
+            TextView highestNumber = new TextView(StatsActivity.this);
+            TextView timePlayed = new TextView(StatsActivity.this);
+            TextView undo = new TextView(StatsActivity.this);
+            TextView moves_L = new TextView(StatsActivity.this);
+            TextView moves_R = new TextView(StatsActivity.this);
+            TextView moves_T = new TextView(StatsActivity.this);
+            TextView moves_D = new TextView(StatsActivity.this);
+            switch(position)
+            {
+                case 0:
+                    highestNumber = findViewById(R.id.highest_number1);
+                    timePlayed = findViewById(R.id.time_played1);
+                    undo = findViewById(R.id.undo_number1);
+                    moves_D = findViewById(R.id.moves_D1);
+                    moves_L = findViewById(R.id.moves_L1);
+                    moves_R = findViewById(R.id.moves_R1);
+                    moves_T = findViewById(R.id.moves_T1);
+                    break;
+                case 1:
+                    highestNumber = findViewById(R.id.highest_number2);
+                    timePlayed = findViewById(R.id.time_played2);
+                    undo = findViewById(R.id.undo_number2);
+                    break;
+                case 2:
+                    highestNumber = findViewById(R.id.highest_number3);
+                    timePlayed = findViewById(R.id.time_played3);
+                    undo = findViewById(R.id.undo_number3);
+                    break;
+                case 3:
+                    highestNumber = findViewById(R.id.highest_number4);
+                    timePlayed = findViewById(R.id.time_played4);
+                    undo = findViewById(R.id.undo_number4);
+                    break;
+            }
+            GameStatistics gameStatistics = readStatisticsFromFile(position+4);
+            Date d = new Date(gameStatistics.getTimePlayed());
+
+            highestNumber.setText(""+gameStatistics.getHighestNumber());
+            timePlayed.setText(formatMillis(gameStatistics.getTimePlayed()));
+            undo.setText("" + gameStatistics.getUndo());
+            moves_D.setText("" + gameStatistics.getMoves_d());
+            moves_R.setText("" + gameStatistics.getMoves_r());
+            moves_T.setText("" + gameStatistics.getMoves_t());
+            moves_L.setText("" + gameStatistics.getMoves_l());
+
+
 
             return view;
         }
+        public String formatMillis(long timeInMillis) {
+            String sign = "";
+            if (timeInMillis < 0) {
+                sign = "-";
+                timeInMillis = Math.abs(timeInMillis);
+            }
+            long hours = timeInMillis / TimeUnit.HOURS.toMillis(1);
+            long minutes = timeInMillis % TimeUnit.HOURS.toMillis(1)/ TimeUnit.MINUTES.toMillis(1);
+            long seconds = timeInMillis % TimeUnit.MINUTES.toMillis(1) / TimeUnit.SECONDS.toMillis(1);
+            long millis = timeInMillis % TimeUnit.SECONDS.toMillis(1);
 
+            final StringBuilder formatted = new StringBuilder(20);
+            formatted.append(sign);
+            formatted.append(String.format("%03d",hours));
+            formatted.append(String.format(":%02d", minutes));
+            formatted.append(String.format(":%02d", seconds));
+            return formatted.toString();
+        }
         @Override
         public int getCount() {
             return layouts.length;
@@ -152,7 +224,31 @@ public class StatsActivity extends BaseActivity {
             View view = (View) object;
             container.removeView(view);
         }
+        public GameStatistics readStatisticsFromFile(int n)
+        {
+            GameStatistics gS = new GameStatistics(n);
+            try{
+                File file = new File(getFilesDir(), "statistics" + n + ".txt");
+                FileInputStream fileIn = new FileInputStream(file);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                gS = (GameStatistics)in.readObject();
+                in.close();
+                fileIn.close();
+            }
+            catch(InvalidClassException ice)
+            {
+                File file = new File(getFilesDir(), "statistics" + n + ".txt");
+                file.delete();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            Log.i("statistics", gS.toString());
+            return gS;
+        }
     }
+
 
 
 }

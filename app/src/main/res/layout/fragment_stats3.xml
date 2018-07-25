@@ -49,39 +49,42 @@
                 android:layout_gravity="center"
                 android:text="TEST"
                 android:layout_weight="1"/>
+
             <TextView
+                android:id="@+id/highest_number3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="0"
-                android:id="@+id/numb_of_hints"
-                android:layout_weight="1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TEST"
-                android:layout_weight="1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="0"
-                android:id="@+id/numb_of_total_games"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="0" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="TEST"
                 android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/time_played3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="0" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="0"
-                android:id="@+id/numb_of_total_time"
+                android:text="TEST"
                 android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/undo_number3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="0" />
         </LinearLayout>
     </LinearLayout>
 

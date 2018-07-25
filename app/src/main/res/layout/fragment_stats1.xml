@@ -43,45 +43,51 @@
             android:layout_weight="2"
             android:orientation="vertical"
             android:paddingTop="@dimen/activity_horizontal_margin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TEST"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="Höchste Punktzahl" />
+
+            <TextView
+                android:id="@+id/highest_number1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="0" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="0"
-                android:id="@+id/numb_of_hints"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="Spieldauer" />
+
+            <TextView
+                android:id="@+id/time_played1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="0" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TEST"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="# Undo Button" />
+
             <TextView
+                android:id="@+id/undo_number1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="0"
-                android:id="@+id/numb_of_total_games"
-                android:layout_weight="1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TEST"
-                android:layout_weight="1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="0"
-                android:id="@+id/numb_of_total_time"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="0" />
         </LinearLayout>
     </LinearLayout>
 
@@ -139,18 +145,20 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
+
                 <TextView
+                    android:id="@+id/first_av_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/first_av_text"/>
+                    android:text="L" />
+
                 <TextView
+                    android:id="@+id/moves_L1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/first_ava_time"
+                    android:layout_below="@+id/first_av_text"
                     android:gravity="center_vertical"
-                    android:layout_below="@+id/first_av_text"/>
+                    android:text="0" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -206,18 +214,20 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
+
                 <TextView
+                    android:id="@+id/second_av_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/second_av_text"/>
+                    android:text="R" />
+
                 <TextView
+                    android:id="@+id/moves_R1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/second_ava_time"
+                    android:layout_below="@+id/second_av_text"
                     android:gravity="center_vertical"
-                    android:layout_below="@+id/second_av_text"/>
+                    android:text="0" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
@@ -275,18 +285,20 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
+
                 <TextView
+                    android:id="@+id/third_av_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/third_av_text"/>
+                    android:text="T" />
+
                 <TextView
+                    android:id="@+id/moves_T1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/third_ava_time"
+                    android:layout_below="@+id/third_av_text"
                     android:gravity="center_vertical"
-                    android:layout_below="@+id/third_av_text"/>
+                    android:text="0" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
@@ -341,18 +353,20 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
+
                 <TextView
+                    android:id="@+id/fourth_av_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/fourth_av_text"/>
+                    android:text="D" />
+
                 <TextView
+                    android:id="@+id/moves_D"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/fourth_ava_time"
+                    android:layout_below="@+id/fourth_av_text"
                     android:gravity="center_vertical"
-                    android:layout_below="@+id/fourth_av_text"/>
+                    android:text="0" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"

@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -48,6 +49,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Calendar;
@@ -119,7 +121,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i("ON","Create" + savedInstanceState +  " ");
         Intent intent = getIntent();
         if(firstTime && intent.getBooleanExtra("new",true)) {
             createNewGame = true;
@@ -156,6 +157,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             public void onClick(View v) {
                 undoButton.setVisibility(View.INVISIBLE);
                 if(undo&&last_elements != null) {
+                    gameStatistics.undo();
                     elements = last_elements;
                     points = last_points;
                     number_field.removeAllViews();
@@ -182,7 +184,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         //number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
         startingTime = Calendar.getInstance().getTimeInMillis();
-        Log.i("time","starting" + startingTime);
 
     }
     @Override
@@ -235,6 +236,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             addNumber();
         }
         newGame = false;
+
     }
     public void initializeState()
     {
@@ -360,60 +362,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         e1.setDPosition(e2.getdPosX(),e2.getdPosY());
         e2.animateMoving = false;
         e2.setDPosition(i,j);
-       /*
-        //e1 nach e2 animieren
-        ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) e1.getLayoutParams();
-        int topMargin1 = lp1.topMargin;
-        int leftMargin1 = lp1.leftMargin;
-
-        ViewGroup.MarginLayoutParams lp2 = (ViewGroup.MarginLayoutParams) e2.getLayoutParams();
-        int topMargin2 = lp2.topMargin;
-        int leftMargin2 = lp2.leftMargin;
-
-        //Log.i("Mswitching positions","e1: (" + topMargin1 + "," + leftMargin1 + ") e2: ("+topMargin2 + "," + leftMargin2+")");
-
-        //Log.i("Pos switching positions","e1: (" + e1.getY() + "," + e1.getX() + ") e2: ("+e2.getY() + "," + e2.getX()+")");
-
-        e1.animate().setDuration(10).setInterpolator(new LinearInterpolator()).x(leftMargin2).y(topMargin2).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-                animation.setupEndValues();
-                Log.i("Animation","canceled");
-            }
-            @Override
-            public void onAnimationPause(Animator animation){
-                super.onAnimationPause(animation);
-                Log.i("Animation","paused");
-            }
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                Log.i("Animation","End");
-            }
-        });
-
-        //e1.animate().translationXBy(-leftMargin1 + leftMargin2).translationYBy(-topMargin1+topMargin2).setInterpolator(new LinearInterpolator()).setDuration(movingSpeed).start();
-
-        lp1.topMargin = topMargin2;
-        lp1.leftMargin = leftMargin2;
-        e1.setLayoutParams(lp1);
-
-        lp2.topMargin = topMargin1;
-        lp2.leftMargin = leftMargin1;
-        e2.setLayoutParams(lp2);
-
-        lp1 = (ViewGroup.MarginLayoutParams) e1.getLayoutParams();
-        topMargin1 = lp1.topMargin;
-        leftMargin1 = lp1.leftMargin;
-
-        lp2 = (ViewGroup.MarginLayoutParams) e2.getLayoutParams();
-        topMargin2 = lp2.topMargin;
-        leftMargin2 = lp2.leftMargin;
-
-
-        //Log.i("switched positions","e1: (" + topMargin1 + "," + leftMargin1 + ") e2: ("+topMargin2 + "," + leftMargin2+")");
-*/
 
     }
 
@@ -437,7 +385,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             public boolean onSwipeTop() {
                 element[][] temp = deepCopy(elements);
                 int temp_points = points;
-                Log.i("davor",display(elements));
                 moved = false;
                 element s = new element(getApplicationContext());
 
@@ -516,7 +463,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                Log.i("danach",display(last_elements));
+                if(moved)
+                    gameStatistics.moveT();
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
@@ -608,6 +556,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     undo = true;
                 }
                 Log.i("danach",display(last_elements));
+                if(moved)
+                    gameStatistics.moveR();
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
@@ -699,6 +649,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     undo = true;
                 }
                 Log.i("danach",display(last_elements));
+                if(moved)
+                    gameStatistics.moveL();
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
@@ -709,7 +661,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             public boolean onSwipeBottom() {
                 element[][] temp = deepCopy(elements);
                 int temp_points = points;
-                Log.i("davor",display(elements));
                 moved = false;
                 element s = new element(getApplicationContext());
                 for(int i = 0; i < elements.length;i++)
@@ -789,7 +740,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                Log.i("danach",display(last_elements));
+                if(moved)
+                    gameStatistics.moveD();
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
@@ -855,7 +807,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             {
                 if(elements[i][j].number==WINTHRESHOLD)
                 {
-                    Log.i("INFO","2048 erreicht");
+                    Log.i("INFO","" + WINTHRESHOLD + " erreicht");
                     //MESSAGE
                     new AlertDialog.Builder(this)
                             .setTitle((this.getResources().getString(R.string.Titel_V_Message)))
@@ -969,12 +921,10 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             animation.setupEndValues();
             if(e!=null)
                 e.drawItem();
-            Log.i("Animation M","canceled");
         }
         @Override
         public void onAnimationPause(Animator animation){
             super.onAnimationPause(animation);
-            Log.i("Animation M","paused");
         }
         @Override
         public void onAnimationEnd(Animator animation) {
@@ -1003,17 +953,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         public void onAnimationCancel(Animator animation) {
             super.onAnimationCancel(animation);
             animation.setupEndValues();
-            Log.i("Animation S","canceled");
         }
         @Override
         public void onAnimationPause(Animator animation){
             super.onAnimationPause(animation);
-            Log.i("Animation S","paused");
         }
         @Override
         public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
-            Log.i("Animation S","End");
             if(e!=null) {
                 e.animate().scaleX(1.0f).scaleY(1.0f).setDuration(SCALINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -1073,7 +1020,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     {
                         gameOver();
                     }
-                        Log.i("Game","over");
                 }
             }
             updateGameState();
@@ -1129,6 +1075,13 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if( id == android.R.id.home){
+            saveStateToFile(gameState);
+            gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
+            startingTime = Calendar.getInstance().getTimeInMillis();
+            saveStatisticsToFile(gameStatistics);
+            firstTime = true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -1148,7 +1101,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
         startingTime = Calendar.getInstance().getTimeInMillis();
         saveStateToFile(gameState);
-        saveRecordToFile(record);
         saveStatisticsToFile(gameStatistics);
 
     }
@@ -1165,26 +1117,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             out.writeObject(nS);
             out.close();
             fileOut.close();
-            Log.i("Save","System data has been saved in " + filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void saveRecordToFile(long r)
-    {
-        try {
 
-            File file = new File(getFilesDir(), "record" + n + ".txt");
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(r);
-            out.close();
-            fileOut.close();
-            Log.i("Save","record data has been saved in " + "record" + n + ".txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     public boolean deleteStateFile(String filename)
     {
         try{
@@ -1206,7 +1143,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             nS = (GameState)in.readObject();
-            Log.i("reading", "ungefiltert"+nS);
             boolean emptyField = true;
             for(int i = 0; i <nS.numbers.length;i++)
             {
@@ -1220,10 +1156,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 nS = new GameState(n);
                 newGame = true;
             }
-            Log.i("reading", ""+nS);
             in.close();
             fileIn.close();
-            Log.i("Save","System data has been readed in " + filename);
         }
         catch(Exception e)
         {
@@ -1247,7 +1181,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         {
             e.printStackTrace();
         }
-        Log.i("statistics", gS.toString());
         return gS;
     }
     public void saveStatisticsToFile(GameStatistics gS)
@@ -1259,6 +1192,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             out.writeObject(gS);
             out.close();
             fileOut.close();
+            Log.i("saving", "Game Statistics "+ n);
         } catch (IOException e) {
             e.printStackTrace();
         }

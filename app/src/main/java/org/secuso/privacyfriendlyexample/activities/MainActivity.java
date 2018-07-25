@@ -260,6 +260,11 @@ public class MainActivity extends BaseActivity{
         Button newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
         Button continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
         try {
+            if(!gameResumeable[position])
+                continueButton.setBackgroundColor(getResources().getColor(R.color.middlegrey));
+            else
+                continueButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
             continueButton.setEnabled(gameResumeable[position]);
             Log.i("Button", "activated = " + gameResumeable[position]);
         }
@@ -296,77 +301,7 @@ public class MainActivity extends BaseActivity{
             Log.i("position", ""+position);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-//            //newGameButtons
-//            Button newGameButton;
-//            /*switch (position){
-//                case 0:
-//                    newGameButton = view.findViewById(R.id.button_newGame4x4);
-//                    break;
-//                case 1:
-//                    newGameButton = view.findViewById(R.id.button_newGame5x5);
-//                    break;
-//                case 2:
-//                    newGameButton = view.findViewById(R.id.button_newGame6x6);
-//                    break;
-//                case 3:
-//                    newGameButton = view.findViewById(R.id.button_newGame7x7);
-//                    break;
-//                default:
-//                    newGameButton = new Button(MainActivity.this);
-//            }*/
-//            newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
-//
-//            //continueButton
-//            Button continueButton;
-///*            switch (position){
-//                case 0:
-//                    continueButton = view.findViewById(R.id.button_continueGame4x4);
-//                    break;
-//                case 1:
-//                    continueButton = view.findViewById(R.id.button_continueGame5x5);
-//                    break;
-//                case 2:
-//                    continueButton = view.findViewById(R.id.button_continueGame6x6);
-//                    break;
-//                case 3:
-//                    continueButton = view.findViewById(R.id.button_continueGame7x7);
-//                    break;
-//                default:
-//                    continueButton = new Button(MainActivity.this);
-//            }*/
-//            continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
-//            try {
-//                continueButton.setEnabled(gameResumeable[position]);
-//                Log.i("Button", "activated = " + gameResumeable[position]);
-//            }
-//            catch(Exception aie)
-//            {
-//                aie.printStackTrace();
-//            }
-//            //highScoreButtons
-//            Button highScoreButton;
-///*            switch (position){
-//                case 0:
-//                    highScoreButton = view.findViewById(R.id.button_highScore4x4);
-//                    break;
-//                case 1:
-//                    highScoreButton = view.findViewById(R.id.button_highScore5x5);
-//                    break;
-//                case 2:
-//                    highScoreButton = view.findViewById(R.id.button_highScore6x6);
-//                    break;
-//                case 3:
-//                    highScoreButton = view.findViewById(R.id.button_highScore7x7);
-//                    break;
-//                default:
-//                    highScoreButton = new Button(MainActivity.this);
-//            }*/
-//            highScoreButton = MainActivity.this.findViewById(R.id.button_highscore);
-//            highScoreButton.setEnabled(false);
-//
-//
-//            //addListener(newGameButton,continueButton,position+4);
-//            Log.i("adding Listener", "pos: " + (position+4));
+
             return view;
         }
 
