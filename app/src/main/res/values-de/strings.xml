@@ -9,6 +9,7 @@
     <string name="action_main">Hauptmenü</string>
     <string name="action_game">Spiel</string>
     <string name="action_tutorial">Tutorial</string>
+    <string name="action_stat">Statistik</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -117,5 +118,17 @@
     <string name="Tutorial_Titel_Add">Lerne die Zahlen ineinander zu verschachteln!</string>
     <string name="Tutorial_Add">Um die nächst höhere Zweierpotenz zu erhalten, müssen Zahlen mit gleichem Wert ineinander geschoben werden. Ziel ist es den Wert 2048 und höher zu erreichen.</string>
 
+
+    <!-- ###STATISTICS### -->
+    <string name="Stat_High_Number">Höhste Zahl</string>
+    <string name="Stat_High_Point">Höhste Punktzahl</string>
+    <string name="Stat_Amount_Undo">Genutzer Rückgängigknopf</string>
+    <string name="Stat_Amount_Swipe">Gesamtanzahl Wischer</string>
+    <string name="Stat_Swipes_Left">Rechts</string>
+    <string name="Stat_Swipes_Right">Links</string>
+    <string name="Stat_Swipes_Down">Unten</string>
+    <string name="Stat_Swipes_Up">Oben</string>
+    <string name="Stat_Time">Gesamtspieldauer</string>
+    <string name="Stat_Time_Swipes">Zeit pro Wischer</string>
 
 </resources>

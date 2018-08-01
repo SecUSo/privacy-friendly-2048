@@ -14,7 +14,7 @@
         <item
             android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_menu_tutorial"
-            android:title="STATISTIK" />
+            android:title="@string/action_stat" />
     </group>
 
     <group android:id="@+id/nav_group_add"

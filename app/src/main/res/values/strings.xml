@@ -10,6 +10,7 @@
     <string name="action_main">Main</string>
     <string name="action_game">Game</string>
     <string name="action_tutorial">Tutorial</string>
+    <string name="action_stat">Statistics</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -127,5 +128,18 @@
     <string name="Tutorial_Move">To move all the numbers in the possible position in one direction, you have to swipe your finger in the same way.</string>
     <string name="Tutorial_Titel_Add">How to Combine the Numbers!</string>
     <string name="Tutorial_Add">To get the next higher power of 2 you have to combine numbers with the same value. The goal is to reach 2048 and higher.</string>
+
+    <!-- ###STATISTICS### -->
+    <string name="Stat_High_Number">Highest Number</string>
+    <string name="Stat_High_Point">Highest Score</string>
+    <string name="Stat_Amount_Undo">Used Undo-Button</string>
+    <string name="Stat_Amount_Swipe">Total Amount of Swipes</string>
+    <string name="Stat_Swipes_Left">Left</string>
+    <string name="Stat_Swipes_Right">Right</string>
+    <string name="Stat_Swipes_Down">Down</string>
+    <string name="Stat_Swipes_Up">Up</string>
+    <string name="Stat_Time">Playing Time</string>
+    <string name="Stat_Time_Swipes">Time per Swipe</string>
+
 
 </resources>
