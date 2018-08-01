@@ -12,100 +12,133 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:weightSum="5">
+        android:weightSum="4">
 
         <ImageView
             android:id="@+id/statistic_image"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:layout_weight="2"
+            android:layout_weight="1.2"
             android:adjustViewBounds="true"
-            android:src="@drawable/layout6x6" />
+            android:src="@drawable/layout7x7" />
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="0.2">
+
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:foregroundGravity="center_vertical"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:background="@color/colorPrimary"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
+                android:background="@color/colorPrimary"
+                android:foregroundGravity="center_vertical" />
 
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="2"
+            android:layout_weight="5"
             android:orientation="vertical"
             android:paddingTop="@dimen/activity_horizontal_margin"
-            android:weightSum="6">
+            android:weightSum="5">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Stat_High_Number" />
+                android:orientation="horizontal"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/highest_number3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="0" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="@string/Stat_High_Point" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:gravity="fill_horizontal"
+                        android:text="@string/Stat_High_Number" />
 
-            <TextView
-                android:id="@+id/highest_score3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="0" />
+                    <TextView
+                        android:id="@+id/highest_number4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:gravity="fill_horizontal"
+                        android:text="0" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="@string/Stat_Time" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="@string/Stat_Time" />
 
-            <TextView
-                android:id="@+id/time_played3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="0" />
+                    <TextView
+                        android:id="@+id/time_played4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="0" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="@string/Stat_Amount_Undo" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/undo_number3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="0" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="@string/Stat_High_Point" />
+
+                    <TextView
+                        android:id="@+id/highest_score4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="@string/Stat_Amount_Undo" />
+
+                    <TextView
+                        android:id="@+id/undo_number4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="0" />
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -129,23 +162,23 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
-        android:layout_weight="9"
+        android:layout_weight="8"
         android:orientation="vertical"
-        android:weightSum="9">
+        android:weightSum="5.5">
         <!-- ### first row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:weightSum="4">
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Stat_Amount_Swipe" />
@@ -154,11 +187,12 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/moves_All3"
+                    android:id="@+id/moves_All4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/first_av_text"
@@ -166,16 +200,9 @@
                     android:text="0" />
             </RelativeLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
 
@@ -187,18 +214,20 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/time_swipes3"
+                    android:id="@+id/time_swipes4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/second_av_text"
                     android:gravity="center_vertical"
                     android:text="0" />
             </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -219,43 +248,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="95dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:gravity="right"
+                    android:text="@string/Stat_Swipes_Up" />
 
-                    <TextView
-                        android:layout_width="95dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="@string/Stat_Swipes_Up" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="35dp"
-                        android:layout_weight="100"
-                        app:srcCompat="@drawable/arrow_up" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="80dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    app:srcCompat="@drawable/arrow_up" />
 
-                    <TextView
-                        android:id="@+id/moves_T3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:text="0" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/moves_T4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="0" />
             </LinearLayout>
 
             <LinearLayout
@@ -268,7 +286,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <TextView
                         android:layout_width="95dp"
@@ -278,27 +297,22 @@
                         android:text="@string/Stat_Swipes_Down" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="35dp"
-                        android:layout_weight="100"
+                        android:layout_width="54dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="80dp"
+                        android:layout_weight="1"
                         app:srcCompat="@drawable/arrow_down" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/moves_D3"
+                        android:id="@+id/moves_D4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="50dp"
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0" />
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -318,10 +332,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <TextView
-                        android:id="@+id/textView22"
                         android:layout_width="95dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -329,29 +343,25 @@
                         android:text="@string/Stat_Swipes_Left" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView4"
+                        android:layout_width="54dp"
+                        android:layout_height="13dp"
                         android:layout_marginBottom="3.3dp"
-                        android:layout_marginRight="35dp"
+                        android:layout_marginRight="80dp"
                         android:layout_marginTop="3.3dp"
-                        android:layout_weight="100"
+                        android:layout_weight="1"
                         app:srcCompat="@drawable/arrow_left" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/moves_L3"
+                        android:id="@+id/moves_L4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="50dp"
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -364,7 +374,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <TextView
                         android:layout_width="95dp"
@@ -374,29 +385,24 @@
                         android:text="@string/Stat_Swipes_Right" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="54dp"
+                        android:layout_height="13dp"
                         android:layout_marginBottom="3.3dp"
-                        android:layout_marginRight="35dp"
+                        android:layout_marginRight="80dp"
                         android:layout_marginTop="3.3dp"
-                        android:layout_weight="100"
+                        android:layout_weight="1"
                         app:srcCompat="@drawable/arrow_right" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/moves_R3"
+                        android:id="@+id/moves_R4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="50dp"
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:text="0" />
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -406,4 +412,3 @@
 
 
 </LinearLayout>
-

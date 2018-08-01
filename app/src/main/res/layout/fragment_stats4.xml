@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,14 +13,15 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:weightSum="5">
+
         <ImageView
-            android:layout_weight="2"
+            android:id="@+id/statistic_image"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:id="@+id/statistic_image"
-            android:src="@drawable/layout7x7"
-            android:adjustViewBounds="true"/>
+            android:layout_weight="2"
+            android:adjustViewBounds="true"
+            android:src="@drawable/layout7x7" />
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -36,33 +38,51 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
 
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:weightSum="6"
             android:layout_weight="2"
             android:orientation="vertical"
-            android:paddingTop="@dimen/activity_horizontal_margin">
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:weightSum="6">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TEST"
-                android:layout_weight="1"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/Stat_High_Number" />
 
             <TextView
                 android:id="@+id/highest_number4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:text="0" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TEST"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="@string/Stat_High_Point" />
+
+            <TextView
+                android:id="@+id/highest_score4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/Stat_Time" />
 
             <TextView
                 android:id="@+id/time_played4"
@@ -71,12 +91,13 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="0" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TEST"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="@string/Stat_Amount_Undo" />
 
             <TextView
                 android:id="@+id/undo_number4"
@@ -107,34 +128,27 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
-        android:weightSum="4"
-        android:orientation="vertical">
+        android:layout_marginBottom="10dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:weightSum="9">
         <!-- ### first row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="3">
+            android:layout_weight="1">
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="3"
-                    android:layout_gravity="center"
-                    android:id="@+id/first_diff_bar"
-                    android:layout_below="@+id/first_diff_text"
-                    style="?android:attr/ratingBarStyleSmall"/>
+
                 <TextView
+                    android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="diffi"
-                    android:id="@+id/first_diff_text"
-                    android:gravity="center_vertical"/>
+                    android:text="@string/Stat_Amount_Swipe" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -142,109 +156,58 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/first_av_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/first_ava_time"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/first_av_text"/>
-            </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
                 <TextView
+                    android:id="@+id/moves_All4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/first_min_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/first_min_time"
+                    android:layout_below="@+id/first_av_text"
                     android:gravity="center_vertical"
-                    android:layout_below="@+id/first_min_text"/>
+                    android:text="0" />
             </RelativeLayout>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Stat_Time_Swipes" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/time_swipes4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/second_av_text"
+                    android:gravity="center_vertical"
+                    android:text="0" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"></LinearLayout>
+
         <!-- ### second row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="3">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="3"
-                    android:layout_gravity="center"
-                    android:id="@+id/second_diff_bar"
-                    android:layout_below="@+id/second_diff_text"
-                    style="?android:attr/ratingBarStyleSmall"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="diffi"
-                    android:id="@+id/second_diff_text"
-                    android:gravity="center_vertical"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/second_av_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/second_ava_time"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/second_av_text"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/second_min_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/second_min_time"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/second_min_text"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-
-
-
 
 
         <LinearLayout
@@ -252,133 +215,195 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="3"
-                    android:layout_gravity="center"
-                    android:id="@+id/third_diff_bar"
-                    android:layout_below="@+id/third_diff_text"
-                    style="?android:attr/ratingBarStyleSmall"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="diffi"
-                    android:id="@+id/third_diff_text"
-                    android:gravity="center_vertical"/>
-            </RelativeLayout>
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="95dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/Stat_Swipes_Up" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="100"
+                        app:srcCompat="@drawable/arrow_up" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/moves_T4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="0" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/third_av_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/third_ava_time"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/third_av_text"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/third_min_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/third_min_time"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/third_min_text"/>
-            </RelativeLayout>
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="95dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/Stat_Swipes_Down" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="35dp"
+                        android:layout_weight="100"
+                        app:srcCompat="@drawable/arrow_down" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/moves_D4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="0" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="3"
-                    android:layout_gravity="center"
-                    android:id="@+id/fourth_diff_bar"
-                    android:layout_below="@+id/fourth_diff_text"
-                    style="?android:attr/ratingBarStyleSmall"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="diffi"
-                    android:id="@+id/fourth_diff_text"
-                    android:gravity="center_vertical"/>
-            </RelativeLayout>
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="95dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/Stat_Swipes_Left" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3.3dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginTop="3.3dp"
+                        android:layout_weight="100"
+                        app:srcCompat="@drawable/arrow_left" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/moves_L4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="0" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/fourth_av_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/fourth_ava_time"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/fourth_av_text"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/fourth_min_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/fourth_min_time"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/fourth_min_text"/>
-            </RelativeLayout>
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="95dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/Stat_Swipes_Right" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3.3dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginTop="3.3dp"
+                        android:layout_weight="100"
+                        app:srcCompat="@drawable/arrow_right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/moves_R4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="0" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
+
 
     </LinearLayout>
 
 
 </LinearLayout>
+

@@ -148,6 +148,9 @@ public class StatsActivity extends BaseActivity {
             TextView moves_R = new TextView(StatsActivity.this);
             TextView moves_T = new TextView(StatsActivity.this);
             TextView moves_D = new TextView(StatsActivity.this);
+            TextView moves = new TextView(StatsActivity.this);
+            TextView tpm = new TextView(StatsActivity.this);
+            TextView rekord = new TextView(StatsActivity.this);
             switch(position)
             {
                 case 0:
@@ -158,26 +161,48 @@ public class StatsActivity extends BaseActivity {
                     moves_L = findViewById(R.id.moves_L1);
                     moves_R = findViewById(R.id.moves_R1);
                     moves_T = findViewById(R.id.moves_T1);
+                    moves = findViewById(R.id.moves_All1);
+                    tpm = findViewById(R.id.time_swipes1);
+                    rekord = findViewById(R.id.highest_score1);
                     break;
                 case 1:
                     highestNumber = findViewById(R.id.highest_number2);
                     timePlayed = findViewById(R.id.time_played2);
                     undo = findViewById(R.id.undo_number2);
+                    moves_D = findViewById(R.id.moves_D2);
+                    moves_L = findViewById(R.id.moves_L2);
+                    moves_R = findViewById(R.id.moves_R2);
+                    moves_T = findViewById(R.id.moves_T2);
+                    moves = findViewById(R.id.moves_All2);
+                    tpm = findViewById(R.id.time_swipes2);
+                    rekord = findViewById(R.id.highest_score2);
                     break;
                 case 2:
                     highestNumber = findViewById(R.id.highest_number3);
                     timePlayed = findViewById(R.id.time_played3);
                     undo = findViewById(R.id.undo_number3);
+                    moves_D = findViewById(R.id.moves_D3);
+                    moves_L = findViewById(R.id.moves_L3);
+                    moves_R = findViewById(R.id.moves_R3);
+                    moves_T = findViewById(R.id.moves_T3);
+                    moves = findViewById(R.id.moves_All3);
+                    tpm = findViewById(R.id.time_swipes3);
+                    rekord = findViewById(R.id.highest_score3);
                     break;
                 case 3:
                     highestNumber = findViewById(R.id.highest_number4);
                     timePlayed = findViewById(R.id.time_played4);
                     undo = findViewById(R.id.undo_number4);
+                    moves_D = findViewById(R.id.moves_D4);
+                    moves_L = findViewById(R.id.moves_L4);
+                    moves_R = findViewById(R.id.moves_R4);
+                    moves_T = findViewById(R.id.moves_T4);
+                    moves = findViewById(R.id.moves_All4);
+                    tpm = findViewById(R.id.time_swipes4);
+                    rekord = findViewById(R.id.highest_score4);
                     break;
             }
             GameStatistics gameStatistics = readStatisticsFromFile(position+4);
-            Date d = new Date(gameStatistics.getTimePlayed());
-
             highestNumber.setText(""+gameStatistics.getHighestNumber());
             timePlayed.setText(formatMillis(gameStatistics.getTimePlayed()));
             undo.setText("" + gameStatistics.getUndo());
@@ -185,10 +210,27 @@ public class StatsActivity extends BaseActivity {
             moves_R.setText("" + gameStatistics.getMoves_r());
             moves_T.setText("" + gameStatistics.getMoves_t());
             moves_L.setText("" + gameStatistics.getMoves_l());
+            moves.setText(""+gameStatistics.getMoves());
+            tpm.setText(""+formatSmallMillis(gameStatistics.getTimePlayed()/gameStatistics.getMoves()));
+            rekord.setText(""+gameStatistics.getRecord());
 
 
 
             return view;
+        }
+        public String formatSmallMillis(long timeInMillis) {
+            String sign = "";
+            if (timeInMillis < 0) {
+                sign = "-";
+                timeInMillis = Math.abs(timeInMillis);
+            }
+            long seconds = timeInMillis / TimeUnit.SECONDS.toMillis(1);
+            long millis = timeInMillis % TimeUnit.SECONDS.toMillis(1);
+            final StringBuilder formatted = new StringBuilder(20);
+            formatted.append(sign);
+            formatted.append(String.format("%02d", seconds));
+            formatted.append(String.format(":%03d", millis));
+            return formatted.toString();
         }
         public String formatMillis(long timeInMillis) {
             String sign = "";
