@@ -26,8 +26,8 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="251dp"
-            android:layout_height="308dp"
+            android:layout_width="213dp"
+            android:layout_height="262dp"
             android:background="@drawable/tutorial_swip" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:text="@string/Tutorial_Move"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/slide_desc" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 </RelativeLayout>

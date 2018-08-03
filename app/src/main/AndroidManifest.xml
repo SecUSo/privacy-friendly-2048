@@ -46,8 +46,7 @@
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyexample.activities.MainActivity" />
@@ -77,7 +76,7 @@
             android:name=".activities.GameActivity"
             android:label="@string/title_activity_game"
             android:parentActivityName=".activities.MainActivity"
-            android:configChanges="orientation">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyexample.activities.MainActivity" />

@@ -26,8 +26,8 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="225dp"
-            android:layout_height="280dp"
+            android:layout_width="198dp"
+            android:layout_height="252dp"
             android:background="@drawable/tutorial_add" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:text="@string/Tutorial_Add"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/slide_desc" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -58,14 +58,15 @@
 
     <!--###ABOUT###-->
     <string name="about">About</string>
-    <string name="version_number">Version v 1.5</string>
+    <string name="version">Version: </string>
+    <string name="version_number">v 2.0</string>
     <string name="about_author">Authors:</string>
     <string name ="about_author_names">Saskia Jacob and Julian Wadephul</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
-    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-app-example">Github-Repo</a></string>
+    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-2048">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
     <!-- ###SETTINGS### -->
