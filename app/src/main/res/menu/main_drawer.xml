@@ -13,7 +13,7 @@
             android:title="@string/action_tutorial" />
         <item
             android:id="@+id/nav_statistics"
-            android:icon="@drawable/ic_menu_tutorial"
+            android:icon="@drawable/ic_menu_stat"
             android:title="@string/action_stat" />
     </group>
 

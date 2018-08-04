@@ -1,7 +1,8 @@
 /*
- This file is part of Privacy Friendly App Example.
+ This file is part of Privacy Friendly 2048. This app implements the functions of the
+ game 2048 in a privacy friendly version.
 
- Privacy Friendly App Example is free software:
+ Privacy Friendly 2048 is free software:
  you can redistribute it and/or modify it under the terms of the
  GNU General Public License as published by the Free Software Foundation,
  either version 3 of the License, or any later version.

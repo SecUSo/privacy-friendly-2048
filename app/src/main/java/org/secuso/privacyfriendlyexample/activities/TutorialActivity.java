@@ -1,7 +1,8 @@
 /*
- This file is part of Privacy Friendly App Example.
+ This file is part of Privacy Friendly 2048. This app implements the functions of the
+ game 2048 in a privacy friendly version.
 
- Privacy Friendly App Example is free software:
+ Privacy Friendly 2048 is free software:
  you can redistribute it and/or modify it under the terms of the
  GNU General Public License as published by the Free Software Foundation,
  either version 3 of the License, or any later version.
@@ -33,8 +34,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
@@ -82,6 +85,10 @@ public class TutorialActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
+
+        ImageView imageView = (ImageView) findViewById(R.id.image1);
+
+        //GlideApp.with(this).load("http://goo.gl/gEgYUd").into(imageView);
 
         // adding bottom dots
         addBottomDots(0);
