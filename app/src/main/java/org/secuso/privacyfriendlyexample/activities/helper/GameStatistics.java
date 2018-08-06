@@ -21,6 +21,12 @@ package org.secuso.privacyfriendlyexample.activities.helper;
 
 import java.io.Serializable;
 
+/**
+ * This class contains the GameStatistics and is serializable, to save the statistics into a file.
+ *
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
+ */
 public class GameStatistics implements Serializable {
     private long moves = 0;
     private long timePlayed = 0;

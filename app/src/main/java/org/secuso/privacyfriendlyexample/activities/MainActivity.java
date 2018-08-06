@@ -53,8 +53,9 @@ import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
 import java.io.File;
 
 /**
- * @author Christopher Beckmann, Karola Marky
- * @version 20171016
+ * In this class the main activity is implemented, where the game can be started
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
  */
 public class MainActivity extends BaseActivity{
 
@@ -88,7 +89,6 @@ public class MainActivity extends BaseActivity{
         preferences =  getApplicationContext().getSharedPreferences(mypref,Context.MODE_PRIVATE);
         editor =preferences.edit();
         currentPage =  preferences.getInt("currentPage",0);
-        Log.i("reading","currentPage " + currentPage);
         viewPager.setCurrentItem(currentPage);
         updateButtons(currentPage);
         updateMovingButtons(currentPage);
@@ -111,7 +111,6 @@ public class MainActivity extends BaseActivity{
         firstLaunchManager = new FirstLaunchManager(this);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        Log.i("Loading",""+viewPager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnPrev = (ImageButton) findViewById(R.id.btn_prev);
         btnNext = (ImageButton) findViewById(R.id.btn_next);
@@ -124,16 +123,11 @@ public class MainActivity extends BaseActivity{
 
         for(int i = 0; i < files.length;i++)
         {
-            Log.i("files",files[i].getName());
             for(int j = 0; j < gameResumeable.length;j++)
             {
                 if(files[i].getName().equals("state" + (j+4) + ".txt"))
                     gameResumeable[j] = true;
             }
-        }
-        for(boolean b :gameResumeable)
-        {
-            Log.i("files ","found: " + b);
         }
 
 
@@ -180,7 +174,6 @@ public class MainActivity extends BaseActivity{
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Button","1: " + temp);
                 Intent  intent = new Intent(MainActivity.this, GameActivity.class);
                 intent.putExtra("n",temp);
                 intent.putExtra("points",0);
@@ -193,8 +186,6 @@ public class MainActivity extends BaseActivity{
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Button","2: " + temp);
-                Log.i("setting",""+temp);
                 Intent  intent = new Intent(MainActivity.this, GameActivity.class);
                 intent.putExtra("n",temp);
                 intent.putExtra("new",false);
@@ -244,7 +235,6 @@ public class MainActivity extends BaseActivity{
             addBottomDots(position);
             currentPage = position;
             editor.putInt("currentPage",currentPage);
-            Log.i("saving","currentPage " + currentPage);
             editor.commit();
             updateButtons(position);
 
@@ -289,7 +279,6 @@ public class MainActivity extends BaseActivity{
                 continueButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
             continueButton.setEnabled(gameResumeable[position]);
-            Log.i("Button", "activated = " + gameResumeable[position]);
         }
         catch(Exception aie)
         {
@@ -321,7 +310,6 @@ public class MainActivity extends BaseActivity{
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            Log.i("position", ""+position);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
             ImageView imageView;

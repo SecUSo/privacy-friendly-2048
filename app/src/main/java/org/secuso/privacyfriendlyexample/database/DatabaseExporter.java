@@ -75,13 +75,11 @@ public class DatabaseExporter {
                     try {
 
                         if (cursor.getString(i) != null) {
-                            //Log.d(DEBUG_TAG, cursor.getString(i));
                             rowObject.put(cursor.getColumnName(i), cursor.getString(i));
                         } else {
                             rowObject.put(cursor.getColumnName(i), "");
                         }
                     } catch (Exception e) {
-                        Log.d(DEBUG_TAG, e.getMessage());
                     }
                 }
 

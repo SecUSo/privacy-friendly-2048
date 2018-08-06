@@ -25,6 +25,11 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * This class implements the Gestures Listener for swiping in the game
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
+ */
 public class Gesten implements View.OnTouchListener {
 
     private GestureDetector gestureDetector = null;
@@ -57,7 +62,6 @@ public class Gesten implements View.OnTouchListener {
             try {
                 float diffY = e2.getY() - e1.getY();
                 float diffX = e2.getX() - e1.getX();
-                Log.i("TAG","diffx" + diffX + " diffy " + diffY + " vX " + velocityX + " vY "+velocityY);
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {

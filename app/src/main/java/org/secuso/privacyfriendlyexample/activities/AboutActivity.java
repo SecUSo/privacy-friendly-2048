@@ -30,7 +30,8 @@ import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
 
 /**
- * Created by yonjuni on 15.06.16.
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
  */
 public class AboutActivity extends AppCompatActivity {
 

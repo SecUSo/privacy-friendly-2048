@@ -167,7 +167,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
      * @param itemId Item that has been clicked by the user
      */
     private void callDrawerItem(final int itemId) {
-        Log.i("NavBar","selectedItem");
         Intent intent;
 
         switch(itemId) {

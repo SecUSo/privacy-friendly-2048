@@ -57,6 +57,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * In this class the statistics activity is implemented
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
+ */
 public class StatsActivity extends BaseActivity {
 
     private int[] layouts = new int[]{
@@ -159,7 +164,6 @@ public class StatsActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            Log.i("position", ""+position);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
             TextView highestNumber = new TextView(StatsActivity.this);
@@ -307,7 +311,6 @@ public class StatsActivity extends BaseActivity {
             {
                 e.printStackTrace();
             }
-            Log.i("statistics", gS.toString());
             return gS;
         }
     }

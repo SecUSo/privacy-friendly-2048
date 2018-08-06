@@ -25,8 +25,8 @@ import android.support.v7.app.AppCompatActivity;
 import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
 
 /**
- * @author Karola Marky
- * @version 20161022
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
  */
 
 public class SplashActivity extends AppCompatActivity {

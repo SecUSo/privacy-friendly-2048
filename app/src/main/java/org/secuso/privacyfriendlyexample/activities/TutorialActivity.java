@@ -46,10 +46,9 @@ import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
 
 /**
- * Class structure taken from tutorial at http://www.androidhive.info/2016/05/android-build-intro-slider-app/
- *
- * @author Karola Marky, Christopher Beckmann
- * @version 20161214
+ * In this class the tutorial activity is implemented
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
  */
 public class TutorialActivity extends AppCompatActivity {
 

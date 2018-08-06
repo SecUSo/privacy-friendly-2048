@@ -21,16 +21,12 @@ package org.secuso.privacyfriendlyexample.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -53,16 +49,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
- * @author Christopher Beckmann
- * @version 20161225
- * This activity is an example for the main menu of gaming applications
+ * In this class the game activity is implemented
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
  */
 
 public class GameActivity extends BaseActivityWithoutNavBar {
@@ -70,9 +64,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public TextView textFieldPoints;
     public TextView textFieldRecord;
     public int numberFieldSize = 0;
-    static element [][] elements = null;
-    static element [][] last_elements = null;
-    static element [][] backgroundElements;
+    static Element[][] Elements = null;
+    static Element[][] last_elements = null;
+    static Element[][] backgroundElements;
     static GameState gameState = null;
 
     RelativeLayout number_field;
@@ -162,15 +156,15 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 undoButton.setVisibility(View.INVISIBLE);
                 if(undo&&last_elements != null) {
                     gameStatistics.undo();
-                    elements = last_elements;
+                    Elements = last_elements;
                     points = last_points;
                     number_field.removeAllViews();
                     points = last_points;
                     textFieldPoints.setText(""+points);
                     setDPositions(false);
-                    for(element[] i : elements)
+                    for(Element[] i : Elements)
                     {
-                        for(element j: i)
+                        for(Element j: i)
                         {
                             j.setVisibility(View.INVISIBLE);
                             number_field.addView(j);
@@ -178,11 +172,10 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                         }
                     }
                     updateGameState();
-                    drawAllElements(elements);
+                    drawAllElements(Elements);
                     number_field.refreshDrawableState();
                 }
                 undo = false;
-                Log.i("undoing",display(elements) + " " + number_field.getChildCount());
             }
         });
 
@@ -221,7 +214,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     protected void start()
     {
-        Log.d("started","STARTED_________");
 
         android.view.ViewGroup.LayoutParams lp = number_field.getLayoutParams();
 
@@ -250,7 +242,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         newGame = intent.getBooleanExtra("new", true);
         filename = intent.getStringExtra("filename");
         undo = intent.getBooleanExtra("undo",false);
-        Log.i("init","undo: "+undo);
         if (!newGame) {
             gameState = readStateFromFile();
             points = gameState.points;
@@ -259,19 +250,19 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             gameState = new GameState(n);
             newGame = true;
         }
-        elements = new element[n][n];
-        last_elements = new element[n][n];
-        backgroundElements = new element[n][n];
+        Elements = new Element[n][n];
+        last_elements = new Element[n][n];
+        backgroundElements = new Element[n][n];
 
 
 
     }
 
-    public void drawAllElements(element[][] e)
+    public void drawAllElements(Element[][] e)
     {
-        for(element[] i : e)
+        for(Element[] i : e)
         {
-            for(element j: i)
+            for(Element j: i)
             {
                 j.drawItem();
             }
@@ -280,7 +271,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     public void updateGameState()
     {
-        gameState = new GameState(elements,last_elements);
+        gameState = new GameState(Elements,last_elements);
         gameState.n = n;
         gameState.points = points;
         gameState.last_points = last_points;
@@ -295,7 +286,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         if(getIntent().getIntExtra("n",4)!=n||createNewGame)
         {
             initializeState();
-            Log.i("init","initialializeState()");
 
         }
         gameStatistics = readStatisticsFromFile();
@@ -317,34 +307,34 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         else
             undoButton.setVisibility(View.INVISIBLE);
 
-        for(int i = 0; i < elements.length; i++) {
-            for (int j = 0; j < elements[i].length; j++) {
+        for(int i = 0; i < Elements.length; i++) {
+            for (int j = 0; j < Elements[i].length; j++) {
                 //background elements
-                backgroundElements[i][j] = new element(this);
+                backgroundElements[i][j] = new Element(this);
                 //backgroundElements[i][j].setVisibility(View.INVISIBLE);
 
-                elements[i][j] = new element(this);
-                elements[i][j].setNumber(gameState.getNumber(i,j));
-                elements[i][j].drawItem();
-                if(elements[i][j].getNumber() >= WINTHRESHOLD)
+                Elements[i][j] = new Element(this);
+                Elements[i][j].setNumber(gameState.getNumber(i,j));
+                Elements[i][j].drawItem();
+                if(Elements[i][j].getNumber() >= WINTHRESHOLD)
                     won2048 = true;
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(number_size ,number_size);
                 lp.setMarginStart(abstand+j*(number_size+abstand));
                 lp.topMargin = abstand+i*(number_size+abstand);
-                elements[i][j].setDPosition(lp.getMarginStart(),lp.topMargin);
-                elements[i][j].setLayoutParams(lp);
+                Elements[i][j].setDPosition(lp.getMarginStart(),lp.topMargin);
+                Elements[i][j].setLayoutParams(lp);
                 backgroundElements[i][j].setLayoutParams(lp);
-                elements[i][j].updateFontSize();
+                Elements[i][j].updateFontSize();
                 backgroundElements[i][j].setLayoutParams(lp);
                 number_field_background.addView(backgroundElements[i][j]);
-                number_field.addView(elements[i][j]);
+                number_field.addView(Elements[i][j]);
             }
         }
-        last_elements =deepCopy(elements);
+        last_elements =deepCopy(Elements);
         if(undo)
         {
-            for(int i = 0; i < elements.length; i++) {
-                for (int j = 0; j < elements[i].length; j++) {
+            for(int i = 0; i < Elements.length; i++) {
+                for (int j = 0; j < Elements[i].length; j++) {
                     last_elements[i][j].setNumber(gameState.getLastNumber(i,j));
                 }
             }
@@ -357,7 +347,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             newGame = false;
         }
     }
-    public void switchElementPositions(element e1,element e2)
+    public void switchElementPositions(Element e1, Element e2)
     {
         int i = e1.getdPosX();
         int j = e1.getdPosY();
@@ -369,12 +359,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     }
 
-    public element[][] deepCopy(element[][]e)
+    public Element[][] deepCopy(Element[][]e)
     {
-        element [][] r = new element[e.length][];
+        Element[][] r = new Element[e.length][];
         for(int i = 0; i < r.length; i++)
         {
-            r[i] = new element [e[i].length];
+            r[i] = new Element[e[i].length];
             for(int j = 0; j < r[i].length; j++)
             {
                 r[i][j] = e[i][j].copy();
@@ -387,73 +377,73 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     {
         swipeListener = new Gesten(this){
             public boolean onSwipeTop() {
-                element[][] temp = deepCopy(elements);
+                Element[][] temp = deepCopy(Elements);
                 int temp_points = points;
                 moved = false;
-                element s = new element(getApplicationContext());
+                Element s = new Element(getApplicationContext());
 
-                for(int i = 0; i < elements.length;i++)
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[0][i].number;
+                    s.number =  Elements[0][i].number;
                     s.posX = 0;
                     s.posY = i;
 
 
-                    for(int j = 1; j<elements[i].length;j++)
+                    for(int j = 1; j< Elements[i].length; j++)
                     {
-                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
+                        if(Elements[j][i].number != 0 &&( s.number == 0 || s.number == Elements[j][i].number))
                         {
                             moved=true;
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
-                            element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[j][i].setNumber(s.number + Elements[j][i].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[j][i], Elements[s.posX][s.posY]);
+                            Element z = Elements[j][i];
+                            Elements[j][i] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
                             if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
+                                points += Elements[s.posX][s.posY].number;
                             if(s.number !=0)
                                 s.posX++;
                             j=s.posX;
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
 
                         }
-                        else if(elements[j][i].number != 0)
+                        else if(Elements[j][i].number != 0)
                         {
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
                         }
                     }
 
                 }
-                for(int i = 0; i < elements.length;i++)
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[0][i].number;
+                    s.number =  Elements[0][i].number;
                     s.posX = 0;
                     s.posY = i;
 
 
-                    for(int j = 1; j<elements[i].length;j++)
+                    for(int j = 1; j< Elements[i].length; j++)
                     {
-                        if(elements[j][i].number != 0 && s.number == 0)
+                        if(Elements[j][i].number != 0 && s.number == 0)
                         {
                             moved=true;
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
-                            element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[j][i].setNumber(s.number + Elements[j][i].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[j][i], Elements[s.posX][s.posY]);
+                            Element z = Elements[j][i];
+                            Elements[j][i] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
                             if(s.number !=0)
                                 s.posX++;
                             j=s.posX;
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
 
                         }
                         else if(s.number != 0)
                         {
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
                         }
@@ -472,80 +462,79 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
-                Log.d("TAG","up");
                 //es wurde nach oben gewischt, hier den Code einfügen
                 return false;
             }
             public boolean onSwipeRight() {
-                element[][] temp = deepCopy(elements);
+                Element[][] temp = deepCopy(Elements);
                 int temp_points = points;
                 moved = false;
-                element s = new element(getApplicationContext());
-                for(int i = 0; i < elements.length;i++)
+                Element s = new Element(getApplicationContext());
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[i][elements[i].length-1].number;
+                    s.number =  Elements[i][Elements[i].length-1].number;
                     s.posX = i;
-                    s.posY = elements[i].length-1;
+                    s.posY = Elements[i].length-1;
 
 
-                    for(int j = elements[i].length-2; j >= 0;j--)
+                    for(int j = Elements[i].length-2; j >= 0; j--)
                     {
-                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
+                        if(Elements[i][j].number != 0 &&( s.number == 0 || s.number == Elements[i][j].number))
                         {
                             moved=true;
 
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
-                            element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[i][j].setNumber(s.number + Elements[i][j].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[i][j], Elements[s.posX][s.posY]);
+                            Element z = Elements[i][j];
+                            Elements[i][j] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
 
                             if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
+                                points += Elements[s.posX][s.posY].number;
                             if(s.number !=0)
                                 s.posY--;
                             j=s.posY;
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                         }
-                        else if(elements[i][j].number != 0)
+                        else if(Elements[i][j].number != 0)
                         {
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
                         }
                     }
 
                 }
-                for(int i = 0; i < elements.length;i++)
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[i][elements[i].length-1].number;
+                    s.number =  Elements[i][Elements[i].length-1].number;
                     s.posX = i;
-                    s.posY = elements[i].length-1;
+                    s.posY = Elements[i].length-1;
 
 
-                    for(int j = elements[i].length-2; j >= 0;j--)
+                    for(int j = Elements[i].length-2; j >= 0; j--)
                     {
-                        if(elements[i][j].number != 0 && s.number == 0 )
+                        if(Elements[i][j].number != 0 && s.number == 0 )
                         {
                             moved=true;
 
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
-                            element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[i][j].setNumber(s.number + Elements[i][j].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[i][j], Elements[s.posX][s.posY]);
+                            Element z = Elements[i][j];
+                            Elements[i][j] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
 
 
                             if(s.number !=0)
                                 s.posY--;
                             j=s.posY;
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                         }
                         else if(s.number != 0)
                         {
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
                         }
@@ -559,86 +548,84 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                Log.i("danach",display(last_elements));
                 if(moved)
                     gameStatistics.moveR();
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
-                Log.d("TAG","right");
 
                 //es wurde nach rechts gewischt, hier den Code einfügen
                 return false;
             }
             public boolean onSwipeLeft() {
-                element[][] temp = deepCopy(elements);
+                Element[][] temp = deepCopy(Elements);
                 int temp_points = points;
                 moved = false;
-                element s = new element(getApplicationContext());
-                for(int i = 0; i < elements.length;i++)
+                Element s = new Element(getApplicationContext());
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[i][0].number;
+                    s.number =  Elements[i][0].number;
                     s.posX = i;
                     s.posY = 0;
 
 
-                    for(int j = 1; j<elements[i].length;j++)
+                    for(int j = 1; j< Elements[i].length; j++)
                     {
-                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
+                        if(Elements[i][j].number != 0 &&( s.number == 0 || s.number == Elements[i][j].number))
                         {
                             moved=true;
 
 
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
-                            element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[i][j].setNumber(s.number + Elements[i][j].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[i][j], Elements[s.posX][s.posY]);
+                            Element z = Elements[i][j];
+                            Elements[i][j] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
 
                             if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
+                                points += Elements[s.posX][s.posY].number;
                             if(s.number !=0)
                                 s.posY++;
                             j=s.posY;
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                         }
-                        else if(elements[i][j].number != 0)
+                        else if(Elements[i][j].number != 0)
                         {
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
                         }
                     }
 
                 }
-                for(int i = 0; i < elements.length;i++)
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[i][0].number;
+                    s.number =  Elements[i][0].number;
                     s.posX = i;
                     s.posY = 0;
 
-                    for(int j = 1; j<elements[i].length;j++)
+                    for(int j = 1; j< Elements[i].length; j++)
                     {
-                        if(elements[i][j].number != 0 && s.number == 0)
+                        if(Elements[i][j].number != 0 && s.number == 0)
                         {
                             moved=true;
 
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j],elements[s.posX][s.posY]);
-                            element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[i][j].setNumber(s.number + Elements[i][j].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[i][j], Elements[s.posX][s.posY]);
+                            Element z = Elements[i][j];
+                            Elements[i][j] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
 
                             if(s.number !=0)
                                 s.posY++;
                             j=s.posY;
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                         }
                         else if(s.number != 0)
                         {
-                            s.number = elements[i][j].number;
+                            s.number = Elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
                         }
@@ -652,85 +639,83 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                Log.i("danach",display(last_elements));
                 if(moved)
                     gameStatistics.moveL();
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
-                Log.d("TAG","left");
                 //es wurde nach links gewischt, hier den Code einfügen
                 return false;
             }
             public boolean onSwipeBottom() {
-                element[][] temp = deepCopy(elements);
+                Element[][] temp = deepCopy(Elements);
                 int temp_points = points;
                 moved = false;
-                element s = new element(getApplicationContext());
-                for(int i = 0; i < elements.length;i++)
+                Element s = new Element(getApplicationContext());
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[elements[i].length-1][i].number;
-                    s.posX = elements[i].length-1;
+                    s.number =  Elements[Elements[i].length-1][i].number;
+                    s.posX = Elements[i].length-1;
                     s.posY = i;
 
 
-                    for(int j = elements[i].length-2; j>=0;j--)
+                    for(int j = Elements[i].length-2; j>=0; j--)
                     {
-                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
+                        if(Elements[j][i].number != 0 &&( s.number == 0 || s.number == Elements[j][i].number))
                         {
                             moved=true;
 
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
-                            element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[j][i].setNumber(s.number + Elements[j][i].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[j][i], Elements[s.posX][s.posY]);
+                            Element z = Elements[j][i];
+                            Elements[j][i] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
 
                             if(s.number!=0)
-                                points += elements[s.posX][s.posY].number;
+                                points += Elements[s.posX][s.posY].number;
                             if(s.number !=0)
                                 s.posX--;
                             j=s.posX;
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
                         }
-                        else if(elements[j][i].number != 0)
+                        else if(Elements[j][i].number != 0)
                         {
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
                         }
                     }
 
                 }
-                for(int i = 0; i < elements.length;i++)
+                for(int i = 0; i < Elements.length; i++)
                 {
-                    s.number =  elements[elements[i].length-1][i].number;
-                    s.posX = elements[i].length-1;
+                    s.number =  Elements[Elements[i].length-1][i].number;
+                    s.posX = Elements[i].length-1;
                     s.posY = i;
 
 
-                    for(int j = elements[i].length-2; j>=0;j--)
+                    for(int j = Elements[i].length-2; j>=0; j--)
                     {
-                        if(elements[j][i].number != 0 &&s.number == 0)
+                        if(Elements[j][i].number != 0 &&s.number == 0)
                         {
                             moved=true;
 
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i],elements[s.posX][s.posY]);
-                            element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
+                            Elements[j][i].setNumber(s.number + Elements[j][i].number);
+                            Elements[s.posX][s.posY].setNumber(0);
+                            switchElementPositions(Elements[j][i], Elements[s.posX][s.posY]);
+                            Element z = Elements[j][i];
+                            Elements[j][i] = Elements[s.posX][s.posY];
+                            Elements[s.posX][s.posY] = z;
 
                             if(s.number !=0)
                                 s.posX--;
                             j=s.posX;
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
                         }
                         else if(s.number != 0)
                         {
-                            s.number = elements[j][i].number;
+                            s.number = Elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
                         }
@@ -749,39 +734,37 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 addNumber();
                 setDPositions(animationActivated);
                 updateGameState();
-                Log.d("TAG","down");
                 //es wurde nach unten gewischt, hier den Code einfügen
                 return false;
             }
             public boolean nichts(){
-                Log.d("TAG","nothing");
                 //es wurde keine wischrichtung erkannt, hier den Code einfügen
                 return false;
             }
         };
         touch_field.setOnTouchListener(swipeListener);
         number_field.setOnTouchListener(swipeListener);
-        for(int i = 0; i < elements.length; i++) {
-            for (int j = 0; j < elements[i].length; j++) {
-                elements[i][j].setOnTouchListener(swipeListener);
+        for(int i = 0; i < Elements.length; i++) {
+            for (int j = 0; j < Elements[i].length; j++) {
+                Elements[i][j].setOnTouchListener(swipeListener);
                 backgroundElements[i][j].setOnTouchListener(swipeListener);
             }
         }
     }
-    public String display(element[][] e)
+    public String display(Element[][] e)
     {
         String result = "\n";
         for(int i = 0; i < e.length; i++)
         {
             for(int j = 0; j < e[i].length;j++)
-                result = result + " " + elements[i][j].number; //+ " "+elements[i][j];
+                result = result + " " + Elements[i][j].number; //+ " "+elements[i][j];
             result = result + "\n";
         }
         result += "\n";
         for(int i = 0; i < e.length; i++)
         {
             for(int j = 0; j < e[i].length;j++)
-                result = result + " (" + elements[i][j].getX() + " , " + elements[i][j].getY() + ")" + " v:" + elements[i][j].getVisibility();//+" "+elements[i][j];
+                result = result + " (" + Elements[i][j].getX() + " , " + Elements[i][j].getY() + ")" + " v:" + Elements[i][j].getVisibility();//+" "+elements[i][j];
             result = result + "\n";
         }
         return result;
@@ -789,13 +772,13 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     public void updateHighestNumber()
     {
-        for(int i = 0; i < elements.length;i++)
+        for(int i = 0; i < Elements.length; i++)
         {
-            for(int j = 0; j < elements[i].length;j++)
+            for(int j = 0; j < Elements[i].length; j++)
             {
-                if(highestNumber < elements[i][j].number)
+                if(highestNumber < Elements[i][j].number)
                 {
-                    highestNumber = elements[i][j].number;
+                    highestNumber = Elements[i][j].number;
                     gameStatistics.setHighestNumber(highestNumber);
                 }
             }
@@ -805,13 +788,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public void check2048()
     {
         if(won2048 == false)
-        for(int i = 0; i < elements.length;i++)
+        for(int i = 0; i < Elements.length; i++)
         {
-            for(int j = 0; j < elements[i].length;j++)
+            for(int j = 0; j < Elements[i].length; j++)
             {
-                if(elements[i][j].number==WINTHRESHOLD)
+                if(Elements[i][j].number==WINTHRESHOLD)
                 {
-                    Log.i("INFO","" + WINTHRESHOLD + " erreicht");
                     //MESSAGE
                     new AlertDialog.Builder(this)
                             .setTitle((this.getResources().getString(R.string.Titel_V_Message)))
@@ -819,7 +801,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Log.i("Ende","nein");
                                     onBackPressed();
 
                                 }
@@ -827,7 +808,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             .setPositiveButton((this.getResources().getString(R.string.Yes_Message)), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Log.i("Ende","ja");
                                 }
                             })
                             .setCancelable(false)
@@ -853,9 +833,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             MOVINGSPEED = 1;
             scale = false;
         }
-        for(element[] i: elements)
+        for(Element[] i: Elements)
         {
-            for(element j:i)
+            for(Element j:i)
             {
                 if(j.dPosX != j.getX())
                 {
@@ -910,11 +890,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     class MovingListener extends AnimatorListenerAdapter {
-        element e = null;
+        Element e = null;
         long SCALINGSPEED = 100;
         float scalingFactor = 1.5f;
         boolean scale =false;
-        public MovingListener(element e, boolean scale )
+        public MovingListener(Element e, boolean scale )
         {
             super();
             this.e = e;
@@ -946,8 +926,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     class ScalingListener extends AnimatorListenerAdapter {
-        element e = null;
-        public ScalingListener(element e)
+        Element e = null;
+        public ScalingListener(Element e)
         {
             super();
             this.e = e;
@@ -991,12 +971,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         if(moved) {
             moved = false;
             textFieldPoints.setText("" + points);
-            element[] empty_fields = new element[n * n];
+            Element[] empty_fields = new Element[n * n];
             int counter = 0;
-            for (int i = 0; i < elements.length; i++) {
-                for (int j = 0; j < elements[i].length; j++) {
-                    if (elements[i][j].number == 0) {
-                        empty_fields[counter++] = elements[i][j];
+            for (int i = 0; i < Elements.length; i++) {
+                for (int j = 0; j < Elements[i].length; j++) {
+                    if (Elements[i][j].number == 0) {
+                        empty_fields[counter++] = Elements[i][j];
                     }
                 }
             }
@@ -1015,9 +995,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 if(counter == 1)
                 {
                     gameOver = true;
-                    for (int i = 0; i < elements.length; i++) {
-                        for (int j = 0; j < elements[i].length; j++) {
-                            if ((i+1 < elements.length && elements[i][j].number == elements[i+1][j].number)|| (j+1 < elements[i].length && elements[i][j].number == elements[i][j+1].number)) {
+                    for (int i = 0; i < Elements.length; i++) {
+                        for (int j = 0; j < Elements[i].length; j++) {
+                            if ((i+1 < Elements.length && Elements[i][j].number == Elements[i+1][j].number)|| (j+1 < Elements[i].length && Elements[i][j].number == Elements[i][j+1].number)) {
                                 gameOver = false;
                                 break;
                             }
@@ -1041,8 +1021,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.i("Ende","nein");
-                        Log.i("StateFile ", "deleted: " + deleteStateFile(filename));
                         //saveRecordToFile(record);
                         saveStatisticsToFile(gameStatistics);
                         createNewGame = true;
@@ -1055,7 +1033,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 .setPositiveButton((this.getResources().getString(R.string.Yes_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.i("Ende","ja");
                         saveStatisticsToFile(gameStatistics);
                         createNewGame();
                     }
@@ -1116,7 +1093,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     public void saveStateToFile(GameState nS)
     {
-        Log.i("saving", ""+nS);
         try {
             if(filename == null)
                 filename = "state" + n + ".txt";
@@ -1201,7 +1177,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             out.writeObject(gS);
             out.close();
             fileOut.close();
-            Log.i("saving", "Game Statistics "+ n);
         } catch (IOException e) {
             e.printStackTrace();
         }

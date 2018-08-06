@@ -45,8 +45,8 @@ import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
 /**
  * Class structure taken from tutorial at http://www.androidhive.info/2016/05/android-build-intro-slider-app/
  *
- * @author Karola Marky, Christopher Beckmann
- * @version 20161214
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
  */
 public class ChooseActivity extends BaseActivity {
 

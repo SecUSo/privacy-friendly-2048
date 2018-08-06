@@ -22,10 +22,16 @@ package org.secuso.privacyfriendlyexample.activities.helper;
 
 import android.util.Log;
 
-import org.secuso.privacyfriendlyexample.activities.element;
+import org.secuso.privacyfriendlyexample.activities.Element;
 
 import java.io.Serializable;
 
+/**
+ * This class is a serializable to save the actual GameState in a file. It contains the central Game variables.
+ *
+ * @author Julian Wadephul and Saskia Jacob
+ * @version 20180807
+ */
 public class GameState implements Serializable {
     public int n = 4;
     public int[] numbers;
@@ -57,7 +63,7 @@ public class GameState implements Serializable {
         }
         last_numbers = numbers;
     }
-    public GameState(element[][] e,element[][] e2)
+    public GameState(Element[][] e, Element[][] e2)
     {
         int length = 1;
         for(int i = 0; i < e.length; i++)
@@ -99,7 +105,6 @@ public class GameState implements Serializable {
         }
         catch(ArrayIndexOutOfBoundsException e)
         {
-            Log.d("ERROR","i: " + i + " j: " + j + "i*n+j" + (i*n+j));
             e.printStackTrace();
         }
 
@@ -113,7 +118,6 @@ public class GameState implements Serializable {
         }
         catch(ArrayIndexOutOfBoundsException e)
         {
-            Log.d("ERROR","i: " + i + " j: " + j + "i*n+j" + (i*n+j));
             e.printStackTrace();
         }
 
