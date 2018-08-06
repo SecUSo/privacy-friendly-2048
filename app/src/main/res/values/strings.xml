@@ -70,7 +70,6 @@
     <string name="No_Message">No</string>
     <string name="Titel_V_Message">Victory</string>
     <string name="Titel_L_Message">Lost</string>
-    <string name="Lost_Message">You lost. Would you like to start a new game?</string>
     <string name="Lost_Message">You lost. Your archieved score was: %1$d.Would you like to start a new game?</string>
 
 
