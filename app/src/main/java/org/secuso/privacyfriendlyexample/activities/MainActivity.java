@@ -39,8 +39,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.activities.helper.BaseActivity;
@@ -59,7 +62,7 @@ public class MainActivity extends BaseActivity{
     private MainActivity.MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
-    private ImageButton btnSkip, btnNext;
+    private ImageButton btnPrev, btnNext;
     private FirstLaunchManager firstLaunchManager;
     private int currentPage = 0;
     private SharedPreferences.Editor editor;
@@ -109,7 +112,7 @@ public class MainActivity extends BaseActivity{
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         Log.i("Loading",""+viewPager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (ImageButton) findViewById(R.id.btn_skip);
+        btnPrev = (ImageButton) findViewById(R.id.btn_prev);
         btnNext = (ImageButton) findViewById(R.id.btn_next);
 
 
@@ -143,7 +146,7 @@ public class MainActivity extends BaseActivity{
 
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-            btnSkip.setOnClickListener(new View.OnClickListener() {
+            btnPrev.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int current = getItem(-1);
@@ -243,7 +246,20 @@ public class MainActivity extends BaseActivity{
             editor.commit();
             updateButtons(position);
 
-
+            if (position == layouts.length - 1) {
+                // last page. make button text to GOT IT
+                btnNext.setVisibility(View.INVISIBLE);
+            } else {
+                // still pages are left
+                btnNext.setVisibility(View.VISIBLE);
+            }
+            if (position == 0) {
+                // last page. make button text to GOT IT
+                btnPrev.setVisibility(View.INVISIBLE);
+            } else {
+                // still pages are left
+                btnPrev.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -302,7 +318,26 @@ public class MainActivity extends BaseActivity{
             Log.i("position", ""+position);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-
+            ImageView imageView;
+            switch(position)
+            {
+                case 0:
+                    imageView = (ImageView) findViewById(R.id.main_menu_img1);
+                    Glide.with(MainActivity.this).load(R.drawable.layout4x4).into(imageView);
+                    break;
+                case 1:
+                    imageView = (ImageView) findViewById(R.id.main_menu_img2);
+                    Glide.with(MainActivity.this).load(R.drawable.layout5x5).into(imageView);
+                    break;
+                case 2:
+                    imageView = (ImageView) findViewById(R.id.main_menu_img3);
+                    Glide.with(MainActivity.this).load(R.drawable.layout6x6).into(imageView);
+                    break;
+                case 3:
+                    imageView = (ImageView) findViewById(R.id.main_menu_img4);
+                    Glide.with(MainActivity.this).load(R.drawable.layout7x7).into(imageView);
+                    break;
+            }
             return view;
         }
 

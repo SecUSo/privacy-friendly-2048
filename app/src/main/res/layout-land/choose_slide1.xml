@@ -11,11 +11,11 @@
 
 
     <ImageView
+        android:id="@+id/main_menu_img1"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:adjustViewBounds="true"
-        android:src="@drawable/layout4x4" />
+        android:adjustViewBounds="true" />
 
     <TextView
         android:layout_width="wrap_content"

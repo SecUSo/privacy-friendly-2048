@@ -28,13 +28,13 @@
 
 
         <ImageView
+            android:id="@+id/image3"
             android:layout_width="225dp"
             android:layout_height="280dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/tutorial_swip" />
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="wrap_content"

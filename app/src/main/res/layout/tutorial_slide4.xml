@@ -26,9 +26,9 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/image4"
             android:layout_width="198dp"
-            android:layout_height="252dp"
-            android:background="@drawable/tutorial_add" />
+            android:layout_height="252dp" />
 
         <TextView
             android:layout_width="wrap_content"

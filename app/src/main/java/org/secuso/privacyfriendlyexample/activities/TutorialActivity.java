@@ -28,6 +28,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+import com.bumptech.glide.Glide;
 
 import org.secuso.privacyfriendlyexample.R;
 import org.secuso.privacyfriendlyexample.helpers.FirstLaunchManager;
@@ -86,9 +89,7 @@ public class TutorialActivity extends AppCompatActivity {
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
 
-        ImageView imageView = (ImageView) findViewById(R.id.image1);
 
-        //GlideApp.with(this).load("http://goo.gl/gEgYUd").into(imageView);
 
         // adding bottom dots
         addBottomDots(0);
@@ -99,6 +100,16 @@ public class TutorialActivity extends AppCompatActivity {
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+
+        try {
+            ImageView imageView = (ImageView) findViewById(R.id.image1);
+            Glide.with(TutorialActivity.this).load(R.mipmap.ic_splash).into(imageView);//.into(imageView);//@mipmap/ic_splash).into(imageView);
+        }
+        catch(NullPointerException ne)
+        {
+
+        }
 
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +172,8 @@ public class TutorialActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
+
+
             addBottomDots(position);
 
             // changing the next button text 'NEXT' / 'GOT IT'
@@ -177,7 +190,6 @@ public class TutorialActivity extends AppCompatActivity {
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
-
         }
 
         @Override
@@ -212,7 +224,26 @@ public class TutorialActivity extends AppCompatActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-
+            ImageView imageView;
+            switch(position)
+            {
+                case 0:
+                    imageView = (ImageView) findViewById(R.id.image1);
+                    Glide.with(TutorialActivity.this).load(R.mipmap.ic_splash).into(imageView);
+                    break;
+                case 1:
+                    imageView = (ImageView) findViewById(R.id.image2);
+                    Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move).into(imageView);
+                    break;
+                case 2:
+                    imageView = (ImageView) findViewById(R.id.image3);
+                    Glide.with(TutorialActivity.this).load(R.drawable.tutorial_swip).into(imageView);
+                    break;
+                case 3:
+                    imageView = (ImageView) findViewById(R.id.image4);
+                    Glide.with(TutorialActivity.this).load(R.drawable.tutorial_add).into(imageView);
+                    break;
+            }
             return view;
         }
 
