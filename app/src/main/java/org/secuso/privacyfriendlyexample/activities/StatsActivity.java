@@ -48,7 +48,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
+import java.math.RoundingMode;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -243,12 +245,14 @@ public class StatsActivity extends BaseActivity {
                 sign = "-";
                 timeInMillis = Math.abs(timeInMillis);
             }
-            long seconds = timeInMillis / TimeUnit.SECONDS.toMillis(1);
-            long millis = timeInMillis % TimeUnit.SECONDS.toMillis(1);
+            Double seconds = new Double(((double)timeInMillis) / (double)TimeUnit.SECONDS.toMillis(1));
+            StringBuilder sb = new StringBuilder(",##0.00");
+            DecimalFormat df = new DecimalFormat(sb.toString());
+            df.setRoundingMode(RoundingMode.HALF_UP);
             final StringBuilder formatted = new StringBuilder(20);
             formatted.append(sign);
-            formatted.append(String.format("%02d", seconds));
-            formatted.append(String.format(":%03d", millis));
+            formatted.append(df.format(seconds));
+            formatted.append(" s");
             return formatted.toString();
         }
         public String formatMillis(long timeInMillis) {
@@ -257,16 +261,14 @@ public class StatsActivity extends BaseActivity {
                 sign = "-";
                 timeInMillis = Math.abs(timeInMillis);
             }
-            long hours = timeInMillis / TimeUnit.HOURS.toMillis(1);
-            long minutes = timeInMillis % TimeUnit.HOURS.toMillis(1)/ TimeUnit.MINUTES.toMillis(1);
-            long seconds = timeInMillis % TimeUnit.MINUTES.toMillis(1) / TimeUnit.SECONDS.toMillis(1);
-            long millis = timeInMillis % TimeUnit.SECONDS.toMillis(1);
-
+            Double seconds = new Double(((double)timeInMillis) / (double)TimeUnit.HOURS.toMillis(1));
+            StringBuilder sb = new StringBuilder(",##0.00");
+            DecimalFormat df = new DecimalFormat(sb.toString());
+            df.setRoundingMode(RoundingMode.HALF_UP);
             final StringBuilder formatted = new StringBuilder(20);
             formatted.append(sign);
-            formatted.append(String.format("%03d",hours));
-            formatted.append(String.format(":%02d", minutes));
-            formatted.append(String.format(":%02d", seconds));
+            formatted.append(df.format(seconds));
+            formatted.append(" h");
             return formatted.toString();
         }
         @Override

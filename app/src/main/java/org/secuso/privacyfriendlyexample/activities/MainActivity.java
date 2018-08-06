@@ -91,6 +91,7 @@ public class MainActivity extends BaseActivity{
         Log.i("reading","currentPage " + currentPage);
         viewPager.setCurrentItem(currentPage);
         updateButtons(currentPage);
+        updateMovingButtons(currentPage);
     }
 
     @Override
@@ -146,6 +147,7 @@ public class MainActivity extends BaseActivity{
 
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
             btnPrev.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -246,20 +248,7 @@ public class MainActivity extends BaseActivity{
             editor.commit();
             updateButtons(position);
 
-            if (position == layouts.length - 1) {
-                // last page. make button text to GOT IT
-                btnNext.setVisibility(View.INVISIBLE);
-            } else {
-                // still pages are left
-                btnNext.setVisibility(View.VISIBLE);
-            }
-            if (position == 0) {
-                // last page. make button text to GOT IT
-                btnPrev.setVisibility(View.INVISIBLE);
-            } else {
-                // still pages are left
-                btnPrev.setVisibility(View.VISIBLE);
-            }
+            updateMovingButtons(position);
         }
 
         @Override
@@ -272,6 +261,23 @@ public class MainActivity extends BaseActivity{
 
         }
     };
+    public void updateMovingButtons(int position)
+    {
+        if (position == layouts.length - 1) {
+            // last page. make button text to GOT IT
+            btnNext.setVisibility(View.INVISIBLE);
+        } else {
+            // still pages are left
+            btnNext.setVisibility(View.VISIBLE);
+        }
+        if (position == 0) {
+            // last page. make button text to GOT IT
+            btnPrev.setVisibility(View.INVISIBLE);
+        } else {
+            // still pages are left
+            btnPrev.setVisibility(View.VISIBLE);
+        }
+    }
     public void updateButtons (int position)
     {
         Button newGameButton = MainActivity.this.findViewById(R.id.button_newGame);

@@ -96,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:gravity="center_horizontal"
                 android:text="@string/Stat_Amount_Undo" />
 
             <TextView
