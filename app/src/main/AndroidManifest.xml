@@ -65,7 +65,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/settings_name"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

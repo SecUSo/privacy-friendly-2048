@@ -15,7 +15,6 @@
         android:weightSum="4">
 
         <ImageView
-            android:id="@+id/statistic_image"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
@@ -63,7 +62,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -180,7 +178,6 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Stat_Amount_Swipe" />
@@ -209,7 +206,6 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Stat_Time_Swipes" />
@@ -339,7 +335,6 @@
                     android:weightSum="2">
 
                     <TextView
-                        android:id="@+id/textView22"
                         android:layout_width="95dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -347,7 +342,6 @@
                         android:text="@string/Stat_Swipes_Left" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
                         android:layout_width="54dp"
                         android:layout_height="13dp"
                         android:layout_marginBottom="3.3dp"

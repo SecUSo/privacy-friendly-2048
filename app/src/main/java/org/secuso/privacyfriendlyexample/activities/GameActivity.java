@@ -21,12 +21,15 @@ package org.secuso.privacyfriendlyexample.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -132,8 +135,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         animationActivated = sharedPref.getBoolean("pref_animationActivated",false);
 
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if(sharedPref.getBoolean("settings_display",true))
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
 
 
@@ -834,6 +837,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             }
         }
     }
+
+
+
     public void setDPositions(boolean animation)
     {
         long SCALINGSPEED = GameActivity.SCALINGSPEED;
@@ -1028,9 +1034,10 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
     public void gameOver()
     {
+
         new AlertDialog.Builder(this)
                 .setTitle((this.getResources().getString(R.string.Titel_L_Message)))
-                .setMessage((this.getResources().getString(R.string.Lost_Message)))
+                .setMessage(this.getResources().getString(R.string.Lost_Message, record))
                 .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -1055,6 +1062,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 })
                 .setCancelable(false)
                 .create().show();
+
     }
 
     @Override

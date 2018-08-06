@@ -1,21 +1,22 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="UI Einstellungen">
-        <SwitchPreference
-            android:id="@+id/pref_example_switch"
-            android:defaultValue="false"
-            android:key="pref_animationActivated"
-            android:title="Animation aktivieren" />
-        <ListPreference
-            android:defaultValue="1"
-            android:dialogIcon="@drawable/ic_menu_tutorial"
-            android:enabled="true"
-            android:entries="@array/color_list"
-            android:entryValues="@array/color_list_values"
-            android:key="pref_color"
-            android:title="Farbauswahl" />
-    </PreferenceCategory>
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="pref_animationActivated"
+        android:title="@string/settings_animation" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="switch_preference_1"
+        android:title="@string/settings_display" />
+    <ListPreference
+        android:defaultValue="1"
+        android:dialogIcon="@drawable/ic_menu_tutorial"
+        android:enabled="true"
+        android:entries="@array/color_list"
+        android:entryValues="@array/color_list_values"
+        android:key="pref_color"
+        android:title="@string/settings_color" />
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
