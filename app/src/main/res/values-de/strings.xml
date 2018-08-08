@@ -88,7 +88,7 @@
     <!-- ###STATISTICS### -->
     <string name="Stat_High_Number">Höhste Zahl</string>
     <string name="Stat_High_Point">Höhste Punktzahl</string>
-    <string name="Stat_Amount_Undo">Genutzer Rückgängigknopf</string>
+    <string name="Stat_Amount_Undo">Zurückgesetzte Züge</string>
     <string name="Stat_Amount_Swipe">Gesamtanzahl Wischer</string>
     <string name="Stat_Swipes_Left">Rechts</string>
     <string name="Stat_Swipes_Right">Links</string>
@@ -96,5 +96,6 @@
     <string name="Stat_Swipes_Up">Oben</string>
     <string name="Stat_Time">Gesamtspieldauer</string>
     <string name="Stat_Time_Swipes">Zeit pro Wischer</string>
+    <string name="reset_stats">Statistik zurücksetzem</string>
 
 </resources>

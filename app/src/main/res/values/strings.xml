@@ -92,6 +92,8 @@
     <string name="Stat_Swipes_Up">Up</string>
     <string name="Stat_Time">Playing Time</string>
     <string name="Stat_Time_Swipes">Time per Swipe</string>
+    <string name="reset_stats">Reset Statistics</string>
+
 
 
 </resources>

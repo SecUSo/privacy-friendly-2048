@@ -1017,7 +1017,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         new AlertDialog.Builder(this)
                 .setTitle((this.getResources().getString(R.string.Titel_L_Message)))
-                .setMessage(this.getResources().getString(R.string.Lost_Message, record))
+                .setMessage(this.getResources().getString(R.string.Lost_Message, points))
                 .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

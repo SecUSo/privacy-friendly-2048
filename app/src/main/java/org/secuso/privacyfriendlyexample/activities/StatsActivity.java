@@ -121,14 +121,14 @@ public class StatsActivity extends BaseActivity {
     }
 
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_stats, menu);
         //getMenuInflater().inflate(R.menu.menu_stats, menu);
         return true;
         //return false;
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -138,16 +138,30 @@ public class StatsActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         switch(item.getItemId()) {
-            //case R.id.action_reset:
+            case R.id.action_reset:
             //    SaveLoadStatistics.resetStats(this);
             //    mSectionsPagerAdapter.refresh(this);
-            //    return true;
+
+                resetGameStatistics();
+                return true;
             case android.R.id.home:
                 finish();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void resetGameStatistics(){
+        for(int n = 4; n <= 7; n++) {
+            try {
+                File file = new File(getFilesDir(), "statistics" + n + ".txt");
+                file.delete();
+            } catch (Exception e) {
+
+            }
+        }
+        finish();
+        startActivity(getIntent());
     }
 
 
@@ -236,7 +250,10 @@ public class StatsActivity extends BaseActivity {
             moves_T.setText("" + gameStatistics.getMoves_t());
             moves_L.setText("" + gameStatistics.getMoves_l());
             moves.setText(""+gameStatistics.getMoves());
-            tpm.setText(""+formatSmallMillis(gameStatistics.getTimePlayed()/gameStatistics.getMoves()));
+            if(gameStatistics.getMoves()!=0)
+                tpm.setText(""+formatSmallMillis(gameStatistics.getTimePlayed()/gameStatistics.getMoves()));
+            else
+                tpm.setText("0");
             rekord.setText(""+gameStatistics.getRecord());
 
 
@@ -291,6 +308,7 @@ public class StatsActivity extends BaseActivity {
             View view = (View) object;
             container.removeView(view);
         }
+
         public GameStatistics readStatisticsFromFile(int n)
         {
             GameStatistics gS = new GameStatistics(n);
