@@ -310,6 +310,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         for(int i = 0; i < Elements.length; i++) {
             for (int j = 0; j < Elements[i].length; j++) {
                 //background elements
+                number_field_background.removeView(backgroundElements[i][j]);
+                number_field.removeView(Elements[i][j]);
                 backgroundElements[i][j] = new Element(this);
                 //backgroundElements[i][j].setVisibility(View.INVISIBLE);
 
