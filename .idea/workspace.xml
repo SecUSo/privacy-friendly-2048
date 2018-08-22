@@ -11,8 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="946caa28-8eb8-4fd2-83b2-29a864f262b2" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/inactive_button.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/standalone_button.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
@@ -21,35 +19,38 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/org/secuso/privacyfriendlyexample/ApplicationTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/org/secuso/privacyfriendly2048/ApplicationTest.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/GameActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/GameActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/main_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/main_drawer.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_stats.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_stats.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_splash.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_splash.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_splash.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_splash.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_splash.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_splash.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_splash.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_splash.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_splash.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_splash.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-de/arrays.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-de/arrays.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-de/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-de/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/AboutActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/AboutActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/ChooseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/ChooseActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/Element.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/Element.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/GameActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/GameActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/HelpActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/HelpActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/MainActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/SettingsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/SettingsActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/SplashActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/SplashActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/StatsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/StatsActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/TutorialActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/TutorialActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/adapter/HelpExpandableListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/adapter/HelpExpandableListAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/helper/AppCompatPreferenceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/helper/AppCompatPreferenceActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/helper/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/helper/BaseActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/helper/BaseActivityWithoutNavBar.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/helper/BaseActivityWithoutNavBar.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/helper/GameState.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/helper/GameState.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/helper/GameStatistics.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/helper/GameStatistics.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/helper/Gesten.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/helper/Gesten.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/database/DatabaseExporter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/database/DatabaseExporter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/database/PFASQLiteHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/database/PFASQLiteHelper.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/database/PFASampleDataType.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/database/PFASampleDataType.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/helpers/FirstLaunchManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/helpers/FirstLaunchManager.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_game.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_game.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_game.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_game.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_help.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_help.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_stats.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_stats.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/org/secuso/privacyfriendlyexample/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/app/src/test/java/org/secuso/privacyfriendly2048/ExampleUnitTest.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -72,42 +73,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/GameActivity.java">
+      <file leaf-file-name="GameActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/GameActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2207">
+            <state relative-caret-position="4245">
               <caret line="332" column="62" lean-forward="false" selection-start-line="332" selection-start-column="62" selection-end-line="332" selection-end-column="62" />
               <folding>
-                <element signature="e#5130#5333#0" expanded="true" />
-                <element signature="e#5332#5333#0" expanded="true" />
-                <element signature="e#5440#6867#0" expanded="true" />
-                <element signature="e#6866#6867#0" expanded="true" />
                 <element signature="method#switchElementPositions#0;class#GameActivity#0" expanded="false" />
                 <element signature="method#deepCopy#0;class#GameActivity#0" expanded="false" />
                 <element signature="method#setListener#0;class#GameActivity#0" expanded="false" />
                 <element signature="method#display#0;class#GameActivity#0" expanded="false" />
                 <element signature="method#updateHighestNumber#0;class#GameActivity#0" expanded="false" />
-                <element signature="e#30288#30343#0" expanded="true" />
-                <element signature="e#30387#30442#0" expanded="true" />
-                <element signature="e#30493#30543#0" expanded="true" />
-                <element signature="e#30546#30834#0" expanded="true" />
-                <element signature="e#30833#30834#0" expanded="true" />
-                <element signature="e#30884#30935#0" expanded="true" />
                 <element signature="method#setDPositions#0;class#GameActivity#0" expanded="false" />
                 <element signature="class#MovingListener#0;class#GameActivity#0" expanded="false" />
                 <element signature="class#ScalingListener#0;class#GameActivity#0" expanded="false" />
-                <element signature="e#36468#36701#0" expanded="true" />
-                <element signature="e#36700#36701#0" expanded="true" />
-                <element signature="e#38950#39005#0" expanded="true" />
-                <element signature="e#39036#39096#0" expanded="true" />
-                <element signature="e#39134#39184#0" expanded="true" />
-                <element signature="e#39187#39661#0" expanded="true" />
-                <element signature="e#39660#39661#0" expanded="true" />
-                <element signature="e#39699#39750#0" expanded="true" />
-                <element signature="e#39753#39980#0" expanded="true" />
-                <element signature="e#39979#39980#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Binder.class" pinned="false" current-in-tab="true">
+        <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-27/android.jar!/android/os/Binder.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="69" column="44" lean-forward="true" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
+              <folding>
+                <marker date="1532465418158" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1532465418158" expanded="false" signature="134:227" ph="..." />
+                <marker date="1532465418158" expanded="false" signature="289:300" ph=" { " />
+                <marker date="1532465418158" expanded="false" signature="336:342" ph=" }" />
+                <marker date="1532465418158" expanded="false" signature="507:518" ph=" { " />
+                <marker date="1532465418158" expanded="false" signature="554:560" ph=" }" />
+                <marker date="1532465418158" expanded="true" signature="880:932" ph="{...}" />
+                <marker date="1532465418158" expanded="false" signature="976:987" ph=" { " />
+                <marker date="1532465418158" expanded="false" signature="1023:1029" ph=" }" />
+                <marker date="1532465418158" expanded="false" signature="1062:1073" ph=" { " />
+                <marker date="1532465418158" expanded="false" signature="1109:1115" ph=" }" />
+                <marker date="1532465418158" expanded="false" signature="1151:1162" ph=" { " />
+                <marker date="1532465418158" expanded="false" signature="1198:1204" ph=" }" />
+                <marker date="1532465418158" expanded="true" signature="1267:1319" ph="{...}" />
+                <marker date="1532465418158" expanded="true" signature="1425:1477" ph="{...}" />
+                <marker date="1532465418158" expanded="false" signature="1533:1544" ph=" { " />
+                <marker date="1532465418158" expanded="false" signature="1580:1586" ph=" }" />
+                <marker date="1532465418158" expanded="false" signature="1647:1658" ph=" { " />
+                <marker date="1532465418158" expanded="false" signature="1694:1700" ph=" }" />
+                <marker date="1532465418158" expanded="true" signature="1778:1830" ph="{...}" />
+                <marker date="1532465418158" expanded="true" signature="1937:1989" ph="{...}" />
+                <marker date="1532465418158" expanded="true" signature="2056:2108" ph="{...}" />
+                <marker date="1532465418158" expanded="true" signature="2180:2232" ph="{...}" />
+                <marker date="1532465418158" expanded="true" signature="2281:2333" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="40" lean-forward="false" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest">
+            <state />
           </provider>
         </entry>
       </file>
@@ -298,19 +327,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="227" column="20" lean-forward="false" selection-start-line="227" selection-start-column="20" selection-end-line="227" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="tutorial_slide1.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tutorial_slide1.xml">
           <provider editor-type-id="text-editor">
@@ -325,17 +341,17 @@
         </entry>
       </file>
       <file leaf-file-name="TutorialActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/TutorialActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/TutorialActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
               <caret line="241" column="70" lean-forward="false" selection-start-line="241" selection-start-column="70" selection-end-line="241" selection-end-column="70" />
               <folding>
-                <element signature="e#3800#3952#0" expanded="true" />
-                <element signature="e#3951#3952#0" expanded="true" />
-                <element signature="e#3991#4482#0" expanded="true" />
-                <element signature="e#4481#4482#0" expanded="true" />
-                <element signature="e#6067#6091#0" expanded="true" />
-                <element signature="e#6237#6261#0" expanded="true" />
+                <element signature="e#3791#3943#0" expanded="true" />
+                <element signature="e#3942#3943#0" expanded="true" />
+                <element signature="e#3982#4473#0" expanded="true" />
+                <element signature="e#4472#4473#0" expanded="true" />
+                <element signature="e#6058#6082#0" expanded="true" />
+                <element signature="e#6228#6252#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -349,7 +365,7 @@
         </entry>
       </file>
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/MainActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="293">
               <caret line="125" column="46" lean-forward="false" selection-start-line="125" selection-start-column="46" selection-end-line="125" selection-end-column="46" />
@@ -358,25 +374,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_drawer.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main_drawer.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="15" column="33" lean-forward="false" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>privacy friendly 20</find>
-      <find>settings_fr</find>
       <find>generalPre</find>
       <find>pref</find>
       <find>pref_color</find>
@@ -405,6 +406,8 @@
       <find>updateGameState</find>
       <find>initialize()</find>
       <find>createNewGame(</find>
+      <find>10</find>
+      <find>102</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2426,7 +2429,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-de/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
@@ -2439,6 +2441,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/menu/main_drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/GameActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -2473,60 +2476,20 @@
             <path>
               <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
-            </path>
-            <path>
-              <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
               <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="privacyfriendlyexample" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="privacyfriendly2048" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
             <path>
               <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="privacyfriendlyexample" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="privacyfriendly2048" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="activities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="mipmap" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="privacy-friendly-2048" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="xml" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
@@ -2543,6 +2506,7 @@
     <property name="device.picker.selection" value="Nexus_5X_API_28" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
+    <property name="android.profiler.active" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -2644,6 +2608,18 @@
       <module name="" />
       <envs />
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="privacy-friendly-2048" />
+      <envs />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -2693,18 +2669,6 @@
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="privacy-friendly-2048" />
-      <envs />
-    </configuration>
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
@@ -2728,7 +2692,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1611" height="946" extended-state="0" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2736,16 +2700,16 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24984066" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2768,39 +2732,19 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/GameActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/GameActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14430">
           <caret line="1018" column="26" lean-forward="false" selection-start-line="1018" selection-start-column="26" selection-end-line="1018" selection-end-column="26" />
           <folding>
-            <element signature="e#5130#5333#0" expanded="true" />
-            <element signature="e#5332#5333#0" expanded="true" />
-            <element signature="e#5440#6867#0" expanded="true" />
-            <element signature="e#6866#6867#0" expanded="true" />
             <element signature="method#switchElementPositions#0;class#GameActivity#0" expanded="false" />
             <element signature="method#deepCopy#0;class#GameActivity#0" expanded="false" />
             <element signature="method#setListener#0;class#GameActivity#0" expanded="false" />
             <element signature="method#display#0;class#GameActivity#0" expanded="false" />
             <element signature="method#updateHighestNumber#0;class#GameActivity#0" expanded="false" />
-            <element signature="e#30288#30343#0" expanded="true" />
-            <element signature="e#30387#30442#0" expanded="true" />
-            <element signature="e#30493#30543#0" expanded="true" />
-            <element signature="e#30546#30834#0" expanded="true" />
-            <element signature="e#30833#30834#0" expanded="true" />
-            <element signature="e#30884#30935#0" expanded="true" />
             <element signature="method#setDPositions#0;class#GameActivity#0" expanded="false" />
             <element signature="class#MovingListener#0;class#GameActivity#0" expanded="false" />
             <element signature="class#ScalingListener#0;class#GameActivity#0" expanded="false" />
-            <element signature="e#36468#36701#0" expanded="true" />
-            <element signature="e#36700#36701#0" expanded="true" />
-            <element signature="e#38950#39005#0" expanded="true" />
-            <element signature="e#39036#39096#0" expanded="true" />
-            <element signature="e#39134#39184#0" expanded="true" />
-            <element signature="e#39187#39661#0" expanded="true" />
-            <element signature="e#39660#39661#0" expanded="true" />
-            <element signature="e#39699#39750#0" expanded="true" />
-            <element signature="e#39753#39980#0" expanded="true" />
-            <element signature="e#39979#39980#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2847,7 +2791,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3420">
           <caret line="278" column="81" lean-forward="false" selection-start-line="278" selection-start-column="81" selection-end-line="278" selection-end-column="81" />
@@ -2877,18 +2821,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="50" column="62" lean-forward="false" selection-start-line="50" selection-start-column="62" selection-end-line="50" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/StatsActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/StatsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2955">
           <caret line="253" column="80" lean-forward="false" selection-start-line="253" selection-start-column="79" selection-end-line="253" selection-end-column="80" />
@@ -2939,7 +2872,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/SettingsActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/SettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="183" column="24" lean-forward="false" selection-start-line="183" selection-start-column="24" selection-end-line="183" selection-end-column="24" />
@@ -3135,22 +3068,22 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/TutorialActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/TutorialActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="241" column="70" lean-forward="false" selection-start-line="241" selection-start-column="70" selection-end-line="241" selection-end-column="70" />
           <folding>
-            <element signature="e#3800#3952#0" expanded="true" />
-            <element signature="e#3951#3952#0" expanded="true" />
-            <element signature="e#3991#4482#0" expanded="true" />
-            <element signature="e#4481#4482#0" expanded="true" />
-            <element signature="e#6067#6091#0" expanded="true" />
-            <element signature="e#6237#6261#0" expanded="true" />
+            <element signature="e#3791#3943#0" expanded="true" />
+            <element signature="e#3942#3943#0" expanded="true" />
+            <element signature="e#3982#4473#0" expanded="true" />
+            <element signature="e#4472#4473#0" expanded="true" />
+            <element signature="e#6058#6082#0" expanded="true" />
+            <element signature="e#6228#6252#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="125" column="46" lean-forward="false" selection-start-line="125" selection-start-column="46" selection-end-line="125" selection-end-column="46" />
@@ -3339,39 +3272,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendlyexample/activities/GameActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2207">
+        <state relative-caret-position="255">
+          <caret line="17" column="40" lean-forward="false" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/secuso/privacyfriendly2048/activities/GameActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4245">
           <caret line="332" column="62" lean-forward="false" selection-start-line="332" selection-start-column="62" selection-end-line="332" selection-end-column="62" />
           <folding>
-            <element signature="e#5130#5333#0" expanded="true" />
-            <element signature="e#5332#5333#0" expanded="true" />
-            <element signature="e#5440#6867#0" expanded="true" />
-            <element signature="e#6866#6867#0" expanded="true" />
             <element signature="method#switchElementPositions#0;class#GameActivity#0" expanded="false" />
             <element signature="method#deepCopy#0;class#GameActivity#0" expanded="false" />
             <element signature="method#setListener#0;class#GameActivity#0" expanded="false" />
             <element signature="method#display#0;class#GameActivity#0" expanded="false" />
             <element signature="method#updateHighestNumber#0;class#GameActivity#0" expanded="false" />
-            <element signature="e#30288#30343#0" expanded="true" />
-            <element signature="e#30387#30442#0" expanded="true" />
-            <element signature="e#30493#30543#0" expanded="true" />
-            <element signature="e#30546#30834#0" expanded="true" />
-            <element signature="e#30833#30834#0" expanded="true" />
-            <element signature="e#30884#30935#0" expanded="true" />
             <element signature="method#setDPositions#0;class#GameActivity#0" expanded="false" />
             <element signature="class#MovingListener#0;class#GameActivity#0" expanded="false" />
             <element signature="class#ScalingListener#0;class#GameActivity#0" expanded="false" />
-            <element signature="e#36468#36701#0" expanded="true" />
-            <element signature="e#36700#36701#0" expanded="true" />
-            <element signature="e#38950#39005#0" expanded="true" />
-            <element signature="e#39036#39096#0" expanded="true" />
-            <element signature="e#39134#39184#0" expanded="true" />
-            <element signature="e#39187#39661#0" expanded="true" />
-            <element signature="e#39660#39661#0" expanded="true" />
-            <element signature="e#39699#39750#0" expanded="true" />
-            <element signature="e#39753#39980#0" expanded="true" />
-            <element signature="e#39979#39980#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-27/android.jar!/android/os/Binder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="69" column="44" lean-forward="true" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
+          <folding>
+            <marker date="1532465418158" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1532465418158" expanded="false" signature="134:227" ph="..." />
+            <marker date="1532465418158" expanded="false" signature="289:300" ph=" { " />
+            <marker date="1532465418158" expanded="false" signature="336:342" ph=" }" />
+            <marker date="1532465418158" expanded="false" signature="507:518" ph=" { " />
+            <marker date="1532465418158" expanded="false" signature="554:560" ph=" }" />
+            <marker date="1532465418158" expanded="true" signature="880:932" ph="{...}" />
+            <marker date="1532465418158" expanded="false" signature="976:987" ph=" { " />
+            <marker date="1532465418158" expanded="false" signature="1023:1029" ph=" }" />
+            <marker date="1532465418158" expanded="false" signature="1062:1073" ph=" { " />
+            <marker date="1532465418158" expanded="false" signature="1109:1115" ph=" }" />
+            <marker date="1532465418158" expanded="false" signature="1151:1162" ph=" { " />
+            <marker date="1532465418158" expanded="false" signature="1198:1204" ph=" }" />
+            <marker date="1532465418158" expanded="true" signature="1267:1319" ph="{...}" />
+            <marker date="1532465418158" expanded="true" signature="1425:1477" ph="{...}" />
+            <marker date="1532465418158" expanded="false" signature="1533:1544" ph=" { " />
+            <marker date="1532465418158" expanded="false" signature="1580:1586" ph=" }" />
+            <marker date="1532465418158" expanded="false" signature="1647:1658" ph=" { " />
+            <marker date="1532465418158" expanded="false" signature="1694:1700" ph=" }" />
+            <marker date="1532465418158" expanded="true" signature="1778:1830" ph="{...}" />
+            <marker date="1532465418158" expanded="true" signature="1937:1989" ph="{...}" />
+            <marker date="1532465418158" expanded="true" signature="2056:2108" ph="{...}" />
+            <marker date="1532465418158" expanded="true" signature="2180:2232" ph="{...}" />
+            <marker date="1532465418158" expanded="true" signature="2281:2333" ph="{...}" />
           </folding>
         </state>
       </provider>

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlyexample.activities.GameActivity">
+        tools:context="org.secuso.privacyfriendly2048.activities.GameActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
