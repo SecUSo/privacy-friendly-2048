@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">2048</string>
-    <string name="app_name_long">Privacy Friendly 2048 Game</string>
+    <string name="app_name_long">Privacy Friendly 2048</string>
 
     <!-- ###DRAWER###-->
     <string name="action_help">Help</string>
@@ -16,7 +16,7 @@
 
 
     <!-- ###GAME###-->
-    <string name="title_activity_game">Game</string>
+    <string name="title_activity_game">2048</string>
 
     <!--###HELP###-->
     <string name="help">Help</string>
@@ -38,6 +38,8 @@
     <string name="help_permission">Which permissions requires the app?</string>
     <string name="help_permission_answer">This app does not require any permission.</string>
 
+    <!-- ### WELCOME DIALOG ### -->
+    <string name="okay">Okay</string>
 
 
     <!--###ABOUT###-->
@@ -48,7 +50,7 @@
     <string name ="about_author_names">Saskia Jacob and Julian Wadephul</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
-    <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
+    <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Karlsruhe Institute of Technology (KIT). Sourcecode licensed under GPLv3. Images copyright KIT and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-2048">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
@@ -74,6 +76,8 @@
 
 
     <!-- ###TUTORIAL### -->
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
     <string name="Tutorial_Titel">Welcome!</string>
     <string name="Tutorial_Instruction">In the following slides you will learn how to play the Game 2048.</string>
     <string name="Tutorial_Titel_Move">Learn how to move the numbers!</string>

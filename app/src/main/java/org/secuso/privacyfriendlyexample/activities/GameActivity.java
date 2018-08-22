@@ -91,6 +91,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public static boolean createNewGame = true;
     public static boolean undo = false;
     public static boolean animationActivated = true;
+    public static boolean saveState = true;
 
     public final int WINTHRESHOLD = 2048;
     public final double PROPABILITYFORTWO = 0.9;
@@ -118,7 +119,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        saveState = true;
         Intent intent = getIntent();
         if(firstTime && intent.getBooleanExtra("new",true)) {
             createNewGame = true;
@@ -127,7 +128,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        animationActivated = sharedPref.getBoolean("pref_animationActivated",false);
+        animationActivated = sharedPref.getBoolean("pref_animationActivated",true);
 
         if(sharedPref.getBoolean("settings_display",true))
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -171,6 +172,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             j.drawItem();
                         }
                     }
+                    for(int i = 0; i < Elements.length; i++) {
+                        for (int j = 0; j < Elements[i].length; j++) {
+                            Elements[i][j].setOnTouchListener(swipeListener);
+                            backgroundElements[i][j].setOnTouchListener(swipeListener);
+                        }
+                    }
                     updateGameState();
                     drawAllElements(Elements);
                     number_field.refreshDrawableState();
@@ -193,7 +200,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     @Override
     public void onBackPressed() {
-        saveStateToFile(gameState);
+        if(!createNewGame)
+            saveStateToFile(gameState);
         gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
         startingTime = Calendar.getInstance().getTimeInMillis();
         saveStatisticsToFile(gameStatistics);
@@ -214,7 +222,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     protected void start()
     {
-
+        Log.i("activity","start");
+        saveState = true;
         android.view.ViewGroup.LayoutParams lp = number_field.getLayoutParams();
 
         //setting squared Number Field
@@ -253,6 +262,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         Elements = new Element[n][n];
         last_elements = new Element[n][n];
         backgroundElements = new Element[n][n];
+        saveState = true;
 
 
 
@@ -276,13 +286,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         gameState.points = points;
         gameState.last_points = last_points;
         gameState.undo = undo;
-        check2048();
         updateHighestNumber();
+        check2048();
 
     }
 
     public void initialize()
     {
+        Log.i("activity","initialize");
         if(getIntent().getIntExtra("n",4)!=n||createNewGame)
         {
             initializeState();
@@ -317,6 +328,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
                 Elements[i][j] = new Element(this);
                 Elements[i][j].setNumber(gameState.getNumber(i,j));
+
                 Elements[i][j].drawItem();
                 if(Elements[i][j].getNumber() >= WINTHRESHOLD)
                     won2048 = true;
@@ -341,9 +353,10 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 }
             }
         }
-
         if(newGame)
         {
+            moved = true;
+            addNumber();
             moved = true;
             addNumber();
             newGame = false;
@@ -796,6 +809,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             {
                 if(Elements[i][j].number==WINTHRESHOLD)
                 {
+
+                    saveStatisticsToFile(gameStatistics);
                     //MESSAGE
                     new AlertDialog.Builder(this)
                             .setTitle((this.getResources().getString(R.string.Titel_V_Message)))
@@ -971,6 +986,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             textFieldRecord.setText(""+record);
         }
         if(moved) {
+            gameOver = false;
             moved = false;
             textFieldPoints.setText("" + points);
             Element[] empty_fields = new Element[n * n];
@@ -1001,33 +1017,34 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                         for (int j = 0; j < Elements[i].length; j++) {
                             if ((i+1 < Elements.length && Elements[i][j].number == Elements[i+1][j].number)|| (j+1 < Elements[i].length && Elements[i][j].number == Elements[i][j+1].number)) {
                                 gameOver = false;
-                                break;
                             }
                         }
-                    }
-                    if(gameOver)
-                    {
-                        gameOver();
                     }
                 }
             }
             updateGameState();
+
+            if(gameOver)
+            {
+                gameOver();
+            }
         }
     }
     public void gameOver()
     {
-
+        Log.i("record",""+record + ", " + gameStatistics.getRecord());
+        saveStatisticsToFile(gameStatistics);
         new AlertDialog.Builder(this)
                 .setTitle((this.getResources().getString(R.string.Titel_L_Message)))
                 .setMessage(this.getResources().getString(R.string.Lost_Message, points))
                 .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //saveRecordToFile(record);
-                        saveStatisticsToFile(gameStatistics);
                         createNewGame = true;
                         getIntent().putExtra("new",true);
                         initialize();
+                        deleteStateFile();
+                        saveState = false;
                         GameActivity.this.onBackPressed();
 
                     }
@@ -1035,13 +1052,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 .setPositiveButton((this.getResources().getString(R.string.Yes_Message)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        saveStatisticsToFile(gameStatistics);
                         createNewGame();
                     }
                 })
                 .setCancelable(false)
                 .create().show();
-
+        Log.i("record","danach");
     }
 
     @Override
@@ -1095,6 +1111,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     public void saveStateToFile(GameState nS)
     {
+        if(saveState)
         try {
             if(filename == null)
                 filename = "state" + n + ".txt";
@@ -1109,9 +1126,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
     }
 
-    public boolean deleteStateFile(String filename)
+    public boolean deleteStateFile()
     {
         try{
+            if(filename == null)
+                filename = "state" + n + ".txt";
             File directory = getFilesDir();
             File f = new File(directory,filename);
             return f.delete();

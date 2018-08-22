@@ -123,6 +123,7 @@ public class MainActivity extends BaseActivity{
 
         for(int i = 0; i < files.length;i++)
         {
+            Log.i("files",files[i].getName());
             for(int j = 0; j < gameResumeable.length;j++)
             {
                 if(files[i].getName().equals("state" + (j+4) + ".txt"))
@@ -273,10 +274,10 @@ public class MainActivity extends BaseActivity{
         Button newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
         Button continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
         try {
-            if(!gameResumeable[position])
-                continueButton.setBackgroundColor(getResources().getColor(R.color.middlegrey));
+            if(gameResumeable[position])
+                continueButton.setBackgroundResource(R.drawable.standalone_button);
             else
-                continueButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                continueButton.setBackgroundResource(R.drawable.inactive_button);
 
             continueButton.setEnabled(gameResumeable[position]);
         }

@@ -47,6 +47,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:onClick="onClick"
                     android:padding="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
@@ -73,6 +74,7 @@
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:onClick="onClick"
                     android:padding="10dp"
                     android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
@@ -92,7 +94,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
                 android:weightSum="8"
-                tools:context="tu_darmstadt.sudoku.ui.MainActivity">
+                tools:context=".activities.MainActivity">
 
                 <LinearLayout
                     android:id="@+id/layoutDots"
