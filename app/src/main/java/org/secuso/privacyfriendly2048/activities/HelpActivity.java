@@ -56,8 +56,9 @@ public class HelpActivity extends BaseActivity {
         expandableListDetail.put(getString(R.string.help_whatis), Collections.singletonList(getString(R.string.help_whatis_answer)));
         expandableListDetail.put(getString(R.string.help_privacy), Collections.singletonList(getString(R.string.help_privacy_answer)));
         expandableListDetail.put(getString(R.string.help_permission), Collections.singletonList(getString(R.string.help_permission_answer)));
-        expandableListDetail.put(getString(R.string.help_historie), Collections.singletonList(getString(R.string.help_historie_answer)));
         expandableListDetail.put(getString(R.string.help_play), Collections.singletonList(getString(R.string.help_play_answer)));
+        expandableListDetail.put(getString(R.string.help_play_how), Collections.singletonList(getString(R.string.help_play_how_answer)));
+        expandableListDetail.put(getString(R.string.help_play_add), Collections.singletonList(getString(R.string.help_play_add_answer)));
         expandableListDetail.put(getString(R.string.help_tip), Collections.singletonList(getString(R.string.help_tip_answer)));
         expandableListDetail.put(getString(R.string.help_undo), Collections.singletonList(getString(R.string.help_undo_answer)));
         expandableListDetail.put(getString(R.string.help_color), Collections.singletonList(getString(R.string.help_color_answer)));

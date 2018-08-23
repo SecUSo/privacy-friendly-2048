@@ -24,14 +24,16 @@
     <string name="help_whatis_answer">Die Privacy Friendly App 2048 ist eine brechtigungsfreie Version des bekannten Spieles 2048. Es verfügt somit über dieselben Funktionen ohne dabei Daten des Benutzters zu benutzen.</string>
     <string name="help_color">Wie kann ich den Farbstil des Spiels ändern?</string>
     <string name="help_color_answer">Unter Einstellungen kann zwischen zwei Farbstilen für das Spiel ausgewählt werden. Zwischen den klassichen Farben des Orginalspiels und den an diese App angepassten Farbstil kann ausgewählt werden.</string>
-    <string name="help_play">Wie funktioniert das Spiel?</string>
+    <string name="help_play">Was ist das Ziel dieses Spieles?</string>
     <string name="help_play_answer">Ziel dieses Spiel ist es, die Zahl 2048 zu erzeugen. Die kann durch das ineinanderschieben gleichwetiger Zahlen erfolgen. Eine genaue Bedienungsanleitung des Spiels findet sich in dem Abschnitt Tutorial.</string>
+    <string name="help_play_how">Wie bewegt man die Zahlen?</string>
+    <string name="help_play_how_answer">Man muss mit dem Finger über den Display wischen in die Richtung, in welche die Zahlen sich bewegen sollen. </string>
+    <string name="help_play_add">Wie erreicht man höhere Zahlen?</string>
+    <string name="help_play_add_answer">Werden zwei gleiche Zahlen ineinander geschoben, addieren diese sich miteinander auf zu der nächst höheren Zweierpotenz.</string>
     <string name="help_undo">Ist es möglich Züge rückgängig zu machen?</string>
     <string name="help_undo_answer">Die App gibt dem Spieler die Option seinen letzten Zug ungeschehen zu machen. Dazu ist der Knopf mit dem Pfeil gegen des Uhrzeigersinn zu betätigen.</string>
     <string name="help_tip">Tips und Tricks</string>
     <string name="help_tip_answer">Es gibt verschiedenste Strategieen um das Spiel 2048 zu gewinnen. Zahlreiche YouTube Videos behandeln diese Problematik, weswegen wir auf diese verweisen.</string>
-    <string name="help_historie">Wie ist diese App enstanden?</string>
-    <string name="help_historie_answer">Diese App ist im Rahmen eines Master-Workshops an dem Karlsruher Institut für Technologie entstanden. Unter Anleitung der Forschungsgruppe SECUSO wurde die App als privatsphären-freundliche Alternative zum Orginal durch Saskia Jacob und Julian Wadephul programmiert und gestaltet.</string>
     <string name="help_privacy">Was macht die App privatsphäre-freundlich?</string>
     <string name="help_privacy_answer">Keinerlei Daten werden von den Benutzern der App benötigt, um das Spiel zu spielen.</string>
     <string name="help_permission">Welche Berechtigungen braucht die App?</string>
@@ -81,8 +83,8 @@
     <string name="Yes_Message">Ja</string>
     <string name="No_Message">Nein</string>
     <string name="Titel_V_Message">Gewonnen</string>
-    <string name="Titel_L_Message">Verloren</string>
-    <string name="Lost_Message">Sie haben verloren. Ihre erreichte Punktzahl war: %1$d. Wollen Sie ein neues Spiel starten?</string>
+    <string name="Titel_L_Message">Erreichte Punktzahl: %1$d</string>
+    <string name="Lost_Message">Es sind keine weiteren Züge mehr möglich. Ihre erreichte Punktzahl war: %1$d. Wollen Sie ein neues Spiel starten?</string>
 
 
     <!-- ###STATISTICS### -->

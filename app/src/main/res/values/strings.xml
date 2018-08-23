@@ -25,14 +25,16 @@
     <string name="help_whatis_answer">The Privacy Friendly App 2048 is a privacy friendly version of the well-known original game 2048. It has the same funktions without using data from the user.</string>
     <string name="help_color">How can I change the color spectre of the game?</string>
     <string name="help_color_answer">In the chapter configurations is an option to change between two color spectre for the game.</string>
-    <string name="help_play">How does the game work?</string>
+    <string name="help_play">What is the goal of this game?</string>
     <string name="help_play_answer">The goal of this game to get the number 2048. With combining numbers with the same value you can reach higher and higher numbers. You can find an extensive explanaition under the topic tutorial.</string>
+    <string name="help_play_how">How do I move the numbers?</string>
+    <string name="help_play_how_answer">Wipe the display with your finger in the direction in which you want the numbers to move. </string>
+    <string name="help_play_add">How do I reach higher numbers?</string>
+    <string name="help_play_add_answer">If two equal numbers are pushed into each other, they add up to the next higher power of two.</string>
     <string name="help_undo">Is it possible to undo steps?</string>
     <string name="help_undo_answer">The app gives you the option to undo your last step in the game. You have to click on the button with the arrow against clockwise direction.</string>
     <string name="help_tip">How to beat the game?</string>
     <string name="help_tip_answer">There are a few strategies to win this game. On YouTube you can find a lot of videos which are covering this topic.</string>
-    <string name="help_historie">Why does this app exist?</string>
-    <string name="help_historie_answer">This app was part of a master workshop at the Karlsruhe Institute of Technology. With the help of the senior researcher SECUSO we wrote and designed this privacy friendly alternative to the original game.</string>
     <string name="help_privacy">What makes the app privacy friendly?</string>
     <string name="help_privacy_answer">This privacy friendly app does not require any permission. It further does not include any tracking mechanisms or advertisement.</string>
     <string name="help_permission">Which permissions requires the app?</string>
@@ -71,8 +73,8 @@
     <string name="Yes_Message">Yes</string>
     <string name="No_Message">No</string>
     <string name="Titel_V_Message">Victory</string>
-    <string name="Titel_L_Message">Lost</string>
-    <string name="Lost_Message">You lost. Your archieved score was: %1$d.Would you like to start a new game?</string>
+    <string name="Titel_L_Message">Archieved Score: %1$d</string>
+    <string name="Lost_Message">No more moves are possible. Your archieved score was: %1$d.Would you like to start a new game?</string>
 
 
     <!-- ###TUTORIAL### -->

@@ -9,7 +9,7 @@
     <color name="yellow">#f6d126</color>
 
     <!-- own definded colors -->
-    <color name="button_empty">#FFF0D2</color>
+    <color name="button_empty">#E6E6E6</color>
     <color name="button2">#B7C6F1</color>
     <color name="button4">#8aa5ce</color>
     <color name="button8">#5D84AB</color>

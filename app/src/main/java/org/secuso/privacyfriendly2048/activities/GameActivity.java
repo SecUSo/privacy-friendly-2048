@@ -1035,7 +1035,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         Log.i("record",""+record + ", " + gameStatistics.getRecord());
         saveStatisticsToFile(gameStatistics);
         new AlertDialog.Builder(this)
-                .setTitle((this.getResources().getString(R.string.Titel_L_Message)))
+                .setTitle((this.getResources().getString(R.string.Titel_L_Message, points)))
                 .setMessage(this.getResources().getString(R.string.Lost_Message, points))
                 .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
                     @Override
