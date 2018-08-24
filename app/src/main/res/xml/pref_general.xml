@@ -16,6 +16,7 @@
         android:entries="@array/color_list"
         android:entryValues="@array/color_list_values"
         android:key="pref_color"
+        android:summary="%s"
         android:title="@string/settings_color" />
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->

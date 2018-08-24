@@ -115,6 +115,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         return true;
     }
 
+    @Override
+    public void onPause() {
+        Log.i("lifecycle","pause");
+        save();
+
+        super.onPause();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +168,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     Elements = last_elements;
                     points = last_points;
                     number_field.removeAllViews();
+                    number_field_background.removeAllViews();
                     points = last_points;
                     textFieldPoints.setText(""+points);
                     setDPositions(false);
@@ -197,15 +206,19 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         super.onConfigurationChanged(newConfig);
     }
 
-
-    @Override
-    public void onBackPressed() {
+    public void save()
+    {
+        Log.i("saving","save");
         if(!createNewGame)
             saveStateToFile(gameState);
         gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
         startingTime = Calendar.getInstance().getTimeInMillis();
         saveStatisticsToFile(gameStatistics);
         firstTime = true;
+    }
+    @Override
+    public void onBackPressed() {
+        save();
 
         super.onBackPressed();
 
@@ -216,6 +229,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         createNewGame = true;
         getIntent().putExtra("new",true);
         number_field.removeAllViews();
+        number_field_background.removeAllViews();
         initialize();
 
     }
@@ -318,11 +332,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         else
             undoButton.setVisibility(View.INVISIBLE);
 
+        number_field_background.removeAllViews();
+        number_field.removeAllViews();
         for(int i = 0; i < Elements.length; i++) {
             for (int j = 0; j < Elements[i].length; j++) {
                 //background elements
-                number_field_background.removeView(backgroundElements[i][j]);
-                number_field.removeView(Elements[i][j]);
                 backgroundElements[i][j] = new Element(this);
                 //backgroundElements[i][j].setVisibility(View.INVISIBLE);
 
@@ -1029,6 +1043,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 gameOver();
             }
         }
+        Log.i("number of elements", ""+number_field.getChildCount() + ", "+ number_field_background.getChildCount());
     }
     public void gameOver()
     {
@@ -1080,11 +1095,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             return true;
         }
         else if( id == android.R.id.home){
-            saveStateToFile(gameState);
-            gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
-            startingTime = Calendar.getInstance().getTimeInMillis();
-            saveStatisticsToFile(gameStatistics);
-            firstTime = true;
+            save();
         }
 
         return super.onOptionsItemSelected(item);
@@ -1102,10 +1113,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
-        startingTime = Calendar.getInstance().getTimeInMillis();
-        saveStateToFile(gameState);
-        saveStatisticsToFile(gameStatistics);
+       save();
 
     }
 
