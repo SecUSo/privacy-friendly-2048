@@ -37,6 +37,18 @@
                 android:layout_height="0dp"
                 android:layout_weight="6">
 
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                </android.support.v4.view.ViewPager>
+
                 <ImageButton
                     android:id="@+id/btn_prev"
                     android:layout_width="wrap_content"
@@ -52,18 +64,6 @@
                     android:padding="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
                     android:visibility="invisible" />
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/view_pager"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                </android.support.v4.view.ViewPager>
 
                 <ImageButton
                     android:id="@+id/btn_next"
