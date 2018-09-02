@@ -1,14 +1,18 @@
-﻿# Privacy Friendly App Example
+﻿# Privacy Friendly 2048
 
-This application contains the basic design of a Privacy Friendly App without any other functionality. It includes a Navigation Drawer, examples for buttons, a help page and the about page. It further shows an example of the main menu for a Privacy Friendly Game App. This app belongs to the group of Privacy Friendly Apps developed by the Karlsruhe Institute of Technology (KIT).
+The Privacy Friendly 2048 app is an addictive puzzle game. The game is considered to be won if you reach the number 2048 by pushing the same numbers together. It belongs to the group of Privacy Friendly Apps supported by the research group SECUSO.
+
+This app is the optimal gadget to protect the user's privacy and at the same time playing 2048. The app can provide its full functionality without the need of any permission. Furthermore it does not use any tracking mechanisms or advertisement as other apps in the stores. 
+
 
 ## Motivation
 
-This application has been developed to be used as a basis for a Privacy Friendly App. Privacy Friendly Apps are group of Android applications which are optimized regarding privacy. Further information can be found on https://secuso.org/pfa
+As many apps require a lot of the users information’s and also include advertisement, we design this privacy friendly alternative to provide only the functionalities without the needless inquerement of data. Supported by the SECUSO research group, the app optimized the user's privacy during the usage.
 
 ## Download and more Information
 
 Further development requires Android Studio, we recommend to use at least version 3.1.1
+For more information about the app and how it works, please take a look at the Wiki section.
  
 ### API Reference
 
@@ -17,8 +21,8 @@ Target SDK: 27
 
 ## License
 
-Privacy Friendly App Example is licensed under the GPLv3.
-Copyright (C) 2016-2018  Karola Marky
+Privacy Friendly 248 is licensed under the GPLv3.
+Copyright (C) 2018  Saskia Jacob and Julian Wadephul
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,16 +37,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo and the app logo) copyright [Karlsruhe Institute fo Technology (KIT)](www.kit.edu) (2016-2018).
+The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly 2048, the SECUSO logo and the app logo) copyright [Karlsruhe Institute fo Technology (KIT)](www.kit.edu) (2018).
 
 ## Contributors
 
-App-Icon: <br />
-Markus Hau<br />
+App-Icon: _____
 
-Github-Users: <br />
-Yonjuni (Karola Marky)<br />
-Kamuno (Christopher Beckmann)
+Developer: Saskia Jacob and Julian Wadephul
+
 
 
 
