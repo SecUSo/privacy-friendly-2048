@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -232,15 +233,24 @@ public class TutorialActivity extends AppCompatActivity {
                     break;
                 case 1:
                     imageView = (ImageView) findViewById(R.id.image2);
-                    Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move).into(imageView);
+                    if(PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move_s).into(imageView);
+                    else
+                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move_o).into(imageView);
                     break;
                 case 2:
                     imageView = (ImageView) findViewById(R.id.image3);
-                    Glide.with(TutorialActivity.this).load(R.drawable.tutorial_swip).into(imageView);
+                    if(PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move_s).into(imageView);
+                    else
+                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_swipe_o).into(imageView);
                     break;
                 case 3:
                     imageView = (ImageView) findViewById(R.id.image4);
-                    Glide.with(TutorialActivity.this).load(R.drawable.tutorial_add).into(imageView);
+                    if(PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_add_s).into(imageView);
+                    else
+                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_add_o).into(imageView);
                     break;
             }
             return view;

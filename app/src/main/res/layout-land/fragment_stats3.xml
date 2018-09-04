@@ -15,12 +15,12 @@
         android:weightSum="4">
 
         <ImageView
+            android:id="@+id/stat_img3"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:layout_weight="1.2"
-            android:adjustViewBounds="true"
-            android:src="@drawable/layout6x6" />
+            android:adjustViewBounds="true" />
 
         <RelativeLayout
             android:layout_width="0dp"

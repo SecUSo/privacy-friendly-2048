@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
@@ -318,19 +319,31 @@ public class MainActivity extends BaseActivity{
             {
                 case 0:
                     imageView = (ImageView) findViewById(R.id.main_menu_img1);
-                    Glide.with(MainActivity.this).load(R.drawable.layout4x4).into(imageView);
+                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(MainActivity.this).load(R.drawable.layout4x4_s).into(imageView);
+                    else
+                        Glide.with(MainActivity.this).load(R.drawable.layout4x4_o).into(imageView);
                     break;
                 case 1:
                     imageView = (ImageView) findViewById(R.id.main_menu_img2);
-                    Glide.with(MainActivity.this).load(R.drawable.layout5x5).into(imageView);
+                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(MainActivity.this).load(R.drawable.layout5x5_s).into(imageView);
+                    else
+                        Glide.with(MainActivity.this).load(R.drawable.layout5x5_o).into(imageView);
                     break;
                 case 2:
                     imageView = (ImageView) findViewById(R.id.main_menu_img3);
-                    Glide.with(MainActivity.this).load(R.drawable.layout6x6).into(imageView);
+                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(MainActivity.this).load(R.drawable.layout6x6_s).into(imageView);
+                    else
+                        Glide.with(MainActivity.this).load(R.drawable.layout6x6_o).into(imageView);
                     break;
                 case 3:
                     imageView = (ImageView) findViewById(R.id.main_menu_img4);
-                    Glide.with(MainActivity.this).load(R.drawable.layout7x7).into(imageView);
+                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(MainActivity.this).load(R.drawable.layout7x7_s).into(imageView);
+                    else
+                        Glide.with(MainActivity.this).load(R.drawable.layout7x7_o).into(imageView);
                     break;
             }
             return view;

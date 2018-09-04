@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import org.secuso.privacyfriendly2048.R;
@@ -80,70 +81,70 @@ public class Element extends android.support.v7.widget.AppCompatButton {
         {
             switch (number){
                 case 0:
-                    setColor(R.color.button_empty);
-                    setTextColor((this.getResources().getColor(R.color.black, null)));
+                    setColor(ContextCompat.getColor(context, R.color.button_empty));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 2:
-                    setColor(context.getResources().getColor(R.color.button2,null));
-                    setTextColor((this.getResources().getColor(R.color.black,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button2));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 4:
-                    setColor(context.getResources().getColor(R.color.button4,null));
-                    setTextColor((this.getResources().getColor(R.color.black,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button4));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 8:
-                    setColor(context.getResources().getColor(R.color.button8,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button8));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 16:
-                    setColor(context.getResources().getColor(R.color.button16,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button16));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 32:
-                    setColor(context.getResources().getColor(R.color.button32,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button32));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 64:
-                    setColor(context.getResources().getColor(R.color.button64,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button64));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 128:
-                    setColor(context.getResources().getColor(R.color.button128,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button128));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 256:
-                    setColor(context.getResources().getColor(R.color.button256,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button256));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 512:
-                    setColor(context.getResources().getColor(R.color.button512,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button512));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 1024:
-                    setColor(context.getResources().getColor(R.color.button1024,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button1024));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 2048:
-                    setColor(context.getResources().getColor(R.color.button2048,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button2048));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 4096:
-                    setColor(context.getResources().getColor(R.color.button4096,null));
-                    setTextColor((this.getResources().getColor(R.color.black,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button4096));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 8192:
-                    setColor(context.getResources().getColor(R.color.button8192,null));
-                    setTextColor((this.getResources().getColor(R.color.black,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button8192));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 16384:
-                    setColor(context.getResources().getColor(R.color.button16384,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button16384));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     textSize = textSize * 0.8f;
                     setTextSize(textSize);
                     break;
                 case 32768:
-                    setColor(context.getResources().getColor(R.color.button32768,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button32768));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     textSize = textSize * 0.8f;
                     setTextSize(textSize);
                     break;
@@ -154,69 +155,69 @@ public class Element extends android.support.v7.widget.AppCompatButton {
             switch (number){
                 case 0:
                     setColor(R.color.button_empty_2);
-                    setTextColor((this.getResources().getColor(R.color.black,null)));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 2:
-                    setColor(context.getResources().getColor(R.color.button2_2,null));
-                    setTextColor((this.getResources().getColor(R.color.black,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button2_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 4:
-                    setColor(context.getResources().getColor(R.color.button4_2,null));
-                    setTextColor((this.getResources().getColor(R.color.black,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button4_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.black));
                     break;
                 case 8:
-                    setColor(context.getResources().getColor(R.color.button8_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button8_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 16:
-                    setColor(context.getResources().getColor(R.color.button16_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button16_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 32:
-                    setColor(context.getResources().getColor(R.color.button32_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button32_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 64:
-                    setColor(context.getResources().getColor(R.color.button64_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button64_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 128:
-                    setColor(context.getResources().getColor(R.color.button128_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button128_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 256:
-                    setColor(context.getResources().getColor(R.color.button256_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button256_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 512:
-                    setColor(context.getResources().getColor(R.color.button512_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button512_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 1024:
-                    setColor(context.getResources().getColor(R.color.button1024_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button1024_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 2048:
-                    setColor(context.getResources().getColor(R.color.button2048_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button2048_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 4096:
-                    setColor(context.getResources().getColor(R.color.button4096_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button4096_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 8192:
-                    setColor(context.getResources().getColor(R.color.button8192_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button8192_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     break;
                 case 16384:
-                    setColor(context.getResources().getColor(R.color.button16384_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button16384_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     textSize = textSize * 0.8f;
                     setTextSize(textSize);
                     break;
                 case 32768:
-                    setColor(context.getResources().getColor(R.color.button32768_2,null));
-                    setTextColor((this.getResources().getColor(R.color.white,null)));
+                    setColor(ContextCompat.getColor(context,R.color.button32768_2));
+                    setTextColor(ContextCompat.getColor(context,R.color.white));
                     textSize = textSize * 0.8f;
                     setTextSize(textSize);
                     break;

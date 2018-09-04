@@ -1,4 +1,4 @@
-﻿# Privacy Friendly 2048
+# Privacy Friendly 2048
 
 The Privacy Friendly 2048 app is an addictive puzzle game. The game is considered to be won if you reach the number 2048 by pushing the same numbers together. It belongs to the group of Privacy Friendly Apps supported by the research group SECUSO.
 
@@ -21,7 +21,7 @@ Target SDK: 27
 
 ## License
 
-Privacy Friendly 248 is licensed under the GPLv3.
+Privacy Friendly 2048 is licensed under the GPLv3.
 Copyright (C) 2018  Saskia Jacob and Julian Wadephul
 
 This program is free software: you can redistribute it and/or modify

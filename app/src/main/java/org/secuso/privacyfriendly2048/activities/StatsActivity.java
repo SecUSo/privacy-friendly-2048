@@ -23,6 +23,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +40,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
 import org.secuso.privacyfriendly2048.R;
@@ -180,6 +183,7 @@ public class StatsActivity extends BaseActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
+            ImageView img = new ImageView(StatsActivity.this);
             TextView highestNumber = new TextView(StatsActivity.this);
             TextView timePlayed = new TextView(StatsActivity.this);
             TextView undo = new TextView(StatsActivity.this);
@@ -203,6 +207,11 @@ public class StatsActivity extends BaseActivity {
                     moves = findViewById(R.id.moves_All1);
                     tpm = findViewById(R.id.time_swipes1);
                     rekord = findViewById(R.id.highest_score1);
+                    img = findViewById(R.id.stat_img1);
+                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(StatsActivity.this).load(R.drawable.layout4x4_s).into(img);
+                    else
+                        Glide.with(StatsActivity.this).load(R.drawable.layout4x4_o).into(img);
                     break;
                 case 1:
                     highestNumber = findViewById(R.id.highest_number2);
@@ -215,6 +224,11 @@ public class StatsActivity extends BaseActivity {
                     moves = findViewById(R.id.moves_All2);
                     tpm = findViewById(R.id.time_swipes2);
                     rekord = findViewById(R.id.highest_score2);
+                    img = findViewById(R.id.stat_img2);
+                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(StatsActivity.this).load(R.drawable.layout5x5_s).into(img);
+                    else
+                        Glide.with(StatsActivity.this).load(R.drawable.layout5x5_o).into(img);
                     break;
                 case 2:
                     highestNumber = findViewById(R.id.highest_number3);
@@ -227,6 +241,11 @@ public class StatsActivity extends BaseActivity {
                     moves = findViewById(R.id.moves_All3);
                     tpm = findViewById(R.id.time_swipes3);
                     rekord = findViewById(R.id.highest_score3);
+                    img = findViewById(R.id.stat_img3);
+                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(StatsActivity.this).load(R.drawable.layout6x6_s).into(img);
+                    else
+                        Glide.with(StatsActivity.this).load(R.drawable.layout6x6_o).into(img);
                     break;
                 case 3:
                     highestNumber = findViewById(R.id.highest_number4);
@@ -239,6 +258,11 @@ public class StatsActivity extends BaseActivity {
                     moves = findViewById(R.id.moves_All4);
                     tpm = findViewById(R.id.time_swipes4);
                     rekord = findViewById(R.id.highest_score4);
+                    img = findViewById(R.id.stat_img4);
+                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                        Glide.with(StatsActivity.this).load(R.drawable.layout7x7_s).into(img);
+                    else
+                        Glide.with(StatsActivity.this).load(R.drawable.layout7x7_o).into(img);
                     break;
             }
             GameStatistics gameStatistics = readStatisticsFromFile(position+4);
