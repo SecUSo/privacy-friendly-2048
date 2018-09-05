@@ -23,13 +23,13 @@
     <string name="help_whatis">Was ist die Privacy Friendly App 2048?</string>
     <string name="help_whatis_answer">Die Privacy Friendly App 2048 ist eine brechtigungsfreie Version des bekannten Spieles 2048. Es verfügt somit über dieselben Funktionen ohne dabei Daten des Benutzters zu benutzen.</string>
     <string name="help_color">Wie kann ich den Farbstil des Spiels ändern?</string>
-    <string name="help_color_answer">Unter Einstellungen kann zwischen zwei Farbstilen für das Spiel ausgewählt werden. Zwischen den klassichen Farben des Orginalspiels und den an diese App angepassten Farbstil kann ausgewählt werden.</string>
+    <string name="help_color_answer">Unter Einstellungen kann zwischen zwei Farbstilen für das Spiel ausgewählt werden. Zwischen den klassischen Farben des Orginalspiels und den an diese App angepassten Farbstil kann ausgewählt werden.</string>
     <string name="help_play">Was ist das Ziel dieses Spieles?</string>
     <string name="help_play_answer">Ziel dieses Spiel ist es, die Zahl 2048 zu erzeugen. Die kann durch das ineinanderschieben gleichwetiger Zahlen erfolgen. Eine genaue Bedienungsanleitung des Spiels findet sich in dem Abschnitt Tutorial.</string>
     <string name="help_play_how">Wie bewegt man die Zahlen?</string>
     <string name="help_play_how_answer">Man muss mit dem Finger über den Display wischen in die Richtung, in welche die Zahlen sich bewegen sollen. </string>
     <string name="help_play_add">Wie erreicht man höhere Zahlen?</string>
-    <string name="help_play_add_answer">Werden zwei gleiche Zahlen ineinander geschoben, addieren diese sich miteinander auf zu der nächst höheren Zweierpotenz.</string>
+    <string name="help_play_add_answer">Werden zwei gleiche Zahlen ineinander geschoben, addieren diese sich miteinander auf zu der nächsthöheren Zweierpotenz.</string>
     <string name="help_undo">Ist es möglich Züge rückgängig zu machen?</string>
     <string name="help_undo_answer">Die App gibt dem Spieler die Option seinen letzten Zug ungeschehen zu machen. Dazu ist der Knopf mit dem Pfeil gegen des Uhrzeigersinn zu betätigen.</string>
     <string name="help_tip">Tips und Tricks</string>
@@ -68,7 +68,7 @@
     <string name="Tutorial_Titel">Wilkommen!</string>
     <string name="Tutorial_Instruction">Im folgenden Abschnitten wird Ihnen gezeigt, wie Sie das Spiel 2048 spielen können.</string>
     <string name="Tutorial_Titel_Move">Lerne die Zahlen zu bewegen!</string>
-    <string name="Tutorial_Move">Um alle Zahlen soweit wie möglich auf eine Seite zu bewegen, streiche mit dem Finger in die entsprechende Richtung.</string>
+    <string name="Tutorial_Move">Um alle Zahlen so weit wie möglich auf eine Seite zu bewegen, streiche mit dem Finger in die entsprechende Richtung.</string>
     <string name="Tutorial_Titel_Add">Lerne die Zahlen ineinander zu verschachteln!</string>
     <string name="Tutorial_Add">Um die nächst höhere Zweierpotenz zu erhalten, müssen Zahlen mit gleichem Wert ineinander geschoben werden. Ziel ist es den Wert 2048 und höher zu erreichen.</string>
 

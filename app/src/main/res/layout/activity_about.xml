@@ -81,9 +81,9 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/textFieldAuthorNames"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="@+id/textFieldAuthorNames"
                 android:text="@string/about_author_names" />
 
             <TextView

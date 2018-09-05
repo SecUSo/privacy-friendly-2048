@@ -160,7 +160,6 @@
                     android:id="@+id/moves_All4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/first_av_text"
                     android:gravity="center_vertical"
                     android:text="0" />
             </RelativeLayout>
@@ -194,7 +193,6 @@
                     android:id="@+id/time_swipes4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/second_av_text"
                     android:gravity="center_vertical"
                     android:text="0" />
             </RelativeLayout>

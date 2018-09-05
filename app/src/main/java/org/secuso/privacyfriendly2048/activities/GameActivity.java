@@ -59,6 +59,7 @@ import java.util.Calendar;
  * @version 20180807
  */
 
+@SuppressWarnings("StringConcatenationInLoop")
 public class GameActivity extends BaseActivityWithoutNavBar {
     public static int n = 4;
     public TextView textFieldPoints;
