@@ -179,7 +179,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     elements = last_elements;
                     points = last_points;
                     number_field.removeAllViews();
-                    number_field_background.removeAllViews();
+                    //number_field_background.removeAllViews();
                     points = last_points;
                     textFieldPoints.setText(""+points);
                     setDPositions(false);
@@ -365,6 +365,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 backgroundElements[i][j].setLayoutParams(lp);
                 elements[i][j].updateFontSize();
                 backgroundElements[i][j].setLayoutParams(lp);
+                backgroundElements[i][j].setOnTouchListener(swipeListener);
+                elements[i][j].setOnTouchListener(swipeListener);
                 number_field_background.addView(backgroundElements[i][j]);
                 number_field.addView(elements[i][j]);
             }
