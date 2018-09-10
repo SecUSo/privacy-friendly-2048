@@ -54,9 +54,13 @@ import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager;
 import java.io.File;
 
 /**
- * In this class the main activity is implemented, where the game can be started
+ * The MainActivity is the activity from which the game in each mode is started.
+ * Therefore a ViewPager is used to depict pictures of the four mode.
+ * At the bottom of the activity there are two buttons, which start a new game (START NEW GAME) and continue the previous game (CONTINUE GAME).
+ * The CONTINUE GAME button is greyed out and is not selectable, if there is no previous played game available in this mode.
+ *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 public class MainActivity extends BaseActivity{
 

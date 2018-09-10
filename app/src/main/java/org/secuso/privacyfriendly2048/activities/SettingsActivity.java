@@ -38,9 +38,11 @@ import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
 
 
 /**
- * In this class the settings activity is implemented
+ * As the name suggests the settings for the app are located in this activity.
+ * Here you can change options like the color set of the game, activate or deactivate the animations and the screen locker.
+ *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 public class SettingsActivity extends BaseActivity {
     /**

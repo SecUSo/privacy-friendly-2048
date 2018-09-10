@@ -22,10 +22,12 @@ package org.secuso.privacyfriendly2048.activities.helper;
 import java.io.Serializable;
 
 /**
- * This class contains the GameStatistics and is serializable, to save the statistics into a file.
+ * The current statistics in each modes is defined in this class.
+ * It contains the highest reached number, the amount of swipes (total and for each direction), playing time, highest score and the amount of using the undo button.
+ * For saving this data in a file, the interface java.io.Serializable is implemented.
  *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 public class GameStatistics implements Serializable {
     private long moves = 0;

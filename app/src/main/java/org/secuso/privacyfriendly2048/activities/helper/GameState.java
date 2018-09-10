@@ -27,7 +27,6 @@ import org.secuso.privacyfriendly2048.activities.Element;
 import java.io.Serializable;
 
 /**
- * This class is a serializable to save the actual GameState in a file. It contains the central Game variables.
  *
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180807

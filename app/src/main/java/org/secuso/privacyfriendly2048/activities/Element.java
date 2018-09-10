@@ -31,9 +31,13 @@ import android.view.View;
 import org.secuso.privacyfriendly2048.R;
 
 /**
- * This class is a gameElement and contains the position and number of a game element
+ * This class extends the android.support.v7.widget.AppCompatButton class and represents a box on the game field.
+ * This element contains different features like the presented value (number) and the position of this value in the playing field (posX, posY).
+ * Because of the animation a distinction is made between the calculated value and the displayed value.
+ * Furthermore there are more features like the color of the box and the font size of the value.
+ *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 
 public class Element extends android.support.v7.widget.AppCompatButton {

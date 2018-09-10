@@ -30,8 +30,11 @@ import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
 
 /**
+ * This activity shows the important information about the app.
+ * Information like the developers, the version and the superior project for which this app was implemented, are presented in this activity.
+ *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 public class AboutActivity extends AppCompatActivity {
 

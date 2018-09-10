@@ -30,12 +30,12 @@ import android.view.View;
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180807
  */
-public class Gesten implements View.OnTouchListener {
+public class Gestures implements View.OnTouchListener {
 
     private GestureDetector gestureDetector = null;
     private Context cxt = null;
 
-    public Gesten(Context context) {
+    public Gestures(Context context) {
         gestureDetector = new GestureDetector(context, new GestureListener());
         cxt = context;
     }

@@ -61,9 +61,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * In this class the statistics activity is implemented
+ * The game statistics of the four modes are loaded and shown with a ViePager in this activity.
+ *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 public class StatsActivity extends BaseActivity {
 

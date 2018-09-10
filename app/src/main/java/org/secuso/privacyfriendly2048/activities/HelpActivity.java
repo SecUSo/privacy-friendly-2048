@@ -31,9 +31,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * In this class the help activity is implemented
+ * The HelpActivity is a standard activity provided by all SECUSO apps. Here you can find some FAQs with an adequate answer.
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 public class HelpActivity extends BaseActivity {
 

@@ -25,8 +25,11 @@ import android.support.v7.app.AppCompatActivity;
 import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager;
 
 /**
+ * The goal of this activity is to start the tutorial in case the app is started for the first time.
+ * After that the app should show the MainActivity.
+ *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 
 public class SplashActivity extends AppCompatActivity {

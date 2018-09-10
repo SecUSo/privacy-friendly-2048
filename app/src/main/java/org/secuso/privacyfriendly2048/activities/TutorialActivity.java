@@ -47,9 +47,11 @@ import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager;
 
 /**
- * In this class the tutorial activity is implemented
+ * In this activity a ViewPager is filled with the four pages of the tutorial.
+ * The buttons at the bottom differ depending on the current position in the ViewPager.
+ *
  * @author Julian Wadephul and Saskia Jacob
- * @version 20180807
+ * @version 20180910
  */
 public class TutorialActivity extends AppCompatActivity {
 
@@ -241,7 +243,7 @@ public class TutorialActivity extends AppCompatActivity {
                 case 2:
                     imageView = (ImageView) findViewById(R.id.image3);
                     if(PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color","1").equals("1"))
-                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move_s).into(imageView);
+                        Glide.with(TutorialActivity.this).load(R.drawable.tutorial_swipe_s).into(imageView);
                     else
                         Glide.with(TutorialActivity.this).load(R.drawable.tutorial_swipe_o).into(imageView);
                     break;
