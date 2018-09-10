@@ -33,13 +33,6 @@
                 android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.ChooseActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
-        </activity>
-        <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>

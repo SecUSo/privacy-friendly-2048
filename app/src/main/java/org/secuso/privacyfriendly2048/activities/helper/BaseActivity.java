@@ -39,8 +39,6 @@ import android.view.View;
 
 import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.activities.AboutActivity;
-import org.secuso.privacyfriendly2048.activities.ChooseActivity;
-import org.secuso.privacyfriendly2048.activities.GameActivity;
 import org.secuso.privacyfriendly2048.activities.HelpActivity;
 import org.secuso.privacyfriendly2048.activities.MainActivity;
 import org.secuso.privacyfriendly2048.activities.SettingsActivity;
