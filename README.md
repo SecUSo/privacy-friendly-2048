@@ -4,6 +4,12 @@ The Privacy Friendly 2048 app is an addictive puzzle game. The game is considere
 
 This app is the optimal gadget to protect the user's privacy and at the same time playing 2048. The app can provide its full functionality without the need of any permission. Furthermore it does not use any tracking mechanisms or advertisement as other apps in the stores. 
 
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=org.secuso.privacyfriendly2048)
+[<img src="https://f-droid.org/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/org.secuso.privacyfriendly2048/)
 
 ## Motivation
 
