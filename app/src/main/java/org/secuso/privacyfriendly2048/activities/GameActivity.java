@@ -138,13 +138,16 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        saveState = true;
-        Intent intent = getIntent();
-        if(firstTime && intent.getBooleanExtra("new",true)) {
-            createNewGame = true;
-            firstTime = false;
-        }
 
+        saveState = true;
+
+        if(savedInstanceState == null) {
+            Intent intent = getIntent();
+            if (firstTime && intent.getBooleanExtra("new", true)) {
+                createNewGame = true;
+                firstTime = false;
+            }
+        }
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         animationActivated = sharedPref.getBoolean("pref_animationActivated",true);
@@ -153,9 +156,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
 
+        initResources();
 
 
+    }
 
+    public void initResources() {
         number_field = (RelativeLayout) findViewById(R.id.number_field);
         number_field_background = (RelativeLayout) findViewById(R.id.number_field_background);
         touch_field = (RelativeLayout) findViewById(R.id.touch_field) ;
@@ -208,8 +214,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         //number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
         startingTime = Calendar.getInstance().getTimeInMillis();
-
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub
