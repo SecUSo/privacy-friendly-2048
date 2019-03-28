@@ -6,8 +6,8 @@ android {
         applicationId 'org.secuso.privacyfriendly2048'
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {
