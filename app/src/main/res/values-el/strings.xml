@@ -1,0 +1,105 @@
+<resources>
+    <string name="app_name">2048</string>
+    <string name="app_name_long">Privacy Friendly 2048</string>
+
+    <!-- ###DRAWER###-->
+    <string name="action_help">Βοήθεισ</string>
+    <string name="action_about">Σχετικά</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="action_main">Αρχική</string>
+    <string name="action_tutorial">Οδηγίες</string>
+    <string name="action_stat">Στατιστικά</string>
+
+
+    <string name="navigation_drawer_open">Άνοιγμα περιηγητή</string>
+    <string name="navigation_drawer_close">Κλείσιμο περιηγητή</string>
+
+
+    <!-- ###GAME###-->
+    <string name="title_activity_game">2048</string>
+
+    <!--###HELP###-->
+    <string name="help">Βοήθεια</string>
+
+    <string name="help_whatis">Τι είναι η Privacy Friendly εφαρμογή 2048;</string>
+    <string name="help_whatis_answer">Η Privacy Friendly 2048 είναι μια φιλική προς την ιδιωτικότητα έκδοση του γνωστού πρωτότυπου παιχνιδιού 2048. Έχει τις ίδιες λειτουργίες, χωρίς να χρησιμοποιεί δεδομένα του χρήστη.</string>
+    <string name="help_color">Πώς μπορώ να αλλάξω το χρωματικό φάσμα του παιχνιδιού;</string>
+    <string name="help_color_answer">Στις Ρυθμίσεις υπάρχει επιλογή για αλλαγή ανάμεσα σε δύο χρωματικά φάσματα.</string>
+    <string name="help_play">Ποιος είναι ο στόχος του παιχνιδιού;</string>
+    <string name="help_play_answer">Ο στόχος του παιχνιδιού είναι να φτάσετε τον αριθμό 2048. Με το συνδυασμό αριθμών με την ίδια τιμή, μπορείτε να φτάσετε όλο και μεγαλύτερους αριθμούς. Μπορείτε να βρείτε πιο εκτενή εξήγηση στις Οδηγίες</string>
+    <string name="help_play_how">Πώς μετακινώ τους αριθμούς;</string>
+    <string name="help_play_how_answer">Σύρετε την οθόνη με το δάχτυλό σας προς την κατεύθυνση στην οποία θέλετε να μετακινηθούν οι αριθμοί.</string>
+    <string name="help_play_add">Πώς μπορώ να φτάσω σε υψηλότερους αριθμούς;</string>
+    <string name="help_play_add_answer">Εάν δύο ίσοι αριθμοί ωθηθούν ο ένας μέσα στον άλλο, αθροίζονται στην επόμενη υψηλότερη δύναμη του δύο.</string>
+    <string name="help_undo">Είναι δυνατή η αναίρεση βημάτων;</string>
+    <string name="help_undo_answer">Η εφαρμογή σάς δίνει την επιλογή να αναιρέσετε το τελευταίο σας βήμα στο παιχνίδι. Πρέπει να κάνετε κλικ στο κουμπί με το αντίθετο προς τη φορά των δεικτών του ρολογιού βέλος.</string>
+    <string name="help_tip">Πώς θα κερδίσω το παιχνίδι;</string>
+    <string name="help_tip_answer">Υπάρχουν μερικές στρατηγικές για να κερδίσετε αυτό το παιχνίδι. Στο YouTube μπορείτε να βρείτε πολλά βίντεο που καλύπτουν αυτό το θέμα.</string>
+    <string name="help_privacy">Τι κάνει την εφαρμογή φιλική προς την ιδιωτικότητα;</string>
+    <string name="help_privacy_answer">Η εφαρμογή δεν απαιτεί καμία άδεια. Επιπλέον, δεν περιλαμβάνει μηχανισμούς παρακολούθησης ή διαφημίσεις.</string>
+    <string name="help_permission">Ποιες άδειες απαιτεί η εφαρμογή;</string>
+    <string name="help_permission_answer">Η εφαρμογή δεν απαιτεί καμία άδεια.</string>
+
+    <!-- ### WELCOME DIALOG ### -->
+    <string name="okay">Εντάξει</string>
+
+
+    <!--###ABOUT###-->
+    <string name="about">Σχετικά</string>
+    <string name="version">Έκδοση: </string>
+    <string name="version_number"> %s</string>
+    <string name="about_author">Δημιουργοί:</string>
+    <string name ="about_author_names">Saskia Jacob και Julian Wadephul</string>
+    <string name="about_author_contributors">και συνεισφέροντες.</string>
+    <string name="about_affiliation">Σε συνεργασία με την</string>
+    <string name="privacy_friendly">Αυτή η εφαρμογή ανήκει στην ομάδα εφαρμογών φιλικών προς το απόρρητο που αναπτύχθηκαν από το Ινστιτούτο Τεχνολογίας της Καρλσρούης (KIT). Πηγαίος κώδικας με άδεια χρήσης GPLv3. Πνευματικά δικαιώματα εικόνων KIT και Google Inc.</string>
+    <string name="more_info">Περισσότερες πληροφορίες στα:</string>
+    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-2048">Github-Repo</a></string>
+    <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
+
+    <!-- ###SETTINGS### -->
+    <string name="settings_name">Ρυθμίσεις</string>
+    <string name="settings_animation">Ενεργοποίηση κινήσεων</string>
+    <string name="settings_display">Ενεργοποίηση κλειδώματος οθόνης</string>
+    <string name="settings_color">Επιλογή χρωματικού φάσματος</string>
+
+
+    <!-- ### CHOOSE DIALOG ### -->
+    <string name="new_Game_Button">Έναρξη Νέου</string>
+    <string name="continue_Game_Button">Συνέχεια</string>
+    <string name="Record_Button">Ρεκόρ</string>
+    <string name="Points_Button">Βαθμοί</string>
+    <string name="Winning_Message">Κερδίσατε. Θέλετε να συνεχίσετε;</string>
+    <string name="Yes_Message">Ναι</string>
+    <string name="No_Message">Όχι</string>
+    <string name="Titel_V_Message">Νίκη</string>
+    <string name="Titel_L_Message">Βαθμολογία: %1$d</string>
+    <string name="Lost_Message">Δεν είναι δυνατές άλλες κινήσεις. Η βαθμολογία σας είναι: %1$d. Θα θέλατε να ξεκινήσετε ένα νέο παιχνίδι;</string>
+
+
+    <!-- ###TUTORIAL### -->
+    <string name="next">Επόμενο</string>
+    <string name="skip">Παράλειψη</string>
+    <string name="Tutorial_Titel">Καλώς ήρθατε!</string>
+    <string name="Tutorial_Instruction">Στις επόμενες διαφάνειες θα μάθετε πώς να παίζετε το 2048.</string>
+    <string name="Tutorial_Titel_Move">Μάθετε πώς να μετακινείτε τους αριθμούς!</string>
+    <string name="Tutorial_Move">Για να μετακινήσετε όλους τους αριθμούς στην πιθανή θέση προς μία κατεύθυνση, πρέπει να σύρετε το δάχτυλό σας με τον ίδιο τρόπο.</string>
+    <string name="Tutorial_Titel_Add">Πώς να συνδυάσετε τους αριθμούς!</string>
+    <string name="Tutorial_Add">Για να πάρετε την επόμενη μεγαλύτερη δύναμη του 2, πρέπει να συνδυάσετε αριθμούς με την ίδια τιμή. Στόχος είναι να φτάσετε το 2048 και άνω.</string>
+
+    <!-- ###STATISTICS### -->
+    <string name="Stat_High_Number">Υψηλότερος αριθμός</string>
+    <string name="Stat_High_Point">Υψηλότερη βαθμολογία</string>
+    <string name="Stat_Amount_Undo">Χρήσεις κουμπιού αναίρεσης</string>
+    <string name="Stat_Amount_Swipe">Συνολικές κινήσεις</string>
+    <string name="Stat_Swipes_Left">Αριστερά</string>
+    <string name="Stat_Swipes_Right">Δεξιά</string>
+    <string name="Stat_Swipes_Down">Κάτω</string>
+    <string name="Stat_Swipes_Up">Πάνω</string>
+    <string name="Stat_Time">Χρόνος παιχνιδιού</string>
+    <string name="Stat_Time_Swipes">Χρόνος ανά κίνηση</string>
+    <string name="reset_stats">Επαναφορά στατιστικών</string>
+
+
+
+</resources>
