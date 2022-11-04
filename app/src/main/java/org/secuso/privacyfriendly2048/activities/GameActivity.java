@@ -369,7 +369,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 elements[i][j].setDPosition(lp.getMarginStart(),lp.topMargin);
                 elements[i][j].setLayoutParams(lp);
                 backgroundElements[i][j].setLayoutParams(lp);
-                elements[i][j].updateFontSize();
                 backgroundElements[i][j].setLayoutParams(lp);
                 backgroundElements[i][j].setOnTouchListener(swipeListener);
                 elements[i][j].setOnTouchListener(swipeListener);

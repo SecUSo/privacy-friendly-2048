@@ -49,7 +49,6 @@ public class Element extends android.support.v7.widget.AppCompatButton {
     public int dPosY = 0;
     public boolean activated;
     public boolean animateMoving = false;
-    public float textSize = 24;
     Context context;
     int color;
 
@@ -59,7 +58,6 @@ public class Element extends android.support.v7.widget.AppCompatButton {
         super(c);
         context = c;
         setAllCaps(false);
-        setTextSize(textSize);
         setBackgroundResource(R.drawable.game_brick);
         if(PreferenceManager.getDefaultSharedPreferences(context).getString("pref_color","1").equals("1"))
             setColor(context.getResources().getColor(R.color.button_empty));
@@ -143,14 +141,10 @@ public class Element extends android.support.v7.widget.AppCompatButton {
                 case 16384:
                     setColor(ContextCompat.getColor(context,R.color.button16384));
                     setTextColor(ContextCompat.getColor(context,R.color.white));
-                    textSize = textSize * 0.8f;
-                    setTextSize(textSize);
                     break;
                 case 32768:
                     setColor(ContextCompat.getColor(context,R.color.button32768));
                     setTextColor(ContextCompat.getColor(context,R.color.white));
-                    textSize = textSize * 0.8f;
-                    setTextSize(textSize);
                     break;
             }
         }
@@ -216,14 +210,10 @@ public class Element extends android.support.v7.widget.AppCompatButton {
                 case 16384:
                     setColor(ContextCompat.getColor(context,R.color.button16384_2));
                     setTextColor(ContextCompat.getColor(context,R.color.white));
-                    textSize = textSize * 0.8f;
-                    setTextSize(textSize);
                     break;
                 case 32768:
                     setColor(ContextCompat.getColor(context,R.color.button32768_2));
                     setTextColor(ContextCompat.getColor(context,R.color.white));
-                    textSize = textSize * 0.8f;
-                    setTextSize(textSize);
                     break;
             }
         }
@@ -273,10 +263,7 @@ public class Element extends android.support.v7.widget.AppCompatButton {
     public int getPosY() {
         return posY;
     }
-    public void updateFontSize(){
-        textSize=(float)(getLayoutParams().width/7.0);
-        setTextSize(textSize);
-    }
+
     public Element copy()
     {
         Element temp = new Element(context);
@@ -288,9 +275,7 @@ public class Element extends android.support.v7.widget.AppCompatButton {
         temp.dPosY = dPosY;
         temp.activated = activated;
         temp.animateMoving = animateMoving;
-        temp.textSize = textSize;
         temp.color = color;
-        temp.setTextSize(textSize);
         //temp.setBackgroundResource(backGroundResource);
         temp.setColor(color);
         temp.setVisibility(getVisibility());
