@@ -8,11 +8,18 @@ android {
         targetSdkVersion 27
         versionCode 3
         versionName "1.2"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
     productFlavors {
@@ -32,4 +39,28 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
+    // Core library
+    testImplementation "androidx.test:core:1.5.0"
+
+    // AndroidJUnitRunner and JUnit Rules
+    testImplementation "androidx.test:runner:1.5.2"
+    testImplementation "androidx.test:rules:1.5.0"
+
+    // Assertions
+    testImplementation "androidx.test.ext:junit:1.1.5"
+    testImplementation "androidx.test.ext:truth:1.5.0"
+
+    // Robolectric environment
+    testImplementation 'org.robolectric:robolectric:4.9'
+
+    // Mockito framework
+    testImplementation "org.mockito:mockito-core:3+"
+
+    // UI testing with Espresso
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    // UI testing with UI Automator
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
+    // UI testing with Compose
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.4.1"
 }

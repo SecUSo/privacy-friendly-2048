@@ -158,7 +158,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         initResources();
 
-
     }
 
     public void initResources() {
@@ -294,9 +293,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         last_elements = new Element[n][n];
         backgroundElements = new Element[n][n];
         saveState = true;
-
-
-
     }
 
     public void drawAllElements(Element[][] e)
@@ -1139,18 +1135,18 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public void saveStateToFile(GameState nS)
     {
         if(saveState)
-        try {
-            if(filename == null)
-                filename = "state" + n + ".txt";
-            File file = new File(getFilesDir(), filename);
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(nS);
-            out.close();
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try {
+                if(filename == null)
+                    filename = "state" + n + ".txt";
+                File file = new File(getFilesDir(), filename);
+                FileOutputStream fileOut = new FileOutputStream(file);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(nS);
+                out.close();
+                fileOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     public boolean deleteStateFile()
