@@ -1,13 +1,14 @@
 package org.secuso.privacyfriendly2048.activities;
 
-import static android.app.PendingIntent.getActivity;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,12 +16,13 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
+import org.robolectric.Robolectric;
+import org.robolectric.android.controller.ActivityController;
 import org.secuso.privacyfriendly2048.activities.helper.GameStatistics;
 import org.secuso.privacyfriendly2048.activities.helper.GameState;
-
 import android.content.Intent;
 
-import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -32,86 +34,170 @@ import java.io.IOException;
 public class GameActivityTest {
 
     private GameStatistics gameStatisticsMock;
+    private GameState gameStateMock;
 
     @Before
     public void setUp() {
        gameStatisticsMock = mock(GameStatistics.class);
+       gameStateMock = mock(GameState.class);
     }
 
     @Test
     public void testStatsGetFilenameInteraction() {
-        try (ActivityScenario<GameActivity> scenario = ActivityScenario.launch(GameActivity.class)) {
-            scenario.onActivity(
-                    activity -> {
-                        scenario.moveToState(Lifecycle.State.RESUMED);
-                        assertThat(scenario.getState()).isEqualTo(Lifecycle.State.RESUMED);
 
-                        when(gameStatisticsMock.getFilename()).thenReturn("file");
-                        activity.saveStatisticsToFile(gameStatisticsMock);
-                        verify(gameStatisticsMock, times(1)).getFilename();
-                        activity.getFilesDir().delete();
-                    });
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class)) {
+            controller.setup();
+            GameActivity activity = spy(controller.get());
+            when(gameStatisticsMock.getFilename()).thenReturn("file");
+            activity.saveStatisticsToFile(gameStatisticsMock);
 
+            verify(gameStatisticsMock, times(1)).getFilename();
+            activity.getFilesDir().delete();
         }
     }
+
+//    @Test
+//    public void testStatsSetListenerInteraction() {
+//
+//        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class)) {
+//            controller.setup();
+//            GameActivity activity = spy(controller.get());
+//
+//        }
+//    }
 
     @Test
     public void testGameStatsSetHighestNumberInteractions() {
-        Intent startActivityIntent =
-                new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class)
-                        .putExtra("n", 2);
-        try (ActivityScenario<GameActivity> scenario = ActivityScenario.launch(startActivityIntent)) {
-            scenario.onActivity(
-                    activity -> {
-                        scenario.moveToState(Lifecycle.State.STARTED);
-                        assertThat(scenario.getState()).isEqualTo(Lifecycle.State.STARTED);
 
-                        activity.highestNumber = -1;
-                        activity.gameStatistics = gameStatisticsMock;
-                        activity.updateHighestNumber();
-                        int highest = activity.highestNumber;
-                        verify(gameStatisticsMock, atLeast(1)).setHighestNumber(highest);
-                        activity.getFilesDir().delete();
-                    });
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class)) {
+            controller.setup();
+            GameActivity activity = spy(controller.get());
+            activity.gameStatistics = gameStatisticsMock;
+            activity.highestNumber = -1;
+            activity.initialize();
+            activity.updateHighestNumber();
+
+            verify(gameStatisticsMock, times(1)).setHighestNumber(any(Long.class));
+        }
+    }
+
+
+    @Test
+    public void testGameStatsGameOverInteractions() {
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class)) {
+            controller.setup();
+            GameActivity activity = spy(controller.get());
+            when(gameStatisticsMock.getRecord()).thenReturn(500L);
+            when(gameStatisticsMock.getFilename()).thenReturn("file");
+            activity.gameStatistics = gameStatisticsMock;
+            activity.gameOver();
+
+            InOrder inorder = inOrder(gameStatisticsMock);
+
+            inorder.verify(gameStatisticsMock, times(1)).getRecord();
+            inorder.verify(gameStatisticsMock, times(1)).getFilename();
+            activity.getFilesDir().delete();
         }
     }
 
     @Test
-    public void testUpdateHighestNumber() throws Exception {
-        try (ActivityScenario<GameActivity> scenario = ActivityScenario.launch(GameActivity.class)) {
-            scenario.onActivity(
-                    activity -> {
-                        activity.highestNumber = -1;
-                        activity.updateHighestNumber();
-                        assertTrue(activity.highestNumber > -1);
-                        activity.getFilesDir().delete();
-                    });
-
+    public void testGameStatsInitializeInteractions() {
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class)) {
+            controller.setup();
+            GameActivity activity = spy(controller.get());
+            doReturn(gameStatisticsMock).when(activity).readStatisticsFromFile();
+            activity.initialize();
+            verify(gameStatisticsMock, times(1)).getRecord();
         }
     }
 
+    @Test
+    public void testGameStateInitializeInteractions() {
+        Intent intent = new Intent();
+        intent.putExtra("new", false);
+        intent.putExtra("n", 5);
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class, intent)) {
+            controller.setup();
+            GameActivity activity = spy(controller.get());
+
+            doReturn(gameStatisticsMock).when(activity).readStatisticsFromFile();
+            when(gameStatisticsMock.getRecord()).thenReturn(25L);
+
+            gameStateMock.points = 10;
+            gameStateMock.last_points = 5;
+            doReturn(gameStateMock).when(activity).readStateFromFile();
+
+            activity.initialize();
+
+            verify(gameStateMock, atLeast(1)).getNumber(any(int.class), any(int.class));
+            verify(gameStateMock, never()).getLastNumber(any(int.class), any(int.class));
+
+            activity.getFilesDir().delete();
+        }
+    }
+
+    @Test
+    public void testGameStateInitializeInteractionsWithUndoTrue() {
+        Intent intent = new Intent();
+        intent.putExtra("new", false);
+        intent.putExtra("undo", true);
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class, intent)) {
+            controller.setup();
+            GameActivity activity = spy(controller.get());
+
+            doReturn(gameStatisticsMock).when(activity).readStatisticsFromFile();
+            when(gameStatisticsMock.getRecord()).thenReturn(25L);
+
+            gameStateMock.points = 10;
+            gameStateMock.last_points = 5;
+            doReturn(gameStateMock).when(activity).readStateFromFile();
+
+            activity.initialize();
+            verify(gameStateMock, atLeast(1)).getNumber(any(int.class), any(int.class));
+            verify(gameStateMock, atLeast(1)).getLastNumber(any(int.class), any(int.class));
+
+            activity.getFilesDir().delete();
+        }
+    }
+
+
+    @Test
+    public void testUpdateHighestNumber() {
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class)) {
+            controller.setup();
+            GameActivity activity = spy(controller.get());
+            doReturn(gameStatisticsMock).when(activity).readStatisticsFromFile();
+            activity.highestNumber = -1;
+            activity.initialize();
+            activity.updateHighestNumber();
+            assertTrue(activity.highestNumber > -1);
+        }
+    }
+
+
     @Test // calling on empty file should not crash the game
     public void readStatisticsFromFileEmpty() {
-        Intent startActivityIntent =
-                new Intent(ApplicationProvider.getApplicationContext(), GameActivity.class)
-                        .putExtra("n", 1);
-        try (ActivityScenario<GameActivity> scenario = ActivityScenario.launch(startActivityIntent)) {
-            scenario.onActivity(
-                    activity -> {
-                        File file = new File(activity.getFilesDir(), "statistics1.txt");
-                        try {
-                            file.createNewFile();
-                            GameStatistics gs1 = activity.readStatisticsFromFile();
-                            GameStatistics gs2 = new GameStatistics(1);
-                            assertTrue(compareStatistics(gs1, gs2));
+        int n = 2;
+        Intent intent = new Intent();
+        intent.putExtra("n", n);
+        try (ActivityController<GameActivity> controller = Robolectric.buildActivity(GameActivity.class, intent).setup()) {
+            GameActivity activity = spy(controller.get());
+            activity.initializeState();
 
-                            activity.getFilesDir().delete();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+            File file = new File(activity.getFilesDir(), "statistics" + n + ".txt");
+            try {
+                file.createNewFile();
+                GameStatistics gs1 = activity.readStatisticsFromFile();
+                GameStatistics gs2 = new GameStatistics(n);
+                assertTrue(compareStatistics(gs1, gs2));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            activity.getFilesDir().delete();
 
         }
+
     }
 
     @Test // calling on nonexistent file should not crash the game
