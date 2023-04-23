@@ -1145,7 +1145,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 out.close();
                 fileOut.close();
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
     }
 
@@ -1160,7 +1160,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return false;
     }
@@ -1191,7 +1191,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         catch(Exception e)
         {
             newGame = true;
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return nS;
     }
@@ -1208,7 +1208,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return gS;
     }
@@ -1222,7 +1222,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             out.close();
             fileOut.close();
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 }

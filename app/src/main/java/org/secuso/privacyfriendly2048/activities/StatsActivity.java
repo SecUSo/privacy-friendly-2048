@@ -85,7 +85,7 @@ public class StatsActivity extends BaseActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private StatsActivity.MyViewPagerAdapter mSectionsPagerAdapter;
+    public StatsActivity.MyViewPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -285,6 +285,7 @@ public class StatsActivity extends BaseActivity {
 
             return view;
         }
+
         public String formatSmallMillis(long timeInMillis) {
             String sign = "";
             if (timeInMillis < 0) {

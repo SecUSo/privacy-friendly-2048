@@ -10,10 +10,6 @@ android {
         versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // The following argument makes the Android Test Orchestrator run its
-        // "pm clear" command after each test invocation. This command ensures
-        // that the app's state is completely cleared between tests.
-        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
     buildTypes {
         release {
@@ -25,7 +21,6 @@ android {
         unitTests {
             includeAndroidResources = true
         }
-        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
     productFlavors {
     }
@@ -63,18 +58,9 @@ dependencies {
     testImplementation "org.mockito:mockito-core:3+"
 
     // UI testing with Espresso
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
-
-
-    androidTestImplementation "androidx.test.ext:junit:1.1.5"
-    androidTestImplementation "androidx.test.ext:truth:1.5.0"
-
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestUtil 'androidx.test:orchestrator:1.1.0'
-
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
     // UI testing with UI Automator
     androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
+    // UI testing with Compose
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.4.1"
 }
