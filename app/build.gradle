@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 33
     defaultConfig {
         applicationId 'org.secuso.privacyfriendly2048'
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 33
         versionCode 3
-        versionName "1.2"
+        versionName "1.3"
     }
     buildTypes {
         release {
@@ -15,18 +15,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
-}
-repositories {
-    mavenCentral()
-    maven { url 'https://maven.google.com' }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
