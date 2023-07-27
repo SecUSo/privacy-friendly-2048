@@ -32,20 +32,9 @@ class PF2048 : Application(), Configuration.Provider {
         BackupManager.backupCreator = BackupCreator()
         BackupManager.backupRestorer = BackupRestorer()
         super.onCreate()
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // channels
-            val channel = NotificationChannel(CHANNEL_ID, "Default", NotificationManager.IMPORTANCE_LOW)
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager?.createNotificationChannel(channel)
-        }
     }
 
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
-    }
-
-    companion object {
-        const val CHANNEL_ID = "sudoku.0"
     }
 }
