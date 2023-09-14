@@ -61,11 +61,11 @@ The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http:
 
 ## Contributors
 
-App-Icon: Tatjana Albrandt
+App-Icon: <br />
+Tatjana Albrandt <br />
 
-Developer: Saskia Jacob and Julian Wadephul
+<a href="https://github.com/SecUSo/privacy-friendly-passwordgenerator/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=SecUSo/privacy-friendly-passwordgenerator&max=100&columns=20" />
+</a> <br />
 
-
-
-
-
+Original developers: Saskia Jacob and Julian Wadephul
