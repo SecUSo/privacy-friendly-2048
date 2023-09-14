@@ -73,8 +73,8 @@
     <string name="Yes_Message">Yes</string>
     <string name="No_Message">No</string>
     <string name="Titel_V_Message">Victory</string>
-    <string name="Titel_L_Message">Archieved Score: %1$d</string>
-    <string name="Lost_Message">No more moves are possible. Your archieved score was: %1$d. Would you like to start a new game?</string>
+    <string name="Titel_L_Message">Achieved Score: %1$d</string>
+    <string name="Lost_Message">No more moves are possible. Your achieved score was: %1$d. Would you like to start a new game?</string>
 
 
     <!-- ###TUTORIAL### -->
