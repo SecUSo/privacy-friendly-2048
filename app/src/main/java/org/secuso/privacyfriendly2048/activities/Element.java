@@ -25,7 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 
 import org.secuso.privacyfriendly2048.R;
@@ -40,7 +40,7 @@ import org.secuso.privacyfriendly2048.R;
  * @version 20180910
  */
 
-public class Element extends android.support.v7.widget.AppCompatButton {
+public class Element extends androidx.appcompat.widget.AppCompatButton {
     public int number = 0;
     public int dNumber = 0;
     public int posX = 0;
