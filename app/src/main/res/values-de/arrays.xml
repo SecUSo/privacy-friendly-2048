@@ -3,11 +3,20 @@
     <string-array name="color_list">
         <item>Standard</item>
         <item>Original</item>
-        <item>Dark</item>
     </string-array>
     <string-array name="color_list_values">
         <item>1</item>
         <item>2</item>
-        <item>3</item>
+    </string-array>
+
+    <string-array name="theme_list">
+        <item>System</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="theme_list_values">
+        <item>system</item>
+        <item>light</item>
+        <item>dark</item>
     </string-array>
 </resources>
