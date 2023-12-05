@@ -18,6 +18,8 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
+import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes;
+
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,7 @@ public class AboutActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(GetThemeRes(getApplicationContext()));
         setContentView(R.layout.activity_about);
 
         ActionBar ab = getSupportActionBar();
