@@ -63,7 +63,7 @@
         <item name="button32768Text">@color/white</item>
 
     </style>
-    <style name="ColorSchemeOriginal">
+    <style name="ColorSchemeOriginal" parent="ColorSchemeDefault">
         <item name="buttonEmpty">@color/button_empty_2</item>
         <item name="buttonEmptyText">@color/button_empty_2</item>
 
