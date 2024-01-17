@@ -25,6 +25,7 @@ android {
     dataBinding {
         enabled = true
     }
+    namespace 'org.secuso.privacyfriendly2048'
 }
 
 dependencies {
