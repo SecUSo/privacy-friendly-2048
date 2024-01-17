@@ -17,11 +17,7 @@
 package org.secuso.privacyfriendly2048
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.os.Build
 import android.util.Log
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.Configuration
 import org.secuso.privacyfriendly2048.backup.BackupCreator
 import org.secuso.privacyfriendly2048.backup.BackupRestorer
@@ -34,7 +30,5 @@ class PF2048 : Application(), Configuration.Provider {
         super.onCreate()
     }
 
-    override fun getWorkManagerConfiguration(): Configuration {
-        return Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
-    }
+    override val workManagerConfiguration = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
 }

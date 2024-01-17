@@ -115,7 +115,7 @@ public class DatabaseExporter {
 
         if (c.moveToFirst()) {
             while (!c.isAfterLast()) {
-                arrTblNames.add(c.getString(c.getColumnIndex("name")));
+                arrTblNames.add(c.getString(c.getColumnIndexOrThrow("name")));
                 c.moveToNext();
             }
         }
