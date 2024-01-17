@@ -45,6 +45,10 @@ android {
         enabled = true
     }
     namespace 'org.secuso.privacyfriendly2048'
+
+    lint {
+        lintConfig = file("lint.xml")
+    }
 }
 
 dependencies {

@@ -835,7 +835,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     public void check2048()
     {
-        if(won2048 == false)
+        if(won2048 == false) {
         for(int i = 0; i < elements.length; i++)
         {
             for(int j = 0; j < elements[i].length; j++)
@@ -865,6 +865,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     won2048=true;
                 }
             }
+        }
         }
     }
 
@@ -1138,18 +1139,19 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     public void saveStateToFile(GameState nS)
     {
-        if(saveState)
-        try {
-            if(filename == null)
-                filename = "state" + n + ".txt";
-            File file = new File(getFilesDir(), filename);
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(nS);
-            out.close();
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(saveState) {
+            try {
+                if (filename == null)
+                    filename = "state" + n + ".txt";
+                File file = new File(getFilesDir(), filename);
+                FileOutputStream fileOut = new FileOutputStream(file);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(nS);
+                out.close();
+                fileOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
