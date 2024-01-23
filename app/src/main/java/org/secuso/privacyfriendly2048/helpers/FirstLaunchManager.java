@@ -57,7 +57,7 @@ public class FirstLaunchManager {
     }
 
     public void initFirstTimeLaunch() {
-        if(pref.getBoolean(IS_FIRST_TIME_LAUNCH, true)) {
+        if (pref.getBoolean(IS_FIRST_TIME_LAUNCH, true)) {
             // First time setup in here
         }
     }

@@ -19,15 +19,13 @@
 package org.secuso.privacyfriendly2048.database;
 
 /**
- *
  * @author Karola Marky
  * @version 20161223
- *
+ * <p>
  * This class holds the "data type" that will be stored in the database
  * Each column of the database will be a private variable in this class.
  * For each data type one class is required.
  * In our example we only use one data type, which is sampleData
- *
  */
 
 public class PFASampleDataType {
@@ -38,22 +36,24 @@ public class PFASampleDataType {
     private String USERNAME;
     private int LENGTH;
 
-    public PFASampleDataType() {    }
+    public PFASampleDataType() {
+    }
 
 
     /**
      * Always use this constructor to generate data with values.
-     * @param ID The primary key for the database (will be automatically set by the DB)
-     * @param DOMAIN Some sample String that could be in the DB
+     *
+     * @param ID       The primary key for the database (will be automatically set by the DB)
+     * @param DOMAIN   Some sample String that could be in the DB
      * @param USERNAME Some sample String that could be in the DB
-     * @param LENGTH Some sample int that could be in the DB
+     * @param LENGTH   Some sample int that could be in the DB
      */
     public PFASampleDataType(int ID, String DOMAIN, String USERNAME, int LENGTH) {
 
-        this.ID=ID;
-        this.DOMAIN=DOMAIN;
-        this.USERNAME=USERNAME;
-        this.LENGTH=LENGTH;
+        this.ID = ID;
+        this.DOMAIN = DOMAIN;
+        this.USERNAME = USERNAME;
+        this.LENGTH = LENGTH;
     }
 
     /**

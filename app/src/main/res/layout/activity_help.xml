@@ -16,7 +16,7 @@
         android:fitsSystemWindows="true"
         tools:context="org.secuso.privacyfriendly2048.activities.MainActivity">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/toolbar" />
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"

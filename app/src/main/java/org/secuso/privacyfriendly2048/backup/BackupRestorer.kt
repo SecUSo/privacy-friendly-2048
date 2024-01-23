@@ -5,11 +5,10 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.JsonReader
 import android.util.Log
-import androidx.annotation.NonNull
+import org.secuso.privacyfriendly2048.database.PFASQLiteHelper
 import org.secuso.privacyfriendlybackup.api.backup.DatabaseUtil
 import org.secuso.privacyfriendlybackup.api.backup.FileUtil
 import org.secuso.privacyfriendlybackup.api.pfa.IBackupRestorer
-import org.secuso.privacyfriendly2048.database.PFASQLiteHelper
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -75,17 +74,20 @@ class BackupRestorer : IBackupRestorer {
             when (name) {
                 "switch_preference_1",
                 "pref_animationActivated" -> preferences.putBoolean(name, reader.nextBoolean())
+
                 "pref_color" -> preferences.putString(name, reader.nextString())
                 "FirstLaunchManager.PREF_PICKER_SECONDS",
                 "FirstLaunchManager.PREF_PICKER_MINUTES",
                 "FirstLaunchManager.PREF_BREAK_PICKER_SECONDS",
                 "FirstLaunchManager.PREF_PICKER_HOURS",
                 "FirstLaunchManager.PREF_BREAK_PICKER_MINUTES" -> preferences.putInt(name, reader.nextInt())
+
                 "pref_schedule_exercise_days" -> preferences.putStringSet(name, readPreferenceSet(reader))
                 "WORK_TIME",
                 "PAUSE TIME",
                 "pref_schedule_exercise_time",
                 "DEFAULT_EXERCISE_SET" -> preferences.putLong(name, reader.nextLong())
+
                 else -> throw RuntimeException("Unknown preference $name")
             }
         }
