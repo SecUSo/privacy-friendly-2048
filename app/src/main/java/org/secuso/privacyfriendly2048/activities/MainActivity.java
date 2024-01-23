@@ -25,10 +25,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.core.app.TaskStackBuilder;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +37,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.app.TaskStackBuilder;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 
@@ -59,7 +60,7 @@ import java.io.File;
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180910
  */
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private MainActivity.MyViewPagerAdapter myViewPagerAdapter;
@@ -84,13 +85,13 @@ public class MainActivity extends BaseActivity{
             false,
             false
     };
+
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
-        preferences =  getApplicationContext().getSharedPreferences(mypref,Context.MODE_PRIVATE);
-        editor =preferences.edit();
-        currentPage =  preferences.getInt("currentPage",0);
+        preferences = getApplicationContext().getSharedPreferences(mypref, Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        currentPage = preferences.getInt("currentPage", 0);
         viewPager.setCurrentItem(currentPage);
         updateButtons(currentPage);
         updateMovingButtons(currentPage);
@@ -100,7 +101,6 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         overridePendingTransition(0, 0);
@@ -118,17 +118,14 @@ public class MainActivity extends BaseActivity{
         btnNext = (ImageButton) findViewById(R.id.btn_next);
 
 
-
         //checking resumable
         File directory = getFilesDir();
-        File [] files = directory.listFiles();
+        File[] files = directory.listFiles();
 
-        for(int i = 0; i < files.length;i++)
-        {
-            Log.i("files",files[i].getName());
-            for(int j = 0; j < gameResumeable.length;j++)
-            {
-                if(files[i].getName().equals("state" + (j+4) + ".txt"))
+        for (int i = 0; i < files.length; i++) {
+            Log.i("files", files[i].getName());
+            for (int j = 0; j < gameResumeable.length; j++) {
+                if (files[i].getName().equals("state" + (j + 4) + ".txt"))
                     gameResumeable[j] = true;
             }
         }
@@ -145,59 +142,60 @@ public class MainActivity extends BaseActivity{
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-            btnPrev.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int current = getItem(-1);
-                    if (current >= 0) {
-                        // move to next screen
-                        viewPager.setCurrentItem(current);
-                    } else {
-                    }
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int current = getItem(-1);
+                if (current >= 0) {
+                    // move to next screen
+                    viewPager.setCurrentItem(current);
+                } else {
                 }
-            });
+            }
+        });
 
-            btnNext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // checking for last page
-                    // if last page home screen will be launched
-                    int current = getItem(+1);
-                    if (current < layouts.length) {
-                        // move to next screen
-                        viewPager.setCurrentItem(current);
-                    } else {
-                    }
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // checking for last page
+                // if last page home screen will be launched
+                int current = getItem(+1);
+                if (current < layouts.length) {
+                    // move to next screen
+                    viewPager.setCurrentItem(current);
+                } else {
                 }
-            });
+            }
+        });
     }
-    private void addListener(Button b1,Button b2,int n)
-    {
+
+    private void addListener(Button b1, Button b2, int n) {
         final int temp = n;
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent = new Intent(MainActivity.this, GameActivity.class);
-                intent.putExtra("n",temp);
-                intent.putExtra("points",0);
-                intent.putExtra("new",true);
-                intent.putExtra("filename","state"+temp+".txt");
-                intent.putExtra("undo",false);
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                intent.putExtra("n", temp);
+                intent.putExtra("points", 0);
+                intent.putExtra("new", true);
+                intent.putExtra("filename", "state" + temp + ".txt");
+                intent.putExtra("undo", false);
                 createBackStack(intent);
             }
         });
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent = new Intent(MainActivity.this, GameActivity.class);
-                intent.putExtra("n",temp);
-                intent.putExtra("new",false);
-                intent.putExtra("filename","state"+temp+".txt");
-                intent.putExtra("undo",false);
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                intent.putExtra("n", temp);
+                intent.putExtra("new", false);
+                intent.putExtra("filename", "state" + temp + ".txt");
+                intent.putExtra("undo", false);
                 createBackStack(intent);
             }
         });
     }
+
     private void createBackStack(Intent intent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             TaskStackBuilder builder = TaskStackBuilder.create(this);
@@ -208,6 +206,7 @@ public class MainActivity extends BaseActivity{
             finish();
         }
     }
+
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];
 
@@ -226,6 +225,7 @@ public class MainActivity extends BaseActivity{
         if (dots.length > 0)
             dots[currentPage].setTextColor(activeColor);
     }
+
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
@@ -237,7 +237,7 @@ public class MainActivity extends BaseActivity{
         public void onPageSelected(int position) {
             addBottomDots(position);
             currentPage = position;
-            editor.putInt("currentPage",currentPage);
+            editor.putInt("currentPage", currentPage);
             editor.commit();
             updateButtons(position);
 
@@ -254,8 +254,8 @@ public class MainActivity extends BaseActivity{
 
         }
     };
-    public void updateMovingButtons(int position)
-    {
+
+    public void updateMovingButtons(int position) {
         if (position == layouts.length - 1) {
             // last page. make button text to GOT IT
             btnNext.setVisibility(View.INVISIBLE);
@@ -271,23 +271,21 @@ public class MainActivity extends BaseActivity{
             btnPrev.setVisibility(View.VISIBLE);
         }
     }
-    public void updateButtons (int position)
-    {
+
+    public void updateButtons(int position) {
         Button newGameButton = MainActivity.this.findViewById(R.id.button_newGame);
         Button continueButton = MainActivity.this.findViewById(R.id.button_continueGame);
         try {
-            if(gameResumeable[position])
+            if (gameResumeable[position])
                 continueButton.setBackgroundResource(R.drawable.standalone_button);
             else
                 continueButton.setBackgroundResource(R.drawable.inactive_button);
 
             continueButton.setEnabled(gameResumeable[position]);
-        }
-        catch(Exception aie)
-        {
+        } catch (Exception aie) {
             aie.printStackTrace();
         }
-        addListener(newGameButton,continueButton,position+4);
+        addListener(newGameButton, continueButton, position + 4);
     }
 
     /**
@@ -316,32 +314,31 @@ public class MainActivity extends BaseActivity{
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
             ImageView imageView;
-            switch(position)
-            {
+            switch (position) {
                 case 0:
                     imageView = (ImageView) findViewById(R.id.main_menu_img1);
-                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(MainActivity.this).load(R.drawable.layout4x4_s).into(imageView);
                     else
                         Glide.with(MainActivity.this).load(R.drawable.layout4x4_o).into(imageView);
                     break;
                 case 1:
                     imageView = (ImageView) findViewById(R.id.main_menu_img2);
-                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(MainActivity.this).load(R.drawable.layout5x5_s).into(imageView);
                     else
                         Glide.with(MainActivity.this).load(R.drawable.layout5x5_o).into(imageView);
                     break;
                 case 2:
                     imageView = (ImageView) findViewById(R.id.main_menu_img3);
-                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(MainActivity.this).load(R.drawable.layout6x6_s).into(imageView);
                     else
                         Glide.with(MainActivity.this).load(R.drawable.layout6x6_o).into(imageView);
                     break;
                 case 3:
                     imageView = (ImageView) findViewById(R.id.main_menu_img4);
-                    if(PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(MainActivity.this).load(R.drawable.layout7x7_s).into(imageView);
                     else
                         Glide.with(MainActivity.this).load(R.drawable.layout7x7_o).into(imageView);
@@ -370,6 +367,7 @@ public class MainActivity extends BaseActivity{
 
     /**
      * This method connects the Activity to the menu item
+     *
      * @return ID of the menu item it belongs to
      */
     @Override

@@ -58,9 +58,9 @@
         <activity
             android:name="org.secuso.privacyfriendly2048.activities.StatsActivity"
             android:theme="@style/AppTheme.NoActionBar">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="org.secuso.privacyfriendly2048.activities.MainActivity"  />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
         </activity>
         <activity
             android:name=".activities.SettingsActivity"
@@ -74,8 +74,7 @@
         <activity
             android:name=".activities.GameActivity"
             android:label="@string/title_activity_game"
-            android:parentActivityName=".activities.MainActivity"
-            >
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />

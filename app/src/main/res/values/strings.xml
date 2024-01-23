@@ -49,7 +49,7 @@
     <string name="version">Version: </string>
     <string name="version_number">v %s</string>
     <string name="about_author">Authors:</string>
-    <string name ="about_author_names">Saskia Jacob and Julian Wadephul</string>
+    <string name="about_author_names">Saskia Jacob and Julian Wadephul</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Karlsruhe Institute of Technology (KIT). Sourcecode licensed under GPLv3. Images copyright KIT and Google Inc.</string>
@@ -99,7 +99,6 @@
     <string name="Stat_Time">Playing Time</string>
     <string name="Stat_Time_Swipes">Time per Swipe</string>
     <string name="reset_stats">Reset Statistics</string>
-
 
 
 </resources>
