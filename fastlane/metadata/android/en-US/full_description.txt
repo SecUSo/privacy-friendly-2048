@@ -1,5 +1,25 @@
 
 
+The Privacy Friendly 2048 has four different game modes:
+
+classic: 4x4
+large: 5x5
+bigger: 6x6
+huge: 7x7
+
+A generator in the background randomly displays one number per round (2 or 4). With the help of these numbers, the number 2048 and even higher powers of two can be gradually reached. For help and tips, please take a look at this website.
+
+This app also offers the possibility to save a game in the respective mode, which allows a total of up to four saved games. Undoing a move has also been implemented in this app. Additionally, a summary of their performance in the different modes can be found in the statistic function.
+
+Our Privacy Friendly App differs from other, similar applications with respect to two aspects:
+
+1. No permissions:
+The Privacy Friendly 2048 does not use any permissions
+2. No adertisement:
+Many other free apps in the Google Play Store dazzle annoying advertising which also shortens battery life.
+
+
+Feel free to contact us via:
 Twitter - @SECUSOResearch https://twitter.com/secusoresearch
-Mastodon - @SECUSO_Research@baw  .social https://xn--baw-joa.social/@SECUSO_Research/
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
 Job opening - https://secuso.aifb.kit.edu/english/Job_Offers_1557.php

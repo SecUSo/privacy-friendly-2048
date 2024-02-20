@@ -1,6 +1,24 @@
 
 
-Kontaktieren Sie uns gerne   ber:
+Dabei hat die Privacy Friendly 2048 vier verschiedene Spielmodi:
+
+Klassich: 4x4 Spielfeld
+Groß: 5x5 Spielfeld
+Größer: 6x6 Spielfeld
+Riesig: 7x7 Spielfeld
+
+Ein Generator sorgt im Hintergrund für das zufällige erscheinen einer Zahl pro Runde (2 oder 4). Mithilfe dieser Zahlen kann nach und nach die Zahl 2048 oder auch höhere Zweierpotenzen erreicht werden. Für Hilfestellungen und Tipps können Sie gerne einen Blick auf diese Website werfen.
+Dabei bietet diese App auch die Möglichkeit in dem jeweiligen Modus ein Spiel zu speichern, wodurch das Speichern von insgesamt bis zu vier gespeicherte Spiele möglich ist. Auch das Zurücknehmen eines Zuges ist in dieser App implementiert worden. Zusätzlich ist eine Zusammenfassung Ihrer Leistung in den verschiedenen Modimit Hilfe der Statistik Funktion zu finden.
+
+Unsere Privacy Friendy 2048-App unterscheidet sich in den folgenden zwei Punkten von anderen, ähnlichen Apps:
+
+1. Keine Berechtigungen:
+Die Privacy Friendly 2048-App benötigt keinerlei Berechtigungen.
+2. Keine störende Werbung:
+Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
+
+
+Kontaktieren Sie uns gerne über:
 Twitter - @SECUSOResearch https://twitter.com/secusoresearc)
-Mastodon - @SECUSO_Research@baw  .social https://xn--baw-joa.social/@SECUSO_Research/
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
 Offene Stellen - https://secuso.aifb.kit.edu/83_1557.php
