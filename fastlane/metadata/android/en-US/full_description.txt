@@ -1,4 +1,6 @@
+The Android application Privacy Friendly 2048 is an exciting puzzle game. The game is considered to be won if you reach the number 2048 by sliding the same numbers together.
 
+The statistic function is also part of the app. This makes it possible to get information about for example the required number of swipes and the highest achieved number of points.
 
 The Privacy Friendly 2048 has four different game modes:
 
