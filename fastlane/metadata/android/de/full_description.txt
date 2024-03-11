@@ -18,3 +18,9 @@ Unsere Privacy Friendy 2048-App unterscheidet sich in den folgenden zwei Punkten
 Die Privacy Friendly 2048-App benötigt keinerlei Berechtigungen.
 2. Keine störende Werbung:
 Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
+
+
+Kontaktieren Sie uns gerne über:
+Twitter - @SECUSOResearch https://twitter.com/secusoresearc)
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
+Offene Stellen - https://secuso.aifb.kit.edu/83_1557.php
