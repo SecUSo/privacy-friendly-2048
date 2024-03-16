@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -731,6 +732,25 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         updateGameState();
         //es wurde nach unten gewischt, hier den Code einfügen
         return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                handleSwipeTop();
+                return true;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                handleSwipeRight();
+                return true;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                handleSwipeLeft();
+                return true;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                handleSwipeBottom();
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void setListener() {
