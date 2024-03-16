@@ -165,7 +165,36 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
 
     }
-
+    private void handleUndo() {
+        undoButton.setVisibility(View.INVISIBLE);
+        if (undo && last_elements != null) {
+            gameStatistics.undo();
+            elements = last_elements;
+            points = last_points;
+            number_field.removeAllViews();
+            //number_field_background.removeAllViews();
+            points = last_points;
+            textFieldPoints.setText("" + points);
+            setDPositions(false);
+            for (Element[] i : elements) {
+                for (Element j : i) {
+                    j.setVisibility(View.INVISIBLE);
+                    number_field.addView(j);
+                    j.drawItem();
+                }
+            }
+            for (int i = 0; i < elements.length; i++) {
+                for (int j = 0; j < elements[i].length; j++) {
+                    elements[i][j].setOnTouchListener(swipeListener);
+                    backgroundElements[i][j].setOnTouchListener(swipeListener);
+                }
+            }
+            updateGameState();
+            drawAllElements(elements);
+            number_field.refreshDrawableState();
+        }
+        undo = false;
+    }
     public void initResources() {
         number_field = (RelativeLayout) findViewById(R.id.number_field);
         number_field_background = (RelativeLayout) findViewById(R.id.number_field_background);
@@ -181,37 +210,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             }
         });
         undoButton = (ImageButton) findViewById(R.id.undoButton);
+
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                undoButton.setVisibility(View.INVISIBLE);
-                if (undo && last_elements != null) {
-                    gameStatistics.undo();
-                    elements = last_elements;
-                    points = last_points;
-                    number_field.removeAllViews();
-                    //number_field_background.removeAllViews();
-                    points = last_points;
-                    textFieldPoints.setText("" + points);
-                    setDPositions(false);
-                    for (Element[] i : elements) {
-                        for (Element j : i) {
-                            j.setVisibility(View.INVISIBLE);
-                            number_field.addView(j);
-                            j.drawItem();
-                        }
-                    }
-                    for (int i = 0; i < elements.length; i++) {
-                        for (int j = 0; j < elements[i].length; j++) {
-                            elements[i][j].setOnTouchListener(swipeListener);
-                            backgroundElements[i][j].setOnTouchListener(swipeListener);
-                        }
-                    }
-                    updateGameState();
-                    drawAllElements(elements);
-                    number_field.refreshDrawableState();
-                }
-                undo = false;
+                handleUndo();
             }
         });
 
