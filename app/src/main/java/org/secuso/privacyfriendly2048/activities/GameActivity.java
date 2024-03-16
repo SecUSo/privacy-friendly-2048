@@ -408,331 +408,347 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         return r;
     }
 
+    private boolean handleSwipeTop() {
+        Element[][] temp = deepCopy(elements);
+        int temp_points = points;
+        moved = false;
+        Element s = new Element(myActivity);
+
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[0][i].number;
+            s.posX = 0;
+            s.posY = i;
+
+
+            for (int j = 1; j < elements[i].length; j++) {
+                if (elements[j][i].number != 0 && (s.number == 0 || s.number == elements[j][i].number)) {
+                    moved = true;
+                    elements[j][i].setNumber(s.number + elements[j][i].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
+                    Element z = elements[j][i];
+                    elements[j][i] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+                    if (s.number != 0)
+                        points += elements[s.posX][s.posY].number;
+                    if (s.number != 0)
+                        s.posX++;
+                    j = s.posX;
+                    s.number = elements[j][i].number;
+
+                } else if (elements[j][i].number != 0) {
+                    s.number = elements[j][i].number;
+                    s.posX = j;
+                    s.posY = i;
+                }
+            }
+
+        }
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[0][i].number;
+            s.posX = 0;
+            s.posY = i;
+
+
+            for (int j = 1; j < elements[i].length; j++) {
+                if (elements[j][i].number != 0 && s.number == 0) {
+                    moved = true;
+                    elements[j][i].setNumber(s.number + elements[j][i].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
+                    Element z = elements[j][i];
+                    elements[j][i] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+                    if (s.number != 0)
+                        s.posX++;
+                    j = s.posX;
+                    s.number = elements[j][i].number;
+
+                } else if (s.number != 0) {
+                    s.number = elements[j][i].number;
+                    s.posX = j;
+                    s.posY = i;
+                }
+            }
+
+        }
+        if (moved) {
+            gameStatistics.addMoves(1);
+            last_points = temp_points;
+            last_elements = temp;
+            undoButton.setVisibility(View.VISIBLE);
+            undo = true;
+        }
+        if (moved)
+            gameStatistics.moveT();
+        addNumber();
+        setDPositions(animationActivated);
+        updateGameState();
+        //es wurde nach oben gewischt, hier den Code einfügen
+        return false;
+    }
+
+    private boolean handleSwipeRight() {
+        Element[][] temp = deepCopy(elements);
+        int temp_points = points;
+        moved = false;
+        Element s = new Element(myActivity);
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[i][elements[i].length - 1].number;
+            s.posX = i;
+            s.posY = elements[i].length - 1;
+
+
+            for (int j = elements[i].length - 2; j >= 0; j--) {
+                if (elements[i][j].number != 0 && (s.number == 0 || s.number == elements[i][j].number)) {
+                    moved = true;
+
+                    elements[i][j].setNumber(s.number + elements[i][j].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
+                    Element z = elements[i][j];
+                    elements[i][j] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+
+                    if (s.number != 0)
+                        points += elements[s.posX][s.posY].number;
+                    if (s.number != 0)
+                        s.posY--;
+                    j = s.posY;
+                    s.number = elements[i][j].number;
+                } else if (elements[i][j].number != 0) {
+                    s.number = elements[i][j].number;
+                    s.posX = i;
+                    s.posY = j;
+                }
+            }
+
+        }
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[i][elements[i].length - 1].number;
+            s.posX = i;
+            s.posY = elements[i].length - 1;
+
+
+            for (int j = elements[i].length - 2; j >= 0; j--) {
+                if (elements[i][j].number != 0 && s.number == 0) {
+                    moved = true;
+
+                    elements[i][j].setNumber(s.number + elements[i][j].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
+                    Element z = elements[i][j];
+                    elements[i][j] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+
+
+                    if (s.number != 0)
+                        s.posY--;
+                    j = s.posY;
+                    s.number = elements[i][j].number;
+                } else if (s.number != 0) {
+                    s.number = elements[i][j].number;
+                    s.posX = i;
+                    s.posY = j;
+                }
+            }
+
+        }
+        if (moved) {
+            gameStatistics.addMoves(1);
+            last_points = temp_points;
+            last_elements = temp;
+            undoButton.setVisibility(View.VISIBLE);
+            undo = true;
+        }
+        if (moved)
+            gameStatistics.moveR();
+        addNumber();
+        setDPositions(animationActivated);
+        updateGameState();
+
+        //es wurde nach rechts gewischt, hier den Code einfügen
+        return false;
+    }
+
+    private boolean handleSwipeLeft() {
+        Element[][] temp = deepCopy(elements);
+        int temp_points = points;
+        moved = false;
+        Element s = new Element(myActivity);
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[i][0].number;
+            s.posX = i;
+            s.posY = 0;
+
+
+            for (int j = 1; j < elements[i].length; j++) {
+                if (elements[i][j].number != 0 && (s.number == 0 || s.number == elements[i][j].number)) {
+                    moved = true;
+
+
+                    elements[i][j].setNumber(s.number + elements[i][j].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
+                    Element z = elements[i][j];
+                    elements[i][j] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+
+                    if (s.number != 0)
+                        points += elements[s.posX][s.posY].number;
+                    if (s.number != 0)
+                        s.posY++;
+                    j = s.posY;
+                    s.number = elements[i][j].number;
+                } else if (elements[i][j].number != 0) {
+                    s.number = elements[i][j].number;
+                    s.posX = i;
+                    s.posY = j;
+                }
+            }
+
+        }
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[i][0].number;
+            s.posX = i;
+            s.posY = 0;
+
+            for (int j = 1; j < elements[i].length; j++) {
+                if (elements[i][j].number != 0 && s.number == 0) {
+                    moved = true;
+
+                    elements[i][j].setNumber(s.number + elements[i][j].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
+                    Element z = elements[i][j];
+                    elements[i][j] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+
+                    if (s.number != 0)
+                        s.posY++;
+                    j = s.posY;
+                    s.number = elements[i][j].number;
+                } else if (s.number != 0) {
+                    s.number = elements[i][j].number;
+                    s.posX = i;
+                    s.posY = j;
+                }
+            }
+
+        }
+        if (moved) {
+            gameStatistics.addMoves(1);
+            last_points = temp_points;
+            last_elements = temp;
+            undoButton.setVisibility(View.VISIBLE);
+            undo = true;
+        }
+        if (moved)
+            gameStatistics.moveL();
+        addNumber();
+        setDPositions(animationActivated);
+        updateGameState();
+        //es wurde nach links gewischt, hier den Code einfügen
+        return false;
+    }
+
+    private boolean handleSwipeBottom() {
+        Element[][] temp = deepCopy(elements);
+        int temp_points = points;
+        moved = false;
+        Element s = new Element(myActivity);
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[elements[i].length - 1][i].number;
+            s.posX = elements[i].length - 1;
+            s.posY = i;
+
+
+            for (int j = elements[i].length - 2; j >= 0; j--) {
+                if (elements[j][i].number != 0 && (s.number == 0 || s.number == elements[j][i].number)) {
+                    moved = true;
+
+                    elements[j][i].setNumber(s.number + elements[j][i].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
+                    Element z = elements[j][i];
+                    elements[j][i] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+
+                    if (s.number != 0)
+                        points += elements[s.posX][s.posY].number;
+                    if (s.number != 0)
+                        s.posX--;
+                    j = s.posX;
+                    s.number = elements[j][i].number;
+                } else if (elements[j][i].number != 0) {
+                    s.number = elements[j][i].number;
+                    s.posX = j;
+                    s.posY = i;
+                }
+            }
+
+        }
+        for (int i = 0; i < elements.length; i++) {
+            s.number = elements[elements[i].length - 1][i].number;
+            s.posX = elements[i].length - 1;
+            s.posY = i;
+
+
+            for (int j = elements[i].length - 2; j >= 0; j--) {
+                if (elements[j][i].number != 0 && s.number == 0) {
+                    moved = true;
+
+                    elements[j][i].setNumber(s.number + elements[j][i].number);
+                    elements[s.posX][s.posY].setNumber(0);
+                    switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
+                    Element z = elements[j][i];
+                    elements[j][i] = elements[s.posX][s.posY];
+                    elements[s.posX][s.posY] = z;
+
+                    if (s.number != 0)
+                        s.posX--;
+                    j = s.posX;
+                    s.number = elements[j][i].number;
+                } else if (s.number != 0) {
+                    s.number = elements[j][i].number;
+                    s.posX = j;
+                    s.posY = i;
+                }
+            }
+
+        }
+        if (moved) {
+            gameStatistics.addMoves(1);
+            last_points = temp_points;
+            last_elements = temp;
+            undoButton.setVisibility(View.VISIBLE);
+            undo = true;
+        }
+        if (moved)
+            gameStatistics.moveD();
+        addNumber();
+        setDPositions(animationActivated);
+        updateGameState();
+        //es wurde nach unten gewischt, hier den Code einfügen
+        return false;
+    }
+
     public void setListener() {
         swipeListener = new Gestures(this) {
             public boolean onSwipeTop() {
-                Element[][] temp = deepCopy(elements);
-                int temp_points = points;
-                moved = false;
-                Element s = new Element(myActivity);
-
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[0][i].number;
-                    s.posX = 0;
-                    s.posY = i;
-
-
-                    for (int j = 1; j < elements[i].length; j++) {
-                        if (elements[j][i].number != 0 && (s.number == 0 || s.number == elements[j][i].number)) {
-                            moved = true;
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
-                            Element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-                            if (s.number != 0)
-                                points += elements[s.posX][s.posY].number;
-                            if (s.number != 0)
-                                s.posX++;
-                            j = s.posX;
-                            s.number = elements[j][i].number;
-
-                        } else if (elements[j][i].number != 0) {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[0][i].number;
-                    s.posX = 0;
-                    s.posY = i;
-
-
-                    for (int j = 1; j < elements[i].length; j++) {
-                        if (elements[j][i].number != 0 && s.number == 0) {
-                            moved = true;
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
-                            Element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-                            if (s.number != 0)
-                                s.posX++;
-                            j = s.posX;
-                            s.number = elements[j][i].number;
-
-                        } else if (s.number != 0) {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                if (moved) {
-                    gameStatistics.addMoves(1);
-                    last_points = temp_points;
-                    last_elements = temp;
-                    undoButton.setVisibility(View.VISIBLE);
-                    undo = true;
-                }
-                if (moved)
-                    gameStatistics.moveT();
-                addNumber();
-                setDPositions(animationActivated);
-                updateGameState();
-                //es wurde nach oben gewischt, hier den Code einfügen
-                return false;
+                return handleSwipeTop();
             }
 
             public boolean onSwipeRight() {
-                Element[][] temp = deepCopy(elements);
-                int temp_points = points;
-                moved = false;
-                Element s = new Element(myActivity);
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[i][elements[i].length - 1].number;
-                    s.posX = i;
-                    s.posY = elements[i].length - 1;
-
-
-                    for (int j = elements[i].length - 2; j >= 0; j--) {
-                        if (elements[i][j].number != 0 && (s.number == 0 || s.number == elements[i][j].number)) {
-                            moved = true;
-
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
-                            Element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-
-                            if (s.number != 0)
-                                points += elements[s.posX][s.posY].number;
-                            if (s.number != 0)
-                                s.posY--;
-                            j = s.posY;
-                            s.number = elements[i][j].number;
-                        } else if (elements[i][j].number != 0) {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[i][elements[i].length - 1].number;
-                    s.posX = i;
-                    s.posY = elements[i].length - 1;
-
-
-                    for (int j = elements[i].length - 2; j >= 0; j--) {
-                        if (elements[i][j].number != 0 && s.number == 0) {
-                            moved = true;
-
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
-                            Element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-
-
-                            if (s.number != 0)
-                                s.posY--;
-                            j = s.posY;
-                            s.number = elements[i][j].number;
-                        } else if (s.number != 0) {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                if (moved) {
-                    gameStatistics.addMoves(1);
-                    last_points = temp_points;
-                    last_elements = temp;
-                    undoButton.setVisibility(View.VISIBLE);
-                    undo = true;
-                }
-                if (moved)
-                    gameStatistics.moveR();
-                addNumber();
-                setDPositions(animationActivated);
-                updateGameState();
-
-                //es wurde nach rechts gewischt, hier den Code einfügen
-                return false;
+                return handleSwipeRight();
             }
 
             public boolean onSwipeLeft() {
-                Element[][] temp = deepCopy(elements);
-                int temp_points = points;
-                moved = false;
-                Element s = new Element(myActivity);
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[i][0].number;
-                    s.posX = i;
-                    s.posY = 0;
-
-
-                    for (int j = 1; j < elements[i].length; j++) {
-                        if (elements[i][j].number != 0 && (s.number == 0 || s.number == elements[i][j].number)) {
-                            moved = true;
-
-
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
-                            Element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-
-                            if (s.number != 0)
-                                points += elements[s.posX][s.posY].number;
-                            if (s.number != 0)
-                                s.posY++;
-                            j = s.posY;
-                            s.number = elements[i][j].number;
-                        } else if (elements[i][j].number != 0) {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[i][0].number;
-                    s.posX = i;
-                    s.posY = 0;
-
-                    for (int j = 1; j < elements[i].length; j++) {
-                        if (elements[i][j].number != 0 && s.number == 0) {
-                            moved = true;
-
-                            elements[i][j].setNumber(s.number + elements[i][j].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[i][j], elements[s.posX][s.posY]);
-                            Element z = elements[i][j];
-                            elements[i][j] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-
-                            if (s.number != 0)
-                                s.posY++;
-                            j = s.posY;
-                            s.number = elements[i][j].number;
-                        } else if (s.number != 0) {
-                            s.number = elements[i][j].number;
-                            s.posX = i;
-                            s.posY = j;
-                        }
-                    }
-
-                }
-                if (moved) {
-                    gameStatistics.addMoves(1);
-                    last_points = temp_points;
-                    last_elements = temp;
-                    undoButton.setVisibility(View.VISIBLE);
-                    undo = true;
-                }
-                if (moved)
-                    gameStatistics.moveL();
-                addNumber();
-                setDPositions(animationActivated);
-                updateGameState();
-                //es wurde nach links gewischt, hier den Code einfügen
-                return false;
+                return handleSwipeLeft();
             }
 
             public boolean onSwipeBottom() {
-                Element[][] temp = deepCopy(elements);
-                int temp_points = points;
-                moved = false;
-                Element s = new Element(myActivity);
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[elements[i].length - 1][i].number;
-                    s.posX = elements[i].length - 1;
-                    s.posY = i;
-
-
-                    for (int j = elements[i].length - 2; j >= 0; j--) {
-                        if (elements[j][i].number != 0 && (s.number == 0 || s.number == elements[j][i].number)) {
-                            moved = true;
-
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
-                            Element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-
-                            if (s.number != 0)
-                                points += elements[s.posX][s.posY].number;
-                            if (s.number != 0)
-                                s.posX--;
-                            j = s.posX;
-                            s.number = elements[j][i].number;
-                        } else if (elements[j][i].number != 0) {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                for (int i = 0; i < elements.length; i++) {
-                    s.number = elements[elements[i].length - 1][i].number;
-                    s.posX = elements[i].length - 1;
-                    s.posY = i;
-
-
-                    for (int j = elements[i].length - 2; j >= 0; j--) {
-                        if (elements[j][i].number != 0 && s.number == 0) {
-                            moved = true;
-
-                            elements[j][i].setNumber(s.number + elements[j][i].number);
-                            elements[s.posX][s.posY].setNumber(0);
-                            switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
-                            Element z = elements[j][i];
-                            elements[j][i] = elements[s.posX][s.posY];
-                            elements[s.posX][s.posY] = z;
-
-                            if (s.number != 0)
-                                s.posX--;
-                            j = s.posX;
-                            s.number = elements[j][i].number;
-                        } else if (s.number != 0) {
-                            s.number = elements[j][i].number;
-                            s.posX = j;
-                            s.posY = i;
-                        }
-                    }
-
-                }
-                if (moved) {
-                    gameStatistics.addMoves(1);
-                    last_points = temp_points;
-                    last_elements = temp;
-                    undoButton.setVisibility(View.VISIBLE);
-                    undo = true;
-                }
-                if (moved)
-                    gameStatistics.moveD();
-                addNumber();
-                setDPositions(animationActivated);
-                updateGameState();
-                //es wurde nach unten gewischt, hier den Code einfügen
-                return false;
+                return handleSwipeBottom();
             }
 
             public boolean nichts() {
