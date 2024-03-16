@@ -73,10 +73,17 @@
                 android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
         </activity>
         <activity
+            android:exported="true"
             android:name=".activities.GameActivity"
             android:label="@string/title_activity_game"
             android:parentActivityName=".activities.MainActivity"
             >
+            <intent-filter>
+                <action android:name="com.samsung.android.support.REMOTE_ACTION" />
+            </intent-filter>
+            <meta-data
+                android:name="com.samsung.android.support.REMOTE_ACTION"
+                android:resource="@xml/air_actions" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />

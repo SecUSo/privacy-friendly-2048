@@ -100,4 +100,11 @@
     <string name="Stat_Time_Swipes">Zeit pro Wischer</string>
     <string name="reset_stats">Statistik zurücksetzem</string>
 
+    <!-- ###AIR ACTIONS### -->
+    <string name="swipe_up">Streiche Oben</string>
+    <string name="swipe_down">Streiche Unten</string>
+    <string name="swipe_left">Streiche Links</string>
+    <string name="swipe_right">Streiche Rechts</string>
+    <string name="undo">Rückgängig</string>
+
 </resources>
