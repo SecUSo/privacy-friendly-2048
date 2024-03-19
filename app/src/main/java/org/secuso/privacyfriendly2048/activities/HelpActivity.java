@@ -18,6 +18,8 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
+import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes;
+
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
@@ -40,6 +42,7 @@ public class HelpActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(GetThemeRes(getApplicationContext()));
         setContentView(R.layout.activity_help);
 
         LinkedHashMap<String, List<String>> expandableListDetail = buildData();

@@ -18,6 +18,8 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
+import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -99,8 +101,8 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(GetThemeRes(getApplicationContext()));
         setContentView(R.layout.activity_main);
-
 
 
         overridePendingTransition(0, 0);

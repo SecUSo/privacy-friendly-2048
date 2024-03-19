@@ -19,6 +19,8 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
+import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -89,6 +91,7 @@ public class StatsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(GetThemeRes(getApplicationContext()));
         setContentView(R.layout.activity_stats);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
