@@ -2,8 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.StatsActivity">
-    <item android:id="@+id/action_reset"
+    <item
+        android:id="@+id/action_reset"
         android:title="@string/reset_stats"
-        android:orderInCategory="100" app:showAsAction="never"/>
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 
 </menu>

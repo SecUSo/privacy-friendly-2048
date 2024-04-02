@@ -39,11 +39,10 @@ public class GameStatistics implements Serializable {
     private int undo = 0;
     private int moves_l = 0;
     private int moves_r = 0;
-    private int moves_t= 0;
+    private int moves_t = 0;
     private int moves_d = 0;
 
-    public GameStatistics(int n)
-    {
+    public GameStatistics(int n) {
         this.n = n;
         filename = "statistics" + n + ".txt";
     }
@@ -54,8 +53,8 @@ public class GameStatistics implements Serializable {
     }
 
     public void setHighestNumber(long highestNumber) {
-        if(this.highestNumber < highestNumber)
-                this.highestNumber = highestNumber;
+        if (this.highestNumber < highestNumber)
+            this.highestNumber = highestNumber;
     }
 
     public long getTimePlayed() {
@@ -66,8 +65,7 @@ public class GameStatistics implements Serializable {
         this.timePlayed += timePlayed;
     }
 
-    public boolean resetTimePlayed()
-    {
+    public boolean resetTimePlayed() {
         this.timePlayed = 0;
         return true;
     }
@@ -92,36 +90,34 @@ public class GameStatistics implements Serializable {
         this.record = record;
     }
 
-    public void undo()
-    {
+    public void undo() {
         undo++;
     }
-    public void moveL()
-    {
+
+    public void moveL() {
         moves_l++;
     }
-    public void moveR()
-    {
+
+    public void moveR() {
         moves_r++;
     }
-    public void moveT()
-    {
+
+    public void moveT() {
         moves_t++;
     }
-    public void moveD()
-    {
+
+    public void moveD() {
         moves_d++;
     }
 
-    public int getUndo()
-    {
+    public int getUndo() {
         return undo;
     }
 
     @Override
     public String toString() {
         return "moves " + moves +
-               " timePlayed " + timePlayed/1000.0f +
+                " timePlayed " + timePlayed / 1000.0f +
                 " highest Number " + highestNumber +
                 " record" + record;
     }
