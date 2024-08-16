@@ -1,10 +1,10 @@
 Die Android-Applikation Privacy Friendly 2048 ist ein spannendes Puzzlespiel. Das Spiel gilt als gewonnen, wenn man durch Zusammenschieben gleicher Zahlen die Zahl 2048 erreicht.
 
-Ebenfalls Teil der App ist die Statistik-Funktion. Diese Funktion ermöglicht es, Informationen beispielsweise über die benötigte Wischsanzahl oder maximal erreichte Punktzahl zu erhalten.
+Ebenfalls Teil der App ist die Statistik-Funktion. Diese Funktion ermöglicht es, Informationen beispielsweise über die benötigte Wischanzahl oder maximal erreichte Punktzahl zu erhalten.
 
 Dabei hat die Privacy Friendly 2048 vier verschiedene Spielmodi:
 
-Klassich: 4x4-Spielfeld
+Klassisch: 4x4-Spielfeld
 Groß: 5x5-Spielfeld
 Größer: 6x6-Spielfeld
 Riesig: 7x7-Spielfeld
