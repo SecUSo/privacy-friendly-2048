@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="color_list">
-        <item>Default</item>
-        <item>Original</item>
+        <item>@string/settings_color_scheme_default</item>
+        <item>@string/settings_color_scheme_original</item>
     </string-array>
     <string-array name="color_list_values">
         <item>1</item>
@@ -10,9 +10,9 @@
     </string-array>
 
     <string-array name="theme_list">
-        <item>System</item>
-        <item>Light</item>
-        <item>Dark</item>
+        <item>@string/settings_color_system</item>
+        <item>@string/settings_color_light</item>
+        <item>@string/settings_color_dark</item>
     </string-array>
     <string-array name="theme_list_values">
         <item>system</item>

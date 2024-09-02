@@ -62,7 +62,11 @@
     <string name="settings_animation">Activate Animation</string>
     <string name="settings_display">Activate Screen Lock</string>
     <string name="settings_color">Select Color Scheme</string>
-
+    <string name="settings_color_system">System</string>
+    <string name="settings_color_light">Light</string>
+    <string name="settings_color_dark">Dark</string>
+    <string name="settings_color_scheme_default">Default</string>
+    <string name="settings_color_scheme_original">Original</string>
 
     <!-- ### CHOOSE DIALOG ### -->
     <string name="new_Game_Button">Start New Game</string>
