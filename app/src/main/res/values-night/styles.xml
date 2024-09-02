@@ -8,4 +8,9 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="ThemeOverlay.ColorSchemeDefault" parent="AppTheme.ColorSchemeDefault">
+        <item name="buttonEmpty">@color/darkgrey</item>
+        <item name="buttonEmptyText">@color/darkgrey</item>
+    </style>
 </resources>

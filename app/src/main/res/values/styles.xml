@@ -23,7 +23,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ColorSchemeDefault">
+    <style name="ThemeOverlay.ColorSchemeDefault" parent="AppTheme.ColorSchemeDefault" />
+    <style name="ThemeOverlay.ColorSchemeOriginal" parent="ColorSchemeOriginal" />
+
+    <style name="AppTheme.ColorSchemeDefault" parent="AppTheme">
         <item name="buttonEmpty">@color/button_empty</item>
         <item name="buttonEmptyText">@color/button_empty</item>
 
@@ -60,7 +63,7 @@
 
     </style>
 
-    <style name="ColorSchemeOriginal" parent="ColorSchemeDefault">
+    <style name="ColorSchemeOriginal" parent="AppTheme.ColorSchemeDefault">
         <item name="buttonEmpty">@color/button_empty_2</item>
         <item name="buttonEmptyText">@color/button_empty_2</item>
 

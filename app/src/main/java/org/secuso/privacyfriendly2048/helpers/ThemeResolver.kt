@@ -13,8 +13,8 @@ fun GetColorRes(ctx: Context, res: Int): Int {
     val style: Int
 
     when (prefs.getString("pref_color", "1")) {
-        "2" -> style = R.style.ColorSchemeOriginal
-        else -> style = R.style.ColorSchemeDefault
+        "2" -> style = R.style.ThemeOverlay_ColorSchemeOriginal
+        else -> style = R.style.ThemeOverlay_ColorSchemeDefault
     }
 
     val ta = ctx.obtainStyledAttributes(style, intArrayOf(res))
