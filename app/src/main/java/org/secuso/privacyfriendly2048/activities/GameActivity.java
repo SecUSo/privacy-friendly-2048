@@ -20,6 +20,7 @@ package org.secuso.privacyfriendly2048.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -117,6 +118,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public static long startingTime;
     public int highestNumber;
 
+    private Activity myActivity;
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -139,6 +142,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        myActivity = this;
         saveState = true;
 
         if (savedInstanceState == null) {
@@ -411,7 +415,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
+                Element s = new Element(myActivity);
 
                 for (int i = 0; i < elements.length; i++) {
                     s.number = elements[0][i].number;
@@ -491,7 +495,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
+                Element s = new Element(myActivity);
                 for (int i = 0; i < elements.length; i++) {
                     s.number = elements[i][elements[i].length - 1].number;
                     s.posX = i;
@@ -574,7 +578,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
+                Element s = new Element(myActivity);
                 for (int i = 0; i < elements.length; i++) {
                     s.number = elements[i][0].number;
                     s.posX = i;
@@ -655,7 +659,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
+                Element s = new Element(myActivity);
                 for (int i = 0; i < elements.length; i++) {
                     s.number = elements[elements[i].length - 1][i].number;
                     s.posX = elements[i].length - 1;
