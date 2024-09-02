@@ -20,13 +20,13 @@
 package org.secuso.privacyfriendly2048.activities.helper;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
 /**
  * This class implements the Gestures Listener for swiping in the game
+ *
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180807
  */
@@ -57,7 +57,7 @@ public class Gestures implements View.OnTouchListener {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            
+
             boolean result = false;
             try {
                 float diffY = e2.getY() - e1.getY();
@@ -69,7 +69,7 @@ public class Gestures implements View.OnTouchListener {
                         } else {
                             result = onSwipeLeft();
                         }
-                    }else{
+                    } else {
                         result = nichts();
                     }
                 } else {
@@ -79,7 +79,7 @@ public class Gestures implements View.OnTouchListener {
                         } else {
                             result = onSwipeTop();
                         }
-                    }else{
+                    } else {
                         result = nichts();
                     }
                 }
@@ -98,7 +98,7 @@ public class Gestures implements View.OnTouchListener {
         return false;
     }
 
-    public boolean nichts(){
+    public boolean nichts() {
         return false;
     }
 

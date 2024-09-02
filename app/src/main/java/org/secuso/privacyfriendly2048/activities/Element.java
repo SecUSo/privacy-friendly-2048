@@ -55,8 +55,7 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
     int color;
 
 
-    public Element(Context c)
-    {
+    public Element(Context c) {
         super(c);
         context = c;
         setAllCaps(false);
@@ -67,18 +66,17 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
 
     public void drawItem() {
         dNumber = number;
-        activated = (number!=0);
-        if(number== 0) {
+        activated = (number != 0);
+        if (number == 0) {
             setVisibility(View.INVISIBLE);
             setText("");
-        }
-        else {
+        } else {
             setText("" + number);
-            if(getVisibility() != View.VISIBLE)
+            if (getVisibility() != View.VISIBLE)
                 setVisibility(View.VISIBLE);
         }
 
-        switch (number){
+        switch (number) {
             case 0:
                 setColor(GetColorRes(context, R.attr.buttonEmpty));
                 setTextColor(GetColorInt(context, R.attr.buttonEmptyText));
@@ -96,74 +94,73 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
                 setTextColor(GetColorInt(context, R.attr.button8Text));
                 break;
             case 16:
-                setColor(GetColorRes(context,R.attr.button16));
-                setTextColor(GetColorInt(context,R.attr.button16Text));
+                setColor(GetColorRes(context, R.attr.button16));
+                setTextColor(GetColorInt(context, R.attr.button16Text));
                 break;
             case 32:
-                setColor(GetColorRes(context,R.attr.button32));
-                setTextColor(GetColorInt(context,R.attr.button32Text));
+                setColor(GetColorRes(context, R.attr.button32));
+                setTextColor(GetColorInt(context, R.attr.button32Text));
                 break;
             case 64:
-                setColor(GetColorRes(context,R.attr.button64));
-                setTextColor(GetColorInt(context,R.attr.button64Text));
+                setColor(GetColorRes(context, R.attr.button64));
+                setTextColor(GetColorInt(context, R.attr.button64Text));
                 break;
             case 128:
-                setColor(GetColorRes(context,R.attr.button128));
-                setTextColor(GetColorInt(context,R.attr.button128Text));
+                setColor(GetColorRes(context, R.attr.button128));
+                setTextColor(GetColorInt(context, R.attr.button128Text));
                 break;
             case 256:
-                setColor(GetColorRes(context,R.attr.button256));
-                setTextColor(GetColorInt(context,R.attr.button256Text));
+                setColor(GetColorRes(context, R.attr.button256));
+                setTextColor(GetColorInt(context, R.attr.button256Text));
                 break;
             case 512:
-                setColor(GetColorRes(context,R.attr.button512));
-                setTextColor(GetColorInt(context,R.attr.button512Text));
+                setColor(GetColorRes(context, R.attr.button512));
+                setTextColor(GetColorInt(context, R.attr.button512Text));
                 break;
             case 1024:
-                setColor(GetColorRes(context,R.attr.button1024));
-                setTextColor(GetColorInt(context,R.attr.button1024Text));
+                setColor(GetColorRes(context, R.attr.button1024));
+                setTextColor(GetColorInt(context, R.attr.button1024Text));
                 break;
             case 2048:
-                setColor(GetColorRes(context,R.attr.button2048));
-                setTextColor(GetColorInt(context,R.attr.button2048Text));
+                setColor(GetColorRes(context, R.attr.button2048));
+                setTextColor(GetColorInt(context, R.attr.button2048Text));
                 break;
             case 4096:
-                setColor(GetColorRes(context,R.attr.button4096));
-                setTextColor(GetColorInt(context,R.attr.button4096Text));
+                setColor(GetColorRes(context, R.attr.button4096));
+                setTextColor(GetColorInt(context, R.attr.button4096Text));
                 break;
             case 8192:
-                setColor(GetColorRes(context,R.attr.button8192));
-                setTextColor(GetColorInt(context,R.attr.button8192Text));
+                setColor(GetColorRes(context, R.attr.button8192));
+                setTextColor(GetColorInt(context, R.attr.button8192Text));
                 break;
             case 16384:
-                setColor(GetColorRes(context,R.attr.button16384));
-                setTextColor(GetColorInt(context,R.attr.button16384Text));
+                setColor(GetColorRes(context, R.attr.button16384));
+                setTextColor(GetColorInt(context, R.attr.button16384Text));
                 textSize = textSize * 0.8f;
                 setTextSize(textSize);
                 break;
             case 32768:
-                setColor(GetColorRes(context,R.attr.button32768));
-                setTextColor(GetColorInt(context,R.attr.button32768Text));
+                setColor(GetColorRes(context, R.attr.button32768));
+                setTextColor(GetColorInt(context, R.attr.button32768Text));
                 textSize = textSize * 0.8f;
                 setTextSize(textSize);
                 break;
         }
     }
 
-    private void setColor(int c)
-    {
+    private void setColor(int c) {
         color = c;
         Drawable background = getBackground();
         if (background instanceof ShapeDrawable) {
-            ((ShapeDrawable)background).getPaint().setColor(c);
+            ((ShapeDrawable) background).getPaint().setColor(c);
         } else if (background instanceof GradientDrawable) {
-            ((GradientDrawable)background).setColor(c);
+            ((GradientDrawable) background).setColor(c);
         } else if (background instanceof ColorDrawable) {
-            ((ColorDrawable)background).setColor(c);
+            ((ColorDrawable) background).setColor(c);
         }
     }
-    public String toString()
-    {
+
+    public String toString() {
         return "number: " + number;
     }
 
@@ -171,20 +168,24 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
         return number;
     }
 
-    public void setDPosition(int i, int j)
-    {
+    public void setDPosition(int i, int j) {
         dPosX = i;
         dPosY = j;
     }
-    public void setNumber(int i)
-    {
+
+    public void setNumber(int i) {
         number = i;
     }
-    public int getdPosX(){ return dPosX;}
 
-    public int getdPosY(){ return dPosY;}
+    public int getdPosX() {
+        return dPosX;
+    }
 
-    public int getdNumber(){
+    public int getdPosY() {
+        return dPosY;
+    }
+
+    public int getdNumber() {
         return dNumber;
     }
 
@@ -195,12 +196,13 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
     public int getPosY() {
         return posY;
     }
-    public void updateFontSize(){
-        textSize=(float)(getLayoutParams().width/7.0);
+
+    public void updateFontSize() {
+        textSize = (float) (getLayoutParams().width / 7.0);
         setTextSize(textSize);
     }
-    public Element copy()
-    {
+
+    public Element copy() {
         Element temp = new Element(context);
         temp.number = number;
         temp.dNumber = dNumber;

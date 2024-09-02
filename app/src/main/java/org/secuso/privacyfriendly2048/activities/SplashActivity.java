@@ -22,6 +22,7 @@ import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager;
@@ -45,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
 
         FirstLaunchManager firstStartPref = new FirstLaunchManager(this);
 
-        if(firstStartPref.isFirstTimeLaunch()) {
+        if (firstStartPref.isFirstTimeLaunch()) {
             firstStartPref.initFirstTimeLaunch();
             mainIntent = new Intent(this, TutorialActivity.class);
         } else {
