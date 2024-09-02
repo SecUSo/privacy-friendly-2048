@@ -18,8 +18,6 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
-import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -40,7 +38,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(GetThemeRes(getApplicationContext()));
 
         Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
 

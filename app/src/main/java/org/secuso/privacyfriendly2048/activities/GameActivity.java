@@ -18,8 +18,6 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
-import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
@@ -140,7 +138,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(GetThemeRes(getApplicationContext()));
 
         saveState = true;
 

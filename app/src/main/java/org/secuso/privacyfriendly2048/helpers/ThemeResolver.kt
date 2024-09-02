@@ -4,19 +4,7 @@ import android.content.Context
 import android.preference.PreferenceManager
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
-import androidx.annotation.StyleRes
 import org.secuso.privacyfriendly2048.R
-
-@StyleRes
-fun GetThemeRes(ctx: Context): Int {
-    val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
-
-    return when (prefs.getString("currentTheme", "system")) {
-        "light" -> R.style.AppThemeLight
-        "dark" -> R.style.AppThemeDark
-        else -> R.style.AppTheme
-    }
-}
 
 @ColorRes
 fun GetColorRes(ctx: Context, res: Int): Int {

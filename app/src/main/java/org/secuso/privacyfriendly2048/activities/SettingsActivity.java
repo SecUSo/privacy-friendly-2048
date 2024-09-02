@@ -20,8 +20,6 @@
 package org.secuso.privacyfriendly2048.activities;
 
 
-import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetThemeRes;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +32,8 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
@@ -109,7 +109,6 @@ public class SettingsActivity extends BaseActivity implements SharedPreferences.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(GetThemeRes(getApplicationContext()));
 
         super.mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
         setContentView(R.layout.activity_settings);
@@ -123,8 +122,14 @@ public class SettingsActivity extends BaseActivity implements SharedPreferences.
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (!key.equals("currentTheme")) return;
 
-        setTheme(GetThemeRes(getApplicationContext()));
-        recreate();
+        String newValue = sharedPreferences.getString("currentTheme", "system");
+        if (newValue.equals("dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if (newValue.equals("light")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
     }
 
     @Override
