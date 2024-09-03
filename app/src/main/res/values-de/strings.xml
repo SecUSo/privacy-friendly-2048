@@ -56,6 +56,11 @@
     <string name="settings_animation">Animationen aktivieren</string>
     <string name="settings_display">Displaysperre aktivieren</string>
     <string name="settings_color">Auswahl Farbschema</string>
+    <string name="settings_color_system">System</string>
+    <string name="settings_color_light">Hell</string>
+    <string name="settings_color_dark">Dunkel</string>
+    <string name="settings_color_scheme_default">Standard</string>
+    <string name="settings_color_scheme_original">Original</string>
 
 
     <!-- ### WELCOME DIALOG ### -->
