@@ -22,11 +22,13 @@ package org.secuso.privacyfriendly2048.activities;
 import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorInt;
 import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorRes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.util.TypedValue;
 import android.view.View;
 
 import org.secuso.privacyfriendly2048.R;
@@ -54,12 +56,18 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
     int color;
 
 
+    @SuppressLint("RestrictedApi")
     public Element(Context c) {
         super(c);
         context = c;
         setAllCaps(false);
         setBackgroundResource(R.drawable.game_brick);
         setColor(GetColorRes(context, R.attr.buttonEmpty));
+        setMaxLines(1);
+        setAutoSizeTextTypeUniformWithConfiguration(1,
+                100,
+                1,
+                TypedValue.COMPLEX_UNIT_SP);
     }
 
     public void drawItem() {
