@@ -1,0 +1,1 @@
+(SECUSO) Intenta llegar a 2048 en este juego de rompecabezas

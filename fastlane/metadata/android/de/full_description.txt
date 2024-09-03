@@ -1,23 +1,23 @@
 Die Android-Applikation Privacy Friendly 2048 ist ein spannendes Puzzlespiel. Das Spiel gilt als gewonnen, wenn man durch Zusammenschieben gleicher Zahlen die Zahl 2048 erreicht.
 
-Ebenfalls Teil der App ist die Statistik-Funktion. Diese Funktion ermöglicht es Informationen über beispielsweise die benötigte Wischsanzahl oder maximal erreichte Punktzahl zu erhalten.
+Ebenfalls Teil der App ist die Statistik-Funktion. Diese Funktion ermöglicht es, Informationen beispielsweise über die benötigte Wischanzahl oder maximal erreichte Punktzahl zu erhalten.
 
 Dabei hat die Privacy Friendly 2048 vier verschiedene Spielmodi:
 
-Klassich: 4x4 Spielfeld
-Groß: 5x5 Spielfeld
-Größer: 6x6 Spielfeld
-Riesig: 7x7 Spielfeld
+Klassisch: 4x4-Spielfeld
+Groß: 5x5-Spielfeld
+Größer: 6x6-Spielfeld
+Riesig: 7x7-Spielfeld
 
-Ein Generator sorgt im Hintergrund für das zufällige erscheinen einer Zahl pro Runde (2 oder 4). Mithilfe dieser Zahlen kann nach und nach die Zahl 2048 oder auch höhere Zweierpotenzen erreicht werden. Für Hilfestellungen und Tipps können Sie gerne einen Blick auf diese Website werfen.
-Dabei bietet diese App auch die Möglichkeit in dem jeweiligen Modus ein Spiel zu speichern, wodurch das Speichern von insgesamt bis zu vier gespeicherte Spiele möglich ist. Auch das Zurücknehmen eines Zuges ist in dieser App implementiert worden. Zusätzlich ist eine Zusammenfassung Ihrer Leistung in den verschiedenen Modimit Hilfe der Statistik Funktion zu finden.
+Ein Generator sorgt im Hintergrund für das zufällige Erscheinen einer Zahl pro Runde (2 oder 4). Mithilfe dieser Zahlen kann nach und nach die Zahl 2048 oder auch höhere Zweierpotenzen erreicht werden. Für Hilfestellungen und Tipps können Sie gerne einen Blick auf diese Website werfen.
+Dabei bietet diese App auch die Möglichkeit, in dem jeweiligen Modus ein Spiel zu speichern, wodurch das Speichern von insgesamt bis zu vier gespeicherten Spiele möglich ist. Auch das Zurücknehmen eines Zuges ist in dieser App implementiert worden. Zusätzlich ist eine Zusammenfassung Ihrer Leistung in den verschiedenen Modi mithilfe der Statistik-Funktion zu finden.
 
-Unsere Privacy Friendy 2048-App unterscheidet sich in den folgenden zwei Punkten von anderen, ähnlichen Apps:
+Unsere Privacy-Friendy-2048-App unterscheidet sich in den folgenden zwei Punkten von anderen, ähnlichen Apps:
 
 1. Keine Berechtigungen:
 Die Privacy Friendly 2048-App benötigt keinerlei Berechtigungen.
 2. Keine störende Werbung:
-Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
+Viele andere kostenlose Apps im Google-Play-Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
 
 
 Kontaktieren Sie uns gerne über:
