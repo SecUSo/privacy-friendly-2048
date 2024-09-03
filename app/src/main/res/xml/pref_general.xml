@@ -1,5 +1,13 @@
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="currentTheme"
+        android:title="Select theme"
+        android:entries="@array/theme_list"
+        android:entryValues="@array/theme_list_values"
+        android:defaultValue="system"
+        android:summary="%s"
+        />
 
     <SwitchPreference
         android:defaultValue="true"

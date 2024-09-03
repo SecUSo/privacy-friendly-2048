@@ -49,7 +49,7 @@
     <string name="version">Version: </string>
     <string name="version_number">v %s</string>
     <string name="about_author">Authors:</string>
-    <string name ="about_author_names">Saskia Jacob and Julian Wadephul</string>
+    <string name="about_author_names">Saskia Jacob and Julian Wadephul</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Karlsruhe Institute of Technology (KIT). Sourcecode licensed under GPLv3. Images copyright KIT and Google Inc.</string>
@@ -62,7 +62,11 @@
     <string name="settings_animation">Activate Animation</string>
     <string name="settings_display">Activate Screen Lock</string>
     <string name="settings_color">Select Color Scheme</string>
-
+    <string name="settings_color_system">System</string>
+    <string name="settings_color_light">Light</string>
+    <string name="settings_color_dark">Dark</string>
+    <string name="settings_color_scheme_default">Default</string>
+    <string name="settings_color_scheme_original">Original</string>
 
     <!-- ### CHOOSE DIALOG ### -->
     <string name="new_Game_Button">Start New Game</string>
@@ -73,8 +77,8 @@
     <string name="Yes_Message">Yes</string>
     <string name="No_Message">No</string>
     <string name="Titel_V_Message">Victory</string>
-    <string name="Titel_L_Message">Archieved Score: %1$d</string>
-    <string name="Lost_Message">No more moves are possible. Your archieved score was: %1$d. Would you like to start a new game?</string>
+    <string name="Titel_L_Message">Achieved Score: %1$d</string>
+    <string name="Lost_Message">No more moves are possible. Your achieved score was: %1$d. Would you like to start a new game?</string>
 
 
     <!-- ###TUTORIAL### -->
@@ -99,7 +103,6 @@
     <string name="Stat_Time">Playing Time</string>
     <string name="Stat_Time_Swipes">Time per Swipe</string>
     <string name="reset_stats">Reset Statistics</string>
-
 
 
 </resources>

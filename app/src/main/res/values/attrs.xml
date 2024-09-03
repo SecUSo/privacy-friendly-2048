@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="buttonEmpty" format="color"/>
+    <attr name="buttonEmptyText" format="color"/>
+
+    <attr name="button2" format="color"/>
+    <attr name="button2Text" format="color"/>
+    <attr name="button4" format="color"/>
+    <attr name="button4Text" format="color"/>
+    <attr name="button8" format="color"/>
+    <attr name="button8Text" format="color"/>
+    <attr name="button16" format="color"/>
+    <attr name="button16Text" format="color"/>
+    <attr name="button32" format="color"/>
+    <attr name="button32Text" format="color"/>
+    <attr name="button64" format="color"/>
+    <attr name="button64Text" format="color"/>
+    <attr name="button128" format="color"/>
+    <attr name="button128Text" format="color"/>
+    <attr name="button256" format="color"/>
+    <attr name="button256Text" format="color"/>
+    <attr name="button512" format="color"/>
+    <attr name="button512Text" format="color"/>
+    <attr name="button1024" format="color"/>
+    <attr name="button1024Text" format="color"/>
+    <attr name="button2048" format="color"/>
+    <attr name="button2048Text" format="color"/>
+    <attr name="button4096" format="color"/>
+    <attr name="button4096Text" format="color"/>
+    <attr name="button8192" format="color"/>
+    <attr name="button8192Text" format="color"/>
+    <attr name="button16384" format="color"/>
+    <attr name="button16384Text" format="color"/>
+    <attr name="button32768" format="color"/>
+    <attr name="button32768Text" format="color"/>
+</resources>

@@ -24,27 +24,25 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
+import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
+
 import org.secuso.privacyfriendly2048.R;
+import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
 import org.secuso.privacyfriendly2048.activities.helper.GameStatistics;
 
 import java.io.File;
@@ -52,12 +50,7 @@ import java.io.FileInputStream;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.math.RoundingMode;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -75,15 +68,15 @@ public class StatsActivity extends BaseActivity {
             R.layout.fragment_stats4,
     };
 
-    String [] TABNAMES = {"4x4","5x5","6x6","7x7"};
+    String[] TABNAMES = {"4x4", "5x5", "6x6", "7x7"};
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * The {@link PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
      * loaded fragment in memory. If this becomes too memory intensive, it
      * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     * {@link FragmentStatePagerAdapter}.
      */
     private StatsActivity.MyViewPagerAdapter mSectionsPagerAdapter;
 
@@ -100,7 +93,7 @@ public class StatsActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         //actionBar.setTitle(R.string.menu_highscore);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#024265")));
@@ -141,10 +134,10 @@ public class StatsActivity extends BaseActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         //noinspection SimplifiableIfStatement
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_reset:
-            //    SaveLoadStatistics.resetStats(this);
-            //    mSectionsPagerAdapter.refresh(this);
+                //    SaveLoadStatistics.resetStats(this);
+                //    mSectionsPagerAdapter.refresh(this);
 
                 resetGameStatistics();
                 return true;
@@ -155,8 +148,9 @@ public class StatsActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void resetGameStatistics(){
-        for(int n = 4; n <= 7; n++) {
+
+    public void resetGameStatistics() {
+        for (int n = 4; n <= 7; n++) {
             try {
                 File file = new File(getFilesDir(), "statistics" + n + ".txt");
                 file.delete();
@@ -179,6 +173,7 @@ public class StatsActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             return TABNAMES[position];
         }
+
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -195,8 +190,7 @@ public class StatsActivity extends BaseActivity {
             TextView moves = new TextView(StatsActivity.this);
             TextView tpm = new TextView(StatsActivity.this);
             TextView rekord = new TextView(StatsActivity.this);
-            switch(position)
-            {
+            switch (position) {
                 case 0:
                     highestNumber = findViewById(R.id.highest_number1);
                     timePlayed = findViewById(R.id.time_played1);
@@ -209,7 +203,7 @@ public class StatsActivity extends BaseActivity {
                     tpm = findViewById(R.id.time_swipes1);
                     rekord = findViewById(R.id.highest_score1);
                     img = findViewById(R.id.stat_img1);
-                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(StatsActivity.this).load(R.drawable.layout4x4_s).into(img);
                     else
                         Glide.with(StatsActivity.this).load(R.drawable.layout4x4_o).into(img);
@@ -226,7 +220,7 @@ public class StatsActivity extends BaseActivity {
                     tpm = findViewById(R.id.time_swipes2);
                     rekord = findViewById(R.id.highest_score2);
                     img = findViewById(R.id.stat_img2);
-                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(StatsActivity.this).load(R.drawable.layout5x5_s).into(img);
                     else
                         Glide.with(StatsActivity.this).load(R.drawable.layout5x5_o).into(img);
@@ -243,7 +237,7 @@ public class StatsActivity extends BaseActivity {
                     tpm = findViewById(R.id.time_swipes3);
                     rekord = findViewById(R.id.highest_score3);
                     img = findViewById(R.id.stat_img3);
-                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(StatsActivity.this).load(R.drawable.layout6x6_s).into(img);
                     else
                         Glide.with(StatsActivity.this).load(R.drawable.layout6x6_o).into(img);
@@ -260,38 +254,38 @@ public class StatsActivity extends BaseActivity {
                     tpm = findViewById(R.id.time_swipes4);
                     rekord = findViewById(R.id.highest_score4);
                     img = findViewById(R.id.stat_img4);
-                    if(PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(StatsActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(StatsActivity.this).load(R.drawable.layout7x7_s).into(img);
                     else
                         Glide.with(StatsActivity.this).load(R.drawable.layout7x7_o).into(img);
                     break;
             }
-            GameStatistics gameStatistics = readStatisticsFromFile(position+4);
-            highestNumber.setText(""+gameStatistics.getHighestNumber());
+            GameStatistics gameStatistics = readStatisticsFromFile(position + 4);
+            highestNumber.setText("" + gameStatistics.getHighestNumber());
             timePlayed.setText(formatMillis(gameStatistics.getTimePlayed()));
             undo.setText("" + gameStatistics.getUndo());
             moves_D.setText("" + gameStatistics.getMoves_d());
             moves_R.setText("" + gameStatistics.getMoves_r());
             moves_T.setText("" + gameStatistics.getMoves_t());
             moves_L.setText("" + gameStatistics.getMoves_l());
-            moves.setText(""+gameStatistics.getMoves());
-            if(gameStatistics.getMoves()!=0)
-                tpm.setText(""+formatSmallMillis(gameStatistics.getTimePlayed()/gameStatistics.getMoves()));
+            moves.setText("" + gameStatistics.getMoves());
+            if (gameStatistics.getMoves() != 0)
+                tpm.setText("" + formatSmallMillis(gameStatistics.getTimePlayed() / gameStatistics.getMoves()));
             else
                 tpm.setText("0");
-            rekord.setText(""+gameStatistics.getRecord());
-
+            rekord.setText("" + gameStatistics.getRecord());
 
 
             return view;
         }
+
         public String formatSmallMillis(long timeInMillis) {
             String sign = "";
             if (timeInMillis < 0) {
                 sign = "-";
                 timeInMillis = Math.abs(timeInMillis);
             }
-            Double seconds = new Double(((double)timeInMillis) / (double)TimeUnit.SECONDS.toMillis(1));
+            Double seconds = new Double(((double) timeInMillis) / (double) TimeUnit.SECONDS.toMillis(1));
             StringBuilder sb = new StringBuilder(",##0.00");
             DecimalFormat df = new DecimalFormat(sb.toString());
             df.setRoundingMode(RoundingMode.HALF_UP);
@@ -301,13 +295,14 @@ public class StatsActivity extends BaseActivity {
             formatted.append(" s");
             return formatted.toString();
         }
+
         public String formatMillis(long timeInMillis) {
             String sign = "";
             if (timeInMillis < 0) {
                 sign = "-";
                 timeInMillis = Math.abs(timeInMillis);
             }
-            Double seconds = new Double(((double)timeInMillis) / (double)TimeUnit.HOURS.toMillis(1));
+            Double seconds = new Double(((double) timeInMillis) / (double) TimeUnit.HOURS.toMillis(1));
             StringBuilder sb = new StringBuilder(",##0.00");
             DecimalFormat df = new DecimalFormat(sb.toString());
             df.setRoundingMode(RoundingMode.HALF_UP);
@@ -317,6 +312,7 @@ public class StatsActivity extends BaseActivity {
             formatted.append(" h");
             return formatted.toString();
         }
+
         @Override
         public int getCount() {
             return layouts.length;
@@ -334,30 +330,24 @@ public class StatsActivity extends BaseActivity {
             container.removeView(view);
         }
 
-        public GameStatistics readStatisticsFromFile(int n)
-        {
+        public GameStatistics readStatisticsFromFile(int n) {
             GameStatistics gS = new GameStatistics(n);
-            try{
+            try {
                 File file = new File(getFilesDir(), "statistics" + n + ".txt");
                 FileInputStream fileIn = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
-                gS = (GameStatistics)in.readObject();
+                gS = (GameStatistics) in.readObject();
                 in.close();
                 fileIn.close();
-            }
-            catch(InvalidClassException ice)
-            {
+            } catch (InvalidClassException ice) {
                 File file = new File(getFilesDir(), "statistics" + n + ".txt");
                 file.delete();
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return gS;
         }
     }
-
 
 
 }

@@ -24,12 +24,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +35,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 
@@ -76,7 +75,6 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_tutorial);
 
         // Making notification bar transparent
@@ -90,7 +88,6 @@ public class TutorialActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
-
 
 
         // adding bottom dots
@@ -107,9 +104,7 @@ public class TutorialActivity extends AppCompatActivity {
         try {
             ImageView imageView = (ImageView) findViewById(R.id.image1);
             Glide.with(TutorialActivity.this).load(R.mipmap.ic_splash).into(imageView);//.into(imageView);//@mipmap/ic_splash).into(imageView);
-        }
-        catch(NullPointerException ne)
-        {
+        } catch (NullPointerException ne) {
 
         }
 
@@ -160,7 +155,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        if(firstLaunchManager.isFirstTimeLaunch()) {
+        if (firstLaunchManager.isFirstTimeLaunch()) {
             Intent intent = new Intent(TutorialActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             firstLaunchManager.setFirstTimeLaunch(false);
@@ -227,29 +222,28 @@ public class TutorialActivity extends AppCompatActivity {
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
             ImageView imageView;
-            switch(position)
-            {
+            switch (position) {
                 case 0:
                     imageView = (ImageView) findViewById(R.id.image1);
                     Glide.with(TutorialActivity.this).load(R.mipmap.ic_splash).into(imageView);
                     break;
                 case 1:
                     imageView = (ImageView) findViewById(R.id.image2);
-                    if(PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move_s).into(imageView);
                     else
                         Glide.with(TutorialActivity.this).load(R.drawable.tutorial_move_o).into(imageView);
                     break;
                 case 2:
                     imageView = (ImageView) findViewById(R.id.image3);
-                    if(PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(TutorialActivity.this).load(R.drawable.tutorial_swipe_s).into(imageView);
                     else
                         Glide.with(TutorialActivity.this).load(R.drawable.tutorial_swipe_o).into(imageView);
                     break;
                 case 3:
                     imageView = (ImageView) findViewById(R.id.image4);
-                    if(PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color","1").equals("1"))
+                    if (PreferenceManager.getDefaultSharedPreferences(TutorialActivity.this).getString("pref_color", "1").equals("1"))
                         Glide.with(TutorialActivity.this).load(R.drawable.tutorial_add_s).into(imageView);
                     else
                         Glide.with(TutorialActivity.this).load(R.drawable.tutorial_add_o).into(imageView);

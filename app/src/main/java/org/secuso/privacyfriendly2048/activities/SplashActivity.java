@@ -20,7 +20,8 @@ package org.secuso.privacyfriendly2048.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager;
 
@@ -42,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
         FirstLaunchManager firstStartPref = new FirstLaunchManager(this);
 
-        if(firstStartPref.isFirstTimeLaunch()) {
+        if (firstStartPref.isFirstTimeLaunch()) {
             firstStartPref.initFirstTimeLaunch();
             mainIntent = new Intent(this, TutorialActivity.class);
         } else {

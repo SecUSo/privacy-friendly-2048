@@ -23,15 +23,17 @@ package org.secuso.privacyfriendly2048.activities;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
@@ -44,7 +46,7 @@ import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180910
  */
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends BaseActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -108,11 +110,26 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        super.mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
         setContentView(R.layout.activity_settings);
 
         //setupActionBar();
 
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (!key.equals("currentTheme")) return;
+
+        String newValue = sharedPreferences.getString("currentTheme", "system");
+        if (newValue.equals("dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if (newValue.equals("light")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
     }
 
     @Override

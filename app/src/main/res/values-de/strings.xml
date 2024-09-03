@@ -43,12 +43,12 @@
     <string name="about">Über</string>
     <string name="version">Version: </string>
     <string name="version_number">v %s</string>
-     <string name="about_author">Autoren:</string>
-     <string name ="about_author_names">Saskia Jacob und Julian Wadephul</string>
-     <string name="about_author_contributors">und Mitwirkende.</string>
-     <string name="about_affiliation">In Zusammenarbeit mit</string>
-     <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt von dem Karlsruher Institut für Technologie (KIT). Quelltext lizenziert unter GPLv3. Bilder copyright KIT und Google Inc.</string>
-     <string name="more_info">Weitere Infos unter:</string>
+    <string name="about_author">Autoren:</string>
+    <string name="about_author_names">Saskia Jacob und Julian Wadephul</string>
+    <string name="about_author_contributors">und Mitwirkende.</string>
+    <string name="about_affiliation">In Zusammenarbeit mit</string>
+    <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt von dem Karlsruher Institut für Technologie (KIT). Quelltext lizenziert unter GPLv3. Bilder copyright KIT und Google Inc.</string>
+    <string name="more_info">Weitere Infos unter:</string>
 
 
     <!-- ###SETTINGS### -->
@@ -56,6 +56,11 @@
     <string name="settings_animation">Animationen aktivieren</string>
     <string name="settings_display">Displaysperre aktivieren</string>
     <string name="settings_color">Auswahl Farbschema</string>
+    <string name="settings_color_system">System</string>
+    <string name="settings_color_light">Hell</string>
+    <string name="settings_color_dark">Dunkel</string>
+    <string name="settings_color_scheme_default">Standard</string>
+    <string name="settings_color_scheme_original">Original</string>
 
 
     <!-- ### WELCOME DIALOG ### -->

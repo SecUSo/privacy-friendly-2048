@@ -20,6 +20,7 @@ package org.secuso.privacyfriendly2048.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -97,7 +98,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public static boolean moved = false;
     public static boolean firstTime = true;
     public static boolean newGame;
-    public boolean won2048=false;
+    public boolean won2048 = false;
     public static boolean gameOver = false;
     public static boolean createNewGame = true;
     public static boolean undo = false;
@@ -117,10 +118,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public static long startingTime;
     public int highestNumber;
 
+    private Activity myActivity;
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item= menu.findItem(R.id.action_settings);
+        MenuItem item = menu.findItem(R.id.action_settings);
         item.setVisible(false);
         super.onPrepareOptionsMenu(menu);
         return true;
@@ -128,7 +131,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     @Override
     public void onPause() {
-        Log.i("lifecycle","pause");
+        Log.i("lifecycle", "pause");
         save();
 
         super.onPause();
@@ -139,9 +142,10 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        myActivity = this;
         saveState = true;
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             Intent intent = getIntent();
             if (firstTime && intent.getBooleanExtra("new", true)) {
                 createNewGame = true;
@@ -150,9 +154,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        animationActivated = sharedPref.getBoolean("pref_animationActivated",true);
+        animationActivated = sharedPref.getBoolean("pref_animationActivated", true);
 
-        if(sharedPref.getBoolean("settings_display",true))
+        if (sharedPref.getBoolean("settings_display", true))
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_game);
 
@@ -164,7 +168,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public void initResources() {
         number_field = (RelativeLayout) findViewById(R.id.number_field);
         number_field_background = (RelativeLayout) findViewById(R.id.number_field_background);
-        touch_field = (RelativeLayout) findViewById(R.id.touch_field) ;
+        touch_field = (RelativeLayout) findViewById(R.id.touch_field);
         textFieldPoints = (TextView) findViewById(R.id.points);
         textFieldRecord = (TextView) findViewById(R.id.record);
         restartButton = (ImageButton) findViewById(R.id.restartButton);
@@ -180,25 +184,23 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             @Override
             public void onClick(View v) {
                 undoButton.setVisibility(View.INVISIBLE);
-                if(undo&&last_elements != null) {
+                if (undo && last_elements != null) {
                     gameStatistics.undo();
                     elements = last_elements;
                     points = last_points;
                     number_field.removeAllViews();
                     //number_field_background.removeAllViews();
                     points = last_points;
-                    textFieldPoints.setText(""+points);
+                    textFieldPoints.setText("" + points);
                     setDPositions(false);
-                    for(Element[] i : elements)
-                    {
-                        for(Element j: i)
-                        {
+                    for (Element[] i : elements) {
+                        for (Element j : i) {
                             j.setVisibility(View.INVISIBLE);
                             number_field.addView(j);
                             j.drawItem();
                         }
                     }
-                    for(int i = 0; i < elements.length; i++) {
+                    for (int i = 0; i < elements.length; i++) {
                         for (int j = 0; j < elements[i].length; j++) {
                             elements[i][j].setOnTouchListener(swipeListener);
                             backgroundElements[i][j].setOnTouchListener(swipeListener);
@@ -223,16 +225,16 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         super.onConfigurationChanged(newConfig);
     }
 
-    public void save()
-    {
-        Log.i("saving","save");
-        if(!createNewGame)
+    public void save() {
+        Log.i("saving", "save");
+        if (!createNewGame)
             saveStateToFile(gameState);
-        gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis()-startingTime);
+        gameStatistics.addTimePlayed(Calendar.getInstance().getTimeInMillis() - startingTime);
         startingTime = Calendar.getInstance().getTimeInMillis();
         saveStatisticsToFile(gameStatistics);
         firstTime = true;
     }
+
     @Override
     public void onBackPressed() {
         save();
@@ -241,24 +243,22 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     }
 
-    public void createNewGame()
-    {
+    public void createNewGame() {
         createNewGame = true;
-        getIntent().putExtra("new",true);
+        getIntent().putExtra("new", true);
         number_field.removeAllViews();
         number_field_background.removeAllViews();
         initialize();
 
     }
 
-    protected void start()
-    {
-        Log.i("activity","start");
+    protected void start() {
+        Log.i("activity", "start");
         saveState = true;
         android.view.ViewGroup.LayoutParams lp = number_field.getLayoutParams();
 
         //setting squared Number Field
-        if(number_field.getHeight()>number_field.getWidth())
+        if (number_field.getHeight() > number_field.getWidth())
             lp.height = number_field.getWidth();
         else
             lp.width = number_field.getHeight();
@@ -267,21 +267,21 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         initialize();
         setListener();
-        if(newGame) {
+        if (newGame) {
             moved = true;
             addNumber();
         }
         newGame = false;
 
     }
-    public void initializeState()
-    {
+
+    public void initializeState() {
         points = 0;
         Intent intent = getIntent();
         n = intent.getIntExtra("n", 4);
         newGame = intent.getBooleanExtra("new", true);
         filename = intent.getStringExtra("filename");
-        undo = intent.getBooleanExtra("undo",false);
+        undo = intent.getBooleanExtra("undo", false);
         if (!newGame) {
             gameState = readStateFromFile();
             points = gameState.points;
@@ -296,23 +296,18 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         saveState = true;
 
 
-
     }
 
-    public void drawAllElements(Element[][] e)
-    {
-        for(Element[] i : e)
-        {
-            for(Element j: i)
-            {
+    public void drawAllElements(Element[][] e) {
+        for (Element[] i : e) {
+            for (Element j : i) {
                 j.drawItem();
             }
         }
     }
 
-    public void updateGameState()
-    {
-        gameState = new GameState(elements,last_elements);
+    public void updateGameState() {
+        gameState = new GameState(elements, last_elements);
         gameState.n = n;
         gameState.points = points;
         gameState.last_points = last_points;
@@ -322,11 +317,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     }
 
-    public void initialize()
-    {
-        Log.i("activity","initialize");
-        if(getIntent().getIntExtra("n",4)!=n||createNewGame)
-        {
+    public void initialize() {
+        Log.i("activity", "initialize");
+        if (getIntent().getIntExtra("n", 4) != n || createNewGame) {
             initializeState();
 
         }
@@ -336,37 +329,37 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         createNewGame = false;
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int abstand = (10* metrics.densityDpi) / DisplayMetrics.DENSITY_DEFAULT;
+        int abstand = (10 * metrics.densityDpi) / DisplayMetrics.DENSITY_DEFAULT;
         numberFieldSize = number_field.getWidth();
-        if(numberFieldSize>number_field.getHeight())
+        if (numberFieldSize > number_field.getHeight())
             numberFieldSize = number_field.getHeight();
-        int number_size = (numberFieldSize-abstand)/n-abstand;
+        int number_size = (numberFieldSize - abstand) / n - abstand;
 
-        textFieldRecord.setText(""+record);
-        textFieldPoints.setText(""+points);
-        if(undo)
+        textFieldRecord.setText("" + record);
+        textFieldPoints.setText("" + points);
+        if (undo)
             undoButton.setVisibility(View.VISIBLE);
         else
             undoButton.setVisibility(View.INVISIBLE);
 
         number_field_background.removeAllViews();
         number_field.removeAllViews();
-        for(int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < elements.length; i++) {
             for (int j = 0; j < elements[i].length; j++) {
                 //background elements
                 backgroundElements[i][j] = new Element(this);
                 //backgroundElements[i][j].setVisibility(View.INVISIBLE);
 
                 elements[i][j] = new Element(this);
-                elements[i][j].setNumber(gameState.getNumber(i,j));
+                elements[i][j].setNumber(gameState.getNumber(i, j));
 
                 elements[i][j].drawItem();
-                if(elements[i][j].getNumber() >= WINTHRESHOLD)
+                if (elements[i][j].getNumber() >= WINTHRESHOLD)
                     won2048 = true;
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(number_size ,number_size);
-                lp.setMarginStart(abstand+j*(number_size+abstand));
-                lp.topMargin = abstand+i*(number_size+abstand);
-                elements[i][j].setDPosition(lp.getMarginStart(),lp.topMargin);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(number_size, number_size);
+                lp.setMarginStart(abstand + j * (number_size + abstand));
+                lp.topMargin = abstand + i * (number_size + abstand);
+                elements[i][j].setDPosition(lp.getMarginStart(), lp.topMargin);
                 elements[i][j].setLayoutParams(lp);
                 backgroundElements[i][j].setLayoutParams(lp);
                 backgroundElements[i][j].setLayoutParams(lp);
@@ -376,17 +369,15 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 number_field.addView(elements[i][j]);
             }
         }
-        last_elements =deepCopy(elements);
-        if(undo)
-        {
-            for(int i = 0; i < elements.length; i++) {
+        last_elements = deepCopy(elements);
+        if (undo) {
+            for (int i = 0; i < elements.length; i++) {
                 for (int j = 0; j < elements[i].length; j++) {
-                    last_elements[i][j].setNumber(gameState.getLastNumber(i,j));
+                    last_elements[i][j].setNumber(gameState.getLastNumber(i, j));
                 }
             }
         }
-        if(newGame)
-        {
+        if (newGame) {
             moved = true;
             addNumber();
             moved = true;
@@ -394,69 +385,60 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             newGame = false;
         }
     }
-    public void switchElementPositions(Element e1, Element e2)
-    {
+
+    public void switchElementPositions(Element e1, Element e2) {
         int i = e1.getdPosX();
         int j = e1.getdPosY();
 
         e1.animateMoving = true;
-        e1.setDPosition(e2.getdPosX(),e2.getdPosY());
+        e1.setDPosition(e2.getdPosX(), e2.getdPosY());
         e2.animateMoving = false;
-        e2.setDPosition(i,j);
+        e2.setDPosition(i, j);
 
     }
 
-    public Element[][] deepCopy(Element[][]e)
-    {
+    public Element[][] deepCopy(Element[][] e) {
         Element[][] r = new Element[e.length][];
-        for(int i = 0; i < r.length; i++)
-        {
+        for (int i = 0; i < r.length; i++) {
             r[i] = new Element[e[i].length];
-            for(int j = 0; j < r[i].length; j++)
-            {
+            for (int j = 0; j < r[i].length; j++) {
                 r[i][j] = e[i][j].copy();
             }
         }
         return r;
     }
 
-    public void setListener()
-    {
-        swipeListener = new Gestures(this){
+    public void setListener() {
+        swipeListener = new Gestures(this) {
             public boolean onSwipeTop() {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
+                Element s = new Element(myActivity);
 
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[0][i].number;
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[0][i].number;
                     s.posX = 0;
                     s.posY = i;
 
 
-                    for(int j = 1; j< elements[i].length; j++)
-                    {
-                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
-                        {
-                            moved=true;
+                    for (int j = 1; j < elements[i].length; j++) {
+                        if (elements[j][i].number != 0 && (s.number == 0 || s.number == elements[j][i].number)) {
+                            moved = true;
                             elements[j][i].setNumber(s.number + elements[j][i].number);
                             elements[s.posX][s.posY].setNumber(0);
                             switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
                             Element z = elements[j][i];
                             elements[j][i] = elements[s.posX][s.posY];
                             elements[s.posX][s.posY] = z;
-                            if(s.number!=0)
+                            if (s.number != 0)
                                 points += elements[s.posX][s.posY].number;
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posX++;
-                            j=s.posX;
+                            j = s.posX;
                             s.number = elements[j][i].number;
 
-                        }
-                        else if(elements[j][i].number != 0)
-                        {
+                        } else if (elements[j][i].number != 0) {
                             s.number = elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
@@ -464,32 +446,27 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[0][i].number;
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[0][i].number;
                     s.posX = 0;
                     s.posY = i;
 
 
-                    for(int j = 1; j< elements[i].length; j++)
-                    {
-                        if(elements[j][i].number != 0 && s.number == 0)
-                        {
-                            moved=true;
+                    for (int j = 1; j < elements[i].length; j++) {
+                        if (elements[j][i].number != 0 && s.number == 0) {
+                            moved = true;
                             elements[j][i].setNumber(s.number + elements[j][i].number);
                             elements[s.posX][s.posY].setNumber(0);
                             switchElementPositions(elements[j][i], elements[s.posX][s.posY]);
                             Element z = elements[j][i];
                             elements[j][i] = elements[s.posX][s.posY];
                             elements[s.posX][s.posY] = z;
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posX++;
-                            j=s.posX;
+                            j = s.posX;
                             s.number = elements[j][i].number;
 
-                        }
-                        else if(s.number != 0)
-                        {
+                        } else if (s.number != 0) {
                             s.number = elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
@@ -497,14 +474,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                if(moved) {
+                if (moved) {
                     gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                if(moved)
+                if (moved)
                     gameStatistics.moveT();
                 addNumber();
                 setDPositions(animationActivated);
@@ -512,23 +489,21 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 //es wurde nach oben gewischt, hier den Code einfügen
                 return false;
             }
+
             public boolean onSwipeRight() {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[i][elements[i].length-1].number;
+                Element s = new Element(myActivity);
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[i][elements[i].length - 1].number;
                     s.posX = i;
-                    s.posY = elements[i].length-1;
+                    s.posY = elements[i].length - 1;
 
 
-                    for(int j = elements[i].length-2; j >= 0; j--)
-                    {
-                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
-                        {
-                            moved=true;
+                    for (int j = elements[i].length - 2; j >= 0; j--) {
+                        if (elements[i][j].number != 0 && (s.number == 0 || s.number == elements[i][j].number)) {
+                            moved = true;
 
                             elements[i][j].setNumber(s.number + elements[i][j].number);
                             elements[s.posX][s.posY].setNumber(0);
@@ -537,15 +512,13 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             elements[i][j] = elements[s.posX][s.posY];
                             elements[s.posX][s.posY] = z;
 
-                            if(s.number!=0)
+                            if (s.number != 0)
                                 points += elements[s.posX][s.posY].number;
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posY--;
-                            j=s.posY;
+                            j = s.posY;
                             s.number = elements[i][j].number;
-                        }
-                        else if(elements[i][j].number != 0)
-                        {
+                        } else if (elements[i][j].number != 0) {
                             s.number = elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
@@ -553,18 +526,15 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[i][elements[i].length-1].number;
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[i][elements[i].length - 1].number;
                     s.posX = i;
-                    s.posY = elements[i].length-1;
+                    s.posY = elements[i].length - 1;
 
 
-                    for(int j = elements[i].length-2; j >= 0; j--)
-                    {
-                        if(elements[i][j].number != 0 && s.number == 0 )
-                        {
-                            moved=true;
+                    for (int j = elements[i].length - 2; j >= 0; j--) {
+                        if (elements[i][j].number != 0 && s.number == 0) {
+                            moved = true;
 
                             elements[i][j].setNumber(s.number + elements[i][j].number);
                             elements[s.posX][s.posY].setNumber(0);
@@ -574,13 +544,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             elements[s.posX][s.posY] = z;
 
 
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posY--;
-                            j=s.posY;
+                            j = s.posY;
                             s.number = elements[i][j].number;
-                        }
-                        else if(s.number != 0)
-                        {
+                        } else if (s.number != 0) {
                             s.number = elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
@@ -588,14 +556,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                if(moved) {
+                if (moved) {
                     gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                if(moved)
+                if (moved)
                     gameStatistics.moveR();
                 addNumber();
                 setDPositions(animationActivated);
@@ -604,23 +572,21 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 //es wurde nach rechts gewischt, hier den Code einfügen
                 return false;
             }
+
             public boolean onSwipeLeft() {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[i][0].number;
+                Element s = new Element(myActivity);
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[i][0].number;
                     s.posX = i;
                     s.posY = 0;
 
 
-                    for(int j = 1; j< elements[i].length; j++)
-                    {
-                        if(elements[i][j].number != 0 &&( s.number == 0 || s.number == elements[i][j].number))
-                        {
-                            moved=true;
+                    for (int j = 1; j < elements[i].length; j++) {
+                        if (elements[i][j].number != 0 && (s.number == 0 || s.number == elements[i][j].number)) {
+                            moved = true;
 
 
                             elements[i][j].setNumber(s.number + elements[i][j].number);
@@ -630,15 +596,13 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             elements[i][j] = elements[s.posX][s.posY];
                             elements[s.posX][s.posY] = z;
 
-                            if(s.number!=0)
+                            if (s.number != 0)
                                 points += elements[s.posX][s.posY].number;
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posY++;
-                            j=s.posY;
+                            j = s.posY;
                             s.number = elements[i][j].number;
-                        }
-                        else if(elements[i][j].number != 0)
-                        {
+                        } else if (elements[i][j].number != 0) {
                             s.number = elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
@@ -646,17 +610,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[i][0].number;
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[i][0].number;
                     s.posX = i;
                     s.posY = 0;
 
-                    for(int j = 1; j< elements[i].length; j++)
-                    {
-                        if(elements[i][j].number != 0 && s.number == 0)
-                        {
-                            moved=true;
+                    for (int j = 1; j < elements[i].length; j++) {
+                        if (elements[i][j].number != 0 && s.number == 0) {
+                            moved = true;
 
                             elements[i][j].setNumber(s.number + elements[i][j].number);
                             elements[s.posX][s.posY].setNumber(0);
@@ -665,13 +626,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             elements[i][j] = elements[s.posX][s.posY];
                             elements[s.posX][s.posY] = z;
 
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posY++;
-                            j=s.posY;
+                            j = s.posY;
                             s.number = elements[i][j].number;
-                        }
-                        else if(s.number != 0)
-                        {
+                        } else if (s.number != 0) {
                             s.number = elements[i][j].number;
                             s.posX = i;
                             s.posY = j;
@@ -679,14 +638,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                if(moved) {
+                if (moved) {
                     gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                if(moved)
+                if (moved)
                     gameStatistics.moveL();
                 addNumber();
                 setDPositions(animationActivated);
@@ -694,23 +653,21 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 //es wurde nach links gewischt, hier den Code einfügen
                 return false;
             }
+
             public boolean onSwipeBottom() {
                 Element[][] temp = deepCopy(elements);
                 int temp_points = points;
                 moved = false;
-                Element s = new Element(getApplicationContext());
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[elements[i].length-1][i].number;
-                    s.posX = elements[i].length-1;
+                Element s = new Element(myActivity);
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[elements[i].length - 1][i].number;
+                    s.posX = elements[i].length - 1;
                     s.posY = i;
 
 
-                    for(int j = elements[i].length-2; j>=0; j--)
-                    {
-                        if(elements[j][i].number != 0 &&( s.number == 0 || s.number == elements[j][i].number))
-                        {
-                            moved=true;
+                    for (int j = elements[i].length - 2; j >= 0; j--) {
+                        if (elements[j][i].number != 0 && (s.number == 0 || s.number == elements[j][i].number)) {
+                            moved = true;
 
                             elements[j][i].setNumber(s.number + elements[j][i].number);
                             elements[s.posX][s.posY].setNumber(0);
@@ -719,15 +676,13 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             elements[j][i] = elements[s.posX][s.posY];
                             elements[s.posX][s.posY] = z;
 
-                            if(s.number!=0)
+                            if (s.number != 0)
                                 points += elements[s.posX][s.posY].number;
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posX--;
-                            j=s.posX;
+                            j = s.posX;
                             s.number = elements[j][i].number;
-                        }
-                        else if(elements[j][i].number != 0)
-                        {
+                        } else if (elements[j][i].number != 0) {
                             s.number = elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
@@ -735,18 +690,15 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                for(int i = 0; i < elements.length; i++)
-                {
-                    s.number =  elements[elements[i].length-1][i].number;
-                    s.posX = elements[i].length-1;
+                for (int i = 0; i < elements.length; i++) {
+                    s.number = elements[elements[i].length - 1][i].number;
+                    s.posX = elements[i].length - 1;
                     s.posY = i;
 
 
-                    for(int j = elements[i].length-2; j>=0; j--)
-                    {
-                        if(elements[j][i].number != 0 &&s.number == 0)
-                        {
-                            moved=true;
+                    for (int j = elements[i].length - 2; j >= 0; j--) {
+                        if (elements[j][i].number != 0 && s.number == 0) {
+                            moved = true;
 
                             elements[j][i].setNumber(s.number + elements[j][i].number);
                             elements[s.posX][s.posY].setNumber(0);
@@ -755,13 +707,11 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                             elements[j][i] = elements[s.posX][s.posY];
                             elements[s.posX][s.posY] = z;
 
-                            if(s.number !=0)
+                            if (s.number != 0)
                                 s.posX--;
-                            j=s.posX;
+                            j = s.posX;
                             s.number = elements[j][i].number;
-                        }
-                        else if(s.number != 0)
-                        {
+                        } else if (s.number != 0) {
                             s.number = elements[j][i].number;
                             s.posX = j;
                             s.posY = i;
@@ -769,14 +719,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
 
                 }
-                if(moved) {
+                if (moved) {
                     gameStatistics.addMoves(1);
                     last_points = temp_points;
                     last_elements = temp;
                     undoButton.setVisibility(View.VISIBLE);
                     undo = true;
                 }
-                if(moved)
+                if (moved)
                     gameStatistics.moveD();
                 addNumber();
                 setDPositions(animationActivated);
@@ -784,47 +734,42 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 //es wurde nach unten gewischt, hier den Code einfügen
                 return false;
             }
-            public boolean nichts(){
+
+            public boolean nichts() {
                 //es wurde keine wischrichtung erkannt, hier den Code einfügen
                 return false;
             }
         };
         touch_field.setOnTouchListener(swipeListener);
         number_field.setOnTouchListener(swipeListener);
-        for(int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < elements.length; i++) {
             for (int j = 0; j < elements[i].length; j++) {
                 elements[i][j].setOnTouchListener(swipeListener);
                 backgroundElements[i][j].setOnTouchListener(swipeListener);
             }
         }
     }
-    public String display(Element[][] e)
-    {
+
+    public String display(Element[][] e) {
         String result = "\n";
-        for(int i = 0; i < e.length; i++)
-        {
-            for(int j = 0; j < e[i].length;j++)
+        for (int i = 0; i < e.length; i++) {
+            for (int j = 0; j < e[i].length; j++)
                 result = result + " " + elements[i][j].number; //+ " "+elements[i][j];
             result = result + "\n";
         }
         result += "\n";
-        for(int i = 0; i < e.length; i++)
-        {
-            for(int j = 0; j < e[i].length;j++)
+        for (int i = 0; i < e.length; i++) {
+            for (int j = 0; j < e[i].length; j++)
                 result = result + " (" + elements[i][j].getX() + " , " + elements[i][j].getY() + ")" + " v:" + elements[i][j].getVisibility();//+" "+elements[i][j];
             result = result + "\n";
         }
         return result;
     }
 
-    public void updateHighestNumber()
-    {
-        for(int i = 0; i < elements.length; i++)
-        {
-            for(int j = 0; j < elements[i].length; j++)
-            {
-                if(highestNumber < elements[i][j].number)
-                {
+    public void updateHighestNumber() {
+        for (int i = 0; i < elements.length; i++) {
+            for (int j = 0; j < elements[i].length; j++) {
+                if (highestNumber < elements[i][j].number) {
                     highestNumber = elements[i][j].number;
                     gameStatistics.setHighestNumber(highestNumber);
                 }
@@ -832,103 +777,86 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
     }
 
-    public void check2048()
-    {
-        if(won2048 == false)
-        for(int i = 0; i < elements.length; i++)
-        {
-            for(int j = 0; j < elements[i].length; j++)
-            {
-                if(elements[i][j].number==WINTHRESHOLD)
-                {
+    public void check2048() {
+        if (won2048 == false) {
+            for (int i = 0; i < elements.length; i++) {
+                for (int j = 0; j < elements[i].length; j++) {
+                    if (elements[i][j].number == WINTHRESHOLD) {
 
-                    saveStatisticsToFile(gameStatistics);
-                    //MESSAGE
-                    new AlertDialog.Builder(this)
-                            .setTitle((this.getResources().getString(R.string.Titel_V_Message)))
-                            .setMessage((this.getResources().getString(R.string.Winning_Message)))
-                            .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    onBackPressed();
+                        saveStatisticsToFile(gameStatistics);
+                        //MESSAGE
+                        new AlertDialog.Builder(this)
+                                .setTitle((this.getResources().getString(R.string.Titel_V_Message)))
+                                .setMessage((this.getResources().getString(R.string.Winning_Message)))
+                                .setNegativeButton((this.getResources().getString(R.string.No_Message)), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        onBackPressed();
 
-                                }
-                            })
-                            .setPositiveButton((this.getResources().getString(R.string.Yes_Message)), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .setCancelable(false)
-                            .create().show();
-                    won2048=true;
+                                    }
+                                })
+                                .setPositiveButton((this.getResources().getString(R.string.Yes_Message)), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .setCancelable(false)
+                                .create().show();
+                        won2048 = true;
+                    }
                 }
             }
         }
     }
 
 
-
-    public void setDPositions(boolean animation)
-    {
+    public void setDPositions(boolean animation) {
         long SCALINGSPEED = GameActivity.SCALINGSPEED;
         long ADDINGSPEED = GameActivity.ADDINGSPEED;
         long MOVINGSPEED = GameActivity.MOVINGSPEED;
         boolean scale = true;
-        if(!animation)
-        {
+        if (!animation) {
             SCALINGSPEED = 1;
             ADDINGSPEED = 1;
             MOVINGSPEED = 1;
             scale = false;
         }
-        for(Element[] i: elements)
-        {
-            for(Element j:i)
-            {
-                if(j.dPosX != j.getX())
-                {
-                    if(j.animateMoving&&animation)
-                    {
-                        if(j.number != j.dNumber)
-                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,scale)).start();
+        for (Element[] i : elements) {
+            for (Element j : i) {
+                if (j.dPosX != j.getX()) {
+                    if (j.animateMoving && animation) {
+                        if (j.number != j.dNumber)
+                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, scale)).start();
                         else
-                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
 
-                    }
-                    else {
-                        if(!animation) {
+                    } else {
+                        if (!animation) {
                             ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) j.getLayoutParams();
                             lp1.leftMargin = j.dPosX;
                             j.setLayoutParams(lp1);
                             j.drawItem();
-                        }
-                        else
-                            j.animate().x(j.dPosX).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+                        } else
+                            j.animate().x(j.dPosX).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
 
                     }
 
                 }
-                if(j.dPosY != j.getY())
-                {
-                    if(j.animateMoving&&animation)
-                    {
-                        if(j.number != j.dNumber)
-                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,scale)).start();
+                if (j.dPosY != j.getY()) {
+                    if (j.animateMoving && animation) {
+                        if (j.number != j.dNumber)
+                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, scale)).start();
                         else
-                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
 
-                    }
-                    else {
-                        if(!animation)
-                        {
+                    } else {
+                        if (!animation) {
                             ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) j.getLayoutParams();
                             lp1.topMargin = j.dPosY;
                             j.setLayoutParams(lp1);
                             j.drawItem();
-                        }
-                        else
-                            j.animate().y(j.dPosY).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j,false)).start();
+                        } else
+                            j.animate().y(j.dPosY).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
 
                     }
 
@@ -942,32 +870,35 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         Element e = null;
         long SCALINGSPEED = 100;
         float scalingFactor = 1.5f;
-        boolean scale =false;
-        public MovingListener(Element e, boolean scale )
-        {
+        boolean scale = false;
+
+        public MovingListener(Element e, boolean scale) {
             super();
             this.e = e;
             this.SCALINGSPEED = GameActivity.SCALINGSPEED;
             this.scalingFactor = GameActivity.SCALINGFACTOR;
             this.scale = scale;
         }
+
         @Override
         public void onAnimationCancel(Animator animation) {
             super.onAnimationCancel(animation);
             animation.setupEndValues();
-            if(e!=null)
+            if (e != null)
                 e.drawItem();
         }
+
         @Override
-        public void onAnimationPause(Animator animation){
+        public void onAnimationPause(Animator animation) {
             super.onAnimationPause(animation);
         }
+
         @Override
         public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
-            if(e!=null) {
+            if (e != null) {
                 e.drawItem();
-                if(scale)
+                if (scale)
                     e.animate().scaleX(scalingFactor).scaleY(scalingFactor).setDuration(SCALINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new ScalingListener(e)).start();
             }
 
@@ -976,28 +907,31 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     class ScalingListener extends AnimatorListenerAdapter {
         Element e = null;
-        public ScalingListener(Element e)
-        {
+
+        public ScalingListener(Element e) {
             super();
             this.e = e;
         }
-        public ScalingListener()
-        {
+
+        public ScalingListener() {
             super();
         }
+
         @Override
         public void onAnimationCancel(Animator animation) {
             super.onAnimationCancel(animation);
             animation.setupEndValues();
         }
+
         @Override
-        public void onAnimationPause(Animator animation){
+        public void onAnimationPause(Animator animation) {
             super.onAnimationPause(animation);
         }
+
         @Override
         public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
-            if(e!=null) {
+            if (e != null) {
                 e.animate().scaleX(1.0f).scaleY(1.0f).setDuration(SCALINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationCancel(Animator animation) {
@@ -1009,15 +943,14 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
     }
 
-    public void addNumber()
-    {
+    public void addNumber() {
 
-        if(points>record) {
+        if (points > record) {
             record = points;
             gameStatistics.setRecord(record);
-            textFieldRecord.setText(""+record);
+            textFieldRecord.setText("" + record);
         }
-        if(moved) {
+        if (moved) {
             gameOver = false;
             moved = false;
             textFieldPoints.setText("" + points);
@@ -1030,7 +963,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     }
                 }
             }
-            if(counter>0) {
+            if (counter > 0) {
                 int index = (int) (Math.random() * counter);
                 int number = 2;
                 if (Math.random() > PROPABILITYFORTWO)
@@ -1038,16 +971,15 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
                 empty_fields[index].setNumber(number);
                 empty_fields[index].drawItem();
-                if(animationActivated){
+                if (animationActivated) {
                     empty_fields[index].setAlpha(0);
                     empty_fields[index].animate().alpha(1).setInterpolator(new LinearInterpolator()).setStartDelay(MOVINGSPEED).setDuration(ADDINGSPEED).start();
                 }
-                if(counter == 1)
-                {
+                if (counter == 1) {
                     gameOver = true;
                     for (int i = 0; i < elements.length; i++) {
                         for (int j = 0; j < elements[i].length; j++) {
-                            if ((i+1 < elements.length && elements[i][j].number == elements[i+1][j].number)|| (j+1 < elements[i].length && elements[i][j].number == elements[i][j+1].number)) {
+                            if ((i + 1 < elements.length && elements[i][j].number == elements[i + 1][j].number) || (j + 1 < elements[i].length && elements[i][j].number == elements[i][j + 1].number)) {
                                 gameOver = false;
                             }
                         }
@@ -1056,16 +988,15 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             }
             updateGameState();
 
-            if(gameOver)
-            {
+            if (gameOver) {
                 gameOver();
             }
         }
-        Log.i("number of elements", ""+number_field.getChildCount() + ", "+ number_field_background.getChildCount());
+        Log.i("number of elements", "" + number_field.getChildCount() + ", " + number_field_background.getChildCount());
     }
-    public void gameOver()
-    {
-        Log.i("record",""+record + ", " + gameStatistics.getRecord());
+
+    public void gameOver() {
+        Log.i("record", "" + record + ", " + gameStatistics.getRecord());
         saveStatisticsToFile(gameStatistics);
         new AlertDialog.Builder(this)
                 .setTitle((this.getResources().getString(R.string.Titel_L_Message, points)))
@@ -1074,7 +1005,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         createNewGame = true;
-                        getIntent().putExtra("new",true);
+                        getIntent().putExtra("new", true);
                         initialize();
                         deleteStateFile();
                         saveState = false;
@@ -1090,7 +1021,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 })
                 .setCancelable(false)
                 .create().show();
-        Log.i("record","danach");
+        Log.i("record", "danach");
     }
 
     @Override
@@ -1111,8 +1042,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         if (id == R.id.action_settings) {
             return true;
-        }
-        else if( id == android.R.id.home){
+        } else if (id == android.R.id.home) {
             save();
         }
 
@@ -1127,96 +1057,88 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
 
     }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-       save();
+        save();
 
     }
 
-    public void saveStateToFile(GameState nS)
-    {
-        if(saveState)
-        try {
-            if(filename == null)
-                filename = "state" + n + ".txt";
-            File file = new File(getFilesDir(), filename);
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(nS);
-            out.close();
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void saveStateToFile(GameState nS) {
+        if (saveState) {
+            try {
+                if (filename == null)
+                    filename = "state" + n + ".txt";
+                File file = new File(getFilesDir(), filename);
+                FileOutputStream fileOut = new FileOutputStream(file);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(nS);
+                out.close();
+                fileOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public boolean deleteStateFile()
-    {
-        try{
-            if(filename == null)
+    public boolean deleteStateFile() {
+        try {
+            if (filename == null)
                 filename = "state" + n + ".txt";
             File directory = getFilesDir();
-            File f = new File(directory,filename);
+            File f = new File(directory, filename);
             return f.delete();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-    public GameState readStateFromFile()
-    {
+
+    public GameState readStateFromFile() {
         GameState nS = new GameState(n);
-        try{
+        try {
             File file = new File(getFilesDir(), filename);
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            nS = (GameState)in.readObject();
+            nS = (GameState) in.readObject();
             boolean emptyField = true;
-            for(int i = 0; i <nS.numbers.length;i++)
-            {
-                if(nS.numbers[i]>0)
-                {
+            for (int i = 0; i < nS.numbers.length; i++) {
+                if (nS.numbers[i] > 0) {
                     emptyField = false;
                     break;
                 }
             }
-            if(emptyField||nS.n != n) {
+            if (emptyField || nS.n != n) {
                 nS = new GameState(n);
                 newGame = true;
             }
             in.close();
             fileIn.close();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             newGame = true;
             e.printStackTrace();
         }
         return nS;
     }
-    public GameStatistics readStatisticsFromFile()
-    {
+
+    public GameStatistics readStatisticsFromFile() {
         GameStatistics gS = new GameStatistics(n);
-        try{
+        try {
             File file = new File(getFilesDir(), "statistics" + n + ".txt");
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            gS = (GameStatistics)in.readObject();
+            gS = (GameStatistics) in.readObject();
             in.close();
             fileIn.close();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return gS;
     }
-    public void saveStatisticsToFile(GameStatistics gS)
-    {
+
+    public void saveStatisticsToFile(GameStatistics gS) {
         try {
             File file = new File(getFilesDir(), gS.getFilename());
             FileOutputStream fileOut = new FileOutputStream(file);

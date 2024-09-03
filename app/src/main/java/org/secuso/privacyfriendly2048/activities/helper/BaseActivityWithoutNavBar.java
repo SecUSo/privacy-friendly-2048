@@ -18,45 +18,26 @@
 
 package org.secuso.privacyfriendly2048.activities.helper;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.secuso.privacyfriendly2048.R;
-import org.secuso.privacyfriendly2048.activities.AboutActivity;
-import org.secuso.privacyfriendly2048.activities.HelpActivity;
-import org.secuso.privacyfriendly2048.activities.MainActivity;
-import org.secuso.privacyfriendly2048.activities.SettingsActivity;
-import org.secuso.privacyfriendly2048.activities.TutorialActivity;
 
 /**
  * @author Christopher Beckmann, Karola Marky
  * @version 20171017
  * This class is a parent class of all activities that can be accessed from the
  * Navigation Drawer (example see MainActivity.java)
- *
+ * <p>
  * The default NavigationDrawer functionality is implemented in this class. If you wish to inherit
  * the default behaviour, make sure the content view has a NavigationDrawer with the id 'nav_view',
  * the header should point to 'nav_header_main' and the menu should be loaded from 'main_drawer'.
- *
+ * <p>
  * Also the main layout that holds the content of the activity should have the id 'main_content'.
  * This way it will automatically fade in and out every time a transition is happening.
- *
  */
 public abstract class BaseActivityWithoutNavBar extends AppCompatActivity {
 

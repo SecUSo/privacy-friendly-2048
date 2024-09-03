@@ -29,12 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Karola Marky
  * @version 20161223
  * Structure based on http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
  * accessed at 16th June 2016
- *
+ * <p>
  * This class defines the structure of our database.
  */
 
@@ -90,6 +89,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * Adds a single sampleData to our Table
      * As no ID is provided and KEY_ID is autoincremented (see line 50)
      * the last available key of the table is taken and incremented by 1
+     *
      * @param sampleData data that will be added
      */
     public void addSampleData(PFASampleDataType sampleData) {
@@ -109,8 +109,9 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * Adds a single sampleData to our Table
      * This method can be used for re-insertion for example an undo-action
      * Therefore, the key of the sampleData will also be written into the database
+     *
      * @param sampleData data that will be added
-     * Only use this for undo options and re-insertions
+     *                   Only use this for undo options and re-insertions
      */
     public void addSampleDataWithID(PFASampleDataType sampleData) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -131,6 +132,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
     /**
      * This method gets a single sampleData entry based on its ID
+     *
      * @param id of the sampleData that is requested, could be get by the get-method
      * @return the sampleData that is requested.
      */
@@ -145,7 +147,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         PFASampleDataType sampleData = new PFASampleDataType();
 
-        if( cursor != null && cursor.moveToFirst() ){
+        if (cursor != null && cursor.moveToFirst()) {
             sampleData.setID(Integer.parseInt(cursor.getString(0)));
             sampleData.setDOMAIN(cursor.getString(1));
             sampleData.setUSERNAME(cursor.getString(2));
@@ -163,6 +165,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     /**
      * This method returns all data from the DB as a list
      * This could be used for instance to fill a recyclerView
+     *
      * @return A list of all available sampleData in the Database
      */
     public List<PFASampleDataType> getAllSampleData() {
@@ -194,6 +197,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
     /**
      * Updates a database entry.
+     *
      * @param sampleData
      * @return actually makes the update
      */
@@ -207,18 +211,19 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         values.put(KEY_LENGTH, sampleData.getLENGTH());
 
         return database.update(TABLE_SAMPLEDATA, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(sampleData.getID()) });
+                new String[]{String.valueOf(sampleData.getID())});
     }
 
     /**
      * Deletes sampleData from the DB
      * This method takes the sampleData and extracts its key to build the delete-query
+     *
      * @param sampleData that will be deleted
      */
     public void deleteSampleData(PFASampleDataType sampleData) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_SAMPLEDATA, KEY_ID + " = ?",
-                new String[] { Integer.toString(sampleData.getID()) });
+                new String[]{Integer.toString(sampleData.getID())});
         //always close the DB after deletion of single entries
         database.close();
     }
@@ -229,7 +234,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      */
     public void deleteAllSampleData() {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("delete from "+ TABLE_SAMPLEDATA);
+        database.execSQL("delete from " + TABLE_SAMPLEDATA);
     }
 
 }
