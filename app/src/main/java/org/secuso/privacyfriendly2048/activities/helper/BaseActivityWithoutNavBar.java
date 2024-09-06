@@ -20,6 +20,7 @@ package org.secuso.privacyfriendly2048.activities.helper;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,6 +77,11 @@ public abstract class BaseActivityWithoutNavBar extends AppCompatActivity {
             mainContent.setAlpha(0);
             mainContent.animate().alpha(1).setDuration(MAIN_CONTENT_FADEIN_DURATION);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
     }
 
 }
