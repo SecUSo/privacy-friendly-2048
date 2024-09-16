@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="v1.4.0"></a>
+## [2048 (Privacy Friendly) v1.4.0](https://github.com/SecUSo/privacy-friendly-2048/releases/tag/v1.4.0) - 16 Sep 2024
+
+## What's Changed
+* Translations update from Hosted Weblate
+* [#16](https://github.com/SecUSo/privacy-friendly-2048/issues/16) Add dark mode by [@deifyed](https://github.com/deifyed) in https://github.com/SecUSo/privacy-friendly-2048/pull/26
+* Replace images on main screen for darkmode by [@udenr](https://github.com/udenr) in https://github.com/SecUSo/privacy-friendly-2048/pull/44
+* Autosize text inside `Element` by [@p-davide](https://github.com/p-davide) in https://github.com/SecUSo/privacy-friendly-2048/pull/19
+* Add air actions by [@RobbieNesmith](https://github.com/RobbieNesmith) in https://github.com/SecUSo/privacy-friendly-2048/pull/39
+* Update workflow by [@udenr](https://github.com/udenr) in https://github.com/SecUSo/privacy-friendly-2048/pull/46
+
+## New Contributors
+* [@weblate](https://github.com/weblate) made their first contribution in https://github.com/SecUSo/privacy-friendly-2048/pull/24
+* [@deifyed](https://github.com/deifyed) made their first contribution in https://github.com/SecUSo/privacy-friendly-2048/pull/26
+* [@p-davide](https://github.com/p-davide) made their first contribution in https://github.com/SecUSo/privacy-friendly-2048/pull/19
+* [@RobbieNesmith](https://github.com/RobbieNesmith) made their first contribution in https://github.com/SecUSo/privacy-friendly-2048/pull/39
+
+**Full Changelog**: https://github.com/SecUSo/privacy-friendly-2048/compare/v1.3.1...v1.4.0
+
+[Changes][v1.4.0]
+
+
 <a name="v1.3.1"></a>
 ## [2048 (Privacy Friendly) v1.3.1](https://github.com/SecUSo/privacy-friendly-2048/releases/tag/v1.3.1) - 02 Apr 2024
 
@@ -7,7 +29,6 @@
 * documentation: Added info re: Privacy Friendly Backup to resolve Issue [#27](https://github.com/SecUSo/privacy-friendly-2048/issues/27) by [@jahway603](https://github.com/jahway603) in https://github.com/SecUSo/privacy-friendly-2048/pull/28
 * Update dependencies and sdk by [@udenr](https://github.com/udenr) in https://github.com/SecUSo/privacy-friendly-2048/pull/29
 * Reformat code by [@udenr](https://github.com/udenr) in https://github.com/SecUSo/privacy-friendly-2048/pull/30
-* Updates Copyright by [@coderPaddyS](https://github.com/coderPaddyS) in https://github.com/SecUSo/privacy-friendly-2048/pull/36
 
 ## New Contributors
 * [@jahway603](https://github.com/jahway603) made their first contribution in https://github.com/SecUSo/privacy-friendly-2048/pull/28
@@ -60,6 +81,7 @@
 [Changes][v1.0]
 
 
+[v1.4.0]: https://github.com/SecUSo/privacy-friendly-2048/compare/v1.3.1...v1.4.0
 [v1.3.1]: https://github.com/SecUSo/privacy-friendly-2048/compare/v1.3...v1.3.1
 [v1.3]: https://github.com/SecUSo/privacy-friendly-2048/compare/v1.2...v1.3
 [v1.2]: https://github.com/SecUSo/privacy-friendly-2048/compare/v1.1...v1.2
