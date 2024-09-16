@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<remote-actions version="1.2">
+    <action
+        id="swipe_up"
+        label="@string/swipe_up"
+        priority="1"
+        trigger_key="DPAD_UP">
+        <preference name="gesture" value="swipe_up"/>
+        <preference name="motion_only" value="true"/>
+    </action>
+    <action
+        id="swipe_right"
+        label="@string/swipe_right"
+        priority="2"
+        trigger_key="DPAD_RIGHT">
+        <preference name="gesture" value="swipe_right"/>
+        <preference name="motion_only" value="true"/>
+    </action>
+    <action
+        id="swipe_left"
+        label="@string/swipe_left"
+        priority="3"
+        trigger_key="DPAD_LEFT">
+        <preference name="gesture" value="swipe_left"/>
+        <preference name="motion_only" value="true"/>
+    </action>
+    <action
+        id="swipe_down"
+        label="@string/swipe_down"
+        priority="4"
+        trigger_key="DPAD_DOWN">
+        <preference name="gesture" value="swipe_down"/>
+        <preference name="motion_only" value="true"/>
+    </action>
+    <action
+        id="undo"
+        label="@string/undo"
+        priority="5"
+        trigger_key="CTRL+Z">
+        <preference name="gesture" value="circle_cw|circle_ccw"/>
+        <preference name="motion_only" value="true"/>
+    </action>
+</remote-actions>
+

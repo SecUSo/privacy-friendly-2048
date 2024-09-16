@@ -22,11 +22,13 @@ package org.secuso.privacyfriendly2048.activities;
 import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorInt;
 import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorRes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.util.TypedValue;
 import android.view.View;
 
 import org.secuso.privacyfriendly2048.R;
@@ -50,18 +52,22 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
     public int dPosY = 0;
     public boolean activated;
     public boolean animateMoving = false;
-    public float textSize = 24;
     Context context;
     int color;
 
 
+    @SuppressLint("RestrictedApi")
     public Element(Context c) {
         super(c);
         context = c;
         setAllCaps(false);
-        setTextSize(textSize);
         setBackgroundResource(R.drawable.game_brick);
         setColor(GetColorRes(context, R.attr.buttonEmpty));
+        setMaxLines(1);
+        setAutoSizeTextTypeUniformWithConfiguration(1,
+                100,
+                1,
+                TypedValue.COMPLEX_UNIT_SP);
     }
 
     public void drawItem() {
@@ -136,14 +142,10 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
             case 16384:
                 setColor(GetColorRes(context, R.attr.button16384));
                 setTextColor(GetColorInt(context, R.attr.button16384Text));
-                textSize = textSize * 0.8f;
-                setTextSize(textSize);
                 break;
             case 32768:
                 setColor(GetColorRes(context, R.attr.button32768));
                 setTextColor(GetColorInt(context, R.attr.button32768Text));
-                textSize = textSize * 0.8f;
-                setTextSize(textSize);
                 break;
         }
     }
@@ -197,11 +199,6 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
         return posY;
     }
 
-    public void updateFontSize() {
-        textSize = (float) (getLayoutParams().width / 7.0);
-        setTextSize(textSize);
-    }
-
     public Element copy() {
         Element temp = new Element(context);
         temp.number = number;
@@ -212,9 +209,7 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
         temp.dPosY = dPosY;
         temp.activated = activated;
         temp.animateMoving = animateMoving;
-        temp.textSize = textSize;
         temp.color = color;
-        temp.setTextSize(textSize);
         //temp.setBackgroundResource(backGroundResource);
         temp.setColor(color);
         temp.setVisibility(getVisibility());

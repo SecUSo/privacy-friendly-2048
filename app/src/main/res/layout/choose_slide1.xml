@@ -27,7 +27,6 @@
         android:paddingRight="@dimen/desc_padding"
         android:text="4x4"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
         android:textSize="@dimen/slide_desc" />
 
 
