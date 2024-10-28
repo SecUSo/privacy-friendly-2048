@@ -16,36 +16,15 @@
  */
 package org.secuso.privacyfriendly2048
 
-import android.app.Application
-import android.preference.PreferenceManager
-import android.util.Log
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.work.Configuration
-import org.secuso.privacyfriendly2048.backup.BackupCreator
-import org.secuso.privacyfriendly2048.backup.BackupRestorer
-import org.secuso.privacyfriendlybackup.api.pfa.BackupManager
+import androidx.core.content.ContextCompat
+import org.secuso.pfacore.ui.PFApplication
+import org.secuso.pfacore.ui.PFData
+import org.secuso.privacyfriendly2048.activities.MainActivity
 
-class PF2048 : Application(), Configuration.Provider {
-    override fun onCreate() {
-        super.onCreate()
-        BackupManager.backupCreator = BackupCreator()
-        BackupManager.backupRestorer = BackupRestorer()
-
-        when (PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            .getString("currentTheme", "system")) {
-            "dark" -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-
-            "light" -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-        }
-    }
-
-    override val workManagerConfiguration = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
+class PF2048 : PFApplication() {
+    override val name: String
+        get() = ContextCompat.getString(this, R.string.app_name_long)
+    override val data: PFData
+        get() = TODO("Not yet implemented")
+    override val mainActivity = MainActivity::class.java
 }
