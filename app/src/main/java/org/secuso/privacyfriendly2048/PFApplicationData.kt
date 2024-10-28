@@ -25,10 +25,19 @@ class PFApplicationData private constructor(context: Context) {
         private set
     lateinit var animationActivated: Preferable<Boolean>
         private set
+    lateinit var currentPage: Preferable<Int>
+        private set
+    lateinit var prefColorScheme: Preferable<String>
+        private set
 
     private val preferences = appPreferences(context) {
         preferences {
             firstTimeLaunch = PreferenceFirstTimeLaunch().build().invoke(this)
+            currentPage = preference {
+                key = "currentPage"
+                default = 0
+                backup = true
+            }
         }
         settings {
             category(ContextCompat.getString(context, R.string.settings_category_appearance)) {
@@ -39,6 +48,17 @@ class PFApplicationData private constructor(context: Context) {
                     summary { resource(R.string.settings_animation_summary) }
                     default = true
                     backup = true
+                }
+                prefColorScheme = radio {
+                    key = "pref_color"
+                    default = "1"
+                    backup = true
+                    entries {
+                        entries(R.array.color_list)
+                        values(resources.getStringArray(R.array.color_list_values).toList())
+                    }
+                    title { resource(R.string.settings_color) }
+                    summary { transform { state, value -> state.entries.find { it.value == value }!!.entry } }
                 }
             }
             category(ContextCompat.getString(context, R.string.settings_category_report)) {
