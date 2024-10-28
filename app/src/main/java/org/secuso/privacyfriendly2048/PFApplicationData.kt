@@ -48,6 +48,22 @@ class PFApplicationData private constructor(context: Context) {
     }
 
     private val help = Help.build(context) {
+        listOf(
+            R.string.help_whatis to R.string.help_whatis_answer,
+            R.string.help_privacy to R.string.help_privacy_answer,
+            R.string.help_permission to R.string.help_permission_answer,
+            R.string.help_play to R.string.help_play_answer,
+            R.string.help_play_how to R.string.help_play_how_answer,
+            R.string.help_play_add to R.string.help_play_add_answer,
+            R.string.help_tip to R.string.help_tip_answer,
+            R.string.help_undo to R.string.help_undo_answer,
+            R.string.help_color to R.string.help_color_answer,
+        ).forEach { (q, a) ->
+            item {
+                title { resource(q) }
+                description { resource(a) }
+            }
+        }
 
     }
 
@@ -59,7 +75,26 @@ class PFApplicationData private constructor(context: Context) {
     )
 
     private val tutorial = buildTutorial {
-
+        stage {
+            title = ContextCompat.getString(context, R.string.Tutorial_Titel)
+            images = listOf(R.id.image1)
+            description = ContextCompat.getString(context, R.string.Tutorial_Instruction)
+        }
+        stage {
+            title = ContextCompat.getString(context, R.string.Tutorial_Titel_Move)
+            images = listOf(R.id.image2)
+            description = ContextCompat.getString(context, R.string.Tutorial_Move)
+        }
+        stage {
+            title = ContextCompat.getString(context, R.string.Tutorial_Titel_Move)
+            images = listOf(R.id.image3)
+            description = ContextCompat.getString(context, R.string.Tutorial_Move)
+        }
+        stage {
+            title = ContextCompat.getString(context, R.string.Tutorial_Titel_Add)
+            images = listOf(R.id.image4)
+            description = ContextCompat.getString(context, R.string.Tutorial_Add)
+        }
     }
 
     val data = PFData(
