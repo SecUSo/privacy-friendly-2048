@@ -1,3 +1,6 @@
 [submodule "libs/privacy-friendly-backup-api"]
 	path = libs/privacy-friendly-backup-api
 	url = https://github.com/SecUSo/privacy-friendly-backup-api.git
+[submodule "libs/pfa-core"]
+	path = libs/pfa-core
+	url = https://github.com/SecUSo/pfa-core.git
