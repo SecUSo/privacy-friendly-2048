@@ -63,6 +63,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'androidx.activity:activity-ktx:1.9.3'
 
+    // pfa-core library
+    implementation("org.secuso.pfa-core:ui-view")
+    implementation("org.secuso.pfa-core:model")
+
     // Backup
     implementation project(path: ':backup-api')
     def work_version = "2.9.1"
