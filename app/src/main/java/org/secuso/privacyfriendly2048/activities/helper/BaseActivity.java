@@ -39,12 +39,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 
 import org.secuso.privacyfriendly2048.R;
-import org.secuso.privacyfriendly2048.activities.AboutActivity;
-import org.secuso.privacyfriendly2048.activities.HelpActivity;
 import org.secuso.privacyfriendly2048.activities.MainActivity;
-import org.secuso.privacyfriendly2048.activities.SettingsActivity;
 import org.secuso.privacyfriendly2048.activities.StatsActivity;
-import org.secuso.privacyfriendly2048.activities.TutorialActivity;
 
 /**
  * @author Christopher Beckmann, Karola Marky
