@@ -18,31 +18,26 @@
 package org.secuso.privacyfriendly2048.activities
 
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.bumptech.glide.Glide
+import org.secuso.pfacore.model.DrawerElement
+import org.secuso.privacyfriendly2048.PFApplicationData
 import org.secuso.privacyfriendly2048.R
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity
-import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager
 
 /**
  * The MainActivity is the activity from which the game in each mode is started.
@@ -54,19 +49,13 @@ import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager
  * @version 20180910
  */
 class MainActivity : BaseActivity() {
-    private var viewPager: ViewPager? = null
-    private var myViewPagerAdapter: MyViewPagerAdapter? = null
-    private var dotsLayout: LinearLayout? = null
+    private val viewPager: ViewPager by lazy { findViewById(R.id.view_pager) }
+    private val dotsLayout: LinearLayout by lazy { findViewById(R.id.layoutDots) }
     private lateinit var dots: Array<TextView?>
-    private var btnPrev: ImageButton? = null
-    private var btnNext: ImageButton? = null
-    private var firstLaunchManager: FirstLaunchManager? = null
-    private var currentPage = 0
-    private var editor: SharedPreferences.Editor? = null
-    private val preferences: SharedPreferences by lazy {
-        getSharedPreferences(mypref, MODE_PRIVATE)
-    }
-    private val mypref = "myPref"
+    private val btnPrev: ImageButton by lazy { findViewById(R.id.btn_prev) }
+    private val btnNext: ImageButton by lazy { findViewById(R.id.btn_next) }
+    private val currentPage by lazy { PFApplicationData.instance(this).currentPage }
+    private val myViewPagerAdapter: MyViewPagerAdapter by lazy { MyViewPagerAdapter() }
 
     private val layouts = intArrayOf(
         R.layout.choose_slide1,
@@ -81,34 +70,19 @@ class MainActivity : BaseActivity() {
         false
     )
 
-    override fun onStart() {
-        super.onStart()
-        editor = preferences.edit()
-        currentPage = preferences.getInt("currentPage", 0)
-        viewPager!!.currentItem = currentPage
-        updateButtons(currentPage)
-        updateMovingButtons(currentPage)
-    }
+    override fun isActiveDrawerElement(element: DrawerElement) = element.name == ContextCompat.getString(this, R.string.action_main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        overridePendingTransition(0, 0)
-
-        // Making notification bar transparent
-        if (Build.VERSION.SDK_INT >= 21) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        // adding bottom dots
+        addBottomDots(currentPage.value)
+        currentPage.state.observe(this) {
+            addBottomDots(it)
+            updateButtons(it)
+            updateMovingButtons(it)
         }
-
-        firstLaunchManager = FirstLaunchManager(this)
-
-        viewPager = findViewById<View>(R.id.view_pager) as ViewPager
-        dotsLayout = findViewById<View>(R.id.layoutDots) as LinearLayout
-        btnPrev = findViewById<View>(R.id.btn_prev) as ImageButton
-        btnNext = findViewById<View>(R.id.btn_next) as ImageButton
-
 
         //checking resumable
         val directory = filesDir
@@ -121,68 +95,56 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        viewPager.adapter = myViewPagerAdapter
+        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
+                override fun onPageSelected(position: Int) {
+                    currentPage.value = position
+                }
 
-        // adding bottom dots
-        addBottomDots(0)
+                override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
+                }
 
-        // making notification bar transparent
-        changeStatusBarColor()
+                override fun onPageScrollStateChanged(arg0: Int) {
+                }
+            }
+        )
 
-        myViewPagerAdapter = MyViewPagerAdapter()
-
-        viewPager!!.adapter = myViewPagerAdapter
-        viewPager!!.addOnPageChangeListener(viewPagerPageChangeListener)
-
-        btnPrev!!.setOnClickListener {
-            val current = getItem(-1)
-            if (current >= 0) {
-                // move to next screen
-                viewPager!!.currentItem = current
-            } else {
+        btnPrev.setOnClickListener {
+            getItem(-1).let {
+                if (it >= 0) {
+                    viewPager.currentItem = it
+                }
             }
         }
 
-        btnNext!!.setOnClickListener {
+        btnNext.setOnClickListener {
             // checking for last page
             // if last page home screen will be launched
-            val current = getItem(+1)
-            if (current < layouts.size) {
-                // move to next screen
-                viewPager!!.currentItem = current
-            } else {
+            getItem(+1).let {
+                if (it < layouts.size) {
+                    viewPager.currentItem = it
+                }
             }
         }
     }
 
     private fun addListener(b1: Button, b2: Button, n: Int) {
-        val temp = n
         b1.setOnClickListener {
             val intent = Intent(this@MainActivity, GameActivity::class.java)
-            intent.putExtra("n", temp)
+            intent.putExtra("n", n)
             intent.putExtra("points", 0)
             intent.putExtra("new", true)
-            intent.putExtra("filename", "state$temp.txt")
+            intent.putExtra("filename", "state$n.txt")
             intent.putExtra("undo", false)
-            createBackStack(intent)
+            startActivity(intent)
         }
         b2.setOnClickListener {
             val intent = Intent(this@MainActivity, GameActivity::class.java)
-            intent.putExtra("n", temp)
+            intent.putExtra("n", n)
             intent.putExtra("new", false)
-            intent.putExtra("filename", "state$temp.txt")
+            intent.putExtra("filename", "state$n.txt")
             intent.putExtra("undo", false)
-            createBackStack(intent)
-        }
-    }
-
-    private fun createBackStack(intent: Intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            val builder = TaskStackBuilder.create(this)
-            builder.addNextIntentWithParentStack(intent)
-            builder.startActivities()
-        } else {
             startActivity(intent)
-            finish()
         }
     }
 
@@ -192,55 +154,34 @@ class MainActivity : BaseActivity() {
         val activeColor = ContextCompat.getColor(this, R.color.dot_light_screen)
         val inactiveColor = ContextCompat.getColor(this, R.color.dot_dark_screen)
 
-        dotsLayout!!.removeAllViews()
+        dotsLayout.removeAllViews()
         for (i in dots.indices) {
             dots[i] = TextView(this)
-            dots[i]!!.text = Html.fromHtml("&#8226;")
+            dots[i]!!.text = HtmlCompat.fromHtml("&#8226;", HtmlCompat.FROM_HTML_MODE_LEGACY)
             dots[i]!!.textSize = 35f
             dots[i]!!.setTextColor(inactiveColor)
-            dotsLayout!!.addView(dots[i])
+            dotsLayout.addView(dots[i])
         }
 
-        if (dots.size > 0) dots[currentPage]!!.setTextColor(activeColor)
+        if (dots.isNotEmpty()) dots[currentPage]!!.setTextColor(activeColor)
     }
 
     private fun getItem(i: Int): Int {
-        return viewPager!!.currentItem + i
+        return viewPager.currentItem + i
     }
 
-    //  viewpager change listener
-    var viewPagerPageChangeListener: OnPageChangeListener = object : OnPageChangeListener {
-        override fun onPageSelected(position: Int) {
-            addBottomDots(position)
-            currentPage = position
-            editor!!.putInt("currentPage", currentPage)
-            editor!!.commit()
-            updateButtons(position)
 
-            updateMovingButtons(position)
-        }
-
-        override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
-        }
-
-        override fun onPageScrollStateChanged(arg0: Int) {
-        }
-    }
 
     fun updateMovingButtons(position: Int) {
         if (position == layouts.size - 1) {
-            // last page. make button text to GOT IT
-            btnNext!!.visibility = View.INVISIBLE
+            btnNext.visibility = View.INVISIBLE
         } else {
-            // still pages are left
-            btnNext!!.visibility = View.VISIBLE
+            btnNext.visibility = View.VISIBLE
         }
         if (position == 0) {
-            // last page. make button text to GOT IT
-            btnPrev!!.visibility = View.INVISIBLE
+            btnPrev.visibility = View.INVISIBLE
         } else {
-            // still pages are left
-            btnPrev!!.visibility = View.VISIBLE
+            btnPrev.visibility = View.VISIBLE
         }
     }
 
@@ -259,17 +200,6 @@ class MainActivity : BaseActivity() {
     }
 
     /**
-     * Making notification bar transparent
-     */
-    private fun changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window = window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.TRANSPARENT
-        }
-    }
-
-    /**
      * View pager adapter
      */
     inner class MyViewPagerAdapter : PagerAdapter() {
@@ -280,31 +210,32 @@ class MainActivity : BaseActivity() {
             val view = layoutInflater!!.inflate(layouts[position], container, false)
             container.addView(view)
             val imageView: ImageView
+            val prefColorScheme = PFApplicationData.instance(this@MainActivity).prefColorScheme
             when (position) {
                 0 -> {
-                    imageView = findViewById<View>(R.id.main_menu_img1) as ImageView
-                    if (PreferenceManager.getDefaultSharedPreferences(this@MainActivity).getString("pref_color", "1") == "1") Glide.with(this@MainActivity)
+                    imageView = findViewById<ImageView>(R.id.main_menu_img1)
+                    if (prefColorScheme.value == "1") Glide.with(this@MainActivity)
                         .load(R.drawable.layout4x4_s).into(imageView)
                     else Glide.with(this@MainActivity).load(R.drawable.layout4x4_o).into(imageView)
                 }
 
                 1 -> {
-                    imageView = findViewById<View>(R.id.main_menu_img2) as ImageView
-                    if (PreferenceManager.getDefaultSharedPreferences(this@MainActivity).getString("pref_color", "1") == "1") Glide.with(this@MainActivity)
+                    imageView = findViewById<ImageView>(R.id.main_menu_img2)
+                    if (prefColorScheme.value == "1") Glide.with(this@MainActivity)
                         .load(R.drawable.layout5x5_s).into(imageView)
                     else Glide.with(this@MainActivity).load(R.drawable.layout5x5_o).into(imageView)
                 }
 
                 2 -> {
-                    imageView = findViewById<View>(R.id.main_menu_img3) as ImageView
-                    if (PreferenceManager.getDefaultSharedPreferences(this@MainActivity).getString("pref_color", "1") == "1") Glide.with(this@MainActivity)
+                    imageView = findViewById<ImageView>(R.id.main_menu_img3)
+                    if (prefColorScheme.value == "1") Glide.with(this@MainActivity)
                         .load(R.drawable.layout6x6_s).into(imageView)
                     else Glide.with(this@MainActivity).load(R.drawable.layout6x6_o).into(imageView)
                 }
 
                 3 -> {
-                    imageView = findViewById<View>(R.id.main_menu_img4) as ImageView
-                    if (PreferenceManager.getDefaultSharedPreferences(this@MainActivity).getString("pref_color", "1") == "1") Glide.with(this@MainActivity)
+                    imageView = findViewById<ImageView>(R.id.main_menu_img4)
+                    if (prefColorScheme.value == "1") Glide.with(this@MainActivity)
                         .load(R.drawable.layout7x7_s).into(imageView)
                     else Glide.with(this@MainActivity).load(R.drawable.layout7x7_o).into(imageView)
                 }
@@ -326,12 +257,4 @@ class MainActivity : BaseActivity() {
             container.removeView(view)
         }
     }
-
-    protected val navigationDrawerID: Int
-        /**
-         * This method connects the Activity to the menu item
-         *
-         * @return ID of the menu item it belongs to
-         */
-        get() = R.id.nav_example
 }
