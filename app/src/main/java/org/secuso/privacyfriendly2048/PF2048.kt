@@ -25,6 +25,6 @@ class PF2048 : PFApplication() {
     override val name: String
         get() = ContextCompat.getString(this, R.string.app_name_long)
     override val data: PFData
-        get() = TODO("Not yet implemented")
+        get() = PFApplicationData.instance(this).data
     override val mainActivity = MainActivity::class.java
 }

@@ -23,13 +23,27 @@ class PFApplicationData private constructor(context: Context) {
         private set
     lateinit var includeDeviceDataInReport: Preferable<Boolean>
         private set
+    lateinit var animationActivated: Preferable<Boolean>
+        private set
 
     private val preferences = appPreferences(context) {
         preferences {
             firstTimeLaunch = PreferenceFirstTimeLaunch().build().invoke(this)
         }
         settings {
-
+            category(ContextCompat.getString(context, R.string.settings_category_appearance)) {
+                theme = SettingThemeSelector().build().invoke(this)
+                animationActivated = switch {
+                    key = "pref_animationActivated"
+                    title { resource(R.string.settings_animation_title) }
+                    summary { resource(R.string.settings_animation_summary) }
+                    default = true
+                    backup = true
+                }
+            }
+            category(ContextCompat.getString(context, R.string.settings_category_report)) {
+                includeDeviceDataInReport = DeviceInformationOnErrorReport().build().invoke(this)
+            }
         }
     }
 

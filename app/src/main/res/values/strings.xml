@@ -59,14 +59,9 @@
 
     <!-- ###SETTINGS### -->
     <string name="settings_name">Settings</string>
-    <string name="settings_animation">Activate Animation</string>
     <string name="settings_display">Activate Screen Lock</string>
     <string name="settings_color">Select Color Scheme</string>
-    <string name="settings_color_system">System</string>
-    <string name="settings_color_light">Light</string>
-    <string name="settings_color_dark">Dark</string>
-    <string name="settings_color_scheme_default">Default</string>
-    <string name="settings_color_scheme_original">Original</string>
+
 
     <!-- ### CHOOSE DIALOG ### -->
     <string name="new_Game_Button">Start New Game</string>
@@ -103,6 +98,11 @@
     <string name="Stat_Time">Playing Time</string>
     <string name="Stat_Time_Swipes">Time per Swipe</string>
     <string name="reset_stats">Reset Statistics</string>
+
+    <string name="settings_category_appearance">Appearance</string>
+    <string name="settings_animation_title">Activate Animation</string>
+    <string name="settings_animation_summary">Blocks will move and merge instantaneous if deactivated.</string>
+    <string name="settings_category_report">Error Report</string>
 
     <!-- ###AIR ACTIONS### -->
     <string name="swipe_up">Swipe Up</string>
