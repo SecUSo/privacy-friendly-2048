@@ -104,6 +104,11 @@
     <string name="Stat_Time">Gesamtspieldauer</string>
     <string name="Stat_Time_Swipes">Zeit pro Wischer</string>
     <string name="reset_stats">Statistik zurücksetzem</string>
+    <string name="settings_category_appearance">Appearance</string>
+    <string name="settings_animation_title">Animationen aktivieren</string>
+    <string name="settings_animation_summary">Blöcke bewegen und verschmelzen sich augenblicklich wenn deaktiviert.</string>
+    <string name="settings_animation_summary">B</string>
+    <string name="settings_category_report">Fehlerbericht</string>
 
     <!-- ###AIR ACTIONS### -->
     <string name="swipe_up">Streiche Oben</string>
