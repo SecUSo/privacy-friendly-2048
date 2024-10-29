@@ -29,10 +29,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
+import org.secuso.pfacore.model.DrawerElement
+import org.secuso.privacyfriendly2048.PFApplicationData
 import org.secuso.privacyfriendly2048.R
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity
 import org.secuso.privacyfriendly2048.activities.helper.GameStatistics
@@ -52,6 +55,9 @@ import kotlin.math.abs
  * @version 20180910
  */
 class StatsActivity : BaseActivity() {
+
+    override fun isActiveDrawerElement(element: DrawerElement) = element.name == ContextCompat.getString(this, R.string.action_stat)
+
     private val layouts = intArrayOf(
         R.layout.fragment_stats1,
         R.layout.fragment_stats2,
@@ -69,49 +75,40 @@ class StatsActivity : BaseActivity() {
      * may be best to switch to a
      * [FragmentStatePagerAdapter].
      */
-    private var mSectionsPagerAdapter: MyViewPagerAdapter? = null
+    private val mSectionsPagerAdapter by lazy {
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        MyViewPagerAdapter()
+    }
 
     /**
      * The [ViewPager] that will host the section contents.
      */
-    private var mViewPager: ViewPager? = null
+    private val mViewPager: ViewPager by lazy {
+        findViewById(R.id.main_content)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
 
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+//        val actionBar = supportActionBar
+//        //actionBar.setTitle(R.string.menu_highscore);
+//        actionBar!!.setDisplayHomeAsUpEnabled(true)
+//        actionBar.setBackgroundDrawable(ColorDrawable(Color.parseColor("#024265")))
 
-        val actionBar = supportActionBar
-        //actionBar.setTitle(R.string.menu_highscore);
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
-        actionBar.setBackgroundDrawable(ColorDrawable(Color.parseColor("#024265")))
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = MyViewPagerAdapter()
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById<View>(R.id.main_content) as ViewPager
-        mViewPager!!.adapter = mSectionsPagerAdapter
+        mViewPager.adapter = mSectionsPagerAdapter
 
-
-        val tabLayout = findViewById<View>(R.id.tabs) as TabLayout
-        tabLayout.setupWithViewPager(mViewPager)
-        //tabLayout.setTabTextColors(Color.WHITE,Color.YELLOW);
+        findViewById<TabLayout>(R.id.tabs).setupWithViewPager(mViewPager)
     }
-
-    protected val navigationDrawerID: Int
-        get() = R.id.nav_statistics
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_stats, menu)
         //getMenuInflater().inflate(R.menu.menu_stats, menu);
         return true
-        //return false;
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -126,17 +123,12 @@ class StatsActivity : BaseActivity() {
                 resetGameStatistics()
                 return true
             }
-
-            android.R.id.home -> {
-                finish()
-                return true
-            }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    fun resetGameStatistics() {
+    private fun resetGameStatistics() {
         for (n in 4..7) {
             try {
                 val file = File(filesDir, "statistics$n.txt")
@@ -150,15 +142,16 @@ class StatsActivity : BaseActivity() {
 
 
     inner class MyViewPagerAdapter : PagerAdapter() {
-        private var layoutInflater: LayoutInflater? = null
+        private val layoutInflater by lazy {
+            getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        }
 
-        override fun getPageTitle(position: Int): CharSequence? {
+        override fun getPageTitle(position: Int): CharSequence {
             return TABNAMES[position]
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            layoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = layoutInflater!!.inflate(layouts[position], container, false)
+            val view = layoutInflater.inflate(layouts[position], container, false)
             container.addView(view)
             var img: ImageView? = ImageView(this@StatsActivity)
             var highestNumber = TextView(this@StatsActivity)
@@ -184,9 +177,13 @@ class StatsActivity : BaseActivity() {
                     tpm = findViewById(R.id.time_swipes1)
                     rekord = findViewById(R.id.highest_score1)
                     img = findViewById(R.id.stat_img1)
-                    if (PreferenceManager.getDefaultSharedPreferences(this@StatsActivity).getString("pref_color", "1") == "1") Glide.with(this@StatsActivity)
-                        .load(R.drawable.layout4x4_s).into(img)
-                    else Glide.with(this@StatsActivity).load(R.drawable.layout4x4_o).into(img)
+                    Glide.with(this@StatsActivity).load(
+                        if (PFApplicationData.instance(this@StatsActivity).prefColorScheme.value == "1") {
+                            R.drawable.layout4x4_s
+                        } else {
+                            R.drawable.layout4x4_o
+                        }
+                    ).into(img)
                 }
 
                 1 -> {
@@ -201,9 +198,13 @@ class StatsActivity : BaseActivity() {
                     tpm = findViewById(R.id.time_swipes2)
                     rekord = findViewById(R.id.highest_score2)
                     img = findViewById(R.id.stat_img2)
-                    if (PreferenceManager.getDefaultSharedPreferences(this@StatsActivity).getString("pref_color", "1") == "1") Glide.with(this@StatsActivity)
-                        .load(R.drawable.layout5x5_s).into(img)
-                    else Glide.with(this@StatsActivity).load(R.drawable.layout5x5_o).into(img)
+                    Glide.with(this@StatsActivity).load(
+                        if (PFApplicationData.instance(this@StatsActivity).prefColorScheme.value == "1") {
+                            R.drawable.layout5x5_s
+                        } else {
+                            R.drawable.layout5x5_o
+                        }
+                    ).into(img)
                 }
 
                 2 -> {
@@ -218,9 +219,13 @@ class StatsActivity : BaseActivity() {
                     tpm = findViewById(R.id.time_swipes3)
                     rekord = findViewById(R.id.highest_score3)
                     img = findViewById(R.id.stat_img3)
-                    if (PreferenceManager.getDefaultSharedPreferences(this@StatsActivity).getString("pref_color", "1") == "1") Glide.with(this@StatsActivity)
-                        .load(R.drawable.layout6x6_s).into(img)
-                    else Glide.with(this@StatsActivity).load(R.drawable.layout6x6_o).into(img)
+                    Glide.with(this@StatsActivity).load(
+                        if (PFApplicationData.instance(this@StatsActivity).prefColorScheme.value == "1") {
+                            R.drawable.layout6x6_s
+                        } else {
+                            R.drawable.layout6x6_o
+                        }
+                    ).into(img)
                 }
 
                 3 -> {
@@ -235,29 +240,36 @@ class StatsActivity : BaseActivity() {
                     tpm = findViewById(R.id.time_swipes4)
                     rekord = findViewById(R.id.highest_score4)
                     img = findViewById(R.id.stat_img4)
-                    if (PreferenceManager.getDefaultSharedPreferences(this@StatsActivity).getString("pref_color", "1") == "1") Glide.with(this@StatsActivity)
-                        .load(R.drawable.layout7x7_s).into(img)
-                    else Glide.with(this@StatsActivity).load(R.drawable.layout7x7_o).into(img)
+                    Glide.with(this@StatsActivity).load(
+                        if (PFApplicationData.instance(this@StatsActivity).prefColorScheme.value == "1") {
+                            R.drawable.layout7x7_s
+                        } else {
+                            R.drawable.layout7x7_o
+                        }
+                    ).into(img)
                 }
             }
             val gameStatistics = readStatisticsFromFile(position + 4)
-            highestNumber.text = "" + gameStatistics.highestNumber
+            highestNumber.text = "${gameStatistics.highestNumber}"
             timePlayed.text = formatMillis(gameStatistics.timePlayed)
-            undo.text = "" + gameStatistics.undo
-            moves_D.text = "" + gameStatistics.moves_d
-            moves_R.text = "" + gameStatistics.moves_r
-            moves_T.text = "" + gameStatistics.moves_t
-            moves_L.text = "" + gameStatistics.moves_l
-            moves.text = "" + gameStatistics.moves
-            if (gameStatistics.moves != 0L) tpm.text = "" + formatSmallMillis(gameStatistics.timePlayed / gameStatistics.moves)
-            else tpm.text = "0"
-            rekord.text = "" + gameStatistics.record
-
+            undo.text = "${gameStatistics.undo}"
+            moves_D.text = "${gameStatistics.moves_d}"
+            moves_R.text = "${gameStatistics.moves_r}"
+            moves_T.text = "${gameStatistics.moves_t}"
+            moves_L.text = "${gameStatistics.moves_l}"
+            moves.text = "${gameStatistics.moves}"
+            if (gameStatistics.moves != 0L) {
+                tpm.text = formatSmallMillis(gameStatistics.timePlayed / gameStatistics.moves)
+            }
+            else {
+                tpm.text = "0"
+            }
+            rekord.text = "${gameStatistics.record}"
 
             return view
         }
 
-        fun formatSmallMillis(timeInMillis: Long): String {
+        private fun formatSmallMillis(timeInMillis: Long): String {
             var timeInMillis = timeInMillis
             var sign = ""
             if (timeInMillis < 0) {
@@ -275,7 +287,7 @@ class StatsActivity : BaseActivity() {
             return formatted.toString()
         }
 
-        fun formatMillis(timeInMillis: Long): String {
+        private fun formatMillis(timeInMillis: Long): String {
             var timeInMillis = timeInMillis
             var sign = ""
             if (timeInMillis < 0) {
@@ -307,7 +319,7 @@ class StatsActivity : BaseActivity() {
             container.removeView(view)
         }
 
-        fun readStatisticsFromFile(n: Int): GameStatistics {
+        private fun readStatisticsFromFile(n: Int): GameStatistics {
             var gS = GameStatistics(n)
             try {
                 val file = File(filesDir, "statistics$n.txt")
