@@ -97,22 +97,22 @@ class PFApplicationData private constructor(context: Context) {
     private val tutorial = buildTutorial {
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel)
-            images = listOf(R.id.image1)
+            images = listOf(R.mipmap.ic_splash)
             description = ContextCompat.getString(context, R.string.Tutorial_Instruction)
         }
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel_Move)
-            images = listOf(R.id.image2)
+            images = if (prefColorScheme.value == "1") { listOf(R.drawable.tutorial_move_s) } else { listOf(R.drawable.tutorial_move_o) }
             description = ContextCompat.getString(context, R.string.Tutorial_Move)
         }
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel_Move)
-            images = listOf(R.id.image3)
+            images = if (prefColorScheme.value == "1") { listOf(R.drawable.tutorial_swipe_s) } else { listOf(R.drawable.tutorial_swipe_o) }
             description = ContextCompat.getString(context, R.string.Tutorial_Move)
         }
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel_Add)
-            images = listOf(R.id.image4)
+            images = if (prefColorScheme.value == "1") { listOf(R.drawable.tutorial_add_s) } else { listOf(R.drawable.tutorial_add_o) }
             description = ContextCompat.getString(context, R.string.Tutorial_Add)
         }
     }
