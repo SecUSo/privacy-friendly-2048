@@ -17,9 +17,12 @@
 package org.secuso.privacyfriendly2048
 
 import androidx.core.content.ContextCompat
+import org.secuso.pfacore.application.BackupDatabaseConfig
+import org.secuso.pfacore.application.SQLiteHelperConfig
 import org.secuso.pfacore.ui.PFApplication
 import org.secuso.pfacore.ui.PFData
 import org.secuso.privacyfriendly2048.activities.MainActivity
+import org.secuso.privacyfriendly2048.database.PFASQLiteHelper
 
 class PF2048 : PFApplication() {
     override val name: String
@@ -27,4 +30,6 @@ class PF2048 : PFApplication() {
     override val data: PFData
         get() = PFApplicationData.instance(this).data
     override val mainActivity = MainActivity::class.java
+    override val database: BackupDatabaseConfig
+        get() = SQLiteHelperConfig(this, PFASQLiteHelper.DATABASE_NAME)
 }
