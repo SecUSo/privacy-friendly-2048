@@ -44,17 +44,6 @@
                 android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
         </activity>
 
-        <service
-            android:name="org.secuso.privacyfriendly2048.backup.PFABackupService"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":backup"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="org.secuso.privacyfriendlybackup.api.pfa.PFAAuthService" />
-            </intent-filter>
-        </service>
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
