@@ -53,7 +53,6 @@
 
     <!-- ###SETTINGS### -->
     <string name="settings_name">Einstellungen</string>
-    <string name="settings_animation">Animationen aktivieren</string>
     <string name="settings_display">Displaysperre aktivieren</string>
     <string name="settings_color">Auswahl Farbschema</string>
     <string name="settings_color_system">System</string>
@@ -107,7 +106,6 @@
     <string name="settings_category_appearance">Appearance</string>
     <string name="settings_animation_title">Animationen aktivieren</string>
     <string name="settings_animation_summary">Blöcke bewegen und verschmelzen sich augenblicklich wenn deaktiviert.</string>
-    <string name="settings_animation_summary">B</string>
     <string name="settings_category_report">Fehlerbericht</string>
 
     <!-- ###AIR ACTIONS### -->
