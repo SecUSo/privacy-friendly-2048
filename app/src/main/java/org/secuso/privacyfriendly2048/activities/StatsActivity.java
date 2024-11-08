@@ -43,7 +43,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
-import org.secuso.privacyfriendly2048.activities.helper.GameStatistics;
+import org.secuso.privacyfriendly2048.model.GameStatistics;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -273,7 +273,7 @@ public class StatsActivity extends BaseActivity {
                 tpm.setText("" + formatSmallMillis(gameStatistics.getTimePlayed() / gameStatistics.getMoves()));
             else
                 tpm.setText("0");
-            rekord.setText("" + gameStatistics.getRecord());
+            rekord.setText("" + gameStatistics.record);
 
 
             return view;
