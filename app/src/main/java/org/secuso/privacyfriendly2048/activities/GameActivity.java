@@ -44,7 +44,7 @@ import android.widget.TextView;
 import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivityWithoutNavBar;
 import org.secuso.privacyfriendly2048.activities.helper.GameState;
-import org.secuso.privacyfriendly2048.activities.helper.GameStatistics;
+import org.secuso.privacyfriendly2048.model.GameStatistics;
 import org.secuso.privacyfriendly2048.activities.helper.Gestures;
 
 import java.io.File;
@@ -328,7 +328,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         }
         gameStatistics = readStatisticsFromFile();
-        record = gameStatistics.getRecord();
+        record = gameStatistics.record;
         last_points = gameState.last_points;
         createNewGame = false;
         DisplayMetrics metrics = new DisplayMetrics();
@@ -991,7 +991,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         if (points > record) {
             record = points;
-            gameStatistics.setRecord(record);
+            gameStatistics.record = record;
             textFieldRecord.setText("" + record);
         }
         if (moved) {
@@ -1040,7 +1040,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     public void gameOver() {
-        Log.i("record", "" + record + ", " + gameStatistics.getRecord());
+        Log.i("record", "" + record + ", " + gameStatistics.record);
         saveStatisticsToFile(gameStatistics);
         new AlertDialog.Builder(this)
                 .setTitle((this.getResources().getString(R.string.Titel_L_Message, points)))
@@ -1184,7 +1184,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     public void saveStatisticsToFile(GameStatistics gS) {
         try {
-            File file = new File(getFilesDir(), gS.getFilename());
+            File file = new File(getFilesDir(), gS.filename);
             FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(gS);
