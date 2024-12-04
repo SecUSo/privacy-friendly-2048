@@ -78,4 +78,9 @@
     <string name="Stat_Amount_Undo">Uso de Desfacer</string>
     <string name="Stat_Time_Swipes">Tempo por movemento</string>
     <string name="reset_stats">Restablecer estatísticas</string>
+    <string name="swipe_right">Desprazar dereita</string>
+    <string name="undo">Desfacer</string>
+    <string name="swipe_up">Desprazar arriba</string>
+    <string name="swipe_down">Desprazar abaixo</string>
+    <string name="swipe_left">Desprazar esquerda</string>
 </resources>
