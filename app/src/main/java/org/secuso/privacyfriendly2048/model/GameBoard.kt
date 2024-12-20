@@ -2,21 +2,12 @@ package org.secuso.privacyfriendly2048.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.io.Serializable
 import kotlin.math.max
 
-class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcelable {
-
-    enum class Direction(val x: Int, val y: Int) {
-        UP(0,-1),
-        DOWN(0, 1),
-        LEFT(-1, 0),
-        RIGHT(1, 0);
-
-        operator fun component1(): Int = x
-        operator fun component2(): Int = y
-    }
+class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcelable, Serializable {
     
-    data class SpawnProbability(val number: Int, val probability: Double) {
+    data class SpawnProbability(val number: Int, val probability: Double): Serializable {
         init {
             if (probability < 0 || probability > 1) {
                 throw IllegalArgumentException("The probability is: $probability. Should be 0 <= $probability <= 1")
@@ -24,7 +15,7 @@ class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcela
         }
     }
 
-    data class SpawnProbabilityDistribution(private val distribution: List<SpawnProbability>) {
+    data class SpawnProbabilityDistribution(private val distribution: List<SpawnProbability>): Serializable {
         init {
             val sum: Double = distribution.map { it.probability }.reduce { acc, prob -> acc + prob }
             if (sum - 1 > 1e-8) {
@@ -46,11 +37,11 @@ class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcela
         }
     }
 
-    fun interface OnMergeListener {
-        fun onMerge(index: Pair<Int, Int>, direction: Direction, mergedValue: Int)
+    sealed class BoardChangeEvent(val source: Pair<Int, Int>) {
+        class MoveEvent(source: Pair<Int, Int>, val target: Pair<Int, Int>) : BoardChangeEvent(source)
+        class MergeEvent(source: Pair<Int, Int>, val target: Pair<Int, Int>) : BoardChangeEvent(source)
+        class SpawnEvent(source: Pair<Int, Int>) : BoardChangeEvent(source)
     }
-
-    var onMergeListener: OnMergeListener? = null
 
     var data: Array<Array<Int>> = data ?:
         (0 until size).map {
@@ -79,8 +70,9 @@ class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcela
         this.data = data
     }
 
-    fun move(direction: Direction) {
+    fun move(direction: Direction): List<BoardChangeEvent> {
         val (x, y) = direction
+        val events = mutableListOf<BoardChangeEvent>()
 
         // Adjust the direction we iterate through according to the direction to move the cells
         // Iterating over and moving the cells using the same direction will yield an incorrect result
@@ -118,10 +110,11 @@ class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcela
                     if (data[iTarget][jTarget] == data[iSource][jSource]) {
                         data[iTarget][jTarget] *= 2
                         data[iSource][jSource] = 0
-                        onMergeListener?.onMerge(iTarget to jTarget, direction, data[iTarget][jTarget])
+                        events.add(BoardChangeEvent.MergeEvent(iSource to jSource, iTarget to jTarget))
                     } else if (data[iTarget][jTarget] == 0) {
                         data[iTarget][jTarget] = data[iSource][jSource]
                         data[iSource][jSource] = 0
+                        events.add(BoardChangeEvent.MoveEvent(iSource to jSource, iTarget to jTarget))
                     } else {
                         // We cannot move the cell anymore
                         break
@@ -129,17 +122,22 @@ class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcela
                 }
             }
         }
+        return events
     }
 
-    fun fillRandomCell(amount: Int, distribution: SpawnProbabilityDistribution) {
+    fun fillRandomCell(amount: Int, distribution: SpawnProbabilityDistribution): List<BoardChangeEvent> {
         val possibleCells = freeCells.mapIndexed { index, pair -> index to pair  }.toMutableList()
-        if (possibleCells.size <= amount) {
-            possibleCells.forEach { (_,boardIndex) -> data[boardIndex.first][boardIndex.second] = distribution.generate() }
+        return if (possibleCells.size <= amount) {
+            possibleCells.map { (_,boardIndex) ->
+                data[boardIndex.first][boardIndex.second] = distribution.generate()
+                BoardChangeEvent.SpawnEvent(boardIndex)
+            }
         } else {
-            (0 until amount).forEach { _ ->
+            (0 until amount).map { _ ->
                 val (cellIndex, boardIndex) = possibleCells.random()
                 data[boardIndex.first][boardIndex.second] = distribution.generate()
                 possibleCells.removeAt(cellIndex)
+                BoardChangeEvent.SpawnEvent(boardIndex)
             }
         }
     }
