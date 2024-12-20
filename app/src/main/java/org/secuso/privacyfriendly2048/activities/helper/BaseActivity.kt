@@ -39,11 +39,13 @@ abstract class BaseActivity : DrawerActivity() {
         super.setContent(layoutResID)
     }
 
-    override fun setContentView(view: View) {
-        super.setContent(view)
+    override fun setContentView(view: View?) {
+        super.setContent(view!!)
     }
 
     override fun drawer() = DrawerMenu.build {
+        name = getString(R.string.app_name_long)
+        icon = R.mipmap.ic_logo
         section {
             activity {
                 name = ContextCompat.getString(this@BaseActivity, R.string.action_main)
