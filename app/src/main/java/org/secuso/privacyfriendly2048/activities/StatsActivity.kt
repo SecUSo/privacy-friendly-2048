@@ -38,7 +38,7 @@ import org.secuso.pfacore.model.DrawerElement
 import org.secuso.privacyfriendly2048.PFApplicationData
 import org.secuso.privacyfriendly2048.R
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity
-import org.secuso.privacyfriendly2048.activities.helper.GameStatistics
+import org.secuso.privacyfriendly2048.model.GameStatistics
 import java.io.File
 import java.io.FileInputStream
 import java.io.InvalidClassException
@@ -91,12 +91,6 @@ class StatsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
-
-//        val actionBar = supportActionBar
-//        //actionBar.setTitle(R.string.menu_highscore);
-//        actionBar!!.setDisplayHomeAsUpEnabled(true)
-//        actionBar.setBackgroundDrawable(ColorDrawable(Color.parseColor("#024265")))
-
 
         // Set up the ViewPager with the sections adapter.
         mViewPager.adapter = mSectionsPagerAdapter
