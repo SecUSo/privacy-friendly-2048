@@ -110,8 +110,8 @@ class Game2048(val config: GameConfig, boardState: Board? = null): IGame2048 {
             if (it is GameBoard.BoardChangeEvent.MergeEvent) {
                 val value = board.data[it.target.first][it.target.second]
                 points += value
-                stats.setHighestNumber(value.toLong())
-                stats.setRecord(points)
+                stats.highestNumber = value.toLong()
+                stats.record = points
             }
         }
         events += board.fillRandomCell(config.cellsToFill, config.distribution)
