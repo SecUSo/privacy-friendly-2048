@@ -39,9 +39,6 @@
     <string name="more_info">Tes máis información en:</string>
     <string name="settings_animation">Activar animación</string>
     <string name="settings_color">Escoller esquema de cores</string>
-    <string name="settings_color_system">Sistema</string>
-    <string name="settings_color_light">Claro</string>
-    <string name="settings_color_dark">Escuro</string>
     <string name="settings_color_scheme_default">Predeterminado</string>
     <string name="settings_color_scheme_original">Orixinal</string>
     <string name="new_Game_Button">Comezar a xogar</string>
