@@ -16,7 +16,9 @@
  */
 package org.secuso.privacyfriendly2048
 
+import android.util.Log
 import androidx.core.content.ContextCompat
+import androidx.work.Configuration
 import org.secuso.pfacore.application.BackupDatabaseConfig
 import org.secuso.pfacore.application.SQLiteHelperConfig
 import org.secuso.pfacore.ui.PFApplication
@@ -32,4 +34,7 @@ class PF2048 : PFApplication() {
     override val mainActivity = MainActivity::class.java
     override val database: BackupDatabaseConfig
         get() = SQLiteHelperConfig(this, PFASQLiteHelper.DATABASE_NAME)
+
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
 }
