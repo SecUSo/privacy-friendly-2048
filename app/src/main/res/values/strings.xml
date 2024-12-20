@@ -110,5 +110,8 @@
     <string name="swipe_left">Swipe Left</string>
     <string name="swipe_right">Swipe Right</string>
     <string name="undo">Undo</string>
+    <string name="settings_color_scheme_default">Standard</string>
+    <string name="settings_color_scheme_original">Original</string>
+    <string name="settings_animation">Activate Animation</string>
 
 </resources>
