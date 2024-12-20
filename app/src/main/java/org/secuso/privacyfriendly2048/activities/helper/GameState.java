@@ -20,11 +20,10 @@
 package org.secuso.privacyfriendly2048.activities.helper;
 
 
-import org.secuso.privacyfriendly2048.activities.Element;
-
 import java.io.Serializable;
 
 /**
+ * This class just exists to restore old play states
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180807
  */
@@ -55,36 +54,6 @@ public class GameState implements Serializable {
             }
         }
         last_numbers = numbers;
-    }
-
-    public GameState(Element[][] e, Element[][] e2) {
-        int length = 1;
-        for (int i = 0; i < e.length; i++) {
-            if (e[i].length > length)
-                length = e[i].length;
-        }
-        this.n = e.length;
-        numbers = new int[e.length * e.length];
-        int c = 0;
-        for (int i = 0; i < e.length; i++) {
-            for (int j = 0; j < e[i].length; j++) {
-
-                numbers[c++] = e[i][j].number;
-            }
-        }
-        length = 1;
-        for (int i = 0; i < e2.length; i++) {
-            if (e2[i].length > length)
-                length = e2[i].length;
-        }
-        last_numbers = new int[e2.length * e2.length];
-        c = 0;
-        for (int i = 0; i < e2.length; i++) {
-            for (int j = 0; j < e2[i].length; j++) {
-
-                last_numbers[c++] = e2[i][j].number;
-            }
-        }
     }
 
     public int getNumber(int i, int j) {
