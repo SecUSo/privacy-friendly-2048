@@ -29,6 +29,8 @@ class PFApplicationData private constructor(context: Context) {
         private set
     lateinit var prefColorScheme: Preferable<String>
         private set
+    lateinit var prefDisplayLock: Preferable<Boolean>
+        private set
 
     private val preferences = appPreferences(context) {
         preferences {
@@ -60,6 +62,14 @@ class PFApplicationData private constructor(context: Context) {
                     title { resource(R.string.settings_color) }
                     summary { transform { state, value -> state.entries.find { it.value == value }!!.entry } }
                 }
+                prefDisplayLock = switch {
+                    key = "settings_display"
+                    title { resource(R.string.settings_display) }
+                    summary { literal("") }
+                    default = true
+                    backup = true
+                }
+
             }
             category(ContextCompat.getString(context, R.string.settings_category_report)) {
                 includeDeviceDataInReport = DeviceInformationOnErrorReport().build().invoke(this)
