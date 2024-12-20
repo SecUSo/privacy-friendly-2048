@@ -16,36 +16,25 @@
  */
 package org.secuso.privacyfriendly2048
 
-import android.app.Application
-import android.preference.PreferenceManager
 import android.util.Log
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.work.Configuration
-import org.secuso.privacyfriendly2048.backup.BackupCreator
-import org.secuso.privacyfriendly2048.backup.BackupRestorer
-import org.secuso.privacyfriendlybackup.api.pfa.BackupManager
+import org.secuso.pfacore.application.BackupDatabaseConfig
+import org.secuso.pfacore.application.SQLiteHelperConfig
+import org.secuso.pfacore.ui.PFApplication
+import org.secuso.pfacore.ui.PFData
+import org.secuso.privacyfriendly2048.activities.MainActivity
+import org.secuso.privacyfriendly2048.database.PFASQLiteHelper
 
-class PF2048 : Application(), Configuration.Provider {
-    override fun onCreate() {
-        super.onCreate()
-        BackupManager.backupCreator = BackupCreator()
-        BackupManager.backupRestorer = BackupRestorer()
+class PF2048 : PFApplication() {
+    override val name: String
+        get() = ContextCompat.getString(this, R.string.app_name_long)
+    override val data: PFData
+        get() = PFApplicationData.instance(this).data
+    override val mainActivity = MainActivity::class.java
+    override val database: BackupDatabaseConfig
+        get() = SQLiteHelperConfig(this, PFASQLiteHelper.DATABASE_NAME)
 
-        when (PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            .getString("currentTheme", "system")) {
-            "dark" -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-
-            "light" -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-        }
-    }
-
-    override val workManagerConfiguration = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
 }

@@ -18,6 +18,7 @@
 package org.secuso.privacyfriendly2048.model
 
 import java.io.Serializable
+import kotlin.math.max
 
 /**
  * The current statistics in each modes is defined in this class.
@@ -32,12 +33,17 @@ class GameStatistics(n: Int) : Serializable {
         get() = moves_d.toLong() + moves_t + moves_l + moves_r
     var timePlayed: Long = 0
         private set
-    private var highestNumber: Long = 2
+    var highestNumber: Long = 2
+        set(value) {
+            field = max(value, field)
+        }
     private var n = 4
     @JvmField
     var filename: String = "statistics$n.txt"
-    @JvmField
     var record: Long = 0
+        set(value) {
+            field = max(value, field)
+        }
     var undo: Int = 0
         private set
     var moves_l: Int = 0
@@ -52,19 +58,6 @@ class GameStatistics(n: Int) : Serializable {
     init {
         this.n = n
         filename = "statistics$n.txt"
-    }
-
-
-    fun getHighestNumber(): Long {
-        return highestNumber
-    }
-
-    fun setHighestNumber(highestNumber: Long) {
-        if (this.highestNumber < highestNumber) this.highestNumber = highestNumber
-    }
-
-    fun setRecord(record: Long) {
-        if (this.record < record) this.record = record
     }
 
     fun addTimePlayed(timePlayed: Long) {
