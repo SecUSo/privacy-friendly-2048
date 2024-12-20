@@ -7,6 +7,15 @@ class GameBoardTest {
 
     @Test
     fun move() {
+        val test: Array<Array<Int>> = arrayOf(
+            arrayOf(0, 0, 0, 2),
+            arrayOf(0, 0, 0, 2),
+            arrayOf(0, 0, 0, 2),
+            arrayOf(0, 0, 0, 2),
+        )
+        val board2 = GameBoard(4, test)
+        board2.move(Direction.UP)
+        assertEquals(8, board2.data[0][3])
         val init: Array<Array<Int>> = arrayOf(
             arrayOf(0, 0, 0, 0),
             arrayOf(0, 2, 0, 0),
@@ -22,7 +31,7 @@ class GameBoardTest {
             arrayOf(0, 0, 0, 2),
             arrayOf(0, 0, 0, 2),
         )
-        board.move(GameBoard.Direction.RIGHT)
+        board.move(Direction.RIGHT)
         assertArrayEquals(first, board.data)
 
         // expected after moves: r, r
@@ -32,7 +41,7 @@ class GameBoardTest {
             arrayOf(0, 0, 0, 2),
             arrayOf(0, 0, 0, 2),
         )
-        board.move(GameBoard.Direction.RIGHT)
+        board.move(Direction.RIGHT)
         assertArrayEquals(second, board.data)
 
         // expected after moves: r, r, u
@@ -42,7 +51,7 @@ class GameBoardTest {
             arrayOf(0, 0, 0, 0),
             arrayOf(0, 0, 0, 0),
         )
-        board.move(GameBoard.Direction.UP)
+        board.move(Direction.UP)
         assertArrayEquals(third, board.data)
 
         // expected after moves: r, r, u, d
@@ -52,7 +61,7 @@ class GameBoardTest {
             arrayOf(0, 0, 0, 4),
             arrayOf(0, 0, 0, 2),
         )
-        board.move(GameBoard.Direction.DOWN)
+        board.move(Direction.DOWN)
         assertArrayEquals(fourth, board.data)
 
         // expected after moves: r, r, u, d, l
@@ -62,7 +71,7 @@ class GameBoardTest {
             arrayOf(4, 0, 0, 0),
             arrayOf(2, 0, 0, 0),
         )
-        board.move(GameBoard.Direction.LEFT)
+        board.move(Direction.LEFT)
         assertArrayEquals(fifth, board.data)
     }
 

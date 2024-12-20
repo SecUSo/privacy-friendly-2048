@@ -28,8 +28,8 @@ import java.io.Serializable
  * @version 20180910
  */
 class GameStatistics(n: Int) : Serializable {
-    var moves: Long = 0
-        private set
+    val moves: Long
+        get() = moves_d.toLong() + moves_t + moves_l + moves_r
     var timePlayed: Long = 0
         private set
     private var highestNumber: Long = 2
@@ -63,6 +63,10 @@ class GameStatistics(n: Int) : Serializable {
         if (this.highestNumber < highestNumber) this.highestNumber = highestNumber
     }
 
+    fun setRecord(record: Long) {
+        if (this.record < record) this.record = record
+    }
+
     fun addTimePlayed(timePlayed: Long) {
         this.timePlayed += timePlayed
     }
@@ -70,10 +74,6 @@ class GameStatistics(n: Int) : Serializable {
     fun resetTimePlayed(): Boolean {
         this.timePlayed = 0
         return true
-    }
-
-    fun addMoves(moves: Long) {
-        this.moves += moves
     }
 
     fun undo() {
