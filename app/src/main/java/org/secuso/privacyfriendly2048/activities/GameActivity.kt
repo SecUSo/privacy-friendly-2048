@@ -78,7 +78,7 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     val undoButton by lazy { findViewById<ImageButton>(R.id.undoButton) }
     val grid by lazy { findViewById<GridRecyclerView>(R.id.grid) }
     val gridBackground by lazy { findViewById<GridRecyclerView>(R.id.grid_background) }
-    val adapter by lazy { Grid2048Adapter(this, layoutInflater, viewModel.board()) }
+    val adapter by lazy { Grid2048Adapter(this, layoutInflater, grid, viewModel.board()) }
     val adapterBackground by lazy { Grid2048BackgroundAdapter(viewModel.boardSize, layoutInflater) }
 
     var gameWon = false
@@ -140,7 +140,7 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     private fun undo() {
         Log.d("GameActivity", "undo pressed")
         viewModel.undo()
-        runBlocking {
+        lifecycleScope.launch {
             adapter.updateGrid(viewModel.board(), listOf())
         }
         @SuppressLint("NotifyDataSetChanged")
