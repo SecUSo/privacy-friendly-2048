@@ -29,7 +29,10 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.secuso.privacyfriendly2048.PFApplicationData
 import org.secuso.privacyfriendly2048.R
 import org.secuso.privacyfriendly2048.activities.adapter.Grid2048Adapter
@@ -137,14 +140,18 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     private fun undo() {
         Log.d("GameActivity", "undo pressed")
         viewModel.undo()
-        adapter.updateGrid(viewModel.board(), listOf())
+        runBlocking {
+            adapter.updateGrid(viewModel.board(), listOf())
+        }
         @SuppressLint("NotifyDataSetChanged")
         adapter.notifyDataSetChanged()
         undoButton.visibility = if (viewModel.canUndo()) { View.VISIBLE } else { View.INVISIBLE }
     }
 
     private fun move(direction: Direction): Boolean {
-        adapter.updateGrid(viewModel.board(), viewModel.move(direction))
+        lifecycleScope.launch {
+            adapter.updateGrid(viewModel.board(), viewModel.move(direction))
+        }
         textPoints.text = viewModel.points.toString()
         textRecord.text = viewModel.stats.record.toString()
         undoButton.visibility = if (viewModel.canUndo()) { View.VISIBLE } else { View.INVISIBLE }
