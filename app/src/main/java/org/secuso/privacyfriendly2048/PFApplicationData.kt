@@ -13,6 +13,11 @@ import org.secuso.pfacore.ui.preferences.appPreferences
 import org.secuso.pfacore.ui.preferences.settings.DeviceInformationOnErrorReport
 import org.secuso.pfacore.ui.preferences.settings.PreferenceFirstTimeLaunch
 import org.secuso.pfacore.ui.preferences.settings.SettingThemeSelector
+import org.secuso.pfacore.ui.preferences.settings.appearance
+import org.secuso.pfacore.ui.preferences.settings.general
+import org.secuso.pfacore.ui.preferences.settings.preferenceFirstTimeLaunch
+import org.secuso.pfacore.ui.preferences.settings.settingDeviceInformationOnErrorReport
+import org.secuso.pfacore.ui.preferences.settings.settingThemeSelector
 import org.secuso.pfacore.ui.tutorial.buildTutorial
 
 class PFApplicationData private constructor(context: Context) {
@@ -34,7 +39,7 @@ class PFApplicationData private constructor(context: Context) {
 
     private val preferences = appPreferences(context) {
         preferences {
-            firstTimeLaunch = PreferenceFirstTimeLaunch().build().invoke(this)
+            firstTimeLaunch = preferenceFirstTimeLaunch
             currentPage = preference {
                 key = "currentPage"
                 default = 0
@@ -42,8 +47,18 @@ class PFApplicationData private constructor(context: Context) {
             }
         }
         settings {
-            category(ContextCompat.getString(context, R.string.settings_category_appearance)) {
-                theme = SettingThemeSelector().build().invoke(this)
+            general {
+                prefDisplayLock = switch {
+                    key = "settings_display"
+                    title { resource(R.string.settings_display) }
+                    summary { literal("") }
+                    default = true
+                    backup = true
+                }
+                includeDeviceDataInReport = settingDeviceInformationOnErrorReport
+            }
+            appearance {
+                theme = settingThemeSelector
                 animationActivated = switch {
                     key = "pref_animationActivated"
                     title { resource(R.string.settings_animation_title) }
@@ -62,17 +77,6 @@ class PFApplicationData private constructor(context: Context) {
                     title { resource(R.string.settings_color) }
                     summary { transform { state, value -> state.entries.find { it.value == value }!!.entry } }
                 }
-                prefDisplayLock = switch {
-                    key = "settings_display"
-                    title { resource(R.string.settings_display) }
-                    summary { literal("") }
-                    default = true
-                    backup = true
-                }
-
-            }
-            category(ContextCompat.getString(context, R.string.settings_category_report)) {
-                includeDeviceDataInReport = DeviceInformationOnErrorReport().build().invoke(this)
             }
         }
     }
