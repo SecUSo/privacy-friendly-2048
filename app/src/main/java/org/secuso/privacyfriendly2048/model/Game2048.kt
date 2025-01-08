@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendly2048.model
 
+import java.io.EOFException
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.ObjectInputStream
@@ -155,7 +156,9 @@ class Game2048(val config: GameConfig, boardState: Board? = null): IGame2048 {
             writeObject(config)
             writeObject(board)
             writeLong(points)
-            writeObject(boardHistory.last())
+            if (boardHistory.isNotEmpty()) {
+                writeObject(boardHistory.last())
+            }
         }
     }
 
@@ -169,8 +172,9 @@ class Game2048(val config: GameConfig, boardState: Board? = null): IGame2048 {
                     is GameConfig -> {
                         val board = readObject() as GameBoard
                         val game = Game2048(obj, board.data)
-                        game.points = readLong()
-                        game.boardHistory.add(readObject() as SingleGameState)
+                        try {
+                            game.boardHistory.add(readObject() as SingleGameState)
+                        } catch (_: EOFException) {}
                         return game
                     }
                     else -> throw IllegalStateException("class ${obj::class.java} can not be serialized into a Game2048 instance.")
