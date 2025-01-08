@@ -8,7 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.secuso.privacyfriendly2048.R
+import org.secuso.privacyfriendly2048.activities.helper.GridRecyclerView
 import org.secuso.privacyfriendly2048.helpers.GetColorRes
 import org.secuso.privacyfriendly2048.model.GameBoard
 
@@ -26,7 +31,7 @@ class Grid2048Adapter(val context: Context, val layoutInflater: LayoutInflater, 
         }
     }
 
-    fun updateGrid(grid: Array<Array<Int>>, events: List<GameBoard.BoardChangeEvent>) {
+    suspend fun updateGrid(grid: Array<Array<Int>>, events: List<GameBoard.BoardChangeEvent>) {
         this.grid = grid
         for (event in events) {
             when (event) {
@@ -38,7 +43,11 @@ class Grid2048Adapter(val context: Context, val layoutInflater: LayoutInflater, 
                     notifyItemChanged(event.source.linear())
                 }
                 is GameBoard.BoardChangeEvent.SpawnEvent -> {
-                    notifyItemChanged(event.source.linear())
+                    // Delay new items being spawned to reduce weird animation overlap
+                    coroutineScope {
+                        delay(GridRecyclerView.SPAWN_DURATION)
+                        notifyItemChanged(event.source.linear())
+                    }
                 }
             }
             notifyItemChanged(event.source.linear())
