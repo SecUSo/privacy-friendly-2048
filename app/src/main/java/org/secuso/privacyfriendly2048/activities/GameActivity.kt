@@ -82,6 +82,7 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     val adapterBackground by lazy { Grid2048BackgroundAdapter(viewModel.boardSize, layoutInflater) }
 
     var gameWon = false
+    var already_undone = false
 
     val gestureListener by lazy {
         object : Gestures(this@GameActivity) {
@@ -140,17 +141,23 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     private fun undo() {
         Log.d("GameActivity", "undo pressed")
         viewModel.undo()
+        already_undone = true
         lifecycleScope.launch {
             adapter.updateGrid(viewModel.board(), listOf())
         }
         @SuppressLint("NotifyDataSetChanged")
         adapter.notifyDataSetChanged()
-        undoButton.visibility = if (viewModel.canUndo()) { View.VISIBLE } else { View.INVISIBLE }
+        undoButton.visibility = if (viewModel.canUndo() && (PFApplicationData.instance(this).multipleUndo.value || !already_undone)) { View.VISIBLE } else { View.INVISIBLE }
     }
 
     private fun move(direction: Direction): Boolean {
         lifecycleScope.launch {
-            adapter.updateGrid(viewModel.board(), viewModel.move(direction))
+            viewModel.move(direction).let { events ->
+                if (events.isNotEmpty()) {
+                    adapter.updateGrid(viewModel.board(), events)
+                    already_undone = false
+                }
+            }
         }
         textPoints.text = viewModel.points.toString()
         textRecord.text = viewModel.stats.record.toString()

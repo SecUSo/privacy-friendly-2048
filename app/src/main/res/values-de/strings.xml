@@ -112,5 +112,7 @@
     <string name="swipe_right">Streiche Rechts</string>
     <string name="undo">Rückgängig</string>
     <string name="settings_animation">Animationen aktivieren</string>
+    <string name="settings_multiple_undo_summary">Aktivieren Sie diese Einstellung, wenn Sie die Rückgängig-Funktion mehrfach verwenden wollen.</string>
+    <string name="settings_multiple_undo_title">Mehrfach Rückgängig machen</string>
 
 </resources>
