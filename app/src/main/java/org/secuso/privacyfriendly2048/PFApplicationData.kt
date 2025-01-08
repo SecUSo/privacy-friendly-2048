@@ -10,9 +10,6 @@ import org.secuso.pfacore.model.preferences.settings.ISettingData
 import org.secuso.pfacore.ui.PFData
 import org.secuso.pfacore.ui.help.Help
 import org.secuso.pfacore.ui.preferences.appPreferences
-import org.secuso.pfacore.ui.preferences.settings.DeviceInformationOnErrorReport
-import org.secuso.pfacore.ui.preferences.settings.PreferenceFirstTimeLaunch
-import org.secuso.pfacore.ui.preferences.settings.SettingThemeSelector
 import org.secuso.pfacore.ui.preferences.settings.appearance
 import org.secuso.pfacore.ui.preferences.settings.general
 import org.secuso.pfacore.ui.preferences.settings.preferenceFirstTimeLaunch
@@ -36,6 +33,8 @@ class PFApplicationData private constructor(context: Context) {
         private set
     lateinit var prefDisplayLock: Preferable<Boolean>
         private set
+    lateinit var multipleUndo: Preferable<Boolean>
+        private set
 
     private val preferences = appPreferences(context) {
         preferences {
@@ -48,6 +47,13 @@ class PFApplicationData private constructor(context: Context) {
         }
         settings {
             general {
+                multipleUndo = switch {
+                    key = "multiple_undo"
+                    title { resource(R.string.settings_multiple_undo_title) }
+                    summary { resource(R.string.settings_multiple_undo_summary) }
+                    default = false
+                    backup = true
+                }
                 prefDisplayLock = switch {
                     key = "settings_display"
                     title { resource(R.string.settings_display) }

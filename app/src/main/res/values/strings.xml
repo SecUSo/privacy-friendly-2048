@@ -113,5 +113,7 @@
     <string name="settings_color_scheme_default">Standard</string>
     <string name="settings_color_scheme_original">Original</string>
     <string name="settings_animation">Activate Animation</string>
+    <string name="settings_multiple_undo_summary">Activate if you want to use the undo feature multiple times in a row</string>
+    <string name="settings_multiple_undo_title">Multiple undos</string>
 
 </resources>
