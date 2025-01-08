@@ -96,6 +96,7 @@ class MainActivity : BaseActivity() {
         }
 
         viewPager.adapter = myViewPagerAdapter
+        viewPager.currentItem = currentPage.value
         viewPager.addOnPageChangeListener(object : OnPageChangeListener {
                 override fun onPageSelected(position: Int) {
                     currentPage.value = position
