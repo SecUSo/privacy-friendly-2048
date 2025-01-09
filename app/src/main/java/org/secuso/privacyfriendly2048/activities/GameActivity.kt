@@ -114,6 +114,12 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
         findViewById<ImageButton>(R.id.restartButton).setOnClickListener {
             viewModel.stop()
             viewModel.reset()
+            viewModel.start()
+            lifecycleScope.launch {
+                adapter.updateGrid(viewModel.board(), listOf())
+                @SuppressLint("NotifyDataSetChanged")
+                adapter.notifyDataSetChanged()
+            }
         }
         undoButton.setOnClickListener { undo() }
         undoButton.visibility = if (viewModel.canUndo()) { View.VISIBLE } else { View.INVISIBLE }
