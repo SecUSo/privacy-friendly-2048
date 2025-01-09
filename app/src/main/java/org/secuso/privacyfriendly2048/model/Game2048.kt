@@ -172,6 +172,7 @@ class Game2048(val config: GameConfig, boardState: Board? = null): IGame2048 {
                     is GameConfig -> {
                         val board = readObject() as GameBoard
                         val game = Game2048(obj, board.data)
+                        game.points = readLong()
                         try {
                             game.boardHistory.add(readObject() as SingleGameState)
                         } catch (_: EOFException) {}
