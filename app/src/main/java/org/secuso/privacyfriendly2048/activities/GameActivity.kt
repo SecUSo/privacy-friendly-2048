@@ -21,22 +21,22 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.secuso.privacyfriendly2048.PFApplicationData
 import org.secuso.privacyfriendly2048.R
 import org.secuso.privacyfriendly2048.activities.adapter.Grid2048Adapter
 import org.secuso.privacyfriendly2048.activities.adapter.Grid2048BackgroundAdapter
-import org.secuso.privacyfriendly2048.activities.helper.BaseActivityWithoutNavBar
 import org.secuso.privacyfriendly2048.activities.helper.Gestures
 import org.secuso.privacyfriendly2048.activities.helper.GridRecyclerView
 import org.secuso.privacyfriendly2048.activities.viewmodel.GameViewModel
@@ -44,8 +44,6 @@ import org.secuso.privacyfriendly2048.model.Direction
 import org.secuso.privacyfriendly2048.model.Game2048
 import org.secuso.privacyfriendly2048.model.GameBoard
 import org.secuso.privacyfriendly2048.model.GameState
-import kotlin.math.abs
-import kotlin.math.max
 
 /**
  * This activity contains the entire game and draws the game field depending on the selected mode and the screen size.
@@ -63,7 +61,7 @@ import kotlin.math.max
  * @author Patrick Schneider
  * @version 20241107
  */
-class GameActivity: BaseActivityWithoutNavBar() {
+class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     val viewModel: GameViewModel by viewModels { GameViewModel.GameViewModelFactory(
         filesDir,
         Game2048.GameConfig(
@@ -80,13 +78,12 @@ class GameActivity: BaseActivityWithoutNavBar() {
     val undoButton by lazy { findViewById<ImageButton>(R.id.undoButton) }
     val grid by lazy { findViewById<GridRecyclerView>(R.id.grid) }
     val gridBackground by lazy { findViewById<GridRecyclerView>(R.id.grid_background) }
-    val adapter by lazy { Grid2048Adapter(this, layoutInflater, viewModel.board()) }
+    val adapter by lazy { Grid2048Adapter(this, layoutInflater, grid, viewModel.board()) { animation_running = false } }
     val adapterBackground by lazy { Grid2048BackgroundAdapter(viewModel.boardSize, layoutInflater) }
 
     var gameWon = false
-
-    val sharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
-    val animationActivated by lazy { sharedPreferences.getBoolean("pref_animationActivated", true) }
+    var already_undone = false
+    var animation_running = false
 
     val gestureListener by lazy {
         object : Gestures(this@GameActivity) {
@@ -108,7 +105,7 @@ class GameActivity: BaseActivityWithoutNavBar() {
         setContentView(R.layout.activity_game);
         super.onCreate(savedInstanceState);
 
-        if (sharedPreferences.getBoolean("settings_display", true)) {
+        if (PFApplicationData.instance(this).prefDisplayLock.value) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
 
@@ -117,15 +114,14 @@ class GameActivity: BaseActivityWithoutNavBar() {
         findViewById<ImageButton>(R.id.restartButton).setOnClickListener {
             viewModel.stop()
             viewModel.reset()
+            viewModel.start()
+            lifecycleScope.launch {
+                adapter.updateGrid(viewModel.board(), listOf())
+                @SuppressLint("NotifyDataSetChanged")
+                adapter.notifyDataSetChanged()
+            }
         }
-        undoButton.setOnClickListener {
-            Log.d("GameActivity", "undo pressed")
-            viewModel.undo()
-            adapter.updateGrid(viewModel.board(), listOf())
-            @SuppressLint("NotifyDataSetChanged")
-            adapter.notifyDataSetChanged()
-            undoButton.visibility = if (viewModel.canUndo()) { View.VISIBLE } else { View.INVISIBLE }
-        }
+        undoButton.setOnClickListener { undo() }
         undoButton.visibility = if (viewModel.canUndo()) { View.VISIBLE } else { View.INVISIBLE }
         viewModel.start()
 
@@ -137,7 +133,7 @@ class GameActivity: BaseActivityWithoutNavBar() {
         grid.adapter = adapter
         grid.setHasFixedSize(true)
 
-        if (!animationActivated) {
+        if (!PFApplicationData.instance(this).animationActivated.value) {
             grid.itemAnimator = null
         }
 
@@ -149,8 +145,32 @@ class GameActivity: BaseActivityWithoutNavBar() {
         gridBackground.setHasFixedSize(true)
     }
 
+    private fun undo() {
+        Log.d("GameActivity", "undo pressed")
+        viewModel.undo()
+        already_undone = true
+        lifecycleScope.launch {
+            adapter.updateGrid(viewModel.board(), listOf())
+        }
+        @SuppressLint("NotifyDataSetChanged")
+        adapter.notifyDataSetChanged()
+        undoButton.visibility = if (viewModel.canUndo() && (PFApplicationData.instance(this).multipleUndo.value || !already_undone)) { View.VISIBLE } else { View.INVISIBLE }
+    }
+
     private fun move(direction: Direction): Boolean {
-        adapter.updateGrid(viewModel.board(), viewModel.move(direction))
+        if (animation_running) {
+            return false
+        }
+        lifecycleScope.launch {
+            viewModel.move(direction).let { events ->
+                if (events.isNotEmpty()) {
+                    animation_running = true
+                    Log.d("animation", "started")
+                    adapter.updateGrid(viewModel.board(), events)
+                    already_undone = false
+                }
+            }
+        }
         textPoints.text = viewModel.points.toString()
         textRecord.text = viewModel.stats.record.toString()
         undoButton.visibility = if (viewModel.canUndo()) { View.VISIBLE } else { View.INVISIBLE }
@@ -184,6 +204,32 @@ class GameActivity: BaseActivityWithoutNavBar() {
                 .create().show()
         }
         return false
+    }
+
+    // This handles actions via a S-Pen
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_DPAD_UP -> {
+                move(Direction.UP)
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_DOWN -> {
+                move(Direction.DOWN)
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_LEFT -> {
+                move(Direction.LEFT)
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                move(Direction.RIGHT)
+                return true
+            }
+            KeyEvent.KEYCODE_Z -> if (event?.isCtrlPressed == true) {
+                undo()
+            }
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onPause() {

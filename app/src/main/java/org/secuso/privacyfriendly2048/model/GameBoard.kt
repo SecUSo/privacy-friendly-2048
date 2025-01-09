@@ -126,17 +126,16 @@ class GameBoard(private val size: Int, data: Array<Array<Int>>? = null): Parcela
     }
 
     fun fillRandomCell(amount: Int, distribution: SpawnProbabilityDistribution): List<BoardChangeEvent> {
-        val possibleCells = freeCells.mapIndexed { index, pair -> index to pair  }.toMutableList()
-        return if (possibleCells.size <= amount) {
-            possibleCells.map { (_,boardIndex) ->
+        return if (freeCells.size <= amount) {
+            freeCells.map { boardIndex ->
                 data[boardIndex.first][boardIndex.second] = distribution.generate()
                 BoardChangeEvent.SpawnEvent(boardIndex)
             }
         } else {
-            (0 until amount).map { _ ->
-                val (cellIndex, boardIndex) = possibleCells.random()
+            val possibleCells = freeCells.shuffled()
+            (0 until amount).map {
+                val boardIndex = possibleCells[it]
                 data[boardIndex.first][boardIndex.second] = distribution.generate()
-                possibleCells.removeAt(cellIndex)
                 BoardChangeEvent.SpawnEvent(boardIndex)
             }
         }

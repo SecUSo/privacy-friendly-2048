@@ -53,12 +53,8 @@
 
     <!-- ###SETTINGS### -->
     <string name="settings_name">Einstellungen</string>
-    <string name="settings_animation">Animationen aktivieren</string>
     <string name="settings_display">Displaysperre aktivieren</string>
     <string name="settings_color">Auswahl Farbschema</string>
-    <string name="settings_color_system">System</string>
-    <string name="settings_color_light">Hell</string>
-    <string name="settings_color_dark">Dunkel</string>
     <string name="settings_color_scheme_default">Standard</string>
     <string name="settings_color_scheme_original">Original</string>
 
@@ -104,6 +100,10 @@
     <string name="Stat_Time">Gesamtspieldauer</string>
     <string name="Stat_Time_Swipes">Zeit pro Wischer</string>
     <string name="reset_stats">Statistik zurücksetzem</string>
+    <string name="settings_category_appearance">Appearance</string>
+    <string name="settings_animation_title">Animationen aktivieren</string>
+    <string name="settings_animation_summary">Blöcke bewegen und verschmelzen sich augenblicklich wenn deaktiviert.</string>
+    <string name="settings_category_report">Fehlerbericht</string>
 
     <!-- ###AIR ACTIONS### -->
     <string name="swipe_up">Streiche Oben</string>
@@ -111,5 +111,8 @@
     <string name="swipe_left">Streiche Links</string>
     <string name="swipe_right">Streiche Rechts</string>
     <string name="undo">Rückgängig</string>
+    <string name="settings_animation">Animationen aktivieren</string>
+    <string name="settings_multiple_undo_summary">Aktivieren Sie diese Einstellung, wenn Sie die Rückgängig-Funktion mehrfach verwenden wollen.</string>
+    <string name="settings_multiple_undo_title">Mehrfach Rückgängig machen</string>
 
 </resources>

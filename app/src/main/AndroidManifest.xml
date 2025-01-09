@@ -16,57 +16,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".PF2048"
-        android:theme="@style/AppTheme">
-        <activity
-            android:exported="true"
-            android:name=".activities.SplashActivity"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.TutorialActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
-        </activity>
+        android:theme="@style/PrivacyFriendlyCoreTheme">
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.AboutActivity"
-            android:label="@string/about"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.HelpActivity"
-            android:label="@string/help"
-            android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
-        </activity>
+            android:theme="@style/PrivacyFriendlyCoreTheme.NoActionBar" />
         <activity
             android:name="org.secuso.privacyfriendly2048.activities.StatsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/settings_name"
-            android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/PrivacyFriendlyCoreTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
@@ -86,17 +43,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendly2048.activities.MainActivity" />
         </activity>
-
-        <service
-            android:name="org.secuso.privacyfriendly2048.backup.PFABackupService"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":backup"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="org.secuso.privacyfriendlybackup.api.pfa.PFAAuthService" />
-            </intent-filter>
-        </service>
 
         <provider
             android:name="androidx.startup.InitializationProvider"

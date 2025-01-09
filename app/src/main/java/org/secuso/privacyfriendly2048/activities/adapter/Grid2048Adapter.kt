@@ -1,18 +1,28 @@
 package org.secuso.privacyfriendly2048.activities.adapter
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import org.secuso.privacyfriendly2048.R
+import org.secuso.privacyfriendly2048.activities.helper.GridRecyclerView
 import org.secuso.privacyfriendly2048.helpers.GetColorRes
 import org.secuso.privacyfriendly2048.model.GameBoard
 
-class Grid2048Adapter(val context: Context, val layoutInflater: LayoutInflater, private var grid: Array<Array<Int>>): RecyclerView.Adapter<Grid2048Adapter.GridCellViewHolder>() {
+class Grid2048Adapter(
+    val context: Context,
+    val layoutInflater: LayoutInflater,
+    val recyclerView: GridRecyclerView,
+    private var grid: Array<Array<Int>>,
+    private val animationFinished: () -> Unit
+): RecyclerView.Adapter<Grid2048Adapter.GridCellViewHolder>() {
     private val size = grid.size
 
     private fun Pair<Int, Int>.linear() = first * size + second
@@ -26,7 +36,7 @@ class Grid2048Adapter(val context: Context, val layoutInflater: LayoutInflater, 
         }
     }
 
-    fun updateGrid(grid: Array<Array<Int>>, events: List<GameBoard.BoardChangeEvent>) {
+    suspend fun updateGrid(grid: Array<Array<Int>>, events: List<GameBoard.BoardChangeEvent>) {
         this.grid = grid
         for (event in events) {
             when (event) {
@@ -34,14 +44,47 @@ class Grid2048Adapter(val context: Context, val layoutInflater: LayoutInflater, 
                     notifyItemSwapped(event.source, event.target)
                 }
                 is GameBoard.BoardChangeEvent.MergeEvent -> {
+                    if (recyclerView.itemAnimator != null ){
+                        val target = recyclerView.findViewHolderForAdapterPosition(event.target.linear())!!
+                        val source = recyclerView.findViewHolderForAdapterPosition(event.source.linear())!!
+
+                        source.itemView.animate()
+                            .alpha(0f)
+                            .x(target.itemView.x)
+                            .y(target.itemView.y)
+                            .setDuration(GridRecyclerView.MERGE_DURATION)
+                            .withEndAction {
+                                notifyItemChanged(event.source.linear())
+
+                            }
+                            .setListener(object : AnimatorListenerAdapter() {
+                                override fun onAnimationCancel(animation: Animator) {
+                                    val source = recyclerView.findViewHolderForAdapterPosition(event.source.linear())!!
+                                    source.itemView.alpha = 1f // Reset alpha for future use
+                                }
+                            })
+                            .start()
+                    }
+
                     notifyItemChanged(event.target.linear())
                     notifyItemChanged(event.source.linear())
                 }
                 is GameBoard.BoardChangeEvent.SpawnEvent -> {
-                    notifyItemChanged(event.source.linear())
+                    if (recyclerView.itemAnimator != null) {
+                        coroutineScope {
+                            // Delay new items being spawned to reduce weird animation overlap
+                            delay(GridRecyclerView.MOVE_DURATION)
+                            notifyItemChanged(event.source.linear())
+                            // Wait for the change animation to finish to prevent ghost images appearing due to race conditions
+                            delay(GridRecyclerView.CHANGE_DURATION)
+                            animationFinished()
+                        }
+                    } else {
+                        notifyItemChanged(event.source.linear())
+                        animationFinished()
+                    }
                 }
             }
-            notifyItemChanged(event.source.linear())
         }
     }
 
