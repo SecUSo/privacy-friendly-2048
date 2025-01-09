@@ -78,11 +78,12 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     val undoButton by lazy { findViewById<ImageButton>(R.id.undoButton) }
     val grid by lazy { findViewById<GridRecyclerView>(R.id.grid) }
     val gridBackground by lazy { findViewById<GridRecyclerView>(R.id.grid_background) }
-    val adapter by lazy { Grid2048Adapter(this, layoutInflater, grid, viewModel.board()) }
+    val adapter by lazy { Grid2048Adapter(this, layoutInflater, grid, viewModel.board()) { animation_running = false } }
     val adapterBackground by lazy { Grid2048BackgroundAdapter(viewModel.boardSize, layoutInflater) }
 
     var gameWon = false
     var already_undone = false
+    var animation_running = false
 
     val gestureListener by lazy {
         object : Gestures(this@GameActivity) {
@@ -151,9 +152,14 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
     }
 
     private fun move(direction: Direction): Boolean {
+        if (animation_running) {
+            return false
+        }
         lifecycleScope.launch {
             viewModel.move(direction).let { events ->
                 if (events.isNotEmpty()) {
+                    animation_running = true
+                    Log.d("animation", "started")
                     adapter.updateGrid(viewModel.board(), events)
                     already_undone = false
                 }

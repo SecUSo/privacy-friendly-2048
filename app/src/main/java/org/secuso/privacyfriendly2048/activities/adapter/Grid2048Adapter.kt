@@ -16,7 +16,13 @@ import org.secuso.privacyfriendly2048.activities.helper.GridRecyclerView
 import org.secuso.privacyfriendly2048.helpers.GetColorRes
 import org.secuso.privacyfriendly2048.model.GameBoard
 
-class Grid2048Adapter(val context: Context, val layoutInflater: LayoutInflater, val recyclerView: GridRecyclerView, private var grid: Array<Array<Int>>): RecyclerView.Adapter<Grid2048Adapter.GridCellViewHolder>() {
+class Grid2048Adapter(
+    val context: Context,
+    val layoutInflater: LayoutInflater,
+    val recyclerView: GridRecyclerView,
+    private var grid: Array<Array<Int>>,
+    private val animationFinished: () -> Unit
+): RecyclerView.Adapter<Grid2048Adapter.GridCellViewHolder>() {
     private val size = grid.size
 
     private fun Pair<Int, Int>.linear() = first * size + second
@@ -46,22 +52,36 @@ class Grid2048Adapter(val context: Context, val layoutInflater: LayoutInflater, 
                             .alpha(0f)
                             .x(target.itemView.x)
                             .y(target.itemView.y)
-                            .setDuration(GridRecyclerView.CHANGE_DURATION)
+                            .setDuration(GridRecyclerView.MERGE_DURATION)
+                            .withEndAction {
+                                notifyItemChanged(event.source.linear())
+
+                            }
                             .setListener(object : AnimatorListenerAdapter() {
-                                override fun onAnimationEnd(animation: Animator) {
+                                override fun onAnimationCancel(animation: Animator) {
+                                    val source = recyclerView.findViewHolderForAdapterPosition(event.source.linear())!!
                                     source.itemView.alpha = 1f // Reset alpha for future use
                                 }
                             })
+                            .start()
                     }
 
                     notifyItemChanged(event.target.linear())
                     notifyItemChanged(event.source.linear())
                 }
                 is GameBoard.BoardChangeEvent.SpawnEvent -> {
-                    // Delay new items being spawned to reduce weird animation overlap
-                    coroutineScope {
-                        delay(GridRecyclerView.MOVE_DURATION)
+                    if (recyclerView.itemAnimator != null) {
+                        coroutineScope {
+                            // Delay new items being spawned to reduce weird animation overlap
+                            delay(GridRecyclerView.MOVE_DURATION)
+                            notifyItemChanged(event.source.linear())
+                            // Wait for the change animation to finish to prevent ghost images appearing due to race conditions
+                            delay(GridRecyclerView.CHANGE_DURATION)
+                            animationFinished()
+                        }
+                    } else {
                         notifyItemChanged(event.source.linear())
+                        animationFinished()
                     }
                 }
             }
