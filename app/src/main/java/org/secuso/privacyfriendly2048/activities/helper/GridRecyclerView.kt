@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 class GridRecyclerView(context: Context, attr: AttributeSet?, defStyleAttr: Int): RecyclerView(context, attr, defStyleAttr) {
 
     companion object {
-        val MOVE_DURATION = 150L
-        val CHANGE_DURATION = 100L
+        val MOVE_DURATION = 100L
+        val MERGE_DURATION = 100L
+        val CHANGE_DURATION = 1000L
     }
 
     constructor(context: Context) : this(context, null, 0)
