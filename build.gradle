@@ -6,7 +6,7 @@ buildscript {
         google()
     }
 
-    ext.kotlin_version = "1.9.10"
+    ext.kotlin_version = "2.0.21"
     dependencies {
         classpath 'com.android.tools.build:gradle:8.1.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -17,7 +17,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.google.devtools.ksp' version "$kotlin_version-1.0.13" apply false
+    id 'com.google.devtools.ksp' version "$kotlin_version-1.0.26" apply false
 }
 
 allprojects {

@@ -4,9 +4,9 @@ import android.content.Context
 import android.preference.PreferenceManager
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import org.secuso.privacyfriendly2048.R
 
-@ColorRes
 fun GetColorRes(ctx: Context, res: Int): Int {
     val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
 
@@ -26,6 +26,5 @@ fun GetColorRes(ctx: Context, res: Int): Int {
 
 @ColorInt
 fun GetColorInt(ctx: Context, res: Int): Int {
-    // TODO: Not sure why this works, investigate
     return GetColorRes(ctx, res).toInt()
 }
