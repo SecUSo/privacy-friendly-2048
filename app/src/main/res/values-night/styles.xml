@@ -2,6 +2,7 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+		<item name="secusoLogoDrawable">@drawable/secuso_logo_white</item>
         <item name="android:windowBackground">#282828</item>
     </style>
 
