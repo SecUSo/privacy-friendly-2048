@@ -15,7 +15,7 @@
 
 # Privacy Friendly 2048
 
-[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/repository/browse/?fdid=org.secuso.privacyfriendly2048)<a href="https://play.google.com/store/apps/details?id=org.secuso.privacyfriendly2048"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="60"></a>
+[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/repository/browse/?fdid=org.secuso.privacyfriendly2048)
 
 The Privacy Friendly 2048 app is an addictive puzzle game. The game is considered to be won if you reach the number 2048 by pushing the same numbers together. It belongs to the group of Privacy Friendly Apps supported by the research group SECUSO.
 
