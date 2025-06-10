@@ -45,6 +45,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 
+import org.secuso.privacyfriendly2048.GoodbyeGoogleHelperKt;
 import org.secuso.privacyfriendly2048.R;
 import org.secuso.privacyfriendly2048.activities.helper.BaseActivity;
 import org.secuso.privacyfriendly2048.helpers.FirstLaunchManager;
@@ -167,6 +168,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+        GoodbyeGoogleHelperKt.checkGoodbyeGoogle(this, getLayoutInflater());
     }
 
     private void addListener(Button b1, Button b2, int n) {
