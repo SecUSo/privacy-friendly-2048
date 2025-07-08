@@ -34,7 +34,7 @@
     <string name="help_permission">Which permissions requires the app?</string>
     <string name="help_permission_answer">This app does not require any permission.</string>
     <!-- ### WELCOME DIALOG ### -->
-    <string name="okay">Ok</string>
+    <string name="okay">Okay</string>
     <!--###ABOUT###-->
     <string name="about">About</string>
     <string name="version">Version: </string>
@@ -69,8 +69,8 @@
     <string name="Titel_L_Message">Achieved Score: %1$d</string>
     <string name="Lost_Message">No more moves are possible. Your achieved score was: %1$d. Would you like to start a new game?</string>
     <!-- ###TUTORIAL### -->
-    <string name="next">Suivant</string>
-    <string name="skip">Passer</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
     <string name="Tutorial_Titel">Welcome!</string>
     <string name="Tutorial_Instruction">In the following slides you will learn how to play the Game 2048.</string>
     <string name="Tutorial_Titel_Move">Learn how to move the numbers!</string>
