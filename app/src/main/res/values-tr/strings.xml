@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_long">Gizlilik Dostu 2048</string>
+    <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
+    <string name="action_about">Hakkında</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="action_tutorial">Öğretici</string>
+    <string name="action_stat">Sayımlama</string>
+    <string name="app_name">2048</string>
+    <string name="about">Hakkında</string>
+    <string name="about_author">Yazarlar:</string>
+    <string name="about_affiliation">ile bağlantılı olarak</string>
+    <string name="okay">Tamam</string>
+    <string name="version">Sürüm:</string>
+    <string name="version_number">v %s</string>
+    <string name="about_author_names">Saskia Jacob ve Julian Wadephul</string>
+    <string name="settings_color_scheme_default">Varsayılan</string>
+    <string name="settings_color_light">Aydınlık</string>
+    <string name="settings_color_dark">Karanlık</string>
+    <string name="settings_name">Ayarlar</string>
+    <string name="Points_Button">Puan</string>
+    <string name="Winning_Message">Kazandın. Devam etmek ister misiniz?</string>
+    <string name="Yes_Message">Evet</string>
+    <string name="No_Message">Hayır</string>
+    <string name="Titel_V_Message">Zafer</string>
+    <string name="new_Game_Button">Yeni Oyuna Başla</string>
+    <string name="continue_Game_Button">Oyuna Devam Et</string>
+    <string name="Tutorial_Titel">Hoş geldiniz!</string>
+    <string name="skip">Atla</string>
+    <string name="undo">Geri al</string>
+    <string name="action_main">Başlıca</string>
+    <string name="settings_animation">Animasyonu etkinleştir</string>
+    <string name="title_activity_game">2048</string>
+    <string name="about_author_contributors">ve katkıda bulunanlar.</string>
+    <string name="help">Yardım</string>
+    <string name="next">İleri</string>
+</resources>

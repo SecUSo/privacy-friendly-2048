@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">2048</string>
     <string name="app_name_long">Privacy Friendly 2048</string>
-
     <!-- ###DRAWER###-->
     <string name="action_help">Hilfe</string>
     <string name="action_about">Über</string>
@@ -9,21 +9,16 @@
     <string name="action_main">Hauptmenü</string>
     <string name="action_tutorial">Tutorial</string>
     <string name="action_stat">Statistik</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-
+    <string name="navigation_drawer_open">Navigationsmenü öffnen</string>
+    <string name="navigation_drawer_close">Navigationsmenü schließen</string>
     <!-- ###GAME###-->
     <string name="title_activity_game">2048</string>
-
     <!--###HELP###-->
     <string name="help">Hilfe</string>
-
     <string name="help_whatis">Was ist die Privacy Friendly App 2048?</string>
     <string name="help_whatis_answer">Die Privacy Friendly App 2048 ist eine brechtigungsfreie Version des bekannten Spieles 2048. Es verfügt somit über dieselben Funktionen ohne dabei Daten des Benutzters zu benutzen.</string>
     <string name="help_color">Wie kann ich den Farbstil des Spiels ändern?</string>
-    <string name="help_color_answer">Unter Einstellungen kann zwischen zwei Farbstilen für das Spiel ausgewählt werden. Zwischen den klassischen Farben des Orginalspiels und den an diese App angepassten Farbstil kann ausgewählt werden.</string>
+    <string name="help_color_answer">In den Kapitel-Konfigurationen gibt es eine Option, zwischen zwei Farbspektren für das Spiel zu wechseln.</string>
     <string name="help_play">Was ist das Ziel dieses Spieles?</string>
     <string name="help_play_answer">Ziel dieses Spiel ist es, die Zahl 2048 zu erzeugen. Die kann durch das ineinanderschieben gleichwetiger Zahlen erfolgen. Eine genaue Bedienungsanleitung des Spiels findet sich in dem Abschnitt Tutorial.</string>
     <string name="help_play_how">Wie bewegt man die Zahlen?</string>
@@ -32,13 +27,12 @@
     <string name="help_play_add_answer">Werden zwei gleiche Zahlen ineinander geschoben, addieren diese sich miteinander auf zu der nächsthöheren Zweierpotenz.</string>
     <string name="help_undo">Ist es möglich Züge rückgängig zu machen?</string>
     <string name="help_undo_answer">Die App gibt dem Spieler die Option seinen letzten Zug ungeschehen zu machen. Dazu ist der Knopf mit dem Pfeil gegen des Uhrzeigersinn zu betätigen.</string>
-    <string name="help_tip">Tips und Tricks</string>
+    <string name="help_tip">Tipps und Tricks</string>
     <string name="help_tip_answer">Es gibt verschiedenste Strategieen um das Spiel 2048 zu gewinnen. Zahlreiche YouTube Videos behandeln diese Problematik, weswegen wir auf diese verweisen.</string>
     <string name="help_privacy">Was macht die App privatsphäre-freundlich?</string>
     <string name="help_privacy_answer">Keinerlei Daten werden von den Benutzern der App benötigt, um das Spiel zu spielen.</string>
     <string name="help_permission">Welche Berechtigungen braucht die App?</string>
-    <string name="help_permission_answer">Die Privacy Friendly App 2014 kommt vollkommen ohne Berechtigungen seitens des Benutzers aus.</string>
-
+    <string name="help_permission_answer">Für diese App ist keine Berechtigung erforderlich.</string>
     <!--###ABOUT###-->
     <string name="about">Über</string>
     <string name="version">Version: </string>
@@ -49,8 +43,6 @@
     <string name="about_affiliation">In Zusammenarbeit mit</string>
     <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt von dem Karlsruher Institut für Technologie (KIT). Quelltext lizenziert unter GPLv3. Bilder copyright KIT und Google Inc.</string>
     <string name="more_info">Weitere Infos unter:</string>
-
-
     <!-- ###SETTINGS### -->
     <string name="settings_name">Einstellungen</string>
     <string name="settings_animation">Animationen aktivieren</string>
@@ -61,11 +53,8 @@
     <string name="settings_color_dark">Dunkel</string>
     <string name="settings_color_scheme_default">Standard</string>
     <string name="settings_color_scheme_original">Original</string>
-
-
     <!-- ### WELCOME DIALOG ### -->
     <string name="okay">Okay</string>
-
     <!-- ### TUTORIAL DIALOG ### -->
 
     <string name="next">Weiter</string>
@@ -76,8 +65,6 @@
     <string name="Tutorial_Move">Um alle Zahlen so weit wie möglich auf eine Seite zu bewegen, streiche mit dem Finger in die entsprechende Richtung.</string>
     <string name="Tutorial_Titel_Add">Lerne die Zahlen ineinander zu verschachteln!</string>
     <string name="Tutorial_Add">Um die nächst höhere Zweierpotenz zu erhalten, müssen Zahlen mit gleichem Wert ineinander geschoben werden. Ziel ist es den Wert 2048 und höher zu erreichen.</string>
-
-
     <!-- ### CHOOSE DIALOG ### -->
 
     <string name="new_Game_Button">Neues Spiel starten</string>
@@ -90,8 +77,6 @@
     <string name="Titel_V_Message">Gewonnen</string>
     <string name="Titel_L_Message">Erreichte Punktzahl: %1$d</string>
     <string name="Lost_Message">Es sind keine weiteren Züge mehr möglich. Ihre erreichte Punktzahl war: %1$d. Wollen Sie ein neues Spiel starten?</string>
-
-
     <!-- ###STATISTICS### -->
     <string name="Stat_High_Number">Höhste Zahl</string>
     <string name="Stat_High_Point">Höhste Punktzahl</string>
@@ -103,13 +88,11 @@
     <string name="Stat_Swipes_Up">Oben</string>
     <string name="Stat_Time">Gesamtspieldauer</string>
     <string name="Stat_Time_Swipes">Zeit pro Wischer</string>
-    <string name="reset_stats">Statistik zurücksetzem</string>
-
+    <string name="reset_stats">Statistik zurücksetzen</string>
     <!-- ###AIR ACTIONS### -->
     <string name="swipe_up">Streiche Oben</string>
     <string name="swipe_down">Streiche Unten</string>
     <string name="swipe_left">Streiche Links</string>
     <string name="swipe_right">Streiche Rechts</string>
     <string name="undo">Rückgängig</string>
-
 </resources>
