@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">2048</string>
-    <string name="app_name_long">Privacy Friendly 2048</string>
+    <string name="app_name_long">2048 con Privacidade</string>
     <string name="action_help">Axuda</string>
     <string name="action_about">Sobre</string>
     <string name="action_settings">Axustes</string>
@@ -12,8 +12,8 @@
     <string name="navigation_drawer_close">Fechar panel de navegación</string>
     <string name="title_activity_game">2048</string>
     <string name="help">Axuda</string>
-    <string name="help_whatis">Que é Privacy Friendly App 2048?</string>
-    <string name="help_whatis_answer">Privacy Friendly App 2048 é unha versión respetuosa da privacidade do famoso goxo orixinal 2048. Ten as mesmas funcións sen usar datos da usuaria.</string>
+    <string name="help_whatis">Que é 2048 con Privacidade?</string>
+    <string name="help_whatis_answer">2048 con Privacidade é unha versión respetuosa da privacidade do famoso goxo orixinal 2048. Ten as mesmas funcións sen usar datos da usuaria.</string>
     <string name="help_color">Podo cambiar as cores que usa o xogo?</string>
     <string name="help_color_answer">No apartado de configuracións hai unha opción para cambiar entre dous esquemas de cores.</string>
     <string name="help_play_how_answer">Despraza na pantalla usando o dedo na dirección na cal queres que se mova o número.</string>
@@ -27,13 +27,13 @@
     <string name="help_privacy_answer">A app é respetuosa porque non precisa ningún permiso. Ademais non inclúe ningún mecanismo de rastrexo ou de publicidade.</string>
     <string name="help_permission">Que permisos require a app?</string>
     <string name="help_permission_answer">Esta app non solicita ningún permiso.</string>
-    <string name="okay">Vale</string>
+    <string name="okay">OK</string>
     <string name="about">Sobre</string>
     <string name="version">Versión:</string>
     <string name="version_number">v %s</string>
     <string name="about_author">Autoría:</string>
     <string name="about_author_names">Saskia Jacob e Julian Wadephul</string>
-    <string name="about_author_contributors">e colaboradoras.</string>
+    <string name="about_author_contributors">e colaboracións.</string>
     <string name="about_affiliation">En asociación con</string>
     <string name="privacy_friendly">Esta aplicación pertence ao grupo Privacy Friendly Apps que desenvolve o Karlsruhe Institute of Technology (KIT). O código fonte ten licenza GPLv3. As imaxes pertencen a KIT e a Google Inc.</string>
     <string name="more_info">Tes máis información en:</string>
