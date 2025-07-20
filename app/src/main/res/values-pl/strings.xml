@@ -24,7 +24,7 @@
     <string name="about_author_names">Saskia Jacob i Julian Wadephul</string>
     <string name="about_author_contributors">i współtwórcy.</string>
     <string name="about_affiliation">We współpracy z</string>
-    <string name="more_info">Więcej informacji można znaleźć na stronie:</string>
+    <string name="more_info">Więcej informacji można znaleźć na:</string>
     <string name="settings_animation">Aktywuj animację</string>
     <string name="settings_color">Wybierz schemat kolorów</string>
     <string name="settings_color_system">Systemowy</string>
@@ -55,9 +55,9 @@
     <string name="swipe_down">Przesuń w dół</string>
     <string name="undo">Cofnij</string>
     <string name="help_tip_answer">Istnieje kilka strategii, aby wygrać tę grę. Na YouTube możesz znaleźć wiele filmów, które obejmują ten temat.</string>
-    <string name="okay">Ok</string>
+    <string name="okay">OK</string>
     <string name="help_play_add_answer">Jeżeli dodamy do siebie dwie takie same liczby, ich suma będzie równa najbliższej wyższej potędze liczby dwa.</string>
-    <string name="navigation_drawer_close">Zamknij szufladę nawigacyjną</string>
+    <string name="navigation_drawer_close">Zamknij szufladę nawigacji</string>
     <string name="help_whatis">Co to jest Aplikacja Przyjazna Prywatności 2048?</string>
     <string name="Winning_Message">Wygrałeś. Czy chcesz kontynuować?</string>
     <string name="action_tutorial">Samouczek</string>
@@ -68,7 +68,7 @@
     <string name="version">Wersja:</string>
     <string name="help_undo_answer">Aplikacja daje Ci możliwość cofnięcia ostatniego kroku w grze. Musisz kliknąć na przycisk ze strzałką w kierunku przeciwnym do ruchu wskazówek zegara.</string>
     <string name="Tutorial_Move">Aby przesunąć wszystkie liczby na możliwej pozycji w jednym kierunku, należy przesunąć palcem w ten sam sposób.</string>
-    <string name="about">O</string>
+    <string name="about">O aplikacji</string>
     <string name="Stat_Swipes_Left">Lewo</string>
     <string name="privacy_friendly">Ta aplikacja należy do grupy Aplikacji Przyjaznych Prywatności opracowanych przez Karlsruhe Institute of Technology (KIT). Kod źródłowy licencjonowany na zasadach GPLv3. Prawa autorskie do obrazów należą do KIT i Google Inc.</string>
     <string name="settings_color_scheme_default">Domyślny</string>
