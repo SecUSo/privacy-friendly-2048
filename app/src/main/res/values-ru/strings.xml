@@ -2,7 +2,7 @@
 <resources>
     <string name="No_Message">Нет, я всё</string>
     <string name="action_help">Справка</string>
-    <string name="action_settings">Натсройки</string>
+    <string name="action_settings">Настройки</string>
     <string name="action_tutorial">Руководство</string>
     <string name="action_main">Главная</string>
     <string name="title_activity_game">2048</string>
