@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="No_Message">Нет, я всё</string>
-    <string name="action_help">Справка</string>
+    <string name="action_help">Помощь</string>
     <string name="action_settings">Настройки</string>
     <string name="action_tutorial">Руководство</string>
     <string name="action_main">Главная</string>
@@ -21,8 +21,8 @@
     <string name="version">Версия:</string>
     <string name="version_number">в. %s</string>
     <string name="about_author">Авторы:</string>
-    <string name="about_affiliation">Разработано при поддержке</string>
-    <string name="more_info">Подробнее читайте на:</string>
+    <string name="about_affiliation">Вместе с</string>
+    <string name="more_info">Подробнее можно узнать на:</string>
     <string name="settings_animation">Анимации</string>
     <string name="settings_color_light">Светлая</string>
     <string name="settings_color_dark">Тёмная</string>
@@ -34,7 +34,7 @@
     <string name="Titel_V_Message">Победа</string>
     <string name="Titel_L_Message">Достигнутый счёт: %1$d</string>
     <string name="Record_Button">Рекорд</string>
-    <string name="next">Следующий</string>
+    <string name="next">Дальше</string>
     <string name="Tutorial_Titel_Move">Научитесь сдвигать числа!</string>
     <string name="Tutorial_Instruction">На следующих слайдах мы постараемся научить вас играть в 2048.</string>
     <string name="Lost_Message">Сдвиги больше невозможны. Вы достигли счёта: %1$d. Начать новую игру?</string>
@@ -54,7 +54,7 @@
     <string name="swipe_right">Сдвиг вправо</string>
     <string name="undo">Отменить</string>
     <string name="app_name">2048</string>
-    <string name="app_name_long">Игра 2048 (PFA)</string>
+    <string name="app_name_long">2048 уваюжающий Конфиденциальность</string>
     <string name="action_stat">Статистика</string>
     <string name="action_about">О приложении</string>
     <string name="navigation_drawer_open">Открыть панель навигации</string>
@@ -66,10 +66,10 @@
     <string name="help_play_answer">Ваша цель - достигнуть числа 2048. Объединяйте квадраты с одинаковыми значениями, чтобы повышать максимальное число на поле. Более подробное объяснение можно найти в туториале.</string>
     <string name="help_undo_answer">Можно отменить последний сделанный сдвиг. Для этого нажмите на кнопку со стрелкой, направленной против хода движения часов.</string>
     <string name="help_permission">Какие разрешения требуются игре?</string>
-    <string name="okay">Ладно</string>
+    <string name="okay">Хорошо</string>
     <string name="help_permission_answer">Это приложение не требует никаких разрешений.</string>
     <string name="about_author_names">Саския Якоб и Джулиан Вадефул</string>
-    <string name="about_author_contributors">а также другие соавторы.</string>
+    <string name="about_author_contributors">и помощники</string>
     <string name="settings_name">Настройки</string>
     <string name="settings_display">Блокировка экрана</string>
     <string name="settings_color_system">Системная</string>
@@ -77,7 +77,7 @@
     <string name="Winning_Message">Вы выиграли! Хотите продолжить игру?</string>
     <string name="swipe_left">Сдвиг влево</string>
     <string name="Tutorial_Titel">Привет!</string>
-    <string name="skip">Пропустить</string>
+    <string name="skip">Пропуск</string>
     <string name="Tutorial_Titel_Add">Научитесь объединять числа!</string>
     <string name="Tutorial_Move">Чтобы сдвинуть все числа по определённому направлению, коснитесь экрана и сдвиньте палец в нужную сторону.</string>
     <string name="Tutorial_Add">Чтобы достигнуть следующего числа 2 степени, объединяйте числа с одинаковыми значениями. Ваша цель - достигнуть числа 2048 или выше.</string>
