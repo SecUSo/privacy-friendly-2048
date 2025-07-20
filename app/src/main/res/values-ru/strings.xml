@@ -7,7 +7,7 @@
     <string name="action_main">Главная</string>
     <string name="title_activity_game">2048</string>
     <string name="help_color">Как изменить цветовую палитру игры?</string>
-    <string name="help_color_answer">В настройках есть возможность выбора между двумя цветовыми палитрами игры.</string>
+    <string name="help_color_answer">В настройках главы есть возможность выбрать один из двух цветовых спектров для игры.</string>
     <string name="help_play">Какова цель игры?</string>
     <string name="help_play_how">Как передвигать числа?</string>
     <string name="help_play_add">Как мне достичь больших чисел?</string>
@@ -66,7 +66,7 @@
     <string name="help_play_answer">Ваша цель - достигнуть числа 2048. Объединяйте квадраты с одинаковыми значениями, чтобы повышать максимальное число на поле. Более подробное объяснение можно найти в туториале.</string>
     <string name="help_undo_answer">Можно отменить последний сделанный сдвиг. Для этого нажмите на кнопку со стрелкой, направленной против хода движения часов.</string>
     <string name="help_permission">Какие разрешения требуются приложению?</string>
-    <string name="okay">Ладно</string>
+    <string name="okay">Хорошо</string>
     <string name="help_permission_answer">Это приложение не требует никаких разрешений.</string>
     <string name="about_author_names">Саския Якоб и Джулиан Вадефул</string>
     <string name="about_author_contributors">и другие участники.</string>
