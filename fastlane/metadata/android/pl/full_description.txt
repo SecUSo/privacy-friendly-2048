@@ -1,0 +1,27 @@
+Aplikacja na Androida Privacy Friendly 2048 to ekscytująca gra logiczna. Gra jest uważana za wygraną, jeśli osiągniesz liczbę 2048, przesuwając te same liczby razem.
+
+Funkcja statystyczna jest również częścią aplikacji. Umożliwia to uzyskanie informacji na przykład o wymaganej liczbie przesunięć i najwyższej uzyskanej liczbie punktów.
+
+Privacy Friendly 2048 ma cztery różne tryby gry:
+
+klasyczny: 4x4
+duży: 5x5
+większy: 6x6
+ogromny: 7x7
+
+Generator w tle losowo wyświetla jedną liczbę na rundę (2 lub 4). Za pomocą tych liczb można stopniowo osiągnąć liczbę 2048, a nawet wyższe potęgi dwójki. Aby uzyskać pomoc i wskazówki, zajrzyj na tę stronę internetową.
+
+Ta aplikacja oferuje również możliwość zapisania gry w odpowiednim trybie, co pozwala łącznie na cztery zapisane gry. W tej aplikacji zaimplementowano również cofanie ruchu. Dodatkowo podsumowanie ich wydajności w różnych trybach można znaleźć w funkcji statystycznej.
+
+Nasza aplikacja Privacy Friendly różni się od innych, podobnych aplikacji pod dwoma względami:
+
+1. Brak uprawnień:
+Aplikacja Privacy Friendly 2048 nie używa żadnych uprawnień
+2. Brak reklam:
+Wiele innych darmowych aplikacji w sklepie Google Play olśniewa irytującymi reklamami, które również skracają żywotność baterii.
+
+Skontaktuj się z nami za pośrednictwem:
+Twitter - @SECUSOResearch https://twitter.com/secusoresearch
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
+Oferta pracy - https://secuso.aifb.kit.edu/english/Job_Offers_1557.php
+Polska wersja: tomix86
