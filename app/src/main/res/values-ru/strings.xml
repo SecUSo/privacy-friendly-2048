@@ -17,7 +17,7 @@
     <string name="help_tip_answer">Есть несколько выигрышных стратегий. Поищите их на YouTube.</string>
     <string name="help_privacy">Что делает это приложение конфиденциальным?</string>
     <string name="help_privacy_answer">Эта игра не требует для работы никаких разрешений, не имеет встроенных механизмов отслеживания и не показывает рекламу.</string>
-    <string name="about">О приложении</string>
+    <string name="about">О программе</string>
     <string name="version">Версия:</string>
     <string name="version_number">в. %s</string>
     <string name="about_author">Авторы：</string>
@@ -59,7 +59,7 @@
     <string name="action_about">О приложении</string>
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
-    <string name="help">Справка</string>
+    <string name="help">Помощь</string>
     <string name="help_whatis">Что за игра 2048 (PFA)?</string>
     <string name="help_play_how_answer">Двигайте пальцем по экрану в нужном направлении. Если числа могут двигаться, они сдвинутся.</string>
     <string name="help_whatis_answer">2048 без слежки - особая вариация известной игры 2048, которая не посягает на вашу конфиденциальность. В ней есть все функции, которые вы ожидаете от такой игры, но нет сбора данных о пользователе.</string>
