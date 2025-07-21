@@ -13,7 +13,7 @@ android {
         targetSdkVersion 34
         compileSdk 34
         versionCode 100
-        versionName "1.4.1"
+        versionName "1.4.2"
     }
     buildTypes {
         release {
