@@ -110,7 +110,7 @@ public class SettingsActivity extends BaseActivity implements SharedPreferences.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        super.mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
         setContentView(R.layout.activity_settings);
 
         //setupActionBar();
