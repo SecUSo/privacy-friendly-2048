@@ -35,6 +35,7 @@ class PF2048 : PFApplication() {
     override val database: BackupDatabaseConfig
         get() = SQLiteHelperConfig(this, PFASQLiteHelper.DATABASE_NAME)
 
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
+    override fun getWorkManagerConfiguration(): Configuration {
+        return Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
+    }
 }
