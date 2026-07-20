@@ -18,7 +18,6 @@
 package org.secuso.privacyfriendly2048.activities
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -29,10 +28,12 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import org.secuso.pfacore.model.dialog.AbortElseDialog
+import org.secuso.pfacore.ui.dialog.show
 import org.secuso.privacyfriendly2048.PFApplicationData
 import org.secuso.privacyfriendly2048.R
 import org.secuso.privacyfriendly2048.activities.adapter.Grid2048Adapter
@@ -61,7 +62,7 @@ import org.secuso.privacyfriendly2048.model.GameState
  * @author Patrick Schneider
  * @version 20241107
  */
-class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
+class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity(false) {
     val viewModel: GameViewModel by viewModels { GameViewModel.GameViewModelFactory(
         filesDir,
         Game2048.GameConfig(
@@ -173,30 +174,33 @@ class GameActivity: org.secuso.pfacore.ui.activities.BaseActivity() {
         if (!gameWon && viewModel.state == GameState.WON) {
             gameWon = true
             viewModel.stop()
-            AlertDialog.Builder(this)
-                .setTitle((this.resources.getString(R.string.Titel_V_Message)))
-                .setMessage((this.resources.getString(R.string.Winning_Message)))
-                .setNegativeButton((this.resources.getString(R.string.No_Message))) { dialog, which -> onBackPressed() }
-                .setPositiveButton((this.resources.getString(R.string.Yes_Message))) { dialog, which -> }
-                .setCancelable(false)
-                .create().show()
+            AbortElseDialog.build(this) {
+                title = { ContextCompat.getString(this@GameActivity, (R.string.Titel_V_Message)) }
+                content = { ContextCompat.getString(this@GameActivity, R.string.Winning_Message) }
+                abortLabel = ContextCompat.getString(this@GameActivity, R.string.No_Message)
+                acceptLabel = ContextCompat.getString(this@GameActivity, R.string.Yes_Message)
+                handleDismiss = true
+                onAbort = { onBackPressed() }
+            }.show()
         } else if (viewModel.state == GameState.LOST) {
             viewModel.stop()
-            AlertDialog.Builder(this)
-                .setTitle((this.resources.getString(R.string.Titel_L_Message, viewModel.points)))
-                .setMessage(this.resources.getString(R.string.Lost_Message, viewModel.points))
-                .setNegativeButton((this.resources.getString(R.string.No_Message))) { dialog, which ->
+            AbortElseDialog.build(this) {
+                title = { resources.getString(R.string.Titel_L_Message, viewModel.points) }
+                content = { resources.getString(R.string.Lost_Message, viewModel.points) }
+                abortLabel = ContextCompat.getString(this@GameActivity, R.string.No_Message)
+                acceptLabel = ContextCompat.getString(this@GameActivity, R.string.Yes_Message)
+                handleDismiss = true
+                onAbort = {
                     viewModel.reset()
                     intent.putExtra("new", true)
                     finish()
                     this@GameActivity.onBackPressed()
                 }
-                .setPositiveButton((this.resources.getString(R.string.Yes_Message))) { _, _ ->
-                    startActivity(Intent(this, GameActivity::class.java))
+                onElse = {
+                    startActivity(Intent(this@GameActivity, GameActivity::class.java))
                     finish()
                 }
-                .setCancelable(false)
-                .create().show()
+            }.show()
         }
         return false
     }

@@ -32,6 +32,7 @@
             android:exported="true"
             android:name=".activities.GameActivity"
             android:label="@string/title_activity_game"
+            android:theme="@style/PrivacyFriendlyCoreTheme"
             android:parentActivityName=".activities.MainActivity">
             <intent-filter>
                 <action android:name="com.samsung.android.support.REMOTE_ACTION" />
