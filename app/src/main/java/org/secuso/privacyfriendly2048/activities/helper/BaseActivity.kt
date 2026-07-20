@@ -35,14 +35,6 @@ import org.secuso.privacyfriendly2048.activities.StatsActivity
  */
 abstract class BaseActivity : DrawerActivity() {
 
-    override fun setContentView(layoutResID: Int) {
-        super.setContent(layoutResID)
-    }
-
-    override fun setContentView(view: View?) {
-        super.setContent(view!!)
-    }
-
     override fun drawer() = DrawerMenu.build {
         name = getString(R.string.app_name_long)
         icon = R.mipmap.ic_logo

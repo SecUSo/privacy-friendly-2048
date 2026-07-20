@@ -13,8 +13,10 @@ import org.secuso.pfacore.ui.preferences.appPreferences
 import org.secuso.pfacore.ui.preferences.settings.appearance
 import org.secuso.pfacore.ui.preferences.settings.general
 import org.secuso.pfacore.ui.preferences.settings.preferenceFirstTimeLaunch
+import org.secuso.pfacore.ui.preferences.settings.radio
 import org.secuso.pfacore.ui.preferences.settings.settingDeviceInformationOnErrorReport
 import org.secuso.pfacore.ui.preferences.settings.settingThemeSelector
+import org.secuso.pfacore.ui.preferences.settings.switch
 import org.secuso.pfacore.ui.tutorial.buildTutorial
 
 class PFApplicationData private constructor(context: Context) {
@@ -117,22 +119,22 @@ class PFApplicationData private constructor(context: Context) {
     private val tutorial = buildTutorial {
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel)
-            images = listOf(R.mipmap.ic_splash)
+            images = single(R.mipmap.ic_splash)
             description = ContextCompat.getString(context, R.string.Tutorial_Instruction)
         }
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel_Move)
-            images = if (prefColorScheme.value == "1") { listOf(R.drawable.tutorial_move_s) } else { listOf(R.drawable.tutorial_move_o) }
+            images = if (prefColorScheme.value == "1") { single(R.drawable.tutorial_move_s) } else { single(R.drawable.tutorial_move_o) }
             description = ContextCompat.getString(context, R.string.Tutorial_Move)
         }
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel_Move)
-            images = if (prefColorScheme.value == "1") { listOf(R.drawable.tutorial_swipe_s) } else { listOf(R.drawable.tutorial_swipe_o) }
+            images = if (prefColorScheme.value == "1") { single(R.drawable.tutorial_swipe_s) } else { single(R.drawable.tutorial_swipe_o) }
             description = ContextCompat.getString(context, R.string.Tutorial_Move)
         }
         stage {
             title = ContextCompat.getString(context, R.string.Tutorial_Titel_Add)
-            images = if (prefColorScheme.value == "1") { listOf(R.drawable.tutorial_add_s) } else { listOf(R.drawable.tutorial_add_o) }
+            images = if (prefColorScheme.value == "1") { single(R.drawable.tutorial_add_s) } else { single(R.drawable.tutorial_add_o) }
             description = ContextCompat.getString(context, R.string.Tutorial_Add)
         }
     }
@@ -140,7 +142,7 @@ class PFApplicationData private constructor(context: Context) {
     val data = PFData(
         about = about,
         help = help,
-        settings = preferences.settings,
+        preferences = preferences,
         tutorial = tutorial,
         theme = theme.state.map { Theme.valueOf(it) },
         firstLaunch = firstTimeLaunch,

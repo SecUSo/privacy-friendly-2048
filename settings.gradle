@@ -1,2 +1,26 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
+}
+
 include ':app'
-includeBuild("libs/pfa-core")
+
+// This allows us to simplify the dependency management across apps by using fixed versions via a version catalog.
+dependencyResolutionManagement {
+    versionCatalogs {
+        // If the selected gradle version does support the libs { } syntax
+        libs {
+            from(files("libs/pfa-core/libs.versions.toml"))
+        }
+    }
+}
+include ':model'
+project(':model').projectDir = new File(rootDir, 'libs/pfa-core/model/')
+// For view-based app
+include ':ui-view'
+project(':ui-view').projectDir = new File(rootDir, 'libs/pfa-core/ui-view/')
+include ':backup-api'
+project(':backup-api').projectDir = new File('libs/pfa-core/libs/privacy-friendly-backup-api/BackupAPI')
