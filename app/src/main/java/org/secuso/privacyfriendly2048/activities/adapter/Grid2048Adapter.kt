@@ -9,23 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import org.secuso.privacyfriendly2048.R
 import org.secuso.privacyfriendly2048.activities.helper.GridRecyclerView
 import org.secuso.privacyfriendly2048.helpers.GetColorRes
 import org.secuso.privacyfriendly2048.model.GameBoard
+import kotlin.time.Duration.Companion.milliseconds
 
 class Grid2048Adapter(
     val context: Context,
     val layoutInflater: LayoutInflater,
     val recyclerView: GridRecyclerView,
     private var grid: Array<Array<Int>>,
-    private val animationFinished: () -> Unit
 ): RecyclerView.Adapter<Grid2048Adapter.GridCellViewHolder>() {
     private val size = grid.size
 
     private fun Pair<Int, Int>.linear() = first * size + second
+    private fun Int.gridIndex() = this / size to this % size
 
     private fun notifyItemSwapped(source: Pair<Int, Int>, target: Pair<Int, Int>) {
         notifyItemMoved(source.linear(), target.linear())
@@ -37,6 +37,21 @@ class Grid2048Adapter(
     }
 
     suspend fun updateGrid(grid: Array<Array<Int>>, events: List<GameBoard.BoardChangeEvent>) {
+
+        // End all animations which are currently running.
+        // This only happens it the user swipes faster than the animation time,
+        // but we do not want to block the user from further interactions.
+        // We rather stop all animations, ensure that the state is correct again and then proceed normally.
+        if (recyclerView.itemAnimator != null) {
+            recyclerView.itemAnimator?.endAnimations()
+            for (i in 0 until recyclerView.childCount) {
+                val child = recyclerView.getChildAt(i)
+                child.animate().cancel()
+                child.alpha = 1f
+                val index = i.gridIndex()
+            }
+        }
+
         this.grid = grid
         for (event in events) {
             when (event) {
@@ -70,20 +85,15 @@ class Grid2048Adapter(
                     notifyItemChanged(event.source.linear())
                 }
                 is GameBoard.BoardChangeEvent.SpawnEvent -> {
-                    if (recyclerView.itemAnimator != null) {
-                        coroutineScope {
-                            // Delay new items being spawned to reduce weird animation overlap
-                            delay(GridRecyclerView.MOVE_DURATION)
-                            notifyItemChanged(event.source.linear())
-                            // Wait for the change animation to finish to prevent ghost images appearing due to race conditions
-                            delay(GridRecyclerView.CHANGE_DURATION)
-                            animationFinished()
-                        }
-                    } else {
-                        notifyItemChanged(event.source.linear())
-                        animationFinished()
-                    }
+                    // we do not handle the spawn events now, but rather wait until the moves/merges are finished.
+                    // This ensures that there are no weird visual glitches due to overlapping animations.
                 }
+            }
+        }
+        delay(GridRecyclerView.MAX_DELAY.milliseconds)
+        for (event in events) {
+            if (event is GameBoard.BoardChangeEvent.SpawnEvent) {
+                notifyItemChanged(event.source.linear())
             }
         }
     }

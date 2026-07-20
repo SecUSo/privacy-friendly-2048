@@ -4,13 +4,15 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.max
 
 class GridRecyclerView(context: Context, attr: AttributeSet?, defStyleAttr: Int): RecyclerView(context, attr, defStyleAttr) {
 
     companion object {
-        val MOVE_DURATION = 100L
-        val MERGE_DURATION = 100L
-        val CHANGE_DURATION = 1000L
+        val MOVE_DURATION = 75L
+        val MERGE_DURATION = 75L
+        val CHANGE_DURATION = 100L // Changed from 1000L
+        val MAX_DELAY = max(max(MOVE_DURATION, MERGE_DURATION), CHANGE_DURATION) + 25
     }
 
     constructor(context: Context) : this(context, null, 0)
