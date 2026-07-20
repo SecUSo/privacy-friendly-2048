@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'com.google.devtools.ksp'
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -12,19 +12,36 @@ android {
         minSdkVersion 21
         targetSdkVersion 34
         compileSdk 34
-        versionCode 9
-        versionName "1.4.1"
+        versionCode 8
+        versionName "1.4.0"
+        multiDexEnabled = true
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            postprocessing {
+                removeUnusedCode true
+                shrinkResources true
+                obfuscate false
+                optimizeCode true
+            }
         }
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+
+        // when using ui-view
+        dataBinding true
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -54,28 +71,23 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    coreLibraryDesugaring libs.desugar.jdk
+    implementation libs.ax.constraintlayout
+    testImplementation libs.junit
+    implementation libs.ax.appcompat
+    implementation libs.material
+    implementation libs.ax.legacy.v4
+    implementation libs.ax.activity.ktx
+    implementation libs.glide
+    annotationProcessor libs.glide.compiler
+
+    // pfa-core library
+    implementation(project(":model"))
+    implementation(project(":ui-view"))
 
     // Backup
-    implementation project(path: ':backup-api')
-    def work_version = "2.9.1"
-    implementation "androidx.work:work-runtime:$work_version"
-    implementation "androidx.work:work-runtime-ktx:$work_version"
-    androidTestImplementation "androidx.work:work-testing:$work_version"
-    implementation 'androidx.sqlite:sqlite-ktx:2.4.0'
-
-    constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
-            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
-        }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
-            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
-        }
-    }
+    implementation libs.ax.work.runtime
+    implementation libs.ax.work.runtime.ktx
+    androidTestImplementation libs.ax.work.testing
+    implementation libs.ax.sqlite.ktx
 }

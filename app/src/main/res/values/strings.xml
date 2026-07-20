@@ -54,19 +54,14 @@
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Karlsruhe Institute of Technology (KIT). Sourcecode licensed under GPLv3. Images copyright KIT and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
-    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-2048">Github-Repo</a></string>
+    <string name="github" translatable="false">https://github.com/SecUSo/privacy-friendly-2048</string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
     <!-- ###SETTINGS### -->
     <string name="settings_name">Settings</string>
-    <string name="settings_animation">Activate Animation</string>
     <string name="settings_display">Activate Screen Lock</string>
     <string name="settings_color">Select Color Scheme</string>
-    <string name="settings_color_system">System</string>
-    <string name="settings_color_light">Light</string>
-    <string name="settings_color_dark">Dark</string>
-    <string name="settings_color_scheme_default">Default</string>
-    <string name="settings_color_scheme_original">Original</string>
+
 
     <!-- ### CHOOSE DIALOG ### -->
     <string name="new_Game_Button">Start New Game</string>
@@ -104,11 +99,21 @@
     <string name="Stat_Time_Swipes">Time per Swipe</string>
     <string name="reset_stats">Reset Statistics</string>
 
+    <string name="settings_category_appearance">Appearance</string>
+    <string name="settings_animation_title">Activate Animation</string>
+    <string name="settings_animation_summary">Blocks will move and merge instantaneous if deactivated.</string>
+    <string name="settings_category_report">Error Report</string>
+
     <!-- ###AIR ACTIONS### -->
     <string name="swipe_up">Swipe Up</string>
     <string name="swipe_down">Swipe Down</string>
     <string name="swipe_left">Swipe Left</string>
     <string name="swipe_right">Swipe Right</string>
     <string name="undo">Undo</string>
+    <string name="settings_color_scheme_default">Standard</string>
+    <string name="settings_color_scheme_original">Original</string>
+    <string name="settings_animation">Activate Animation</string>
+    <string name="settings_multiple_undo_summary">Activate if you want to use the undo feature multiple times in a row</string>
+    <string name="settings_multiple_undo_title">Multiple undos</string>
 
 </resources>

@@ -5,11 +5,9 @@ buildscript {
         mavenCentral()
         google()
     }
-
-    ext.kotlin_version = "2.0.21"
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath libs.agp
+        classpath libs.agp.kotlin
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,13 +15,23 @@ buildscript {
 }
 
 plugins {
-    id 'com.google.devtools.ksp' version "$kotlin_version-1.0.25" apply false
+    alias libs.plugins.android.app apply false
+    alias libs.plugins.android.lib apply false
+    alias libs.plugins.kotlin.android apply false
+    alias libs.plugins.kotlin.kapt apply false
+    alias libs.plugins.ksp apply false
+    alias libs.plugins.ktx.serialization apply false
 }
 
 allprojects {
     repositories {
         mavenCentral()
         google()
+    }
+    configurations.configureEach {
+        resolutionStrategy.dependencySubstitution {
+            substitute module("org.secuso.pfacore:model") using project(":model")
+        }
     }
 }
 
