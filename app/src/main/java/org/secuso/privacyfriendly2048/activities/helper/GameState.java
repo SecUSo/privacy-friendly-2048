@@ -23,18 +23,25 @@ package org.secuso.privacyfriendly2048.activities.helper;
 import org.secuso.privacyfriendly2048.activities.Element;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180807
  */
 public class GameState implements Serializable {
+    // Fixed to the UID of the pre-undo-history class so older save files still load
+    private static final long serialVersionUID = 4417047672509562656L;
+
     public int n = 4;
     public int[] numbers;
     public int[] last_numbers;
     public int points = 0;
     public int last_points = 0;
     public boolean undo = false;
+    // undo history, oldest first; null when loaded from a save file written before multi-step undo
+    public ArrayList<int[]> undoNumbers = new ArrayList<>();
+    public ArrayList<Integer> undoPoints = new ArrayList<>();
 
     public GameState(int size) {
         numbers = new int[size * size];
@@ -83,6 +90,20 @@ public class GameState implements Serializable {
             for (int j = 0; j < e2[i].length; j++) {
 
                 last_numbers[c++] = e2[i][j].number;
+            }
+        }
+    }
+
+    /**
+     * Makes sure the undo history exists, migrating the single undo step of older save files.
+     */
+    public void ensureHistory() {
+        if (undoNumbers == null || undoPoints == null) {
+            undoNumbers = new ArrayList<>();
+            undoPoints = new ArrayList<>();
+            if (undo && last_numbers != null) {
+                undoNumbers.add(last_numbers);
+                undoPoints.add(last_points);
             }
         }
     }

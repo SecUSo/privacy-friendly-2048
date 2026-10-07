@@ -32,7 +32,7 @@
     <string name="help_play_add">How do I reach higher numbers?</string>
     <string name="help_play_add_answer">If two equal numbers are pushed into each other, they add up to the next higher power of two.</string>
     <string name="help_undo">Is it possible to undo steps?</string>
-    <string name="help_undo_answer">The app gives you the option to undo your last step in the game. You have to click on the button with the arrow against clockwise direction.</string>
+    <string name="help_undo_answer">The app gives you the option to undo up to your last 10 steps in the game. Click the button with the counterclockwise arrow once for each step you want to undo.</string>
     <string name="help_tip">How to beat the game?</string>
     <string name="help_tip_answer">There are a few strategies to win this game. On YouTube you can find a lot of videos which are covering this topic.</string>
     <string name="help_privacy">What makes the app privacy friendly?</string>

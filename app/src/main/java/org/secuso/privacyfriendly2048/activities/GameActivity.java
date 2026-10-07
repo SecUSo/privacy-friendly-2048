@@ -53,7 +53,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  * This activity contains the entire game and draws the game field depending on the selected mode and the screen size.
@@ -78,7 +81,9 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public TextView textFieldRecord;
     public int numberFieldSize = 0;
     static Element[][] elements = null;
-    static Element[][] last_elements = null;
+    // undo history, newest first
+    static ArrayDeque<int[]> undoNumbers = new ArrayDeque<>();
+    static ArrayDeque<Integer> undoPoints = new ArrayDeque<>();
     static Element[][] backgroundElements;
     static GameState gameState = null;
 
@@ -88,7 +93,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     ImageButton restartButton;
     ImageButton undoButton;
     public static int points = 0;
-    public static int last_points = 0;
     public static long record = 0;
 
     public static long ADDINGSPEED = 100;
@@ -103,6 +107,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public static boolean gameOver = false;
     public static boolean createNewGame = true;
     public static boolean undo = false;
+    public static final int MAX_UNDO_STEPS = 10;
     public static boolean animationActivated = true;
     public static boolean saveState = true;
 
@@ -166,14 +171,19 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
     }
     private void handleUndo() {
-        undoButton.setVisibility(View.INVISIBLE);
-        if (undo && last_elements != null) {
+        if (!undoNumbers.isEmpty()) {
+            int[] last_numbers = undoNumbers.pop();
             gameStatistics.undo();
-            elements = last_elements;
-            points = last_points;
+            Element[][] restored = deepCopy(elements);
+            for (int i = 0; i < restored.length; i++) {
+                for (int j = 0; j < restored[i].length; j++) {
+                    restored[i][j].setNumber(last_numbers[i * n + j]);
+                }
+            }
+            elements = restored;
+            points = undoPoints.pop();
             number_field.removeAllViews();
             //number_field_background.removeAllViews();
-            points = last_points;
             textFieldPoints.setText("" + points);
             setDPositions(false);
             for (Element[] i : elements) {
@@ -189,11 +199,36 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                     backgroundElements[i][j].setOnTouchListener(swipeListener);
                 }
             }
+            updateUndoButton();
             updateGameState();
             drawAllElements(elements);
             number_field.refreshDrawableState();
         }
-        undo = false;
+    }
+
+    private void pushUndo(int[] numbers, int pts) {
+        undoNumbers.push(numbers);
+        undoPoints.push(pts);
+        while (undoNumbers.size() > MAX_UNDO_STEPS) {
+            undoNumbers.pollLast();
+            undoPoints.pollLast();
+        }
+        updateUndoButton();
+    }
+
+    private void updateUndoButton() {
+        undo = !undoNumbers.isEmpty();
+        undoButton.setVisibility(undo ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private int[] toNumbers(Element[][] e) {
+        int[] result = new int[n * n];
+        for (int i = 0; i < e.length; i++) {
+            for (int j = 0; j < e[i].length; j++) {
+                result[i * n + j] = e[i][j].number;
+            }
+        }
+        return result;
     }
     public void initResources() {
         number_field = (RelativeLayout) findViewById(R.id.number_field);
@@ -285,17 +320,25 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         n = intent.getIntExtra("n", 4);
         newGame = intent.getBooleanExtra("new", true);
         filename = intent.getStringExtra("filename");
-        undo = intent.getBooleanExtra("undo", false);
+        undoNumbers.clear();
+        undoPoints.clear();
         if (!newGame) {
             gameState = readStateFromFile();
             points = gameState.points;
-            last_points = gameState.last_points;
+            gameState.ensureHistory();
+            // stored oldest first, the deques are newest first
+            for (int i = 0; i < gameState.undoNumbers.size() && i < gameState.undoPoints.size(); i++) {
+                if (gameState.undoNumbers.get(i).length == n * n) {
+                    undoNumbers.push(gameState.undoNumbers.get(i));
+                    undoPoints.push(gameState.undoPoints.get(i));
+                }
+            }
         } else {
             gameState = new GameState(n);
             newGame = true;
         }
+        undo = !undoNumbers.isEmpty();
         elements = new Element[n][n];
-        last_elements = new Element[n][n];
         backgroundElements = new Element[n][n];
         saveState = true;
 
@@ -311,10 +354,22 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     public void updateGameState() {
-        gameState = new GameState(elements, last_elements);
+        gameState = new GameState(elements, elements);
         gameState.n = n;
         gameState.points = points;
-        gameState.last_points = last_points;
+        gameState.undoNumbers = new ArrayList<>();
+        gameState.undoPoints = new ArrayList<>();
+        Iterator<int[]> numbersIt = undoNumbers.descendingIterator();
+        Iterator<Integer> pointsIt = undoPoints.descendingIterator();
+        while (numbersIt.hasNext() && pointsIt.hasNext()) {
+            gameState.undoNumbers.add(numbersIt.next());
+            gameState.undoPoints.add(pointsIt.next());
+        }
+        // keep the single-step fields filled for compatibility with older versions
+        if (!undoNumbers.isEmpty()) {
+            gameState.last_numbers = undoNumbers.peekFirst();
+            gameState.last_points = undoPoints.peekFirst();
+        }
         gameState.undo = undo;
         updateHighestNumber();
         check2048();
@@ -329,7 +384,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         gameStatistics = readStatisticsFromFile();
         record = gameStatistics.getRecord();
-        last_points = gameState.last_points;
         createNewGame = false;
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -341,10 +395,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         textFieldRecord.setText("" + record);
         textFieldPoints.setText("" + points);
-        if (undo)
-            undoButton.setVisibility(View.VISIBLE);
-        else
-            undoButton.setVisibility(View.INVISIBLE);
+        updateUndoButton();
 
         number_field_background.removeAllViews();
         number_field.removeAllViews();
@@ -371,14 +422,6 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 elements[i][j].setOnTouchListener(swipeListener);
                 number_field_background.addView(backgroundElements[i][j]);
                 number_field.addView(elements[i][j]);
-            }
-        }
-        last_elements = deepCopy(elements);
-        if (undo) {
-            for (int i = 0; i < elements.length; i++) {
-                for (int j = 0; j < elements[i].length; j++) {
-                    last_elements[i][j].setNumber(gameState.getLastNumber(i, j));
-                }
             }
         }
         if (newGame) {
@@ -413,7 +456,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     private boolean handleSwipeTop() {
-        Element[][] temp = deepCopy(elements);
+        int[] temp = toNumbers(elements);
         int temp_points = points;
         moved = false;
         Element s = new Element(myActivity);
@@ -478,10 +521,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         if (moved) {
             gameStatistics.addMoves(1);
-            last_points = temp_points;
-            last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
-            undo = true;
+            pushUndo(temp, temp_points);
         }
         if (moved)
             gameStatistics.moveT();
@@ -493,7 +533,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     private boolean handleSwipeRight() {
-        Element[][] temp = deepCopy(elements);
+        int[] temp = toNumbers(elements);
         int temp_points = points;
         moved = false;
         Element s = new Element(myActivity);
@@ -560,10 +600,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         if (moved) {
             gameStatistics.addMoves(1);
-            last_points = temp_points;
-            last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
-            undo = true;
+            pushUndo(temp, temp_points);
         }
         if (moved)
             gameStatistics.moveR();
@@ -576,7 +613,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     private boolean handleSwipeLeft() {
-        Element[][] temp = deepCopy(elements);
+        int[] temp = toNumbers(elements);
         int temp_points = points;
         moved = false;
         Element s = new Element(myActivity);
@@ -642,10 +679,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         if (moved) {
             gameStatistics.addMoves(1);
-            last_points = temp_points;
-            last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
-            undo = true;
+            pushUndo(temp, temp_points);
         }
         if (moved)
             gameStatistics.moveL();
@@ -657,7 +691,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     }
 
     private boolean handleSwipeBottom() {
-        Element[][] temp = deepCopy(elements);
+        int[] temp = toNumbers(elements);
         int temp_points = points;
         moved = false;
         Element s = new Element(myActivity);
@@ -723,10 +757,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         }
         if (moved) {
             gameStatistics.addMoves(1);
-            last_points = temp_points;
-            last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
-            undo = true;
+            pushUndo(temp, temp_points);
         }
         if (moved)
             gameStatistics.moveD();
