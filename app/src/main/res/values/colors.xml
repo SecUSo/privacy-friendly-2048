@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#024265</color>
-    <color name="colorPrimaryDark">#024265</color>
-    <color name="colorAccent">#0274B2</color>
+    <!-- Forest green theme -->
+    <color name="colorPrimary">#2E6B47</color>
+    <color name="colorPrimaryDark">#24573A</color>
+    <color name="colorAccent">#3F8A4E</color>
+    <color name="colorPrimaryPressed">#24573A</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="middlegrey">#A8A8A8</color>
     <color name="yellow">#f6d126</color>
 
-    <!-- own definded colors -->
-    <color name="button_empty">#E6E6E6</color>
-    <color name="button2">#B7C6F1</color>
-    <color name="button4">#8aa5ce</color>
-    <color name="button8">#5D84AB</color>
-    <color name="button16">#0274B2</color>
-    <color name="button32">#2F6388</color>
-    <color name="button64">#024265</color>
-    <color name="button128">#020232</color>
-    <color name="button256">#3C3C3C</color>
-    <color name="button512">#646464</color>
-    <color name="button1024">#A8A8A8</color>
-    <color name="button2048">#C8C8C8</color>
-    <color name="button4096">#FFFFFF</color>
-    <color name="button8192">#C8E6FF</color>
-    <color name="button16384">#96B4FF</color>
-    <color name="button32768">#6482FF</color>
+    <!-- own definded colors: forest green scheme (default) -->
+    <color name="button_empty">#E3ECDF</color>
+    <color name="button2">#EDF3E6</color>
+    <color name="button4">#D8E9C8</color>
+    <color name="button8">#B3D898</color>
+    <color name="button16">#8DC27B</color>
+    <color name="button32">#5C9E5A</color>
+    <color name="button64">#3F8A4E</color>
+    <color name="button128">#2D7043</color>
+    <color name="button256">#225C38</color>
+    <color name="button512">#1A4A2E</color>
+    <color name="button1024">#123A24</color>
+    <color name="button2048">#B8860B</color>
+    <color name="button4096">#8E5F2C</color>
+    <color name="button8192">#6E4524</color>
+    <color name="button16384">#4C2F19</color>
+    <color name="button32768">#2C1C10</color>
+
+    <!-- tile text on light tiles -->
+    <color name="forest_text_light_tile">#35503C</color>
+    <color name="forest_text_mid_tile">#24432C</color>
+    <color name="forest_text_16">#1E3B24</color>
+
+    <!-- surfaces (overridden in values-night) -->
+    <color name="game_background">#F4F7F1</color>
+    <color name="board_background">#CEDDCA</color>
+    <color name="title_text">#2E6B47</color>
+    <color name="secondary_text">#5B6F60</color>
 
     <!-- own definded colors 2 -->
     <color name="button_empty_2">#A8A8A8</color>
@@ -46,9 +59,9 @@
 
 
     <!-- dots inactive colors -->
-    <color name="dot_dark_screen">#026499</color>
+    <color name="dot_dark_screen">#2D7043</color>
 
     <!-- dots active colors -->
-    <color name="dot_light_screen">#79bfe6</color>
+    <color name="dot_light_screen">#B3D898</color>
 
 </resources>

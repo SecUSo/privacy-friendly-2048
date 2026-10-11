@@ -5,6 +5,7 @@
 	</declare-styleable>
     <attr name="buttonEmpty" format="color"/>
     <attr name="buttonEmptyText" format="color"/>
+    <attr name="boardBackground" format="color"/>
 
     <attr name="button2" format="color"/>
     <attr name="button2Text" format="color"/>

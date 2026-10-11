@@ -19,31 +19,27 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
-import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorInt;
-import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorRes;
-
-import android.annotation.SuppressLint;
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.util.TypedValue;
+import android.graphics.Canvas;
 import android.view.View;
 
-import org.secuso.privacyfriendly2048.R;
-
 /**
- * This class extends the android.support.v7.widget.AppCompatButton class and represents a box on the game field.
- * This element contains different features like the presented value (number) and the position of this value in the playing field (posX, posY).
- * Because of the animation a distinction is made between the calculated value and the displayed value.
- * Furthermore there are more features like the color of the box and the font size of the value.
+ * One tile on the game field.
+ * <p>
+ * The game logic works on {@link #number} (the value the tile has after the current move), while
+ * the screen shows {@link #dNumber} until the tile's animation reaches the point where the new value
+ * should appear. {@link #dPosX}/{@link #dPosY} is where the tile belongs; the view is placed there
+ * with its X/Y translation, so moving a tile never triggers a layout pass.
+ * <p>
+ * It is a plain View that draws a rounded rectangle and a pre-laid-out label from {@link TileStyle}.
+ * Changing the value only re-records two draw operations; sliding, popping and fading only change
+ * RenderNode properties and redraw nothing.
  *
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180910
  */
-
-public class Element extends androidx.appcompat.widget.AppCompatButton {
+public class Element extends View {
     public int number = 0;
     public int dNumber = 0;
     public int posX = 0;
@@ -52,116 +48,67 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
     public int dPosY = 0;
     public boolean activated;
     public boolean animateMoving = false;
-    Context context;
-    int color;
 
+    private final TileStyle style;
+    private int shown = 0;
 
-    @SuppressLint("RestrictedApi")
-    public Element(Context c) {
+    // ---- animation state, managed by TileAnimations ----
+    /** Tile this one is being absorbed by in the current move, or null. */
+    Element victimOf;
+    /** Value to show while being absorbed, if the tile was itself still merging when absorbed. */
+    int victimShow;
+    /** A spawn is scheduled but has not appeared yet: keep the tile hidden until then. */
+    boolean spawnPending;
+    /** The tile still has to jump to its slot (it is an emptied or absorbed tile). */
+    boolean jumpPending;
+    /** Called when this tile lands on a tile it merges with. */
+    Runnable onMerge;
+
+    ValueAnimator moveAnimator;
+    ValueAnimator jumpAnimator;
+    ValueAnimator popAnimator;
+    ValueAnimator spawnAnimator;
+    boolean moveCancelled;
+    boolean jumpCancelled;
+    boolean moveMerge;
+    float moveTargetX;
+    float moveTargetY;
+    final TileAnimations.Spring springX = new TileAnimations.Spring();
+    final TileAnimations.Spring springY = new TileAnimations.Spring();
+
+    public Element(Context c, TileStyle style) {
         super(c);
-        context = c;
-        setAllCaps(false);
-        setBackgroundResource(R.drawable.game_brick);
-        setColor(GetColorRes(context, R.attr.buttonEmpty));
-        setMaxLines(1);
-        setAutoSizeTextTypeUniformWithConfiguration(1,
-                100,
-                1,
-                TypedValue.COMPLEX_UNIT_SP);
+        this.style = style;
+        setWillNotDraw(false);
+        setVisibility(View.INVISIBLE);
+        setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
     }
 
+    /** Shows the logical value (and hides the tile when it is empty). */
     public void drawItem() {
         dNumber = number;
         activated = (number != 0);
-        if (number == 0) {
-            setVisibility(View.INVISIBLE);
-            setText("");
-        } else {
-            setText("" + number);
-            if (getVisibility() != View.VISIBLE)
-                setVisibility(View.VISIBLE);
-        }
-
-        switch (number) {
-            case 0:
-                setColor(GetColorRes(context, R.attr.buttonEmpty));
-                setTextColor(GetColorInt(context, R.attr.buttonEmptyText));
-                break;
-            case 2:
-                setColor(GetColorRes(context, R.attr.button2));
-                setTextColor(GetColorInt(context, R.attr.button2Text));
-                break;
-            case 4:
-                setColor(GetColorRes(context, R.attr.button4));
-                setTextColor(GetColorInt(context, R.attr.button4Text));
-                break;
-            case 8:
-                setColor(GetColorRes(context, R.attr.button8));
-                setTextColor(GetColorInt(context, R.attr.button8Text));
-                break;
-            case 16:
-                setColor(GetColorRes(context, R.attr.button16));
-                setTextColor(GetColorInt(context, R.attr.button16Text));
-                break;
-            case 32:
-                setColor(GetColorRes(context, R.attr.button32));
-                setTextColor(GetColorInt(context, R.attr.button32Text));
-                break;
-            case 64:
-                setColor(GetColorRes(context, R.attr.button64));
-                setTextColor(GetColorInt(context, R.attr.button64Text));
-                break;
-            case 128:
-                setColor(GetColorRes(context, R.attr.button128));
-                setTextColor(GetColorInt(context, R.attr.button128Text));
-                break;
-            case 256:
-                setColor(GetColorRes(context, R.attr.button256));
-                setTextColor(GetColorInt(context, R.attr.button256Text));
-                break;
-            case 512:
-                setColor(GetColorRes(context, R.attr.button512));
-                setTextColor(GetColorInt(context, R.attr.button512Text));
-                break;
-            case 1024:
-                setColor(GetColorRes(context, R.attr.button1024));
-                setTextColor(GetColorInt(context, R.attr.button1024Text));
-                break;
-            case 2048:
-                setColor(GetColorRes(context, R.attr.button2048));
-                setTextColor(GetColorInt(context, R.attr.button2048Text));
-                break;
-            case 4096:
-                setColor(GetColorRes(context, R.attr.button4096));
-                setTextColor(GetColorInt(context, R.attr.button4096Text));
-                break;
-            case 8192:
-                setColor(GetColorRes(context, R.attr.button8192));
-                setTextColor(GetColorInt(context, R.attr.button8192Text));
-                break;
-            case 16384:
-                setColor(GetColorRes(context, R.attr.button16384));
-                setTextColor(GetColorInt(context, R.attr.button16384Text));
-                break;
-            case 32768:
-                setColor(GetColorRes(context, R.attr.button32768));
-                setTextColor(GetColorInt(context, R.attr.button32768Text));
-                break;
-        }
+        paint(number);
+        int visibility = number == 0 ? View.INVISIBLE : View.VISIBLE;
+        if (getVisibility() != visibility)
+            setVisibility(visibility);
     }
 
-    private void setColor(int c) {
-        color = c;
-        Drawable background = getBackground();
-        if (background instanceof ShapeDrawable) {
-            ((ShapeDrawable) background).getPaint().setColor(c);
-        } else if (background instanceof GradientDrawable) {
-            ((GradientDrawable) background).setColor(c);
-        } else if (background instanceof ColorDrawable) {
-            ((ColorDrawable) background).setColor(c);
-        }
+    /** Changes what the tile displays without touching its logical value or visibility. */
+    void paint(int value) {
+        if (value == shown)
+            return;
+        shown = value;
+        setContentDescription(value == 0 ? null : style.label(value));
+        invalidate();
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        style.drawTile(canvas, shown, getWidth(), getHeight());
+    }
+
+    @Override
     public String toString() {
         return "number: " + number;
     }
@@ -197,23 +144,5 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
 
     public int getPosY() {
         return posY;
-    }
-
-    public Element copy() {
-        Element temp = new Element(context);
-        temp.number = number;
-        temp.dNumber = dNumber;
-        temp.posX = posX;
-        temp.posY = posY;
-        temp.dPosX = dPosX;
-        temp.dPosY = dPosY;
-        temp.activated = activated;
-        temp.animateMoving = animateMoving;
-        temp.color = color;
-        //temp.setBackgroundResource(backGroundResource);
-        temp.setColor(color);
-        temp.setVisibility(getVisibility());
-        temp.setLayoutParams(getLayoutParams());
-        return temp;
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Forest green theme, dark surfaces -->
+    <color name="colorPrimary">#24573A</color>
+    <color name="colorPrimaryDark">#1B4530</color>
+    <color name="colorPrimaryPressed">#1B4530</color>
+    <color name="button_empty">#24302A</color>
+    <color name="game_background">#0F1612</color>
+    <color name="board_background">#18221C</color>
+    <color name="title_text">#8DC27B</color>
+    <color name="secondary_text">#9DB2A2</color>
+</resources>
