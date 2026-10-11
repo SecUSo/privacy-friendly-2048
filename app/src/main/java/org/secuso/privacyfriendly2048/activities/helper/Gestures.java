@@ -19,74 +19,92 @@
 
 package org.secuso.privacyfriendly2048.activities.helper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 /**
- * This class implements the Gestures Listener for swiping in the game
+ * Swipe recognition for the game field.
+ * <p>
+ * A swipe is recognised as soon as the finger has travelled far enough, while it is still on the
+ * screen, instead of waiting for the fling at the end of the gesture. Tiles start moving one
+ * gesture-length earlier and slow swipes work too. The threshold is in dp, so it feels the same on
+ * every screen density (it used to be 50 px). One gesture triggers at most one move.
  *
  * @author Julian Wadephul and Saskia Jacob
  * @version 20180807
  */
 public class Gestures implements View.OnTouchListener {
 
-    private GestureDetector gestureDetector = null;
-    private Context cxt = null;
+    private final float threshold;
+    private float downX;
+    private float downY;
+    private boolean tracking = false;
+    private boolean handled = false;
+    private int pointerId = -1;
 
     public Gestures(Context context) {
-        gestureDetector = new GestureDetector(context, new GestureListener());
-        cxt = context;
+        float density = context.getResources().getDisplayMetrics().density;
+        int slop = ViewConfiguration.get(context).getScaledTouchSlop();
+        threshold = Math.max(2f * slop, 18f * density);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouch(View v, MotionEvent event) {
-        boolean res = gestureDetector.onTouchEvent(event);
-        return res;
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                pointerId = event.getPointerId(0);
+                downX = event.getX();
+                downY = event.getY();
+                tracking = true;
+                handled = false;
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                check(event);
+                return true;
+            case MotionEvent.ACTION_POINTER_UP:
+                if (event.getPointerId(event.getActionIndex()) == pointerId) {
+                    check(event);
+                    tracking = false;
+                }
+                return true;
+            case MotionEvent.ACTION_UP:
+                check(event);
+                if (tracking && !handled)
+                    nichts();
+                tracking = false;
+                return true;
+            case MotionEvent.ACTION_CANCEL:
+                tracking = false;
+                return true;
+            default:
+                return true;
+        }
     }
 
-    private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
-
-        private static final int SWIPE_THRESHOLD = 50;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 0;
-
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return true;
+    private void check(MotionEvent event) {
+        if (!tracking || handled)
+            return;
+        int index = event.findPointerIndex(pointerId);
+        if (index < 0)
+            return;
+        float dx = event.getX(index) - downX;
+        float dy = event.getY(index) - downY;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) >= threshold) {
+            handled = true;
+            dispatch(dx, dy);
         }
+    }
 
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-
-            boolean result = false;
-            try {
-                float diffY = e2.getY() - e1.getY();
-                float diffX = e2.getX() - e1.getX();
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffX > 0) {
-                            result = onSwipeRight();
-                        } else {
-                            result = onSwipeLeft();
-                        }
-                    } else {
-                        result = nichts();
-                    }
-                } else {
-                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffY > 0) {
-                            result = onSwipeBottom();
-                        } else {
-                            result = onSwipeTop();
-                        }
-                    } else {
-                        result = nichts();
-                    }
-                }
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-            return result;
+    private void dispatch(float dx, float dy) {
+        if (Math.abs(dx) > Math.abs(dy)) {
+            if (dx > 0) onSwipeRight();
+            else onSwipeLeft();
+        } else {
+            if (dy > 0) onSwipeBottom();
+            else onSwipeTop();
         }
     }
 
@@ -111,5 +129,3 @@ public class Gestures implements View.OnTouchListener {
     }
 
 }
-
-
