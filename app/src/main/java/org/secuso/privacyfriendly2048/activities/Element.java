@@ -22,8 +22,10 @@ package org.secuso.privacyfriendly2048.activities;
 import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorInt;
 import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorRes;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -54,6 +56,13 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
     public boolean animateMoving = false;
     Context context;
     int color;
+    float cornerRadius = -1f;
+
+    // running animations, managed by TileAnimations
+    Animator moveAnimator;
+    Animator jumpAnimator;
+    Animator popAnimator;
+    Animator spawnAnimator;
 
 
     @SuppressLint("RestrictedApi")
@@ -62,7 +71,19 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
         context = c;
         setAllCaps(false);
         setBackgroundResource(R.drawable.game_brick);
+        // every tile gets its own drawable state, otherwise colours would leak between tiles
+        getBackground().mutate();
         setColor(GetColorRes(context, R.attr.buttonEmpty));
+        // flat tiles: no press elevation and no shadow, Z is only used for drawing order
+        setStateListAnimator(null);
+        setOutlineProvider(null);
+        setMinWidth(0);
+        setMinHeight(0);
+        setMinimumWidth(0);
+        setMinimumHeight(0);
+        setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        setIncludeFontPadding(false);
+        setLetterSpacing(-0.02f);
         setMaxLines(1);
         setAutoSizeTextTypeUniformWithConfiguration(1,
                 100,
@@ -162,6 +183,22 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
         }
     }
 
+    /** Rounds the tile; GameActivity scales the radius with the tile size. */
+    public void setCornerRadius(float radius) {
+        cornerRadius = radius;
+        Drawable background = getBackground();
+        if (radius >= 0 && background instanceof GradientDrawable) {
+            ((GradientDrawable) background).setCornerRadius(radius);
+        }
+    }
+
+    /** Keeps the digits comfortably inside the tile, the text then auto-sizes to the rest. */
+    public void setTileSize(int size) {
+        int horizontal = Math.round(size * 0.10f);
+        int vertical = Math.round(size * 0.18f);
+        setPadding(horizontal, vertical, horizontal, vertical);
+    }
+
     public String toString() {
         return "number: " + number;
     }
@@ -212,6 +249,8 @@ public class Element extends androidx.appcompat.widget.AppCompatButton {
         temp.color = color;
         //temp.setBackgroundResource(backGroundResource);
         temp.setColor(color);
+        temp.setCornerRadius(cornerRadius);
+        temp.setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
         temp.setVisibility(getVisibility());
         temp.setLayoutParams(getLayoutParams());
         return temp;

@@ -32,6 +32,8 @@
 
                     <ImageButton
                         android:id="@+id/restartButton"
+                        android:background="@null"
+                        android:contentDescription="@string/content_description_restart"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
@@ -48,6 +50,8 @@
 
                     <ImageButton
                         android:id="@+id/undoButton"
+                        android:background="@null"
+                        android:contentDescription="@string/content_description_undo"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
@@ -91,6 +95,7 @@
                         android:layout_marginStart="25dp"
                         android:layout_marginTop="34dp"
                         android:text="2048"
+                        android:textColor="@color/title_text"
                         android:textSize="36sp"
                         android:textStyle="bold" />
 

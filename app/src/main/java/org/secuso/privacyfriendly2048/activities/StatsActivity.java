@@ -96,7 +96,7 @@ public class StatsActivity extends BaseActivity {
         androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         //actionBar.setTitle(R.string.menu_highscore);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#024265")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.colorPrimary)));
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

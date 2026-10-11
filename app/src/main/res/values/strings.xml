@@ -65,8 +65,10 @@
     <string name="settings_color_system">System</string>
     <string name="settings_color_light">Light</string>
     <string name="settings_color_dark">Dark</string>
-    <string name="settings_color_scheme_default">Default</string>
+    <string name="settings_color_scheme_default">Forest</string>
     <string name="settings_color_scheme_original">Original</string>
+    <string name="content_description_restart">Restart</string>
+    <string name="content_description_undo">Undo</string>
 
     <!-- ### CHOOSE DIALOG ### -->
     <string name="new_Game_Button">Start New Game</string>

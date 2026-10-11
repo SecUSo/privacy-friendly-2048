@@ -18,25 +18,37 @@
 
 package org.secuso.privacyfriendly2048.activities;
 
+import static org.secuso.privacyfriendly2048.helpers.ThemeResolverKt.GetColorInt;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.LinearInterpolator;
+import android.view.animation.PathInterpolator;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,6 +58,7 @@ import org.secuso.privacyfriendly2048.activities.helper.BaseActivityWithoutNavBa
 import org.secuso.privacyfriendly2048.activities.helper.GameState;
 import org.secuso.privacyfriendly2048.activities.helper.GameStatistics;
 import org.secuso.privacyfriendly2048.activities.helper.Gestures;
+import org.secuso.privacyfriendly2048.helpers.SpringInterpolator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -91,10 +104,17 @@ public class GameActivity extends BaseActivityWithoutNavBar {
     public static int last_points = 0;
     public static long record = 0;
 
-    public static long ADDINGSPEED = 100;
-    public static long MOVINGSPEED = 80;
-    public static long SCALINGSPEED = 100;
-    public static float SCALINGFACTOR = 1.1f;
+    // tile motion lives in TileAnimations; new tiles appear right after the slide has landed
+    public static long MOVINGSPEED = TileAnimations.SLIDE_MS;
+    public static long SPAWNDELAY = TileAnimations.SLIDE_MS + 16;
+
+    // UI micro-interactions (score counter, undo button, button press)
+    private static final TimeInterpolator EASE_OUT = new PathInterpolator(0.2f, 0f, 0f, 1f);
+    private static final TimeInterpolator EASE_IN = new PathInterpolator(0.4f, 0f, 1f, 1f);
+    private static final TimeInterpolator PRESS_RELEASE = new SpringInterpolator(0.55, 0.32, 420);
+    private static final TimeInterpolator SCORE_POP = new SpringInterpolator.Pulse(0.5, 0.28, 300);
+    private long lastMergeHaptic = 0;
+    private boolean undoShown = false;
 
     public static boolean moved = false;
     public static boolean firstTime = true;
@@ -159,14 +179,43 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
         if (sharedPref.getBoolean("settings_display", true))
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (animationActivated)
+            requestHighestRefreshRate();
         setContentView(R.layout.activity_game);
 
         initResources();
 
 
     }
+
+    /**
+     * Asks for the panel's fastest mode (e.g. 120 Hz) at the current resolution while the game
+     * is in front, so the springs are rendered with every frame the display can show.
+     * Some ROMs cap unlisted apps at 60 Hz unless the window asks for more.
+     */
+    private void requestHighestRefreshRate() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
+        try {
+            Display display = getWindowManager().getDefaultDisplay();
+            Display.Mode current = display.getMode();
+            Display.Mode best = current;
+            for (Display.Mode mode : display.getSupportedModes()) {
+                if (mode.getPhysicalWidth() == current.getPhysicalWidth()
+                        && mode.getPhysicalHeight() == current.getPhysicalHeight()
+                        && mode.getRefreshRate() > best.getRefreshRate()) {
+                    best = mode;
+                }
+            }
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.preferredDisplayModeId = best.getModeId();
+            getWindow().setAttributes(params);
+        } catch (RuntimeException e) {
+            Log.w("display", "could not request refresh rate", e);
+        }
+    }
+
     private void handleUndo() {
-        undoButton.setVisibility(View.INVISIBLE);
+        setUndoVisible(false);
         if (undo && last_elements != null) {
             gameStatistics.undo();
             elements = last_elements;
@@ -174,7 +223,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             number_field.removeAllViews();
             //number_field_background.removeAllViews();
             points = last_points;
-            textFieldPoints.setText("" + points);
+            setCounter(textFieldPoints, points, false);
             setDPositions(false);
             for (Element[] i : elements) {
                 for (Element j : i) {
@@ -217,6 +266,8 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 handleUndo();
             }
         });
+        restartButton.setOnTouchListener(pressFeedback);
+        undoButton.setOnTouchListener(pressFeedback);
 
         //number_field.setBackgroundColor((this.getResources().getColor(R.color.background_gamebord)));
         startingTime = Calendar.getInstance().getTimeInMillis();
@@ -338,13 +389,25 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         if (numberFieldSize > number_field.getHeight())
             numberFieldSize = number_field.getHeight();
         int number_size = (numberFieldSize - abstand) / n - abstand;
+        // continuous-looking corners that scale with the tile, like iOS app icons
+        float tileRadius = number_size * 0.16f;
 
-        textFieldRecord.setText("" + record);
-        textFieldPoints.setText("" + points);
+        setCounter(textFieldRecord, record, false);
+        setCounter(textFieldPoints, points, false);
+        undoButton.animate().cancel();
+        undoButton.setAlpha(1f);
+        undoButton.setScaleX(1f);
+        undoButton.setScaleY(1f);
+        undoShown = undo;
         if (undo)
             undoButton.setVisibility(View.VISIBLE);
         else
             undoButton.setVisibility(View.INVISIBLE);
+
+        GradientDrawable board = new GradientDrawable();
+        board.setColor(GetColorInt(this, R.attr.boardBackground));
+        board.setCornerRadius(tileRadius + abstand * 0.6f);
+        number_field_background.setBackground(board);
 
         number_field_background.removeAllViews();
         number_field.removeAllViews();
@@ -352,9 +415,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             for (int j = 0; j < elements[i].length; j++) {
                 //background elements
                 backgroundElements[i][j] = new Element(this);
+                backgroundElements[i][j].setCornerRadius(tileRadius);
                 //backgroundElements[i][j].setVisibility(View.INVISIBLE);
 
                 elements[i][j] = new Element(this);
+                elements[i][j].setCornerRadius(tileRadius);
+                elements[i][j].setTileSize(number_size);
                 elements[i][j].setNumber(gameState.getNumber(i, j));
 
                 elements[i][j].drawItem();
@@ -480,7 +546,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             gameStatistics.addMoves(1);
             last_points = temp_points;
             last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
+            setUndoVisible(true);
             undo = true;
         }
         if (moved)
@@ -562,7 +628,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             gameStatistics.addMoves(1);
             last_points = temp_points;
             last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
+            setUndoVisible(true);
             undo = true;
         }
         if (moved)
@@ -644,7 +710,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             gameStatistics.addMoves(1);
             last_points = temp_points;
             last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
+            setUndoVisible(true);
             undo = true;
         }
         if (moved)
@@ -725,7 +791,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
             gameStatistics.addMoves(1);
             last_points = temp_points;
             last_elements = temp;
-            undoButton.setVisibility(View.VISIBLE);
+            setUndoVisible(true);
             undo = true;
         }
         if (moved)
@@ -855,136 +921,163 @@ public class GameActivity extends BaseActivityWithoutNavBar {
 
 
     public void setDPositions(boolean animation) {
-        long SCALINGSPEED = GameActivity.SCALINGSPEED;
-        long ADDINGSPEED = GameActivity.ADDINGSPEED;
-        long MOVINGSPEED = GameActivity.MOVINGSPEED;
-        boolean scale = true;
-        if (!animation) {
-            SCALINGSPEED = 1;
-            ADDINGSPEED = 1;
-            MOVINGSPEED = 1;
-            scale = false;
-        }
         for (Element[] i : elements) {
             for (Element j : i) {
-                if (j.dPosX != j.getX()) {
-                    if (j.animateMoving && animation) {
-                        if (j.number != j.dNumber)
-                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, scale)).start();
-                        else
-                            j.animate().x(j.dPosX).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
-
-                    } else {
-                        if (!animation) {
-                            ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) j.getLayoutParams();
-                            lp1.leftMargin = j.dPosX;
-                            j.setLayoutParams(lp1);
-                            j.drawItem();
-                        } else
-                            j.animate().x(j.dPosX).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
-
-                    }
-
-                }
-                if (j.dPosY != j.getY()) {
-                    if (j.animateMoving && animation) {
-                        if (j.number != j.dNumber)
-                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, scale)).start();
-                        else
-                            j.animate().y(j.dPosY).setDuration(MOVINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
-
-                    } else {
-                        if (!animation) {
-                            ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) j.getLayoutParams();
-                            lp1.topMargin = j.dPosY;
-                            j.setLayoutParams(lp1);
-                            j.drawItem();
-                        } else
-                            j.animate().y(j.dPosY).setDuration(0).setStartDelay(MOVINGSPEED).setInterpolator(new LinearInterpolator()).setListener(new MovingListener(j, false)).start();
-
-                    }
-
-
+                boolean offX = j.dPosX != j.getX();
+                boolean offY = j.dPosY != j.getY();
+                if (!offX && !offY)
+                    continue;
+                if (!animation) {
+                    TileAnimations.settle(j);
+                    ViewGroup.MarginLayoutParams lp1 = (ViewGroup.MarginLayoutParams) j.getLayoutParams();
+                    if (offX)
+                        lp1.leftMargin = j.dPosX;
+                    if (offY)
+                        lp1.topMargin = j.dPosY;
+                    j.setLayoutParams(lp1);
+                    j.drawItem();
+                } else if (j.animateMoving) {
+                    // a changed number means this tile absorbs another one when it lands
+                    TileAnimations.slide(j, j.number != j.dNumber, mergeFeedback);
+                } else {
+                    // emptied / absorbed tiles stay put until the sliding tiles have arrived
+                    TileAnimations.jumpAfterSlide(j);
                 }
             }
         }
     }
 
-    class MovingListener extends AnimatorListenerAdapter {
-        Element e = null;
-        long SCALINGSPEED = 100;
-        float scalingFactor = 1.5f;
-        boolean scale = false;
-
-        public MovingListener(Element e, boolean scale) {
-            super();
-            this.e = e;
-            this.SCALINGSPEED = GameActivity.SCALINGSPEED;
-            this.scalingFactor = GameActivity.SCALINGFACTOR;
-            this.scale = scale;
-        }
-
+    /** A light tick when tiles merge, at most once per move. Respects the system haptics setting. */
+    private final Runnable mergeFeedback = new Runnable() {
         @Override
-        public void onAnimationCancel(Animator animation) {
-            super.onAnimationCancel(animation);
-            animation.setupEndValues();
-            if (e != null)
-                e.drawItem();
+        public void run() {
+            long now = SystemClock.uptimeMillis();
+            if (now - lastMergeHaptic < 80)
+                return;
+            lastMergeHaptic = now;
+            if (number_field != null)
+                number_field.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
         }
+    };
 
+    /** Restart / undo buttons sink a little under the finger and spring back on release. */
+    private final View.OnTouchListener pressFeedback = new View.OnTouchListener() {
         @Override
-        public void onAnimationPause(Animator animation) {
-            super.onAnimationPause(animation);
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            super.onAnimationEnd(animation);
-            if (e != null) {
-                e.drawItem();
-                if (scale)
-                    e.animate().scaleX(scalingFactor).scaleY(scalingFactor).setDuration(SCALINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new ScalingListener(e)).start();
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    v.animate().scaleX(0.86f).scaleY(0.86f).setDuration(120).setStartDelay(0)
+                            .setInterpolator(EASE_OUT).setListener(null).start();
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(420).setStartDelay(0)
+                            .setInterpolator(PRESS_RELEASE).setListener(null).start();
+                    break;
             }
+            return false; // let the click go through
+        }
+    };
 
+    /** Fades and scales the undo button in or out instead of popping its visibility. */
+    private void setUndoVisible(boolean visible) {
+        if (undoButton == null)
+            return;
+        if (!animationActivated) {
+            undoButton.animate().cancel();
+            undoButton.setAlpha(1f);
+            undoButton.setScaleX(1f);
+            undoButton.setScaleY(1f);
+            undoButton.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+            undoShown = visible;
+            return;
+        }
+        if (visible == undoShown && (!visible || undoButton.getVisibility() == View.VISIBLE))
+            return;
+        undoShown = visible;
+        if (visible) {
+            if (undoButton.getVisibility() != View.VISIBLE) {
+                undoButton.setAlpha(0f);
+                undoButton.setScaleX(0.6f);
+                undoButton.setScaleY(0.6f);
+                undoButton.setVisibility(View.VISIBLE);
+            }
+            undoButton.animate().alpha(1f).scaleX(1f).scaleY(1f).setStartDelay(0).setDuration(320)
+                    .setInterpolator(EASE_OUT).setListener(null).start();
+        } else {
+            undoButton.animate().alpha(0f).scaleX(0.6f).scaleY(0.6f).setStartDelay(0).setDuration(180)
+                    .setInterpolator(EASE_IN).setListener(null)
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!undoShown) {
+                                undoButton.setVisibility(View.INVISIBLE);
+                                undoButton.setScaleX(1f);
+                                undoButton.setScaleY(1f);
+                            }
+                        }
+                    }).start();
         }
     }
 
-    class ScalingListener extends AnimatorListenerAdapter {
-        Element e = null;
+    /**
+     * Shows a score. When animated, the number counts up with an ease-out curve and gives a small
+     * springy nudge, like the score labels in iOS games.
+     */
+    private void setCounter(final TextView view, final long value, boolean animate) {
+        if (view == null)
+            return;
+        Object running = view.getTag();
+        if (running instanceof Animator)
+            ((Animator) running).cancel();
+        view.setTag(null);
 
-        public ScalingListener(Element e) {
-            super();
-            this.e = e;
+        long shown;
+        try {
+            shown = Long.parseLong(view.getText().toString());
+        } catch (NumberFormatException e) {
+            shown = value;
+        }
+        if (!animate || !animationActivated || shown >= value) {
+            view.setText(String.valueOf(value));
+            return;
         }
 
-        public ScalingListener() {
-            super();
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-            super.onAnimationCancel(animation);
-            animation.setupEndValues();
-        }
-
-        @Override
-        public void onAnimationPause(Animator animation) {
-            super.onAnimationPause(animation);
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            super.onAnimationEnd(animation);
-            if (e != null) {
-                e.animate().scaleX(1.0f).scaleY(1.0f).setDuration(SCALINGSPEED).setStartDelay(0).setInterpolator(new LinearInterpolator()).setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        super.onAnimationCancel(animation);
-                    }
-                }).start();
+        final long from = shown;
+        ValueAnimator count = ValueAnimator.ofFloat(0f, 1f);
+        count.setDuration(380);
+        count.setInterpolator(EASE_OUT);
+        count.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float f = (float) animation.getAnimatedValue();
+                view.setText(String.valueOf(from + Math.round((value - from) * (double) f)));
             }
+        });
+        count.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setText(String.valueOf(value));
+                if (view.getTag() == animation)
+                    view.setTag(null);
+            }
+        });
+        view.setTag(count);
+        count.start();
 
-        }
+        ObjectAnimator nudge = ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.12f),
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.12f));
+        nudge.setDuration(300);
+        nudge.setInterpolator(SCORE_POP);
+        nudge.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setScaleX(1f);
+                view.setScaleY(1f);
+            }
+        });
+        nudge.start();
     }
 
     public void addNumber() {
@@ -992,12 +1085,12 @@ public class GameActivity extends BaseActivityWithoutNavBar {
         if (points > record) {
             record = points;
             gameStatistics.setRecord(record);
-            textFieldRecord.setText("" + record);
+            setCounter(textFieldRecord, record, true);
         }
         if (moved) {
             gameOver = false;
             moved = false;
-            textFieldPoints.setText("" + points);
+            setCounter(textFieldPoints, points, true);
             Element[] empty_fields = new Element[n * n];
             int counter = 0;
             for (int i = 0; i < elements.length; i++) {
@@ -1016,8 +1109,7 @@ public class GameActivity extends BaseActivityWithoutNavBar {
                 empty_fields[index].setNumber(number);
                 empty_fields[index].drawItem();
                 if (animationActivated) {
-                    empty_fields[index].setAlpha(0);
-                    empty_fields[index].animate().alpha(1).setInterpolator(new LinearInterpolator()).setStartDelay(MOVINGSPEED).setDuration(ADDINGSPEED).start();
+                    TileAnimations.spawn(empty_fields[index], SPAWNDELAY);
                 }
                 if (counter == 1) {
                     gameOver = true;
